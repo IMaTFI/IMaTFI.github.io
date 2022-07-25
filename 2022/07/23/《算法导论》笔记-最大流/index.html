@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Kimmich&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      《算法导论》笔记__最大流 | Kimmich&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Kimmich's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archive/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archive/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>《算法导论》笔记__最大流</h2>
+  <p class="post-date">2022-07-23</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="流网络"><a href="#流网络" class="headerlink" title="流网络"></a>流网络</h1><h2 id="流网络-1"><a href="#流网络-1" class="headerlink" title="流网络"></a>流网络</h2><p>流网络$G&#x3D;(V,E)$是一个有向图，图中每条边$(u,v)\in E$有一个非负容量$c(u,c)\ge 0$。如果边集$E$包含一条边$(u,v)$，则图中不包含其反向边$(v,u)$（为了方便起见，我们定义$c(v,u)&#x3D;0$）。在图中存在两个特殊结点：源结点$s$和汇点$t$。对图中的每个结点$v$，流网络中都包含一条路径$s\leadsto v\leadsto t$。</p>
+<h2 id="流"><a href="#流" class="headerlink" title="流"></a>流</h2><p>图$G$中的流是一个实值函数$f$，满足以下两个性质：</p>
+<ul>
+<li>容量限制：对于所有的$u,v$，要求$0\le f(u,v)\le c(u,v)$。</li>
+<li>流量守恒：对于所有结点$u,v\in V-{s,t }$，要求$\sum\limits_{v\in V}f(v,u)&#x3D;\sum\limits_{v\in V}f(u,v)$，如果$(u,v)\notin V$，有$f(u,v)&#x3D;0$。</li>
+</ul>
+<p>一个流$f$的值$|f|$定义为：$|f|&#x3D;\sum\limits_{v\in V}f(s,v)-\sum\limits_{v\in V}f(v,s)$。也就是说，流$f$的值等于从源点流出的总流量减去流入的总流量。</p>
+<h2 id="用反平行边来模拟问题"><a href="#用反平行边来模拟问题" class="headerlink" title="用反平行边来模拟问题"></a>用反平行边来模拟问题</h2><p>假设图$G$中存在某两个点$u,v$，满足$(u,v)\in E$且$(v,u)\in E$，则该图不足流网络的定义。为了使该图满足流网络的定义，我们在图中加入新结点$v’$，用$(v,v’)$和$(v’,u)$代替$(v,u)$，这两条新边需满足$c(v,v’)&#x3D;c(v’,u)&#x3D;c(v,u)$。</p>
+<h2 id="具有多个源结点和汇点的网络"><a href="#具有多个源结点和汇点的网络" class="headerlink" title="具有多个源结点和汇点的网络"></a>具有多个源结点和汇点的网络</h2><p>假设图$G$中包含一系列源点${s_1,s_2,\cdots,s_n}$和一系列汇点${t_1,t_2,\cdots,t_m}$，则该图不符合流网络的要求。为了使该图满足流网络的定义，我们加入一个超级源点$s$，并加入有向边${(s,s_1),(s,s_2),\cdots,(s,s_n)}$，且每条边的容量为$\infty$。再加入一个超级汇点，并加入有向边${(t_1,t),(t_2,t),\cdots,(t_m,t)}$，且每条边的容量为$\infty$。</p>
+<h1 id="Ford-Fulkerson方法"><a href="#Ford-Fulkerson方法" class="headerlink" title="Ford-Fulkerson方法"></a>Ford-Fulkerson方法</h1><h2 id="残存网络"><a href="#残存网络" class="headerlink" title="残存网络"></a>残存网络</h2><p>对给定的流网络$G$和流量$f$，我们定义残存容量$c_f(u,v)$为：<br>$$<br>c_f(u,v)&#x3D;<br>\begin{cases}<br>        c(u,v)-f(u,v),&amp;(u,v)\in E\<br>        f(v,u),&amp;(u,v)\notin E\<br>        0,&amp;其他<br>\end{cases}<br>$$<br>我们可以将$c_f(u,v)$理解为：可以在边$(u,v)$上增加的流量的上限。</p>
+<p>图$G$的残存网络为$G_f&#x3D;(V,E_f)$，其中：<br>$$E_f&#x3D;{(u,v):c_f(u,v)&gt;0}$$<br>如果在原图$G$中有一个流$f$，在残存网络$G_f$中有一个流$f’$，定义$f\uparrow f’$为：<br>$$<br>(f\uparrow f’)(u,v)&#x3D;<br>\begin{cases}<br>        f(u,v)+f’(u,v)-f’(v,u),&amp;(u,v)\in E\<br>        0,&amp;其他<br>\end{cases}<br>$$<br>下面，我们证明$f\uparrow f’$是一个图$G$中的一个流，其值为$|f\uparrow f’|&#x3D;|f|+|f’|$。</p>
+<p>首先证明$f\uparrow f’$满足容量性质。假设$(u,v)\in E$，我们有$c_f(u,v)&#x3D;c(u,v)-f(u,v),c_f(v,u)&#x3D;f(u,v)$。因此：<br>$$<br>\begin{aligned}<br>(f\uparrow f’)(u,v) &amp;&#x3D; f(u,v)+f’(u,v)-f’(v,u)\<br>&amp;\ge f(u,v)+f’(u,v)-f(u,v)\<br>&amp;&#x3D;f’(u,v)\ge0<br>\end{aligned}<br>$$<br>$$<br>\begin{aligned}<br>(f\uparrow f’)(u,v) &amp;&#x3D; f(u,v)+f’(u,v)-f’(v,u)\<br>&amp;\le f(u,v)+c(u,v)-f(u,v)\<br>&amp;&#x3D;c(u,v)<br>\end{aligned}<br>$$<br>然后，我们再证明$f\uparrow f’$满足流量守恒，我们注意到，$f,f’$均遵守流量守恒，于是有：<br>$$<br>\begin{aligned}<br>\sum\limits_{v\in V}(f\uparrow f’)(u,v) &amp;&#x3D;\sum\limits_{v\in V} (f(u,v)+f’(u,v)-f’(v,u))\<br>&amp;&#x3D;\sum\limits_{v\in V}f(u,v)+\sum\limits_{v\in V}f’(u,v)-\sum\limits_{v\in V}f’(v,u)\<br>&amp;&#x3D;\sum\limits_{v\in V}f(v,u)+\sum\limits_{v\in V}f’(v,u)-\sum\limits_{v\in V}f’(u,v)\<br>&amp;&#x3D;\sum\limits_{v\in V} (f(v,u)+f’(v,u)-f’(u,v))\<br>&amp;&#x3D;\sum\limits_{v\in V}(f\uparrow f’)(v,u)<br>\end{aligned}<br>$$<br>最后，我们证明$|f\uparrow f’|&#x3D;|f|+|f’|$。我们定义集合$V_1&#x3D;{v:(s,v)\in E}，V_2&#x3D;{v:(v,s)\in E}$。由于图$G$中不存在反向平行边，所以$(s,v)和(v,s)$不能同时存在。所以$V_1\cup V_2\subseteq V，V_1\cap V_2&#x3D;\varnothing$。<br>$$<br>\begin{aligned}<br>|f\uparrow f’|&amp;&#x3D;\sum\limits_{v\in V}(f\uparrow f’)(s,v)-\sum\limits_{v\in V}(f\uparrow f’)(v,s)\<br>&amp;&#x3D;\sum\limits_{v\in V_1}(f\uparrow f’)(s,v)-\sum\limits_{v\in V_2}(f\uparrow f’)(v,s)\<br>&amp;&#x3D;\sum\limits_{v\in V_1}f(s,v)+\sum\limits_{v\in V_1}f’(s,v)-\sum\limits_{v\in V_1}f’(v,s)-\sum\limits_{v\in V_2}f(v,s)-\sum\limits_{v\in V_2}f’(v,s)+\sum\limits_{v\in V_2}f’(s,v)\<br>&amp;&#x3D;\sum\limits_{v\in V_1}f(s,v)-\sum\limits_{v\in V_2}f(s,v)+\sum\limits_{v\in V_1\cup V_2}f’(s,v)-\sum\limits_{v\in V_1\cup V_2}f’(v,s)\<br>&amp;&#x3D;\sum\limits_{v\in V}f(s,v)-\sum\limits_{v\in V}f(v,s)+\sum\limits_{v\in V}f’(v,s)-\sum\limits_{v\in V}f’(s,v)\<br>&amp;&#x3D;|f|+|f’|<br>\end{aligned}<br>$$</p>
+<h2 id="增广路径"><a href="#增广路径" class="headerlink" title="增广路径"></a>增广路径</h2><p>增广路径$p$是残存网络$G_f$中一条从源点$s$到汇点$t$的一条简单路径。</p>
+<p>我们称增广路径能够为每条边增加的流量的最大值为残存容量：<br>$$c_f(p)&#x3D;min{c_f(u,v):(u,v)\in p}&gt;0$$</p>
+<h2 id="流网络的切割"><a href="#流网络的切割" class="headerlink" title="流网络的切割"></a>流网络的切割</h2><p>流网络$G&#x3D;(V,E)$的一个切割$(S,T)$，将结点集合$V$划分为$S,T&#x3D;V-S$两个集合，保证$s\in S,t\in t$。</p>
+<p>定义横跨切割$(S,T)$的净流量：$f(S,T)&#x3D;\sum\limits_{u\in S}\sum\limits_{v\in T}f(u,v)-\sum\limits_{u\in S}\sum\limits_{v\in T}f(v,u)$。<br>切割$(S,T)$的容量为：$c(S,T)&#x3D;\sum\limits_{u\in S}\sum\limits_{v\in T}c(u,v)$</p>
+<p>接下来我们证明：对于流网络中的任意切割$(S,T)$，有$f(S,T)&#x3D;|f|$。根据流量守恒，$\forall u\in V-{s,t}\Longrightarrow \sum\limits_{v\in V}f(u,v)-\sum\limits_{v\in V}f(v,u)&#x3D;0$。所以有：<br>$$<br>\begin{aligned}<br>|f|&amp;&#x3D;\sum\limits_{v\in V}f(s,v)-\sum\limits_{v\in V}f(v,s)\<br>&amp;&#x3D;\sum\limits_{v\in V}f(s,v)-\sum\limits_{v\in V}f(v,s)+\sum\limits_{u\in S-{s}}(\sum\limits_{v\in V}f(u,v)-\sum\limits_{v\in V}f(v,u))\<br>&amp;&#x3D;\sum\limits_{v\in V}(f(s,v)+\sum\limits_{u\in S-{s}}f(u,v))-\sum\limits_{v\in V}(f(v,s)+\sum\limits_{u\in S-{s}}f(v,u))\<br>&amp;&#x3D;\sum\limits_{v\in V}\sum\limits_{u\in S}f(u,v)-\sum\limits_{v\in V}\sum\limits_{u\in S}f(v,u)\<br>&amp;&#x3D;\sum\limits_{v\in S}\sum\limits_{u\in S}f(u,v)+\sum\limits_{v\in T}\sum\limits_{u\in S}f(u,v)-\sum\limits_{v\in S}\sum\limits_{u\in S}f(v,u)-\sum\limits_{v\in T}\sum\limits_{u\in S}f(v,u)\<br>&amp;&#x3D;\sum\limits_{v\in T}\sum\limits_{u\in S}f(u,v)-\sum\limits_{v\in T}\sum\limits_{u\in S}f(v,u)\<br>&amp;&#x3D;f(S,T)<br>\end{aligned}<br>$$<br>然后，我们证明：流网络中任意流$f$的值不能超过任意切割的容量。<br>$$<br>\begin{aligned}<br>|f|&amp;&#x3D;f(S,T)\<br>&amp;&#x3D;\sum\limits_{u\in S}\sum\limits_{v\in T}f(u,v)-\sum\limits_{u\in S}\sum\limits_{v\in T}f(v,u)\<br>&amp;\le \sum\limits_{u\in S}\sum\limits_{v\in T}f(u,v)\le \sum\limits_{u\in S}\sum\limits_{v\in T}c(u,v)&#x3D;c(S,T)<br>\end{aligned}<br>$$</p>
+<h2 id="最大流最小切割定理"><a href="#最大流最小切割定理" class="headerlink" title="最大流最小切割定理"></a>最大流最小切割定理</h2><h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><p>对流网络$G$而言， 下述的三个条件是等价的：</p>
+<ol>
+<li>f为G的一个最大流</li>
+<li>残存网络$G_f$中不包含任何增广路径</li>
+<li>$|f|&#x3D;c(S,T)$</li>
+</ol>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>$1\Rightarrow 2$：采用反证法。假设f为最大流，且$G_f$中存在增广路径$p$，则$|f\uparrow f_p|&gt;|f|$，这与f为最大流相矛盾。</p>
+<p>$2\Rightarrow 3$：因为残存网络$G_f$中不包含任何增广路径，所以源点$s$和汇点$t$之间不存在通路。令$S&#x3D;{v\in V:s,v在G_f中存在路径},T&#x3D;V-S$，显然$S\cap T&#x3D;\varnothing,S\cup T&#x3D;V,s\in S,t\in T$，所以$(S,T)$是流网络$G$中的一个切割。$\forall u\in S,v\in T$，若$(u,v)\in E$，则一定有$f(u,v)&#x3D;c(u,v)$，如若不然，则$c_f(u,v)&gt;0$，这与$v\in T$相矛盾。若$(v,u)\in E$，则一定有$f(v,u)&#x3D;0$，如若不然，则$c_f(u,v)&#x3D;f(v,u)&gt;0$，这与$v\in T$相矛盾。于是有：<br>$$<br>\begin{aligned}<br>|f|&amp;&#x3D;\sum\limits_{u\in S}\sum\limits_{v\in T}f(u,v)-\sum\limits_{u\in S}\sum\limits_{v\in T}f(v,u)\<br>&amp;&#x3D;\sum\limits_{u\in S}\sum\limits_{v\in T}c(u,v)-\sum\limits_{u\in S}\sum\limits_{v\in T}0\<br>&amp;&#x3D;c(S,T)<br>\end{aligned}<br>$$<br>$3\Rightarrow 1$：因为$|f|\le c(S,T)$，所以$f$为$G$的一个最大流。</p>
+<h2 id="基本的Ford-Fulkerson算法"><a href="#基本的Ford-Fulkerson算法" class="headerlink" title="基本的Ford-Fulkerson算法"></a>基本的Ford-Fulkerson算法</h2><pre><code>FORD-FULKERSON(G,s,t)
+    for each edge(u,v) in E
+        (u,v).f = 0
+    while there exists a path p from s to t in Gf
+        cf(p) = min(cf(u,v):(u,v) in p)
+        for each edge(u,v) in p
+            if(u,v) in E
+                (u,v).f = (u,v).f+cf(p)
+            else (v,u).f=(v,u).f-cf(p)
+</code></pre>
+<p>假设流网络的最大流为$f^*$，则<strong>while</strong>循环执行的最大次数为$|f^*|$，每轮<strong>while</strong>循环可以在$O(E)$的时间内完成，所以算法时间复杂度为$O(|f^*|E)$。</p>
+<p>当$|f^*|$较小时，FORD-FULKERSON算法的运行效率较高。但对于$|f^*|$较大的某些极端情况下，效率会比较差。</p>
+<h2 id="Edmonds-Karp算法"><a href="#Edmonds-Karp算法" class="headerlink" title="Edmonds-Karp算法"></a>Edmonds-Karp算法</h2><p>Edmonds-Karp算法使用宽度优先搜索（保证增广路径为最短路）来寻找增广路径，接下来我们将证明该算法的时间复杂度为$O(VE^2)$。</p>
+<p>首先证明：$\forall v\in V-{s,t}$，$G_f$中的最短路径距离$\delta_f(s,v)$随着每次流量增加而单调递增。采用反证法，设$f$为第一个导致某条最短路径距离减小的操作之前的流量，$f’$为操作后的流量。设$v$为所有因增加流量操作而导致最短路径距离减少的、$\delta_f(s,v)$最小的点，于是有$\delta_{f’}(s,v)&lt;\delta_f(s,v)$。设$G_{f’}$中$s,v$之间的最短路为$s\leadsto u\to v$，于是有$\delta_{f’}(s,v)&#x3D;\delta_{f’}(s,u)+1,(u,v)\in G_{f’}$。因为$\delta_{f‘}(s,u)\ge\delta_{f}(s,u)$，我们断言$(u,v)\notin G_f$。采用反证法，如果$(u,v)$在$G_f$中，则有$\delta_{f}(s,v)\le\delta_{f}(s,u)+1\le\delta_{f’}(s,u)+1&#x3D;\delta_{f’}(s,v)$，这与$\delta_{f’}(s,v)&lt;\delta_f(s,v)$相矛盾。因为$(u,v)\notin G_f,(u,v)\in G_{f’}$，所以递增操作必定增加了$v,u$之间的流量。因为Edmonds-Karp算法总是选择最短路径来增加流，所以$G_f$中$s$到$u$的最短路径的最后一条为$(v,u)$，于是有：<br>$$<br>\begin{aligned}<br>\delta_f(s,v)&amp;&#x3D;\delta_f(s,u)-1\<br>&amp;\le\delta_{f’}(s,u)-1\<br>&amp;&#x3D;\delta_{f’}(s,v)-2<br>\end{aligned}<br>$$<br>这与$\delta_{f’}(s,v)&lt;\delta_f(s,v)$相矛盾。</p>
+<p>然后证明：Edmonds-Karp算法执行的流量增加次数为$O(VE)$。在$G_f$中，如果有$c_f(p)&#x3D;c_f(u,v)$，则称$(u,v)$为增广路径$p$上的关键边。在沿增广路径增加流量后，关键边将消失。接下来我们将证明$\forall(u,v)\in E$，其成为关键边的次数不超过$|V|&#x2F;2$次。假设$(u,v)\in E$，当其第一次成为关键边时，有$\delta_f(s,v)&#x3D;\delta_f(s,u)+1$。流量递增操作后，$(u,v)$在$G_f$上消失，只有当$(v,u)$出现在增广路径上时，$(u,v)$才在$G_f$上再次出现。设发生这一事件时的流为$f’$，于是有:<br>$$\delta_{f’}(s,u)&#x3D;\delta_{f’}(s,v)+1\ge\delta_f(s,v)+1\ge\delta_f(s,u)+2$$<br>也就是说，当边$(u,v)$再次成为关键边后，$\delta_f(s,u)$至少要增加2。于是，我们容易知道$(u,v)$最多成为关键边的次数最多为$|V|&#x2F;2$次。所有边成为关键边的次数为$O(VE)$，命题得证。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Introduction to Algorithms" >
+    <span class="tag-code">Introduction to Algorithms</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/23/%E3%80%8A%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%94%E8%AE%B0-%E6%89%80%E6%9C%89%E7%BB%93%E7%82%B9%E5%AF%B9%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/">
+        <span class="nav-arrow">← </span>
+        
+          《算法导论》笔记__所有结点对的最短路径
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/23/%E3%80%8A%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%94%E8%AE%B0-%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/">
+        
+          《算法导论》笔记__最小生成树
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%B5%81%E7%BD%91%E7%BB%9C"><span class="toc-nav-text">流网络</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%B5%81%E7%BD%91%E7%BB%9C-1"><span class="toc-nav-text">流网络</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%B5%81"><span class="toc-nav-text">流</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%94%A8%E5%8F%8D%E5%B9%B3%E8%A1%8C%E8%BE%B9%E6%9D%A5%E6%A8%A1%E6%8B%9F%E9%97%AE%E9%A2%98"><span class="toc-nav-text">用反平行边来模拟问题</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%85%B7%E6%9C%89%E5%A4%9A%E4%B8%AA%E6%BA%90%E7%BB%93%E7%82%B9%E5%92%8C%E6%B1%87%E7%82%B9%E7%9A%84%E7%BD%91%E7%BB%9C"><span class="toc-nav-text">具有多个源结点和汇点的网络</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Ford-Fulkerson%E6%96%B9%E6%B3%95"><span class="toc-nav-text">Ford-Fulkerson方法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%AE%8B%E5%AD%98%E7%BD%91%E7%BB%9C"><span class="toc-nav-text">残存网络</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%A2%9E%E5%B9%BF%E8%B7%AF%E5%BE%84"><span class="toc-nav-text">增广路径</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%B5%81%E7%BD%91%E7%BB%9C%E7%9A%84%E5%88%87%E5%89%B2"><span class="toc-nav-text">流网络的切割</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E6%9C%80%E5%B0%8F%E5%88%87%E5%89%B2%E5%AE%9A%E7%90%86"><span class="toc-nav-text">最大流最小切割定理</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-nav-text">内容</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E8%AF%81%E6%98%8E"><span class="toc-nav-text">证明</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84Ford-Fulkerson%E7%AE%97%E6%B3%95"><span class="toc-nav-text">基本的Ford-Fulkerson算法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Edmonds-Karp%E7%AE%97%E6%B3%95"><span class="toc-nav-text">Edmonds-Karp算法</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/23/《算法导论》笔记-最大流/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

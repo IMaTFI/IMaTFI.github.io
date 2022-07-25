@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Kimmich&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Kimmich&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Kimmich's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link active">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archive/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link mobile-active">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archive/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%9B%9E%E5%BD%92/">机器学习__多项式回归</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+  <a href="/tags#sklearn" >
+    <span class="tag-code">sklearn</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          问题引入12345import numpy as npimport sklearn.linear_model as lmimport sklearn.pipeline as plimport sklearn.preprocessing as spimport matplotlib.pyplo ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%9B%9E%E5%BD%92/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0-%E4%BF%9D%E5%AD%98%E4%B8%8E%E5%8A%A0%E8%BD%BD/">机器学习__模型评估, 保存与加载</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+  <a href="/tags#sklearn" >
+    <span class="tag-code">sklearn</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          模型评估1234567891011121314import sklearn.metrics as sm# 平均绝对值误差print(sm.mean_absolute_error(train_y, pre_y))# 平均平方误差print(sm.mean_squared_error(train ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0-%E4%BF%9D%E5%AD%98%E4%B8%8E%E5%8A%A0%E8%BD%BD/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">机器学习__线性回归</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+  <a href="/tags#sklearn" >
+    <span class="tag-code">sklearn</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          问题引入现有一组训练数据train_x和train_y:
+12train_x = [1, 2, 3, 5, 6]train_y = [2, 4, 5, 7, 9]
+执行下述代码后
+12mp.scatter(train_x, train_y)mp.show()
+得到散点图:通过观察我们可以发现 ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-LCA-%E9%97%AE%E9%A2%98/">算法自学__最近公共祖先(LCA)问题</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          参考资料:
+
+https://www.cnblogs.com/fusiwei/p/11494132.html
+
+题目传送门算法1 暴力法算法思想
+采用邻接表来存储图, 通过深度优先搜索来确定每个结点的深度, 并将每个结点的父结点记录在f[]数组中
+假设题目输入的两个点为a和b, 我们首先判断 ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-LCA-%E9%97%AE%E9%A2%98/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E8%B4%9F%E6%9D%83%E7%8E%AF%E9%97%AE%E9%A2%98/">算法自学__负权环问题</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          参考资料:
+
+https://www.jianshu.com/p/b876fe9b2338
+https://www.cnblogs.com/ztxcsl/p/13446263.html
+
+问题引入最短路中不能包括负权环, 因为每多经过一次负权环, 路径的权值都会进一步减小, 判断图中是否存在 ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E8%B4%9F%E6%9D%83%E7%8E%AF%E9%97%AE%E9%A2%98/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%89%8D%E5%90%91%E6%98%9F%E6%95%B0%E7%BB%84/">数据结构__前向星数组</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          参考资料:
+
+https://www.freesion.com/article/2437861426/
+
+前向星的定义前向星是一种特殊的边集数组, 实质上是用静态链表实现了邻接表
+边结构体的定义1234567class EDGE &#123;public:	int to;		//边的终点	i ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%89%8D%E5%90%91%E6%98%9F%E6%95%B0%E7%BB%84/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">算法自学__贪心算法</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          例1 铺设道路算法分析
+定义状态dp[i]: 铺平前i个坑, 所需要的最少天数.
+状态转移:  1. 若第i个坑比第i-1个坑浅, 根据题目要求, 可以在填第i-1个坑时, 顺便将第i个坑也填上, 所以dp[i] = dp[i-1]  2. 若第i个坑比第i-1个坑深, 容易知道, dp[i ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">算法自学__状态压缩动态规划</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          例1 炮兵阵地所谓状态压缩, 就是用二进制的性质来表示状态.比如说, 在本题中, 若某一行为HHPPHPPH, 则可以用二进制数11001001表示若某一行为炮空炮炮空炮空空, 则可以用二进制数10110100表示
+
+定义状态dp[line][i][j]: line表示当前行的序号(实际上只 ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E6%A0%91%E5%BD%A2%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">算法自学__树形动态规划</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          例1 最大子树和
+定义状态dp[i]: 以第i个结点为根的子树的最大“美丽指数”
+状态转移: 对于结点i, 假设其子结点j对应的dp[j] &gt;= 0, 则j对应的子树应该保留; 若其子结点j对应的dp[j] &lt; 0, 则应将j对应的子树剪掉.
+
+12345678910111213 ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E6%A0%91%E5%BD%A2%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/">机器学习__数据预处理</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+  <a href="/tags#sklearn" >
+    <span class="tag-code">sklearn</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          数据预处理均值移除 对某一列的数据进行处理, 使其均值为0, 标准差为1
+
+均值为0: 每个数据减去均值
+标准差为1: 每个数据除以标准差
+
+调用API123456789101112import numpy as npimport sklearn.preprocessing as spraw ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/">Read more</a>
+    </article>
+  
+
+  
+    <div class="guide-pager">
+  
+    <a href="/page/2/"><span class="page-arrow">← </span>Prev</a>
+  
+  
+    <a href="/page/4/">Next<span class="page-arrow"> →</span></a>
+  
+</div>
+  
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Kimmich&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Python3自学笔记 ＜三＞ | Kimmich&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Kimmich's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archive/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archive/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Python3自学笔记 ＜三＞</h2>
+  <p class="post-date">2022-07-23</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h1><p>参考菜鸟教程<a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-tutorial.html">https://www.runoob.com/python/python-tutorial.html</a></p>
+<h2 id="数字类型转换"><a href="#数字类型转换" class="headerlink" title="数字类型转换"></a>数字类型转换</h2><ul>
+<li><code>int(x)</code>将x转换为一个整数</li>
+<li><code>float(x)</code>将x转换为一个浮点数</li>
+<li><code>complex(x)</code>将x转换为一个复数, 实部为x, 虚部为0</li>
+<li><code>complex(x， y)</code>将x转换为一个复数, 实部为x, 虚部为y</li>
+</ul>
+<h2 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h2><p><em><code>*</code>代表需要<code>import math</code></em></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>函数</th>
+<th>输入</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>abs(x)</td>
+<td>实数, 复数</td>
+<td>返回实数的绝对值或复数的模</td>
+</tr>
+<tr>
+<td>*</td>
+<td>ceil(x)</td>
+<td>实数</td>
+<td>向上取整</td>
+</tr>
+<tr>
+<td>*</td>
+<td>exp(x)</td>
+<td>实数</td>
+<td>计算e的x次方</td>
+</tr>
+<tr>
+<td>*</td>
+<td>floor(x)</td>
+<td>实数</td>
+<td>向下取整</td>
+</tr>
+<tr>
+<td>*</td>
+<td>log(x,y)</td>
+<td>实数</td>
+<td>以y为底,x的对数</td>
+</tr>
+<tr>
+<td></td>
+<td>max()</td>
+<td>实数序列</td>
+<td>返回序列中的最大值(通过运算符<code>&gt;</code>实现)</td>
+</tr>
+<tr>
+<td></td>
+<td>min()</td>
+<td>实数序列</td>
+<td>返回序列中的最小值</td>
+</tr>
+<tr>
+<td>*</td>
+<td>modf()</td>
+<td>实数</td>
+<td>返回(x,y), x为参数的小数部分,y为参数的整数部分</td>
+</tr>
+<tr>
+<td></td>
+<td>round(x,y)</td>
+<td>实数</td>
+<td>对x四舍五入,保留小数点后y位</td>
+</tr>
+<tr>
+<td>*</td>
+<td>sqrt(x)</td>
+<td>实数</td>
+<td>返回x的算数平方根</td>
+</tr>
+</tbody></table>
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><h2 id="f-string"><a href="#f-string" class="headerlink" title="f-string"></a>f-string</h2><p>f-string格式化字符串以<code>f</code>开头,后面紧跟字符串,字符串中的表达式用<code>&#123;&#125;</code>抱起来,它会将变量或表达式计算后的值替换进去</p>
+<pre><code>str = &#39;world&#39;
+print(f&#39;Hello,&#123;str&#125;&#39;)			#Hello,world
+</code></pre>
+<p>在Python3.8版本后,可以使用<code>=</code>拼接运算表达式与结果</p>
+<pre><code>a = 1
+print(f&#39;&#123;a+1&#125;&#39;)		#2
+print(f&#39;&#123;a+1=&#125;&#39;)	#a+1=2
+</code></pre>
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><p><em>调用方式: 字符串.方法()</em></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>find(str, beg&#x3D;0, end&#x3D;len(string))</td>
+<td>检测str是否包含在字符串中, beg和end用来指定范围, 如果包含则返回开始的索引值,否则返回-1</td>
+</tr>
+<tr>
+<td>rfind(str, beg&#x3D;0, end&#x3D;len(string)</td>
+<td>与find()功能一致,实现方式是从右查找</td>
+</tr>
+<tr>
+<td>join(seq)</td>
+<td>将序列中的元素以指定的字符连接生成一个新的字符串</td>
+</tr>
+</tbody></table>
+<pre><code>s1 = &#39;-&#39;
+seq = (&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;)
+print(s1.join(seq))			#h-e-l-l-o
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>replace(old, new [,max])</td>
+<td>将字符串中的old替换成new. 如果max指定, 则替换不超过max次</td>
+</tr>
+</tbody></table>
+<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>len()</td>
+<td>列表元素个数</td>
+</tr>
+<tr>
+<td>max()</td>
+<td>返回列表中元素最大值</td>
+</tr>
+<tr>
+<td>min()</td>
+<td>返回列表中元素最小值</td>
+</tr>
+<tr>
+<td>list(seq)</td>
+<td>将元组seq转换为列表</td>
+</tr>
+</tbody></table>
+<h2 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>append(obj)</td>
+<td>在列表末尾添加元素</td>
+</tr>
+<tr>
+<td>count(obj)</td>
+<td>统计某个元素在列表中出现的次数</td>
+</tr>
+<tr>
+<td>extend(seq)</td>
+<td>在列表末尾一次性添加多个值</td>
+</tr>
+<tr>
+<td>index(obj)</td>
+<td>从列表中找出指定值的第一个索引位置, 没找到则抛出异常</td>
+</tr>
+<tr>
+<td>insert(index,obj)</td>
+<td>将元素插入列表中指定的索引位置</td>
+</tr>
+<tr>
+<td>pop(index&#x3D;-1)</td>
+<td>类似出栈操作</td>
+</tr>
+<tr>
+<td>remove(obj)</td>
+<td>移除某个值的第一个匹配项, 没有返回值</td>
+</tr>
+<tr>
+<td>reverse()</td>
+<td>翻转列表</td>
+</tr>
+<tr>
+<td>clear()</td>
+<td>清空列表</td>
+</tr>
+<tr>
+<td>copy()</td>
+<td>复制列表</td>
+</tr>
+<tr>
+<td>sort(key&#x3D;None, reverse&#x3D;False)</td>
+<td>对原列表进行排序(默认升序)</td>
+</tr>
+</tbody></table>
+<pre><code>L1=[&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;]
+L1.sort()					#[&#39;e&#39;, &#39;h&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;]
+L1.sort(reverse=True)		#[&#39;o&#39;, &#39;l&#39;, &#39;l&#39;, &#39;h&#39;, &#39;e&#39;]
+
+L2=[(1, 2), (2, 1), (3, 9), (4, 0)]
+def takeSecond(elem):
+    return elem[1]
+L2.sort(key=takeSecond)		#[(4, 0), (2, 1), (1, 2), (3, 9)]
+</code></pre>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E4%BA%8C%EF%BC%9E/">
+        <span class="nav-arrow">← </span>
+        
+          Python3自学笔记 ＜二＞
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E5%9B%9B%EF%BC%9E/">
+        
+          Python3自学笔记 ＜四＞
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%95%B0%E5%AD%97"><span class="toc-nav-text">数字</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%95%B0%E5%AD%97%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-nav-text">数字类型转换</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%95%B0%E5%AD%A6%E5%87%BD%E6%95%B0"><span class="toc-nav-text">数学函数</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-nav-text">字符串</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#f-string"><span class="toc-nav-text">f-string</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-nav-text">常用方法</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-nav-text">列表</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-nav-text">常用函数</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95-1"><span class="toc-nav-text">常用方法</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/23/Python3自学笔记-＜三＞/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

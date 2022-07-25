@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Kimmich&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Tags | Kimmich&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Kimmich's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archive/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archive/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Tags</h2>
+  <p class="post-date">Tag Retrieval</p>
+</div>
+<main class="app-body">
+  <div id="tag-cloud">
+    
+      <a class="tag1" data-name="tag-cache">cache</a>
+    
+      <a class="tag3" data-name="tag-facebook">facebook</a>
+    
+      <a class="tag3" data-name="tag-algorithm">algorithm</a>
+    
+      <a class="tag2" data-name="tag-poj">poj</a>
+    
+      <a class="tag1" data-name="tag-C++">C++</a>
+    
+      <a class="tag1" data-name="tag-delayed hit">delayed hit</a>
+    
+      <a class="tag0" data-name="tag-IEEE754">IEEE754</a>
+    
+      <a class="tag0" data-name="tag-float number">float number</a>
+    
+      <a class="tag2" data-name="tag-python">python</a>
+    
+      <a class="tag2" data-name="tag-numpy">numpy</a>
+    
+      <a class="tag1" data-name="tag-pandas">pandas</a>
+    
+      <a class="tag0" data-name="tag-tail latency">tail latency</a>
+    
+      <a class="tag1" data-name="tag-Introduction to Algorithms">Introduction to Algorithms</a>
+    
+      <a class="tag2" data-name="tag-sklearn">sklearn</a>
+    
+  </div>
+  
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-cache">cache</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/An-Analysis-of-Facebook-Photo-Caching学习笔记/">An Analysis of Facebook Photo Caching学习笔记</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/Caching-with-Delayed-Hits学习笔记/">Caching with Delayed Hits学习笔记</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/Learning-Relaxed-Belady-for-Content-Distribution-Network-Caching学习笔记/">Learning Relaxed Belady for Content Distribution Network Caching学习笔记</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/RobinHood-Tail-Latency-Aware-Caching-Dynamic-Reallocation-from-Cache-Rich-to-Cache-Poor学习笔记/">RobinHood: Tail Latency Aware Caching-Dynamic Reallocation from Cache-Rich to Cache-Poor学习笔记</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-facebook">facebook</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/An-Analysis-of-Facebook-Photo-Caching学习笔记/">An Analysis of Facebook Photo Caching学习笔记</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-algorithm">algorithm</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ1042/">HUST算法实践__POJ1042</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ1050/">HUST算法实践__POJ1050</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ1328/">HUST算法实践__POJ1328</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ1636/">HUST算法实践__POJ1636</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ3233/">HUST算法实践_POJ3233</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/天梯赛练习-L2-004-这是二叉搜索树吗/">天梯赛练习_L2-004_这是二叉搜索树吗?</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/数据结构-前向星数组/">数据结构__前向星数组</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-tarjan算法/">算法自学__tarjan算法</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-二分的细节/">算法自学__二分的细节</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-动态规划入门/">算法自学__动态规划入门</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-双向bfs/">算法自学__双向bfs</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-堆优化的迪杰斯特拉算法/">算法自学__堆优化的迪杰斯特拉算法</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-差分约束算法/">算法自学__差分约束算法</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-小根堆-Heap/">算法自学__小根堆(Heap)</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-平面最近点对问题/">算法自学__平面最近点对问题</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-并查集/">算法自学__并查集</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-最近公共祖先-LCA-问题/">算法自学__最近公共祖先(LCA)问题</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-最长公共子序列与最长公共子串/">算法自学__最长公共子序列与最长公共子串</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-树形动态规划/">算法自学__树形动态规划</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-状态压缩动态规划/">算法自学__状态压缩动态规划</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-线段树/">算法自学__线段树</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-背包问题/">算法自学__背包问题</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-背包问题进阶/">算法自学__背包问题进阶</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-负权环问题/">算法自学__负权环问题</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-贪心算法/">算法自学__贪心算法</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-poj">poj</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ1042/">HUST算法实践__POJ1042</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ1050/">HUST算法实践__POJ1050</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ1328/">HUST算法实践__POJ1328</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ1636/">HUST算法实践__POJ1636</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ3233/">HUST算法实践_POJ3233</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-C++">C++</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ1042/">HUST算法实践__POJ1042</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ1050/">HUST算法实践__POJ1050</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ1328/">HUST算法实践__POJ1328</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ1636/">HUST算法实践__POJ1636</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/HUST算法实践-POJ3233/">HUST算法实践_POJ3233</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/天梯赛练习-L2-004-这是二叉搜索树吗/">天梯赛练习_L2-004_这是二叉搜索树吗?</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/数据结构-前向星数组/">数据结构__前向星数组</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-tarjan算法/">算法自学__tarjan算法</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-二分的细节/">算法自学__二分的细节</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-动态规划入门/">算法自学__动态规划入门</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-双向bfs/">算法自学__双向bfs</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-堆优化的迪杰斯特拉算法/">算法自学__堆优化的迪杰斯特拉算法</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-差分约束算法/">算法自学__差分约束算法</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-小根堆-Heap/">算法自学__小根堆(Heap)</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-平面最近点对问题/">算法自学__平面最近点对问题</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-并查集/">算法自学__并查集</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-最近公共祖先-LCA-问题/">算法自学__最近公共祖先(LCA)问题</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-最长公共子序列与最长公共子串/">算法自学__最长公共子序列与最长公共子串</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-树形动态规划/">算法自学__树形动态规划</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-状态压缩动态规划/">算法自学__状态压缩动态规划</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-线段树/">算法自学__线段树</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-背包问题/">算法自学__背包问题</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-背包问题进阶/">算法自学__背包问题进阶</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-负权环问题/">算法自学__负权环问题</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/算法自学-贪心算法/">算法自学__贪心算法</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-delayed hit">delayed hit</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/Caching-with-Delayed-Hits学习笔记/">Caching with Delayed Hits学习笔记</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-IEEE754">IEEE754</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/IEEE754浮点数标准/">IEEE754浮点数标准</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-float number">float number</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/IEEE754浮点数标准/">IEEE754浮点数标准</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-python">python</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/numpy自学笔记-常用方法/">numpy自学笔记__常用方法</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/numpy自学笔记-数组/">numpy自学笔记__数组</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/numpy自学笔记-数组操作/">numpy自学笔记__数组操作</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/pandas自学笔记-Series/">pandas自学笔记__Series</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/pandas自学笔记-DataFrame/">pandas自学笔记__DataFrame</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/Python3自学笔记-＜一＞/">Python3自学笔记 ＜一＞</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/Python3自学笔记-＜三＞/">Python3自学笔记 ＜三＞</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/Python3自学笔记-＜二＞/">Python3自学笔记 ＜二＞</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/Python3自学笔记-＜五＞/">Python3自学笔记 ＜五＞</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/Python3自学笔记-＜六＞/">Python3自学笔记 ＜六＞</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/Python3自学笔记-＜四＞/">Python3自学笔记 ＜四＞</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/机器学习-多项式回归/">机器学习__多项式回归</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/机器学习-数据预处理/">机器学习__数据预处理</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/机器学习-模型评估-保存与加载/">机器学习__模型评估, 保存与加载</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/机器学习-线性回归/">机器学习__线性回归</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-numpy">numpy</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/numpy自学笔记-常用方法/">numpy自学笔记__常用方法</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/numpy自学笔记-数组/">numpy自学笔记__数组</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/numpy自学笔记-数组操作/">numpy自学笔记__数组操作</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-pandas">pandas</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/pandas自学笔记-Series/">pandas自学笔记__Series</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/pandas自学笔记-DataFrame/">pandas自学笔记__DataFrame</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-tail latency">tail latency</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/RobinHood-Tail-Latency-Aware-Caching-Dynamic-Reallocation-from-Cache-Rich-to-Cache-Poor学习笔记/">RobinHood: Tail Latency Aware Caching-Dynamic Reallocation from Cache-Rich to Cache-Poor学习笔记</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-Introduction to Algorithms">Introduction to Algorithms</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/《算法导论》笔记-单源最短路径/">《算法导论》笔记__单源最短路径</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/《算法导论》笔记-所有结点对的最短路径/">《算法导论》笔记__所有结点对的最短路径</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/《算法导论》笔记-最大流/">《算法导论》笔记__最大流</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/《算法导论》笔记-最小生成树/">《算法导论》笔记__最小生成树</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-sklearn">sklearn</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/机器学习-多项式回归/">机器学习__多项式回归</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/机器学习-数据预处理/">机器学习__数据预处理</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/机器学习-模型评估-保存与加载/">机器学习__模型评估, 保存与加载</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2022/07/23/机器学习-线性回归/">机器学习__线性回归</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/Tags/index.html'
+    $('#article-banner').geopattern(url)
+    $('.header').removeClass('fixed-header')
+
+    var tag = location.hash.replace('#', '')
+    if (tag) {
+      var tagId = "#tag-" + tag;
+      $("html, body").animate({
+        scrollTop: $(tagId).offset().top 
+      }, 400)
+    }
+  })();
+</script>
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

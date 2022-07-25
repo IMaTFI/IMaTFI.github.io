@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Kimmich&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Python3自学笔记 ＜一＞ | Kimmich&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Kimmich's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archive/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archive/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Python3自学笔记 ＜一＞</h2>
+  <p class="post-date">2022-07-23</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Python3基础语法"><a href="#Python3基础语法" class="headerlink" title="Python3基础语法"></a>Python3基础语法</h1><p>参考菜鸟教程 <a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-tutorial.html">https://www.runoob.com/python/python-tutorial.html</a></p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><ul>
+<li>单行注释:以<code>#</code>开头</li>
+<li>多行注释:<code>&#39;&#39;&#39;</code>或<code>&quot;&quot;&quot;</code></li>
+</ul>
+<h2 id="多行语法"><a href="#多行语法" class="headerlink" title="多行语法"></a>多行语法</h2><ul>
+<li><p>使用反斜杠<code>\</code>实现多行语句</p>
+<pre><code>      str = &quot;hello&quot; + \
+              &quot;world&quot;
+              
+</code></pre>
+</li>
+<li><p>在<code>[]</code>,<code>&#123;&#125;</code>,<code>()</code>的多行语句中,不需要使用<code>\</code></p>
+<pre><code>      str = [&quot;hello&quot; , 
+              &quot;world&quot;]
+</code></pre>
+</li>
+</ul>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><ul>
+<li><p>单行字符串用<code>&#39;</code>或<code>&quot;</code>指定</p>
+</li>
+<li><p>多行字符串用<code>&#39;&#39;&#39;</code>或<code>&quot;&quot;&quot;</code>指定</p>
+</li>
+<li><p>反斜杠<code>\</code>可以用来转义,使用<code>r</code>可以让反斜杠不发生转义</p>
+<pre><code>  print(r&quot;hello\nworld&quot;)			#输出hello\nworld
+  
+</code></pre>
+</li>
+<li><p>python的字符串有两种索引方式,从左向右以<code>0</code>开始,从右向左以<code>-1</code>开始</p>
+</li>
+<li><p>字符串截取:<code>变量[头下标:尾下表:步长]</code>(尾下表的字符不输出)</p>
+<pre><code>  str = &quot;123456&quot;
+  print(str)  				#123456
+  print(str[0:-1])  		#12345
+  print(str[3:])  			#45
+  print(str[0::2])    		#135
+  print(str[0::-1])			#1
+</code></pre>
+</li>
+</ul>
+<h2 id="print输出"><a href="#print输出" class="headerlink" title="print输出"></a>print输出</h2><ul>
+<li><p><code>print</code>输出默认换行,如果不需要换行,则要在变量末尾加上<code>end=&quot;&quot;</code></p>
+<pre><code>  print(&quot;a&quot;, end=&quot;&quot;)
+  print(&quot;b&quot;, end=&quot;&quot;)
+  #输出:ab
+</code></pre>
+</li>
+</ul>
+<h1 id="Python3基本数据类型"><a href="#Python3基本数据类型" class="headerlink" title="Python3基本数据类型"></a>Python3基本数据类型</h1><p>python中的变量没有类型,每个变量在使用前都必须被赋值,变量被赋值以后该变量才会被创建</p>
+<h2 id="多变量赋值"><a href="#多变量赋值" class="headerlink" title="多变量赋值"></a>多变量赋值</h2><ul>
+<li><p>将多个变量赋予相同的数值</p>
+<pre><code>  a, b, c = 1
+  
+</code></pre>
+</li>
+<li><p>为多个变量赋予不同的值</p>
+<pre><code>  a, b, c = 1, 1.0, &quot;hello&quot;
+</code></pre>
+</li>
+</ul>
+<h2 id="标准数据类型"><a href="#标准数据类型" class="headerlink" title="标准数据类型"></a>标准数据类型</h2><ul>
+<li><p>不可变: <strong>Number</strong>, <strong>String</strong>, <strong>Tuple</strong></p>
+</li>
+<li><p>可变: <strong>List</strong>, <strong>Dictionary</strong>, <strong>Set</strong></p>
+</li>
+<li><p>内置函数<code>type()</code>函数可以用来查询变量类型</p>
+</li>
+<li><p>内置函数<code>isinstance()</code>函数可以用来判断变量类型</p>
+</li>
+<li><p><code>type()</code>和<code>ininstance()</code>的区别在于:<br>  <code>type()</code>不会认为子类是一种父类类型,而<code>isinstance()</code>会</p>
+<pre><code>  class A:
+      pass
+  
+  class B(A):
+      pass
+
+  type(A()) == A				#True
+  isinstance(A(), A)			#True
+
+  type(B()) == A				#False
+  isinstance(B(), A)			#True
+</code></pre>
+</li>
+</ul>
+<h3 id="Number-数字"><a href="#Number-数字" class="headerlink" title="Number(数字)"></a>Number(数字)</h3><p>Python支持<strong>int</strong>, <strong>float</strong>, <strong>bool</strong>, <strong>complex</strong></p>
+<ul>
+<li><p>数值运算</p>
+<pre><code>  5 + 4					#9		加法
+  3.5 - 1				#2.5	减法
+  2 * 5					#10		乘法
+  2 / 4					#0.5	除法, 结果为浮点数
+  2 // 4				#0		除法,结果为整数
+  15 % 2				#1		模运算
+  2 ** 5				#32		乘方
+</code></pre>
+</li>
+</ul>
+<p>	</p>
+<h3 id="String-字符串"><a href="#String-字符串" class="headerlink" title="String(字符串)"></a>String(字符串)</h3><p><em>见上文</em></p>
+<h3 id="List-列表"><a href="#List-列表" class="headerlink" title="List(列表)"></a>List(列表)</h3><ul>
+<li>列表中元素的类型可以不同,支持数字,字符串,甚至列表</li>
+<li>列表用方括号<code>[]</code>定义,列表内的元素用逗号<code>,</code>分隔</li>
+<li>列表截取同字符串相同,列表被截取后返回一个包含所需元素的新列表</li>
+<li>列表支持<code>+</code>和<code>*</code>运算</li>
+</ul>
+<h3 id="Tuple-元组"><a href="#Tuple-元组" class="headerlink" title="Tuple(元组)"></a>Tuple(元组)</h3><ul>
+<li><p>元组与列表类似,不同之处在于元组的元素不能修改</p>
+</li>
+<li><p>元组用<code>()</code>定义</p>
+</li>
+<li><p>可以把字符串看作特殊的元组</p>
+</li>
+<li><p>包含0个或1个元素的元组比较特殊,有额外的语法规则</p>
+<pre><code>  tup1 = ()		#空元组
+  tup2 = (20,)	#一个元素,需要在元素后面添加逗号
+</code></pre>
+</li>
+</ul>
+<h3 id="Set-集合"><a href="#Set-集合" class="headerlink" title="Set(集合)"></a>Set(集合)</h3><ul>
+<li><p>与数学中的集合定义类似</p>
+</li>
+<li><p>集合中不允许有可变元素类型?</p>
+</li>
+<li><p>可以使用大括号<code>&#123;&#125;</code>或者<code>set()</code>函数构造集合.创建一个空集必须使用<code>set()</code></p>
+<pre><code>  set1=&#123;&#39;a&#39;, 1 , 3.14&#125;
+  set2=set(&#39;helloworld&#39;)		#set2=&#123;&#39;l&#39;, &#39;h&#39;, &#39;d&#39;, &#39;e&#39;, &#39;w&#39;, &#39;o&#39;, &#39;r&#39;&#125;
+</code></pre>
+</li>
+<li><p>集合运算</p>
+<pre><code>  A = set(&quot;abcdef&quot;)
+  B = set(&quot;defghi&quot;)
+  print(A - B)			#差集
+  print(A | B)			#并集
+  print(A &amp; B)			#交集
+  print(A ^ B)			#并集-交集
+  &#39;a&#39; in A				#True
+</code></pre>
+</li>
+</ul>
+<h3 id="Dictionary-字典"><a href="#Dictionary-字典" class="headerlink" title="Dictionary(字典)"></a>Dictionary(字典)</h3><ul>
+<li><p>字典是一种映射类型,用<code>&#123;&#125;</code>标识,是无序的<code>键(key):值(value)</code>的集合</p>
+</li>
+<li><p>在同一个字典中,<strong>键</strong>必须是唯一的,且必须为不可变类型</p>
+<pre><code>  dict = &#123;&#125;
+  dict[&quot;one&quot;] = &quot;a&quot;
+  dict[2] = &quot;b&quot;
+</code></pre>
+</li>
+</ul>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+    
+      <a class="nav-right" href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E4%BA%8C%EF%BC%9E/">
+        
+          Python3自学笔记 ＜二＞
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Python3%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="toc-nav-text">Python3基础语法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="toc-nav-text">注释</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%A4%9A%E8%A1%8C%E8%AF%AD%E6%B3%95"><span class="toc-nav-text">多行语法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-nav-text">字符串</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#print%E8%BE%93%E5%87%BA"><span class="toc-nav-text">print输出</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Python3%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-nav-text">Python3基本数据类型</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%A4%9A%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC"><span class="toc-nav-text">多变量赋值</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%A0%87%E5%87%86%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-nav-text">标准数据类型</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Number-%E6%95%B0%E5%AD%97"><span class="toc-nav-text">Number(数字)</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#String-%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-nav-text">String(字符串)</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#List-%E5%88%97%E8%A1%A8"><span class="toc-nav-text">List(列表)</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Tuple-%E5%85%83%E7%BB%84"><span class="toc-nav-text">Tuple(元组)</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Set-%E9%9B%86%E5%90%88"><span class="toc-nav-text">Set(集合)</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Dictionary-%E5%AD%97%E5%85%B8"><span class="toc-nav-text">Dictionary(字典)</span></a></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/23/Python3自学笔记-＜一＞/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

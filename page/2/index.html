@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Kimmich&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Kimmich&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Kimmich's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link active">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archive/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link mobile-active">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archive/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%AE%97%E6%B3%95/">算法自学__差分约束算法</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          差分约束系统如果一个系统由n个变量和m个约束条件组成，形成m个形如ai-aj ≤ k的不等式(i,j∈[1,n],k为常数),则称其为差分约束系统(system of difference constraints)。亦即，差分约束系统是求解关于一组变量的特殊不等式组的方法。
+问题分析我们对不 ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%AE%97%E6%B3%95/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1328/">HUST算法实践__POJ1328</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#poj" >
+    <span class="tag-code">poj</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          问题描述Assume the coasting is an infinite straight line. Land is in one side of coasting, sea in the other. Each small island is a point locating in  ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1328/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1042/">HUST算法实践__POJ1042</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#poj" >
+    <span class="tag-code">poj</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          问题描述John is going on a fishing trip. He has h hours available (1 &lt;&#x3D; h &lt;&#x3D; 16), and there are n lakes in the area (2 &lt;&#x3D; n &l ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1042/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1636/">HUST算法实践__POJ1636</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#poj" >
+    <span class="tag-code">poj</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          问题描述In order to lower the risk of riots and escape attempts, the boards of two nearby prisons of equal prisoner capacity, have decided to rearrang ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1636/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1050/">HUST算法实践__POJ1050</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#poj" >
+    <span class="tag-code">poj</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          题目传送门问题描述Given a two-dimensional array of positive and negative integers, a sub-rectangle is any contiguous sub-array of size 1*1 or greater locat ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1050/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ3233/">HUST算法实践_POJ3233</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#poj" >
+    <span class="tag-code">poj</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          题目传送门问题描述Given a n × n matrix A and a positive integer k, find the sum S &#x3D; A + A2 + A3 + … + Ak.
+输入The input contains exactly one test case.  ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ3233/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-tarjan%E7%AE%97%E6%B3%95/">算法自学__tarjan算法</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          算法简介tarjan算法可以求有向图的强连通分量, 从而实现”缩点“, 达到简化有向图的目的.
+算法思想tarjan算法基于深度优先搜索实现, 根据以下两个数组判断强连通分量:
+
+dfn[]: 时间戳数组, dfn[i]表示结点i在深度优先搜索过程中, 是第几个被搜索到的结点.
+low[]: ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-tarjan%E7%AE%97%E6%B3%95/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E5%A4%A9%E6%A2%AF%E8%B5%9B%E7%BB%83%E4%B9%A0-L2-004-%E8%BF%99%E6%98%AF%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E5%90%97/">天梯赛练习_L2-004_这是二叉搜索树吗?</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          题目链接 L2-004 这是二叉搜索树吗？ (25 分)问题描述一棵二叉搜索树可被递归地定义为具有下列性质的二叉树：对于任一结点:
+
+其左子树中所有结点的键值小于该结点的键值；
+其右子树中所有结点的键值大于等于该结点的键值；
+其左右子树都是二叉搜索树。
+
+所谓二叉搜索树的“镜像”，即将所有结 ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E5%A4%A9%E6%A2%AF%E8%B5%9B%E7%BB%83%E4%B9%A0-L2-004-%E8%BF%99%E6%98%AF%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E5%90%97/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%8F%8C%E5%90%91bfs/">算法自学__双向bfs</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          例1 P1379 八数码难题算法思想:
+假设当前棋盘状态用一字符串a表示, 根据题目要求, 0有四种移动方式(假设0的位置为x):
+向上移动:  swap(a[x], a[x-3])
+向下移动: swap(a[x], a[x+3])
+向左移动: swap(a[x], a[x-1])
+向右移动 ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%8F%8C%E5%90%91bfs/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E7%BA%BF%E6%AE%B5%E6%A0%91/">算法自学__线段树</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          参考资料:
+
+线段树 从入门到进阶（超清晰，简单易懂）
+
+线段树的定义123456789class TREE&#123;public:	int l,r;	int sum;	int tag;public:	TREE():l(0),r(0),sum(0),tag(0)&#123;&#125;&# ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E7%BA%BF%E6%AE%B5%E6%A0%91/">Read more</a>
+    </article>
+  
+
+  
+    <div class="guide-pager">
+  
+    <a href="/"><span class="page-arrow">← </span>Prev</a>
+  
+  
+    <a href="/page/3/">Next<span class="page-arrow"> →</span></a>
+  
+</div>
+  
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

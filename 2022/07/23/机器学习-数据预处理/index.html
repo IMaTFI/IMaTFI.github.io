@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Kimmich&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      机器学习__数据预处理 | Kimmich&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Kimmich's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archive/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archive/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>机器学习__数据预处理</h2>
+  <p class="post-date">2022-07-23</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><h3 id="均值移除"><a href="#均值移除" class="headerlink" title="均值移除"></a>均值移除</h3><p> 对某一列的数据进行处理, 使其均值为0, 标准差为1</p>
+<ul>
+<li>均值为0: 每个数据减去均值</li>
+<li>标准差为1: 每个数据除以标准差</li>
+</ul>
+<h6 id="调用API"><a href="#调用API" class="headerlink" title="调用API"></a>调用API</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> sklearn.preprocessing <span class="keyword">as</span> sp</span><br><span class="line"></span><br><span class="line">raw_sample = np.array([</span><br><span class="line">    [<span class="number">17.</span>, <span class="number">90.</span>, <span class="number">4000.</span>],</span><br><span class="line">    [<span class="number">20.</span>, <span class="number">80.</span>, <span class="number">5000.</span>],</span><br><span class="line">    [<span class="number">23.</span>, <span class="number">75.</span>, <span class="number">5500.</span>]])</span><br><span class="line">result = sp.scale(raw_sample)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[-1.22474487  1.33630621 -1.33630621]</span></span><br><span class="line"><span class="comment">#  [ 0.         -0.26726124  0.26726124]</span></span><br><span class="line"><span class="comment">#  [ 1.22474487 -1.06904497  1.06904497]]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="范围缩放"><a href="#范围缩放" class="headerlink" title="范围缩放"></a>范围缩放</h3><p>对某一列的数据进行处理, 将其特征值缩放值某个区间内, 一般为<code>[0, 1]</code></p>
+<ul>
+<li>每个数据减去最小值</li>
+<li>每个数据除以最大值</li>
+</ul>
+<h6 id="调用API-1"><a href="#调用API-1" class="headerlink" title="调用API"></a>调用API</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">raw_sample = np.array([</span><br><span class="line">    [<span class="number">17.</span>, <span class="number">90.</span>, <span class="number">4000.</span>],</span><br><span class="line">    [<span class="number">20.</span>, <span class="number">80.</span>, <span class="number">5000.</span>],</span><br><span class="line">    [<span class="number">23.</span>, <span class="number">75.</span>, <span class="number">5500.</span>]])</span><br><span class="line"><span class="comment"># 创建MinMax缩放器</span></span><br><span class="line">mms = sp.MinMaxScaler(feature_range=(<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line"><span class="comment"># 调用mms对象的方法执行缩放操作, 返回缩放后的结果</span></span><br><span class="line">result = mms.fit_transform(raw_sample)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[0.         1.         0.        ]</span></span><br><span class="line"><span class="comment">#  [0.5        0.33333333 0.66666667]</span></span><br><span class="line"><span class="comment">#  [1.         0.         1.        ]]</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> raw_sample.T:</span><br><span class="line">    min_val = row.<span class="built_in">min</span>()</span><br><span class="line">    max_val = row.<span class="built_in">max</span>()</span><br><span class="line">    A = np.array([[min_val, <span class="number">1</span>], [max_val, <span class="number">1</span>]])</span><br><span class="line">    B = np.array([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">    x = np.linalg.solve(A, B)</span><br><span class="line">    new_row = x[<span class="number">0</span>]*row + x[<span class="number">1</span>]</span><br><span class="line">    new_samples.append(new_row)</span><br><span class="line">result = np.array(new_samples).T</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[ 0.00000000e+00  1.00000000e+00  0.00000000e+00]</span></span><br><span class="line"><span class="comment">#  [ 5.00000000e-01  3.33333333e-01  6.66666667e-01]</span></span><br><span class="line"><span class="comment">#  [ 1.00000000e+00 -8.88178420e-16  1.00000000e+00]]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h3><p>对某一行的数据进行处理, 将每个样本的每个特征值除以样本各个特征值绝对值的总和</p>
+<h6 id="调用API-2"><a href="#调用API-2" class="headerlink" title="调用API"></a>调用API</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">raw_sample = np.array([</span><br><span class="line">    [<span class="number">12</span>, <span class="number">24</span>, <span class="number">4</span>],</span><br><span class="line">    [<span class="number">3</span>, <span class="number">6</span>, <span class="number">1</span>],</span><br><span class="line">    [<span class="number">13</span>, <span class="number">20</span>, <span class="number">10</span>]</span><br><span class="line">]).astype(<span class="string">&#x27;float32&#x27;</span>)</span><br><span class="line"><span class="comment"># norm 范数</span></span><br><span class="line"><span class="comment">#   第一范数l1: 向量中各特征值的绝对值之和</span></span><br><span class="line"><span class="comment">#   第二范数l2: 向量中各特征值的平方之和</span></span><br><span class="line">result = sp.normalize(raw_sample, norm = <span class="string">&#x27;l1&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.30232558 0.4651163  0.23255815]]</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nor_sample = raw_sample.copy()</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> nor_sample:</span><br><span class="line">    row /= <span class="built_in">abs</span>(row).<span class="built_in">sum</span>()</span><br><span class="line"><span class="built_in">print</span>(nor_sample)</span><br><span class="line"><span class="comment"># [[0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.30232558 0.4651163  0.23255815]]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="二值化"><a href="#二值化" class="headerlink" title="二值化"></a>二值化</h3><p>设定一个阈值, 将数组中<code>&gt;</code>阈值的数据赋值为<code>1</code>, <code>&lt;=</code>阈值的数据赋值为<code>0</code></p>
+<h6 id="调用API-3"><a href="#调用API-3" class="headerlink" title="调用API"></a>调用API</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">_<span class="built_in">bin</span> = sp.Binarizer(threshold=<span class="number">3</span>)</span><br><span class="line">raw_sample = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">result = _<span class="built_in">bin</span>.transform(raw_sample)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[0 0 0 0]</span></span><br><span class="line"><span class="comment">#  [1 1 1 1]</span></span><br><span class="line"><span class="comment">#  [1 1 1 1]]</span></span><br></pre></td></tr></table></figure>
+
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+  <a href="/tags#sklearn" >
+    <span class="tag-code">sklearn</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/23/pandas%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-DataFrame/">
+        <span class="nav-arrow">← </span>
+        
+          pandas自学笔记__DataFrame
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E6%A0%91%E5%BD%A2%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+        
+          算法自学__树形动态规划
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-nav-text">数据预处理</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%9D%87%E5%80%BC%E7%A7%BB%E9%99%A4"><span class="toc-nav-text">均值移除</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#%E8%B0%83%E7%94%A8API"><span class="toc-nav-text">调用API</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E8%8C%83%E5%9B%B4%E7%BC%A9%E6%94%BE"><span class="toc-nav-text">范围缩放</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#%E8%B0%83%E7%94%A8API-1"><span class="toc-nav-text">调用API</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-nav-text">代码实现</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%BD%92%E4%B8%80%E5%8C%96"><span class="toc-nav-text">归一化</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#%E8%B0%83%E7%94%A8API-2"><span class="toc-nav-text">调用API</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="toc-nav-text">代码实现</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%BA%8C%E5%80%BC%E5%8C%96"><span class="toc-nav-text">二值化</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#%E8%B0%83%E7%94%A8API-3"><span class="toc-nav-text">调用API</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/23/机器学习-数据预处理/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

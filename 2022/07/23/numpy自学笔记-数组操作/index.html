@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Kimmich&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      numpy自学笔记__数组操作 | Kimmich&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Kimmich's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archive/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archive/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>numpy自学笔记__数组操作</h2>
+  <p class="post-date">2022-07-23</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p>参考资料:</p>
+<ul>
+<li>黑马程序员相关课程</li>
+</ul>
+<h1 id="索引和切片"><a href="#索引和切片" class="headerlink" title="索引和切片"></a>索引和切片</h1><pre><code>t1 = np.array([[i for i in range(j, j+4)] for j in range(5)])
+print(t1[:, :])
+# [[0 1 2 3]
+#  [1 2 3 4]
+#  [2 3 4 5]
+#  [3 4 5 6]
+#  [4 5 6 7]]
+print(t1[[1, 2, 4]])
+# [[1 2 3 4]
+#  [2 3 4 5]
+#  [4 5 6 7]]
+print(t1[::2, ::2])
+# [[0 2]
+#  [2 4]
+#  [4 6]]
+# 中括号里的参数个数为数组的维数,每个参数为一个索引
+</code></pre>
+<h1 id="数值的修改"><a href="#数值的修改" class="headerlink" title="数值的修改"></a>数值的修改</h1><pre><code># 利用数组中的bool索引
+t1 = np.array([[i for i in range(j, j+4)] for j in range(5)])
+print(t1 &gt;= 3)
+# [[False False False  True]
+#  [False False  True  True]
+#  [False  True  True  True]
+#  [ True  True  True  True]
+#  [ True  True  True  True]]
+t1[t1 &gt;= 3] = 3
+print(t1)
+# [[0 1 2 3]
+#  [1 2 3 3]
+#  [2 3 3 3]
+#  [3 3 3 3]
+#  [3 3 3 3]]
+
+# where方法
+t2 = np.array([[i for i in range(j, j+4)] for j in range(5)])
+t2 = np.where(t2 &lt; 3, 0, 3)     #相当于三目运算符, 小于3的赋值为0, 否则赋值为3
+print(t2)
+
+# clip方法
+t3 = np.array([[i for i in range(j, j+4)] for j in range(5)])
+t3 = t3.clip(2, 4)      # 小于2的赋值为2, 大于4的赋值为4
+print(t3)
+</code></pre>
+<h1 id="数组的拼接"><a href="#数组的拼接" class="headerlink" title="数组的拼接"></a>数组的拼接</h1><pre><code>t1 = np.array([[i for i in range(j, j+4)] for j in range(5)])
+t2 = np.array([[i for i in range(j, j+4)] for j in range(5, 10)])
+print(t1)
+# [[0 1 2 3]
+#  [1 2 3 4]
+#  [2 3 4 5]
+#  [3 4 5 6]
+#  [4 5 6 7]]
+print(t2)
+# [[ 5  6  7  8]
+#  [ 6  7  8  9]
+#  [ 7  8  9 10]
+#  [ 8  9 10 11]
+#  [ 9 10 11 12]]
+
+# 竖直拼接
+t3 = np.vstack((t1, t2))
+print(t3)
+# [[ 0  1  2  3]
+#  [ 1  2  3  4]
+#  [ 2  3  4  5]
+#  [ 3  4  5  6]
+#  [ 4  5  6  7]
+#  [ 5  6  7  8]
+#  [ 6  7  8  9]
+#  [ 7  8  9 10]
+#  [ 8  9 10 11]
+#  [ 9 10 11 12]]
+
+# 水平拼接
+t4 = np.hstack((t1, t2))
+print(t4)
+# [[ 0  1  2  3  5  6  7  8]
+#  [ 1  2  3  4  6  7  8  9]
+#  [ 2  3  4  5  7  8  9 10]
+#  [ 3  4  5  6  8  9 10 11]
+#  [ 4  5  6  7  9 10 11 12]]
+</code></pre>
+<h1 id="行列交换"><a href="#行列交换" class="headerlink" title="行列交换"></a>行列交换</h1><pre><code>t1 = np.array([[i for i in range(j, j+4)] for j in range(5)])
+# 行交换
+t1[[2, 3], :] = t1[[3, 2], :]
+# 列交换
+t1[:, [2, 3]] = t1[:, [3, 2]]
+</code></pre>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+  <a href="/tags#numpy" >
+    <span class="tag-code">numpy</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E6%95%B0%E7%BB%84/">
+        <span class="nav-arrow">← </span>
+        
+          numpy自学笔记__数组
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
+        
+          numpy自学笔记__常用方法
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E7%B4%A2%E5%BC%95%E5%92%8C%E5%88%87%E7%89%87"><span class="toc-nav-text">索引和切片</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%95%B0%E5%80%BC%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="toc-nav-text">数值的修改</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E6%8B%BC%E6%8E%A5"><span class="toc-nav-text">数组的拼接</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E8%A1%8C%E5%88%97%E4%BA%A4%E6%8D%A2"><span class="toc-nav-text">行列交换</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/23/numpy自学笔记-数组操作/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

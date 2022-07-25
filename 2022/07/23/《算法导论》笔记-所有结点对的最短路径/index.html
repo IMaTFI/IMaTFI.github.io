@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Kimmich&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      《算法导论》笔记__所有结点对的最短路径 | Kimmich&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Kimmich's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archive/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archive/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>《算法导论》笔记__所有结点对的最短路径</h2>
+  <p class="post-date">2022-07-23</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="符号说明"><a href="#符号说明" class="headerlink" title="符号说明"></a>符号说明</h1><ul>
+<li>$V$：结点；</li>
+<li>$E$：边集；</li>
+<li>$G=(V,E)$：带权重的有向图；</li>
+<li>$W$：邻接矩阵；</li>
+<li>$\delta(u,v)$：结点$u$到结点$v$的最短距离。<h1 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h1>邻接矩阵$W$是一个$n\times n$的矩阵，$W=w_{ij}$<script type="math/tex; mode=display">
+w_{ij}=
+\begin{cases} 
+      0 & i=j\\\\ 
+      有向边(i,j)的权重 & i\neq j 且(i,j)\in E\\\\
+      \infty & i\neq j 且(i,j)\notin E\\\\
+\end{cases}</script><h1 id="最短路径和矩阵乘法"><a href="#最短路径和矩阵乘法" class="headerlink" title="最短路径和矩阵乘法"></a>最短路径和矩阵乘法</h1><h2 id="所有结点对最短路径问题的递归解"><a href="#所有结点对最短路径问题的递归解" class="headerlink" title="所有结点对最短路径问题的递归解"></a>所有结点对最短路径问题的递归解</h2>设$l^{(m)}_{ij}$为从结点$i$到结点$j$的<strong>至多</strong>包含$m$条边的任意路径的最小权重。当$m=0$时，有：<script type="math/tex; mode=display">
+l^{(m)}_{ij}=
+\begin{cases} 
+      0 & i=j\\ 
+      \infty & i\neq j\\
+\end{cases}</script>对于$m\ge 1$，我们有：<script type="math/tex; mode=display">l^{(m)}_{ij}=\min(l^{(m-1)}_{ij},\min\limits_{1\leq k\leq n} (l^{(m-1)}_{ik}+w_{kj}))=\min\limits_{1\leq k\leq n} (l^{(m-1)}_{ik}+w_{kj})</script>（因为$w(j,j)=0$，所以后面的等式成立）</li>
+</ul>
+<p>由于我们假设图中不包含<strong>负权环</strong>，所以结点$i$到结点$j$的最短路径至多包含$n-1$条边，所以我们有：</p>
+<script type="math/tex; mode=display">\delta(i,j)=l^{(n-1)}_{ij}=l^{(n)}_{ij}=l^{(n+1)}_{ij}=\cdots</script><h2 id="自底向上计算最短路径权重"><a href="#自底向上计算最短路径权重" class="headerlink" title="自底向上计算最短路径权重"></a>自底向上计算最短路径权重</h2><p>根据邻接矩阵$W$，我们可以计算出矩阵序列$L^{(1)},L^{(2)},\cdots,L^{(n-1)}$。特别地，$L^{(1)}=W$。</p>
+<p>下面的伪代码展示了如何根据$W$和$L^{(m-1)}$计算$L^{(m)}$：</p>
+<pre><code>EXTEND-SHORTEST-PATHS(L,W)
+    n = L.rows
+    let L&#39; be a new n*n matrix
+    for i = 1 to n
+        for j = 1 to n
+        L&#39;[i][j]=∞
+        for k = 1 to n
+            L&#39;[i][j] = min(L&#39;[i][j], L[i][k]+w(k,j))
+    return L&#39;
+</code></pre><p>由于上述算法有3层嵌套<strong>for</strong>循环，所以时间复杂度为$O(n^3)$。</p>
+<p>可以看出，EXTEND-SHORTEST-PATHS算法和矩阵乘法在形式上是非常相似的。</p>
+<p>下面的算法给出了如何在$O(n^4)$的时间内计算所有节点对的最短路径：</p>
+<pre><code>SLOW-ALL-PAIRS-SHORTEST-PATHS(W)
+    n = W.rows
+    L(1) = W
+    for m = 2 to n-1
+        let L(m) be a new n*n matrix
+        L(m) = EXTEND-SHORTEST-PATHS(L(m-1),W)
+    return L(n-1)
+</code></pre><h2 id="改进算法的运行时间"><a href="#改进算法的运行时间" class="headerlink" title="改进算法的运行时间"></a>改进算法的运行时间</h2><p>我们知道：$\forall m&gt;n-1\Longrightarrow L^{(m)}=L^{(n-1)}$。所以我们在求解所有结点对的最短路径时，未必一定要计算出$L^{(n-1)}$。<br>下面的算法采用<strong>重复平方技术</strong>，使算法的时间复杂度降至$O(n^3\log n)$：</p>
+<pre><code>FASETER-ALL-PAIRS-SHORTEST-PATHS(W)
+    n = W.rows
+    L(1) = W
+    m = 1
+    while m &lt; n-1
+        let L(2*m) be a new n*n matrix
+        L(2*m) = EXTEND-SHORTEST-PATHS(L(m),L(m))
+        m = 2*m
+    return L(m)
+</code></pre><h1 id="Floyd-Warshall算法"><a href="#Floyd-Warshall算法" class="headerlink" title="Floyd-Warshall算法"></a>Floyd-Warshall算法</h1><h2 id="最短路径的结构"><a href="#最短路径的结构" class="headerlink" title="最短路径的结构"></a>最短路径的结构</h2><p>Floyd-Warshall算法主要关注最短路径上的中间结点。</p>
+<p>假定图$G$中的所有结点为${1,2,\cdots,n}$，考虑其中的一个子集${1,2,\cdots,k}$，对于任意的结点对$i,j\in V$，设$p$为所有<strong>中间结点</strong>均取自集合${1,2,\cdots,k}$的路径中的最短路。对于路径$p$，我们讨论以下两种情况：</p>
+<ul>
+<li>$k$不在路径$p$上：p也是中间结点均取自集合${1,2,\cdots,k-1}$的路径中的最短路。</li>
+<li>$k$在路径$p$上：将p拆分为：$i\leadsto^{p_1}k\leadsto^{p_2}j$，$p_1$为结点$i$到$k$的、所有中间结点取自集合${1,2,\cdots,k-1}$的最短路径，$p_2$同理。<h2 id="所有结点对最短路径问题的递归解-1"><a href="#所有结点对最短路径问题的递归解-1" class="headerlink" title="所有结点对最短路径问题的递归解"></a>所有结点对最短路径问题的递归解</h2>设$d^{(k)}<em>{ij}$为从结点$i$到结点$j$的、所有中间结点均取自集合${1,2,\cdots,k}$的最短路径权值。$d^{(0)}</em>{ij}$表示$i,j$的路径上没有任何中间结点，所以有：$d^{(0)}<em>{ij}=w</em>{ij}$。递归定义$d^{(k)}_{ij}$如下：<script type="math/tex; mode=display">
+d^{(k)}_{ij}=
+\begin{cases} 
+      w_{i,j} & k=0\\ 
+      \min(d^{(k-1)}_{ij},d^{(k-1)}_{ik}+d^{(k-1)}_{kj}) & k>0\\
+\end{cases}</script>因为对于图$G$中的任何路径来说，所有中间结点均取自集合${1,2,\cdots,n}$，所以$d^{(n)}_{ij}=\delta(i,j)$。<h2 id="自底向上计算最短路径权重-1"><a href="#自底向上计算最短路径权重-1" class="headerlink" title="自底向上计算最短路径权重"></a>自底向上计算最短路径权重</h2>  FLOYD-WARSHALL(W)<pre><code>  n = w.rows
+  D(0) = W
+  for k = 1 to n
+      let D(k) be a new n*n matrix
+      for i = 1 to n
+          for j = 1 to n
+              d(k)[i][j] = min(d(k-1)[i][j], d(k-1)[i][k]+d(k-1)[k][j])
+  return D(n)
+</code></pre>时间复杂度为$O(n^3)$。<h2 id="构建一条最短路径"><a href="#构建一条最短路径" class="headerlink" title="构建一条最短路径"></a>构建一条最短路径</h2>我们在求解矩阵序列$D^{(0)},D^{(1)},\cdots,D^{(n)}$的同时求解矩阵序列$\Pi^{(0)},\Pi^{(1)},\cdots,\Pi^{(n)}$。<br>对$\Pi^{(0)}$有：<script type="math/tex; mode=display">
+\pi^{(0)}_{ij}=
+\begin{cases} 
+      i, & i\ne j且w(i,j)\ne \infty\\
+      NIL,& i=j或w(i,j)=\infty\\
+\end{cases}</script>对$\Pi^{(k)}(k\ge 1)$有：<script type="math/tex; mode=display">
+\pi^{(k)}_{ij}=
+\begin{cases} 
+      \pi^{(k-1)}_{ij}, & d^{(k-1)}_{ij}\leq d^{(k-1)}_{ik}+d^{(k-1)}_{kj}\\
+      \pi^{(k-1)}_{kj},& d^{(k-1)}_{ij}> d^{(k-1)}_{ik}+d^{(k-1)}_{kj}\\
+\end{cases}</script><h2 id="有向图的传递闭包"><a href="#有向图的传递闭包" class="headerlink" title="有向图的传递闭包"></a>有向图的传递闭包</h2>给定有向图$G=(V,E)$，定义图$G$的传递闭包为$G^<em>=(V,E^</em>)$，其中$E^*={(i,j)$：如果图G中包含一条从i到j的路径$}$。</li>
+</ul>
+<p>我们对Floyd-Warshall算法进行一点改进，用以更好地求解有向图的传递闭包。</p>
+<p>定义：若图中存在一条从$i$到$j$的、所有中间结点均取自集合${1,2,\cdots,k}$的路径，则$t^{(k)}<em>{ij}=1$，否则$t^{(k)}</em>{ij}=0$。</p>
+<p>根据定义我们容易得到：</p>
+<script type="math/tex; mode=display">
+t^{(0)}_{ij}=
+\begin{cases} 
+        1, & i=j或w(i,j)\ne \infty\\
+        0,& i\ne j且w(i,j)=\infty\\
+\end{cases}</script><p>当$k\ge 1$时，有：</p>
+<script type="math/tex; mode=display">
+t^{(k)}_{ij}=t^{(k-1)}_{ij}\lor (t^{(k-1)}_{ik}\land t^{(k-1)}_{kj})</script><h1 id="Johnson算法"><a href="#Johnson算法" class="headerlink" title="Johnson算法"></a>Johnson算法</h1><p>使用斐波那契堆实现最小优先队列时，Johnson算法的时间复杂度为$O(V^2\log V+VE)$。使用二叉堆实现最小优先队列时，时间复杂度为$O(VE\log V)$在算法的执行过程中需要使用Dijkstra和Bellman-Ford算法。</p>
+<p>Johnson算法使用了<strong>重赋权重</strong>技术。具体如下：</p>
+<ul>
+<li>如果图中均为非负权值的边，则对每个结点执行Dijkstra算法，从而找到所有结点对的最短路径。</li>
+<li>如果图中包含负权边，但不包含负权环，则需要计算出一组新的权重，然后再对每个结点调用Dijkstra算法。</li>
+</ul>
+<p>新的权重$\hat{w}$必须满足如下性质：</p>
+<ul>
+<li>对任意结点对$u,v$，如果在原权重$w$下，存在一条最短路径$p$当且仅当在新权重下$\hat{w}$下，$p$仍然为两结点间的最短路径。</li>
+<li>对于所有的边$(u,v)$，新权重$\hat{w}(u,v)$为非负值。<h2 id="重赋权重来维持最短路径"><a href="#重赋权重来维持最短路径" class="headerlink" title="重赋权重来维持最短路径"></a>重赋权重来维持最短路径</h2>令$\hat{w}(u,v)=w(u,v)+h(u)-h(v)$，我们假设在新权重$\hat{w}$下的最短路径权重为$\hat{\delta}$。</li>
+</ul>
+<p>首先证明，对$v_0,v_k$的最短路$p=\langle v_0,v_1,\cdots,v_k\rangle$，$w(p)=\delta(u,v)$当且仅当$\hat{w}(p)=\hat{\delta}(u,v)$。对任意路径，我们有:</p>
+<script type="math/tex; mode=display">\hat{w}(p)=\sum\limits^{k}_{i=1}\hat{w}(v_{i-1},v_i)\\=\sum\limits^{k}_{i=1}(w(v_{i-1},v_i)+h(v_{i-1})-h(v_i))\\=\sum\limits^{k}_{i=1}{w}(v_{i-1},v_i)+h(v_0)-h(v_k)\\=w(p)+h(v_0)-h(v_k)</script><p>由于$h(v_0),h(v_k)$不依赖于任何具体路径，所以新权重下的路径之间的大小关系保持不变，由此证明了：$w(p)=\delta(u,v)$当且仅当$\hat{w}(p)=\hat{\delta}(u,v)$。</p>
+<p>然后证明，若原权重$w$下存在负权环，则新权重$\hat{w}$下仍然存在负权环。考虑任意环路$c=\langle v_0,v_1,\cdots,v_k\rangle,v_0=v_k$，我们有$\hat{w}(c)=w(c)+h(v_0)-h(v_k)=w(c)$。命题得证。</p>
+<h2 id="通过重赋权值来生成非负权重"><a href="#通过重赋权值来生成非负权重" class="headerlink" title="通过重赋权值来生成非负权重"></a>通过重赋权值来生成非负权重</h2><p>我们制作一幅新图$G’=(V’,E’)$，其中$V’=V\cup{s},E’=E’\cup { (s,v):v\in V}，w(s,v)=0$。<br>我们定义：对所有结点$v\in V’$，$h(v)=\delta(s,v)$。根据三角不等式我们知道：$\delta(s,v)\leq\delta(s,u)+w(w,v)$，变形得：$\delta(s,u)-\delta(s,v)\geq w(w,v)$，即$h(u)-h(v)\ge w(u,v)$，从而有$\hat{w}(u,v)=w(u,v)+h(u)-h(v)\ge 0$。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Introduction to Algorithms" >
+    <span class="tag-code">Introduction to Algorithms</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/23/%E3%80%8A%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%94%E8%AE%B0-%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/">
+        <span class="nav-arrow">← </span>
+        
+          《算法导论》笔记__单源最短路径
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/23/%E3%80%8A%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%94%E8%AE%B0-%E6%9C%80%E5%A4%A7%E6%B5%81/">
+        
+          《算法导论》笔记__最大流
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E7%AC%A6%E5%8F%B7%E8%AF%B4%E6%98%8E"><span class="toc-nav-text">符号说明</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5"><span class="toc-nav-text">邻接矩阵</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E5%92%8C%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95"><span class="toc-nav-text">最短路径和矩阵乘法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%89%80%E6%9C%89%E7%BB%93%E7%82%B9%E5%AF%B9%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98%E7%9A%84%E9%80%92%E5%BD%92%E8%A7%A3"><span class="toc-nav-text">所有结点对最短路径问题的递归解</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%87%AA%E5%BA%95%E5%90%91%E4%B8%8A%E8%AE%A1%E7%AE%97%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%9D%83%E9%87%8D"><span class="toc-nav-text">自底向上计算最短路径权重</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%94%B9%E8%BF%9B%E7%AE%97%E6%B3%95%E7%9A%84%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4"><span class="toc-nav-text">改进算法的运行时间</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Floyd-Warshall%E7%AE%97%E6%B3%95"><span class="toc-nav-text">Floyd-Warshall算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-nav-text">最短路径的结构</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%89%80%E6%9C%89%E7%BB%93%E7%82%B9%E5%AF%B9%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98%E7%9A%84%E9%80%92%E5%BD%92%E8%A7%A3-1"><span class="toc-nav-text">所有结点对最短路径问题的递归解</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%87%AA%E5%BA%95%E5%90%91%E4%B8%8A%E8%AE%A1%E7%AE%97%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%9D%83%E9%87%8D-1"><span class="toc-nav-text">自底向上计算最短路径权重</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%9E%84%E5%BB%BA%E4%B8%80%E6%9D%A1%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84"><span class="toc-nav-text">构建一条最短路径</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%9C%89%E5%90%91%E5%9B%BE%E7%9A%84%E4%BC%A0%E9%80%92%E9%97%AD%E5%8C%85"><span class="toc-nav-text">有向图的传递闭包</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Johnson%E7%AE%97%E6%B3%95"><span class="toc-nav-text">Johnson算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%87%8D%E8%B5%8B%E6%9D%83%E9%87%8D%E6%9D%A5%E7%BB%B4%E6%8C%81%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84"><span class="toc-nav-text">重赋权重来维持最短路径</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%80%9A%E8%BF%87%E9%87%8D%E8%B5%8B%E6%9D%83%E5%80%BC%E6%9D%A5%E7%94%9F%E6%88%90%E9%9D%9E%E8%B4%9F%E6%9D%83%E9%87%8D"><span class="toc-nav-text">通过重赋权值来生成非负权重</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/23/《算法导论》笔记-所有结点对的最短路径/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

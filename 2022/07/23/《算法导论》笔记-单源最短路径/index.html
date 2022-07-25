@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Kimmich&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      《算法导论》笔记__单源最短路径 | Kimmich&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Kimmich's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archive/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archive/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>《算法导论》笔记__单源最短路径</h2>
+  <p class="post-date">2022-07-23</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="符号说明"><a href="#符号说明" class="headerlink" title="符号说明"></a>符号说明</h1><ul>
+<li>$V$：结点集；</li>
+<li>$E$：边集；</li>
+<li>$G=(V,E)$：带权重的有向图；</li>
+<li>$w$：权重函数；</li>
+<li>$\delta(u,v)$：结点$u$到结点$v$的最短距离。</li>
+</ul>
+<h1 id="最短路问题的最优子结构"><a href="#最短路问题的最优子结构" class="headerlink" title="最短路问题的最优子结构"></a>最短路问题的最优子结构</h1><p>运用“剪切-粘贴”技术。已知$p=\langle v_0,v_1,…,v_k\rangle$为结点$u$到结点$v$的最短路径。假设$p$中的$\langle v_i,…,v_j\rangle$不是结点$i$到结点$j$的最短路径，则一定有：$\delta(v_0,v_i)+\delta(v_i,v_j)+\delta(v_j,v_k)&lt;w(p)$，这与$p$是结点$v_0$到结点$v_j$的最短路径相矛盾！</p>
+<p>证明了最短路问题的最优子结构，我们便可以尝试利用动态规划和贪心算法求解问题。</p>
+<h1 id="松弛操作"><a href="#松弛操作" class="headerlink" title="松弛操作"></a>松弛操作</h1><p>对于每一个结点$v$，我们维持属性$v.d、v.\pi$，分别表示表示源点$s$到结点$v$的最短距离的上界，和结点$v$的前驱节点。<br>对边$(u,v)$进行松弛操作的过程为：</p>
+<pre><code>RELAX(u, v, w)
+    if v.d &gt; u.d + w(u, v)
+        v.d = u.d + w(u, v)
+        v.pi = u
+</code></pre><h1 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h1><pre><code>INITIALIZE-SINGEL-SOURSE(G,s)
+    for each vertex v in G.V
+        v.d = inf
+        v.pi = -1
+    s.d = 0
+</code></pre><h1 id="最短路径和松弛操作的性质"><a href="#最短路径和松弛操作的性质" class="headerlink" title="最短路径和松弛操作的性质"></a>最短路径和松弛操作的性质</h1><h2 id="性质1：三角不等式性质"><a href="#性质1：三角不等式性质" class="headerlink" title="性质1：三角不等式性质"></a>性质1：三角不等式性质</h2><h3 id="内容："><a href="#内容：" class="headerlink" title="内容："></a>内容：</h3><p>对所有的边$(u,v)$，有</p>
+<script type="math/tex; mode=display">\delta(v)\leq \delta(u)+w(u,v)</script><h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>假设$p$为源点$s$到结点$v$的最短路，则$p$的权重一定小于等于任意一条源点$s$到结点$v$的路径的权重。也就是说，$p$的权重一定小于等于$s$到$u$的最短路，再加上边$(u,v)$的路径权值。对于$s,v$之间不存在最短路的情况，易证$s,u$之间也不存在最短路，此时有$\infty\leq\infty+w(u,v)$，原不等时仍成立。</p>
+<h2 id="性质2：上界性质"><a href="#性质2：上界性质" class="headerlink" title="性质2：上界性质"></a>性质2：上界性质</h2><h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><p>对图$G$执行初始化操作INITIALIZE-SINGEL-SOURSE(G,s)后。在松弛过程中，对于所有结点$v$，$v.d\ge\delta(s,v)$恒成立。而且，一旦$v.d$取其下界$\delta(s,v)$后，取值将不再发生变化。</p>
+<h3 id="证明-1"><a href="#证明-1" class="headerlink" title="证明"></a>证明</h3><p>采用数学归纳法证明不变式</p>
+<ul>
+<li>在初始化操作结束后，$v.d\geq\delta(s,v)$显然成立。</li>
+<li>假设在对边$(u,v)$执行松弛操作前结论成立，在对边$(u,v)$执行松弛操作后，唯一可能改变的值只有$v.d$。假设$v.d$发生变化，则有<script type="math/tex">v.d=u.d+w(u,v)\ge\delta(s,u)+w(w,v)\ge\delta(s,v)</script>此时不变式仍然成立。</li>
+</ul>
+<p>由于$v.d$在松弛过程中只能减小，不能增加，而上文也已经证明$v.d\geq\delta(s,v)$，所以$v.d$取到下界后将不再发生变化。</p>
+<h2 id="性质3：非路径性质"><a href="#性质3：非路径性质" class="headerlink" title="性质3：非路径性质"></a>性质3：非路径性质</h2><h3 id="内容-1"><a href="#内容-1" class="headerlink" title="内容"></a>内容</h3><p>假设$s,v$之间不存在路径，在松弛过程中始终有$v.d=\delta(s,v)=\infty$。</p>
+<h3 id="证明-2"><a href="#证明-2" class="headerlink" title="证明"></a>证明</h3><p>根据上界性质，始终有$v.d\ge\delta(s,v)=\infty$，又由于$v.d$的初值为$\infty$，所以性质成立。</p>
+<h2 id="性质4：路径松弛性质"><a href="#性质4：路径松弛性质" class="headerlink" title="性质4：路径松弛性质"></a>性质4：路径松弛性质</h2><h3 id="内容-2"><a href="#内容-2" class="headerlink" title="内容"></a>内容</h3><p>考虑从源点<script type="math/tex">v_0</script>到<script type="math/tex">v_k</script>的任意一条最短路径<script type="math/tex">p=\langle v_0,v_1,...,v_k\rangle</script>，如果对图G进行初始化，并按照次序对边<script type="math/tex">(v_0,v_1),(v_1,v_2),...,(v_{k-1},v_k)</script>进行松弛后，有<script type="math/tex">v_k.d=\delta(s,v)</script>。</p>
+<h3 id="证明-3"><a href="#证明-3" class="headerlink" title="证明"></a>证明</h3><p>采用数学归纳法，归纳假设为在对路径p中的第$i$条边进行松弛操作后，有$v_i.d=\delta(s,v_i)$</p>
+<ul>
+<li>$i=0$时，显然有$v_0.d=0=\delta(s,s)$。</li>
+<li>假设对第$i-1$条边进行松弛操作后有<script type="math/tex">v_{i-1}.d=\delta(v_0,v_{i-1})</script>，在对第<script type="math/tex">i</script>条边进行松弛操作后，显然有<script type="math/tex">v_i.d=\delta(v_0,v_{i-1})+w(v_{i-1},v_i)=\delta(v_0,v_i)</script>成立。</li>
+</ul>
+<h1 id="Bellman-Ford算法"><a href="#Bellman-Ford算法" class="headerlink" title="Bellman-Ford算法"></a>Bellman-Ford算法</h1><p>Bellman-Ford可以处理存在负权边的最短路问题。</p>
+<pre><code>BELLMAN-FORD(G,w,s)
+    INITIALIZE-SINGLE-SOURCE(G,s)
+    for i = 1 to |G.V|-1
+        for each (u,v) in G.E
+            RELAX(u,v,w)
+    for each (u,v) in G.E
+        if v.d &gt; u.d+w(u,v)
+            return FALSE
+    return TRUE
+</code></pre><p>直白地说，Bellman-Ford算法就是对图中的每条边执行$|V|-1$次松弛操作，时间复杂度为$O(VE)$。</p>
+<h2 id="Bellman-Ford算法的正确性"><a href="#Bellman-Ford算法的正确性" class="headerlink" title="Bellman-Ford算法的正确性"></a>Bellman-Ford算法的正确性</h2><p>首先证明，当图中不包含负权环时，执行Bellman-Ford算法后，对所有点有$v.d=\delta(s,v)$且返回值为TRUE。由于源点$s$到$v$的最短路径<script type="math/tex">p=\langle v_0,v_1,...,v_k\rangle</script>一定为简单路，所以任意一条最短路径p中包含的边数$k\le |V|-1$。在执行第$i$轮松弛操作的过程中，一定对边$(v_{i-1},v_i)$进行了松弛，根据路径松弛性质，$v.d=\delta(s,v)$。特别地，当$s,v$之间不存在路径时，$v.d$自始至终没有被修改，有$v.d=\infty$。根据三角不等式$\delta(s,v)\le\delta(s,u)+w(u,v)$ ，证明不会有$v.d&gt;u.d+w(u,v)$成立，所以算法最后的返回值一定为TRUE。</p>
+<p>然后证明，当图中包含负权环时，算法的返回值为FALSE。假设图中的一负权环为<script type="math/tex">c=\langle v_0,v_1,...,v_k\rangle,v_0=v_k$，则有$\sum\limits^k_{i=1}w(v_{i-1},v_i)<0</script>。采用反证法，假设执行Bellman-Ford算法后的返回值为TRUE，则一定有<script type="math/tex">\sum\limits^{k}_{i=1}v_i.d\leq\sum\limits^{k}_{i=1}v_{i-1}.d+\sum\limits^k_{i=1}w(v_{i-1},v_i)</script>。因为<script type="math/tex">\sum\limits^k_{i=1}v_i.d=\sum\limits^{k}_{i=1}v_{i-1}.d</script>，所以<script type="math/tex">\sum\limits^k_{i=1}w(v_{i-1},v_i)\ge0</script>，这与<script type="math/tex">\sum\limits^k_{i=1}w(v_i-1,v_i)<0</script>相矛盾！</p>
+<h1 id="Dijkstra算法"><a href="#Dijkstra算法" class="headerlink" title="Dijkstra算法"></a>Dijkstra算法</h1><p>Dijkstra算法要求所有边的权值非负。</p>
+<pre><code>DIJKSTRA(G,w,s)
+    INITIALIZE-SINGLE-SOURCE(G,s)
+    s = 空集
+    Q = G.V
+    while Q != 空集
+        u = EXTRACT-MIN(Q)
+        S=S∪&#123;u&#125;
+        for each vertex v in G.Adj[u]
+            RELAX(u,v,w)
+</code></pre><p>直白地说，Dijkstra算法在执行过程中维持一个点集$S$，用以保存最短路径<strong>已经</strong>被找到的点。算法重复从$V-S$中找到$d$值最小的点$u$，将其加入集合$S$中，然后对所有$u$<strong>出发</strong>的边进行松弛。</p>
+<h2 id="Dijkstra算法的正确性"><a href="#Dijkstra算法的正确性" class="headerlink" title="Dijkstra算法的正确性"></a>Dijkstra算法的正确性</h2><p>证明Dijkstra的正确性，等价于证明这个循环不变式：在算法的执行过程中，每当将新的$u$加入$S$时，有$u.d=\delta(s,u)$。</p>
+<ul>
+<li>初始时，$S=\varnothing$，循环不变时成立。</li>
+<li>采用反证法，假设结点$u$为第一个不满足循环不变式的结点，即$u.d\ne\delta(s,u)$。我们关注将结点$u$加入$S$的那一轮循环。首先$u\ne s$，因为当$s$加入集合$S$时，有$s.d=0=\delta(s,s)$。再者，$s,u$之间一定存在最短路，因为如果$s,u$之间不存在最短路，则有$u.d=\infty=\delta(s,u)$。我们假设源点$s$到结点$u$的最短路径为$p$，设这条路径上第一个$\notin S$的结点为$y$，设$y$的前驱节点为$x$。此时，最短路径$p$可以表示为$s\leadsto x\to y\leadsto u$。因为$x\in S$，所以$x.d=\delta(s,x)$，且当$x$加入$S$时，边$(x,y)$已经被松驰过了。所以有$y.d=\delta(s,y)$。因为在路径$p$上，$y$在$u$的前面，所以$y.d=\delta(s,y)\leq\delta(s,u)\leq u.d$。但是，我们注意到，当轮循环中，加入$S$的是$u$，所以一定有$u.d\leq y.d$。所以$y.d=\delta(s,y)=\delta(s,u)= u.d$，这与$u.d\ne \delta(s,u)$相矛盾！</li>
+</ul>
+<h2 id="Dijkstra算法的时间复杂度"><a href="#Dijkstra算法的时间复杂度" class="headerlink" title="Dijkstra算法的时间复杂度"></a>Dijkstra算法的时间复杂度</h2><p>Dijkstra算法的时间复杂度主要取决于<strong>最小优先队列</strong>的实现方式。</p>
+<ul>
+<li>数组：插入、修改结点的时间复杂度均为$O(1)$，找到最小元素的时间复杂度为$O(V)$，总的时间复杂度为$O(V^2)$</li>
+<li>二叉堆：插入、修改结点的时间复杂度为$O(logV)$，找到最小元素的时间复杂度为$O(logV)$，总的时间复杂度为$O((V+E)logV)$。适用于稀疏图。</li>
+</ul>
+<h1 id="差分约束"><a href="#差分约束" class="headerlink" title="差分约束"></a>差分约束</h1><p>如果一个系统由$n$个变量和$m$个约束条件组成，形成$m$个形如$x_j-x_i ≤ b_k$的不等式($i,j∈[1,n]$,$b_k$为常数),则称其为差分约束系统(system of difference constraints)。</p>
+<p>首先引入一个简单的引理：若向量$x=(x_1,x_2,…,x_n)$为差分约束系统的一个解，则$x+d=(x_1+d,x_2+d,…,x_n+d)$也是差分约束系统的一个解。</p>
+<h2 id="约束图"><a href="#约束图" class="headerlink" title="约束图"></a>约束图</h2><p>给定一个差分约束系统$Ax\leq b$，其对应的约束图是一个带权有向图$G(V,E)$：</p>
+<ul>
+<li>$V=\{v_0,v_1,…,v_n\}$</li>
+<li>$E=\{(v_i,v_j):x_j-x_i\leq b_k\}\cup \{(v_0,v_1),(v_0,v_2),…,(v_0,v_n)\}$</li>
+<li>如果$x_j-x_i\leq b_k$，则$w(i,J)=b_k$，特别地，$w(v_0,v_i)=0$.</li>
+</ul>
+<h2 id="利用单源最短路求解差分约束系统"><a href="#利用单源最短路求解差分约束系统" class="headerlink" title="利用单源最短路求解差分约束系统"></a>利用单源最短路求解差分约束系统</h2><p>接下来，我们将证明可以通过在<strong>约束图</strong>中寻找<strong>单源最短路</strong>来求解差分约束系统。</p>
+<p>首先，我们证明：如果约束图中存在<strong>负权环</strong>，则差分约束系统无解。假设约束图中的一个负权环为$c=\langle v_1,v_2,..,v_k\rangle(v_1=v_k)$，其对应的约束方程组为：</p>
+<script type="math/tex; mode=display">
+x_2-x_1\leq w(v_1,v_2)\\\\
+x_3-x_2\leq w(v_2,v_3)\\\\
+\vdots\\\\
+x_k-x_{k-1}\leq w(v_{k-1},v_k)</script><p>采用反证法，假设存在某一向量$x$满足上述的$k$个不等式，则这个解必须同时满足这<script type="math/tex">k</script>个不等式相加后形成的新不等式，即<script type="math/tex">x_k-x_1\leq \sum\limits^k_{i=2}w(v_{i-1},v_i)</script>，因为<script type="math/tex">x_1=x_k</script>，所以<script type="math/tex">\sum\limits^k_{i=2}w(v_{i-1},v_i)\geq 0</script>，这与<script type="math/tex">c=\langle v_1,v_2,..,v_k\rangle(v_1=v_k)</script>为负权环相矛盾！</p>
+<p>然后证明，当约束图中不包含负权环时，$x=(\delta(v_0,v_1),\delta(v_0,v_2),…,\delta(v_0,v_n))$为差分约束系统的一个解。根据三角不等式$\delta(v_0,v_j)\leq\delta(v_0,v_i)+w(v_i,v_j)$，所以有$x_j-x_i\leq d_k$成立。</p>
+<p>我们可以利用Bellman-Ford算法求解差分约束系统。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Introduction to Algorithms" >
+    <span class="tag-code">Introduction to Algorithms</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%AE%97%E6%B3%95/">
+        <span class="nav-arrow">← </span>
+        
+          算法自学__差分约束算法
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/23/%E3%80%8A%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%94%E8%AE%B0-%E6%89%80%E6%9C%89%E7%BB%93%E7%82%B9%E5%AF%B9%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/">
+        
+          《算法导论》笔记__所有结点对的最短路径
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E7%AC%A6%E5%8F%B7%E8%AF%B4%E6%98%8E"><span class="toc-nav-text">符号说明</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98%E7%9A%84%E6%9C%80%E4%BC%98%E5%AD%90%E7%BB%93%E6%9E%84"><span class="toc-nav-text">最短路问题的最优子结构</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%9D%BE%E5%BC%9B%E6%93%8D%E4%BD%9C"><span class="toc-nav-text">松弛操作</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-nav-text">初始化</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E5%92%8C%E6%9D%BE%E5%BC%9B%E6%93%8D%E4%BD%9C%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-nav-text">最短路径和松弛操作的性质</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%80%A7%E8%B4%A81%EF%BC%9A%E4%B8%89%E8%A7%92%E4%B8%8D%E7%AD%89%E5%BC%8F%E6%80%A7%E8%B4%A8"><span class="toc-nav-text">性质1：三角不等式性质</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%86%85%E5%AE%B9%EF%BC%9A"><span class="toc-nav-text">内容：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E8%AF%81%E6%98%8E"><span class="toc-nav-text">证明</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%80%A7%E8%B4%A82%EF%BC%9A%E4%B8%8A%E7%95%8C%E6%80%A7%E8%B4%A8"><span class="toc-nav-text">性质2：上界性质</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-nav-text">内容</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E8%AF%81%E6%98%8E-1"><span class="toc-nav-text">证明</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%80%A7%E8%B4%A83%EF%BC%9A%E9%9D%9E%E8%B7%AF%E5%BE%84%E6%80%A7%E8%B4%A8"><span class="toc-nav-text">性质3：非路径性质</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%86%85%E5%AE%B9-1"><span class="toc-nav-text">内容</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E8%AF%81%E6%98%8E-2"><span class="toc-nav-text">证明</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%80%A7%E8%B4%A84%EF%BC%9A%E8%B7%AF%E5%BE%84%E6%9D%BE%E5%BC%9B%E6%80%A7%E8%B4%A8"><span class="toc-nav-text">性质4：路径松弛性质</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%86%85%E5%AE%B9-2"><span class="toc-nav-text">内容</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E8%AF%81%E6%98%8E-3"><span class="toc-nav-text">证明</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Bellman-Ford%E7%AE%97%E6%B3%95"><span class="toc-nav-text">Bellman-Ford算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Bellman-Ford%E7%AE%97%E6%B3%95%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%80%A7"><span class="toc-nav-text">Bellman-Ford算法的正确性</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Dijkstra%E7%AE%97%E6%B3%95"><span class="toc-nav-text">Dijkstra算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Dijkstra%E7%AE%97%E6%B3%95%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%80%A7"><span class="toc-nav-text">Dijkstra算法的正确性</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Dijkstra%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-nav-text">Dijkstra算法的时间复杂度</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F"><span class="toc-nav-text">差分约束</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BA%A6%E6%9D%9F%E5%9B%BE"><span class="toc-nav-text">约束图</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%88%A9%E7%94%A8%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E6%B1%82%E8%A7%A3%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F"><span class="toc-nav-text">利用单源最短路求解差分约束系统</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/23/《算法导论》笔记-单源最短路径/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

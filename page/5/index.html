@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Kimmich&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Kimmich&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Kimmich's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link active">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archive/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link mobile-active">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archive/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%B0%8F%E6%A0%B9%E5%A0%86-Heap/">算法自学__小根堆(Heap)</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          参考资料:
+
+https://www.cnblogs.com/WindSun/p/11444446.html
+https://www.cnblogs.com/huashanqingzhu/p/11040390.html
+
+小根堆的性质
+小根堆是一颗完全二叉树
+父节点的值小于或等于子节点的值
+ ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%B0%8F%E6%A0%B9%E5%A0%86-Heap/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">numpy自学笔记__常用方法</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+  <a href="/tags#numpy" >
+    <span class="tag-code">numpy</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          参考资料:
+
+黑马程序员相关教程
+
+nan
+两个nan是不相等的
+  print(np.nan == np.nan)		# False
+
+
+nan和任何值计算的结果均为nan
+
+计算数组中nan的个数
+  t1 = np.array(range(12)).astype(&#39;float3 ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C/">numpy自学笔记__数组操作</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+  <a href="/tags#numpy" >
+    <span class="tag-code">numpy</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          参考资料:
+
+黑马程序员相关课程
+
+索引和切片t1 = np.array([[i for i in range(j, j+4)] for j in range(5)])
+print(t1[:, :])
+# [[0 1 2 3]
+#  [1 2 3 4]
+#  [2 3 4 5]
+#  [3  ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E6%95%B0%E7%BB%84/">numpy自学笔记__数组</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+  <a href="/tags#numpy" >
+    <span class="tag-code">numpy</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          参考资料:
+
+黑马程序员相关课程
+https://www.cnblogs.com/jiaxin359/p/9021726.html
+
+创建数组import numpy as np
+
+# 方法一
+t1 = np.array([1, 2, 3, 4])
+print(t1)
+print(type( ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E6%95%B0%E7%BB%84/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E5%85%AD%EF%BC%9E/">Python3自学笔记 ＜六＞</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          参考资料:https://www.runoob.com/python3/python3-tutorial.html
+Python3面向对象类定义class ClassName:
+    &lt;statement-1&gt;
+    .
+    .
+    .
+    &lt;stateme ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E5%85%AD%EF%BC%9E/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E4%BA%94%EF%BC%9E/">Python3自学笔记 ＜五＞</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          数据结构参考菜鸟教程https://www.runoob.com/python3/python3-tutorial.html
+把列表当作堆栈使用用append()方法实现入栈; 用pop()方法实现出栈
+stack=[2, 3, 4, 5]
+stack.append(6)				#[2, 3 ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E4%BA%94%EF%BC%9E/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E5%9B%9B%EF%BC%9E/">Python3自学笔记 ＜四＞</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          迭代器参考菜鸟教程https://www.runoob.com/python3/python3-tutorial.html
+L=[1, 5, 8, 3, 6, 7]
+it = iter(L)			# 创建迭代器对象
+print(next(it))			# 1
+print(next(it))	 ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E5%9B%9B%EF%BC%9E/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E4%B8%89%EF%BC%9E/">Python3自学笔记 ＜三＞</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          数字参考菜鸟教程https://www.runoob.com/python/python-tutorial.html
+数字类型转换
+int(x)将x转换为一个整数
+float(x)将x转换为一个浮点数
+complex(x)将x转换为一个复数, 实部为x, 虚部为0
+complex(x， y) ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E4%B8%89%EF%BC%9E/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E4%BA%8C%EF%BC%9E/">Python3自学笔记 ＜二＞</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Python运算符参考菜鸟教程https://www.runoob.com/python/python-tutorial.html
+算术运算符
+
+
+运算符
+描述
+实例
+
+
+
++
+两个数相加
+2+3.9 结果为 5.9
+
+
+-
+两个数相减
+-2-3.9 结果为 -5.9
+
+
+*
+两个数相乘
+2 ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E4%BA%8C%EF%BC%9E/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E4%B8%80%EF%BC%9E/">Python3自学笔记 ＜一＞</a>
+      </h2>
+      <p class="article-date">2022年7月23日</p>
+      
+        
+  <a href="/tags#python" >
+    <span class="tag-code">python</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Python3基础语法参考菜鸟教程 https://www.runoob.com/python/python-tutorial.html
+注释
+单行注释:以#开头
+多行注释:&#39;&#39;&#39;或&quot;&quot;&quot;
+
+多行语法
+使用反斜杠\实现多行语句
+      ...
+        
+      </div>
+      <a class="more" href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E4%B8%80%EF%BC%9E/">Read more</a>
+    </article>
+  
+
+  
+    <div class="guide-pager">
+  
+    <a href="/page/4/"><span class="page-arrow">← </span>Prev</a>
+  
+  
+    <a class="unvisible" href="/">Next <span class="page-arrow">→</span></a>
+  
+</div>
+  
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

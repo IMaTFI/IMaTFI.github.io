@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Kimmich&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      HUST算法实践__POJ1636 | Kimmich&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Kimmich's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archive/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archive/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>HUST算法实践__POJ1636</h2>
+  <p class="post-date">2022-07-23</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>In order to lower the risk of riots and escape attempts, the boards of two nearby prisons of equal prisoner capacity, have decided to rearrange their prisoners among themselves. They want to exchange half of the prisoners of one prison, for half of the prisoners of the other. However, from the archived information of the prisoners’ crime history, they know that some pairs of prisoners are dangerous to keep in the same prison, and that is why they are separated today, i.e. for every such pair of prisoners, one prisoners serves time in the first prison, and the other in the second one. The boards agree on the importance of keeping these pairs split between the prisons, which makes their rearrangement task a bit tricky. In fact, they soon find out that sometimes it is impossible to fulfil their wish of swapping half of the prisoners. Whenever this is the case, they have to settle for exchanging as close to one half of the prisoners as possible.</p>
+<h4 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h4><p>On the first line of the input is a single positive integer n, telling the number of test scenarios to follow. Each scenario begins with a line containing two non-negative integers m and r, 1 &lt; m &lt; 200 being the number of prisoners in each of the two prisons, and r the number of dangerous pairs among the prisoners. Then follow r lines each containing a pair xi yi of integers in the range 1 to m,which means that prisoner xi of the first prison must not be placed in the same prison as prisoner yi of the second prison.</p>
+<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><p>For each test scenario, output one line containing the largest integer k &lt;&#x3D; m&#x2F;2 , such that it is possible to exchange k prisoners of the first prison for k prisoners of the second prison without getting two prisoners of any dangerous pair in the same prison.</p>
+<h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h3><p>根据题目的描述我们可以知道, 假如<strong>一号监狱</strong>中的<code>i</code>号犯人与<strong>二号监狱</strong>中的<code>j</code>号犯人之间存在危险, 那么在将<code>i</code>号犯人从<strong>一号监狱</strong>移动到的二号监狱的同时, 必须也将<code>j</code>号犯人移动到<strong>一号监狱</strong>. 这意味着, 我们可以将<code>i</code>号犯人和<code>j</code>号犯人的移动看作<strong>同时发生</strong>的.</p>
+<p>更一般地, 一号监狱中的某个犯人, 可能与多个二号监狱中的犯人存在危险, 而这些二号监狱中的犯人中也可能不止与一号监狱中的那个犯人存在危险. </p>
+<p>所以, 我们可以把犯人之间的关系抽象为一个<strong>无向图</strong>, 若两个犯人之间存在危险, 则有一条<strong>无向边</strong>将两个犯人相连. 我们借助<strong>深度优先搜索</strong>, 可以很方便地将图染色, 求出所有的<strong>连通分支</strong>. </p>
+<p>我们将每个<strong>连通分支</strong>看作一个物品. 所有连通分支保存在数组<code>w[][2]</code>中, <code>w[i][0]</code>表示第<code>i</code>个连通分支中来自一号监狱的人数, <code>w[i][1]</code>表示第<code>i</code>个连通分支中来自二号监狱的人数.</p>
+<p>此时, 这个看似生疏的<strong>监狱分配问题</strong>, 已经可以转化为我们熟悉的<strong>01背包</strong>问题: 背包有两个口袋, 每个口袋的容量为<code>m/2</code>, 我们要在保证两个口袋重量一致的前提下, 尽可能地选择<strong>总重量</strong>最大的物品.</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstring&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt;graph[<span class="number">401</span>];</span><br><span class="line"><span class="type">bool</span> vis[<span class="number">401</span>];</span><br><span class="line"><span class="type">int</span> color[<span class="number">401</span>];		<span class="comment">//染色</span></span><br><span class="line"><span class="type">int</span> cnt_color;			<span class="comment">//颜色 </span></span><br><span class="line"><span class="type">int</span> dp[<span class="number">101</span>][<span class="number">101</span>]; </span><br><span class="line"><span class="type">int</span> w[<span class="number">401</span>][<span class="number">2</span>];			<span class="comment">//物品 </span></span><br><span class="line"><span class="type">int</span> n,m=<span class="number">0</span>,r;</span><br><span class="line"><span class="type">int</span> a,b;</span><br><span class="line"><span class="type">bool</span> flag;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;		<span class="comment">//初始化 </span></span><br><span class="line">	flag=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">2</span>*m;i++) graph[i].<span class="built_in">clear</span>();</span><br><span class="line">	<span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis));</span><br><span class="line">	<span class="built_in">memset</span>(color,<span class="number">0</span>,<span class="built_in">sizeof</span>(color));</span><br><span class="line">	<span class="built_in">memset</span>(dp,<span class="number">1</span>&lt;&lt;<span class="number">7</span>,<span class="built_in">sizeof</span>(dp));		<span class="comment">//条件限制 </span></span><br><span class="line">	dp[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">memset</span>(w,<span class="number">0</span>,<span class="built_in">sizeof</span>(w)); </span><br><span class="line">	cnt_color=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> cnt)</span></span>&#123;		<span class="comment">//图染色 </span></span><br><span class="line">	vis[s]=<span class="number">1</span>;</span><br><span class="line">	color[s]=cnt;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;graph[s].<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">		<span class="type">int</span> to=graph[s][i];</span><br><span class="line">		<span class="keyword">if</span>(vis[to]) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="built_in">dfs</span>(to,cnt);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">transform</span><span class="params">()</span></span>&#123;			<span class="comment">//将连通分支转化为物品 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">		w[color[i]][<span class="number">0</span>]++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=m+<span class="number">1</span>;i&lt;=<span class="number">2</span>*m;i++)&#123;</span><br><span class="line">		w[color[i]][<span class="number">1</span>]++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;				<span class="comment">//动态规划 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;cnt_color;i++)&#123;</span><br><span class="line">		<span class="type">int</span> w1=w[i][<span class="number">0</span>],w2=w[i][<span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=m/<span class="number">2</span>;j&gt;=w1;j--)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> k=m/<span class="number">2</span>;k&gt;=w2;k--)&#123;</span><br><span class="line">				dp[j][k]=<span class="built_in">max</span>(dp[j][k],dp[j-w1][k-w2]+w1+w2);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;n;</span><br><span class="line">	<span class="keyword">while</span>(n--)&#123;</span><br><span class="line">		cin&gt;&gt;m&gt;&gt;r;</span><br><span class="line">		<span class="built_in">init</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;r;i++)&#123;</span><br><span class="line">			cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">			b+=m;</span><br><span class="line">			graph[a].<span class="built_in">push_back</span>(b);		<span class="comment">//双向建图 </span></span><br><span class="line">			graph[b].<span class="built_in">push_back</span>(a);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">2</span>*m;i++)&#123;		<span class="comment">//染色 </span></span><br><span class="line">			<span class="keyword">if</span>(vis[i]) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="built_in">dfs</span>(i,cnt_color);</span><br><span class="line">			cnt_color++;</span><br><span class="line">		&#125; </span><br><span class="line">		<span class="built_in">transform</span>();</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=m/<span class="number">2</span>;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">			<span class="keyword">if</span>(dp[i][i]&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">				cout&lt;&lt;dp[i][i]/<span class="number">2</span>&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">				flag=<span class="number">1</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(flag) <span class="keyword">continue</span>;</span><br><span class="line">		cout&lt;&lt;<span class="number">0</span>&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#algorithm" >
+    <span class="tag-code">algorithm</span>
+  </a>
+
+  <a href="/tags#poj" >
+    <span class="tag-code">poj</span>
+  </a>
+
+  <a href="/tags#C++" >
+    <span class="tag-code">C++</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1050/">
+        <span class="nav-arrow">← </span>
+        
+          HUST算法实践__POJ1050
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1042/">
+        
+          HUST算法实践__POJ1042
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-nav-text">问题描述</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E8%BE%93%E5%85%A5"><span class="toc-nav-text">输入</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E8%BE%93%E5%87%BA"><span class="toc-nav-text">输出</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3"><span class="toc-nav-text">算法思想</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-nav-text">代码实现</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/23/HUST算法实践-POJ1636/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

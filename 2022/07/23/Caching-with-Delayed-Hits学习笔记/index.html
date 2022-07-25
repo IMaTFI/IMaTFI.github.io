@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="Kimmich&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Caching with Delayed Hits学习笔记 | Kimmich&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Kimmich's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archive/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archive/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Caching with Delayed Hits学习笔记</h2>
+  <p class="post-date">2022-07-23</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><ul>
+<li>Caching with Delayed Hits</li>
+</ul>
+<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>delayed hit的存在会造成缓存系统的实际延迟比预测延迟要高。当delayed hit存在时，传统的cache优化策略并不能使latency最小。新的offline优化策略<strong>BELATEDLY</strong>能有效解决这个问题。并根据BELATEDLY设计了online算法MAD，有效降低了latency。</p>
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h1><p><strong>delayed hit</strong>：请求1需要取出一个cache中没有的object，在处理的miss的过程中，请求2到来了，且同样需要取出和上一个请求相同的object。显然，请求2的处理时长比普通命中的处理时长要高，但系统仍认为其命中，这就是<strong>delayed hit</strong>。</p>
+<p><strong>offline-optimal</strong>假设能够完全预测未来，所以能得出实际<strong>cache</strong>的命中率上限。<strong>offline-optimal</strong>能指导实际的cache。本文中讨论的也是一种offline算法。</p>
+<p>传统<strong>Belady’s algorithm</strong>能最大化命中率，但实际上并不能最小化延迟。</p>
+<p>MAD：Minimum Aggregate Delay</p>
+<p>Z：object fetch time &#x2F; mean request inter-arrival time</p>
+<p>Z越大，BELATEDLY相比传统方法越优越。</p>
+<h1 id="2-The-Problem-with-Delayed-Hits"><a href="#2-The-Problem-with-Delayed-Hits" class="headerlink" title="2 The Problem with Delayed Hits"></a>2 The Problem with Delayed Hits</h1><p><img src="https://img-blog.csdnimg.cn/ca060662c875446b8d659f27b15979fe.png" alt="在这里插入图片描述"><br>图1形象地展示了delayed hit的概念。</p>
+<h2 id="2-1-Classic-Caching-Algorithm"><a href="#2-1-Classic-Caching-Algorithm" class="headerlink" title="2.1 Classic Caching Algorithm"></a>2.1 Classic Caching Algorithm</h2><p>caching algorithm：决定哪些对象要载入到缓存中，哪些对象要淘汰。</p>
+<p>在delayed hit存在的情况下，传统模型会严重低估cache的延迟。</p>
+<h2 id="2-2-Belady-is-Not-Latency-Minimal"><a href="#2-2-Belady-is-Not-Latency-Minimal" class="headerlink" title="2.2 Belady is Not Latency-Minimal"></a>2.2 Belady is Not Latency-Minimal</h2><p>在无delayed hits、对象大小一致、访问backing store延迟一致的情况下，Belady’s algorithm 被证明是最优算法。算法思想为：淘汰距离下一次访问最远的object。<br><img src="https://img-blog.csdnimg.cn/ab8357acab9545d0a54a9174c9765764.png" alt="在这里插入图片描述"><br>由图3给出了一个delayed hit存在的情况下，Belady不是最优解的情况。</p>
+<h2 id="2-3-Delayed-Hits-and-Practical-Algorithm"><a href="#2-3-Delayed-Hits-and-Practical-Algorithm" class="headerlink" title="2.3 Delayed Hits and Practical Algorithm"></a>2.3 Delayed Hits and Practical Algorithm</h2><p><img src="https://img-blog.csdnimg.cn/ec7bf4b141b24999a0b6efede22968fb.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/54ec14f77c9948d4898c35b0c5b1fb21.png" alt="在这里插入图片描述"></p>
+<p>当<strong>delayed hits</strong>不常发生时，传统预期延迟和真实延迟差距很小。</p>
+<blockquote>
+<p>当Z&gt;100时开始出现差异，当Z&gt;1000时差距逐渐明显</p>
+</blockquote>
+<p>当<strong>Z</strong>增大时，预测和实际的差距也在增大。<br><img src="https://img-blog.csdnimg.cn/0bdc61f69a704ec6ac71a309f801b63d.png" alt="在这里插入图片描述"><br>“红叉”表示：在两个算法之间，只根据hit ratio选择，平均延迟表现更糟的情况（即选错的情况）。可以看出，有超过1&#x2F;3的情况都选错了。</p>
+<p>delayed hits 的存在可能会对人们的决策选择产生误导。</p>
+<h2 id="2-4-Minimizing-Latency-is-challenging"><a href="#2-4-Minimizing-Latency-is-challenging" class="headerlink" title="2.4 Minimizing Latency is challenging"></a>2.4 Minimizing Latency is challenging</h2><p>有例子表明，随着Z的增长，最优策略可能会产生很大的变化。</p>
+<p>在考虑delayed hits时，一个真正可以降低latency的算法可能会降低命中率，或者提高缺失率。</p>
+<h1 id="3-Latency-Offline-Optimal"><a href="#3-Latency-Offline-Optimal" class="headerlink" title="3 Latency Offline Optimal"></a>3 Latency Offline Optimal</h1><p>假设true hit的latency为0，delayed hit的latency为（0，Z），miss的latency为Z。</p>
+<p>MCMCF：Minimun-Cost Multi-Commodity Flow（多商品的最小费用流问题）</p>
+<p>求MCMCF的整数解是NP问题，为了降低其应用成本，作者做了两处优化：</p>
+<ol>
+<li>根据先验知识剪枝、合并一些状态。</li>
+<li>求解分数解（可以在多项式时间内解决），然后对分数解进行随机舍入</li>
+</ol>
+<h2 id="3-1-Network-Flow-Formulation"><a href="#3-1-Network-Flow-Formulation" class="headerlink" title="3.1 Network Flow Formulation"></a>3.1 Network Flow Formulation</h2><p>将MCMCF中的commodities换成object；结点代表object在cache中，或者在backing store中；边代表加载object到cache中，保持object在cache中后，或者将object从cache中淘汰；边权代表缺失或delayed hit造成的延迟。这种情况下，最小化边权等价于最小化cache的延迟。</p>
+<p>aggregate delay：miss的delay和miss造成的delayed hits的delay。</p>
+<p><img src="https://img-blog.csdnimg.cn/4233d8904be7488ab8e28b50ae818ad7.png" alt="在这里插入图片描述"><br>BELATEDLY的流网络包含两种结点，底层的结点代表backing store，上层的结点代表cache，将backing store的结点集命名为$V_{mem}$，将cache的结点集命名为$V_{cch}$。结点是按照timestep进行有序放置的，下层结点用$V_{mem,T}$表示，其中$T&#x3D;0,1,\cdots ,N-1$；上层结点用$V_{cch,T}$表示，其中$T&#x3D;Z,Z+1,\cdots ,N-1+Z$。在上图的例子中，Z&#x3D;2。<br>假设一共有M个object，用i表示，其中$i&#x3D;1,2,\cdots , M$，$\sigma(x)$表示在$x$时刻被request的object。当i第一次被request时，对应的结点为源结点。<br><img src="https://img-blog.csdnimg.cn/95d957975dfa4e17bb670ee3be34bb04.png" alt="在这里插入图片描述"><br>在更高的抽象模型上，下层的结点代表某一时刻被request的object，由$V_{mem,t}$到$V_{cch,t+Z}$的边代表将object载入到cache中。上层结点$V_{cch,t+Z}$代表t时刻的request被处理了。object可能留在cache，对应由$V_{cch,n}$到V_{cch,n+1}的边。每个上层结点$V_{cch,n}$还有一条指向下层结点$V_{mem,x}$的边，其中x为该object下一次被需求的时刻，代表object从cache中淘汰。如果该object之后不再被request，则引出一条边指向汇点。</p>
+<p>下面给出不同边的容量和花费：</p>
+<ul>
+<li>$(V_{cch,n},V_{cch,n+1})$：假设cache的容量为C，则此类边的容量为C，花费为0。</li>
+<li>$(V_{cch,n},V_{mem,x})$：容量为1，代表淘汰一个object。除了$\sigma(x)$对应的object的花费为0，其余物品的花费均为$\infty$。</li>
+<li>$(V_{mem,T},V_{cch,T+Z})$：容量为1，除了$\sigma(T)$对应的object外，其余物品的花费均为$\infty$。$\sigma(T)$对应的object的花费为该object的aggregate delay，公式如下：<br>$$<br>Z+\sum_{t&#x3D;1}^{Z-1}I(\sigma(T+t)&#x3D;\sigma(T))\cdot(Z-t)<br>$$</li>
+</ul>
+<h2 id="3-2-Delayed-Hits-and-Empirical-Latencies"><a href="#3-2-Delayed-Hits-and-Empirical-Latencies" class="headerlink" title="3.2 Delayed Hits and Empirical Latencies"></a>3.2 Delayed Hits and Empirical Latencies</h2><p><img src="https://img-blog.csdnimg.cn/43e70843ba9a475c8658ef5a6033fa2e.png" alt="在这里插入图片描述"><br>由图7可知，当访问backing store的latency较大时，Belady和BELATEDLY的差距较大。</p>
+<blockquote>
+<p>倒不如直接尝试缩小backing store的延迟</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/374d977d5d3944ed8a33d0918d57a60d.png" alt="在这里插入图片描述"><br>由图8可知，当Z&gt;$10^4$时，Belady和BELATEDLY之间的差距会缩小。这是因为，当Z过大时，特别是当Z超过request次数，这种情况下是不存在true hit的，所以BELATEDLY的优化空间不大。</p>
+<p><img src="https://img-blog.csdnimg.cn/1181bee3733441808d14d186dc287744.png" alt="在这里插入图片描述"><br>Belady和BELATEDLY之间的差距会随cache大小而变化。当cache特别大或特别小时，二者的差距都不明显。</p>
+<p>Goh-Barabasi Score可以用来分析request的时间特性：当Score为1时，说明request在一个时间点内集中到来；当Score为-1时，说明request均匀分布。<br><img src="https://img-blog.csdnimg.cn/11b595e7b665492c98a21be25004fc31.png" alt="在这里插入图片描述"><br>二者之间的差距还与数据的随时间的分布有关。如果数据在某些时刻突然大量涌入，BELATEDLY的表现明显更好。</p>
+<blockquote>
+<p>BELATEDLY不是理论最优吗？为什么在某些情况下表现会比Belady差？</p>
+</blockquote>
+<h1 id="4-APPROXIMATING-BELATEDLY"><a href="#4-APPROXIMATING-BELATEDLY" class="headerlink" title="4 APPROXIMATING BELATEDLY"></a>4 APPROXIMATING BELATEDLY</h1><p>BELATEDLY运行速度很慢，不可能被应用于实际cache中。所以需要设计一些算法，近似BELATEDLY的效果。</p>
+<h2 id="4-1-Offline-Approximations：Belady-AD"><a href="#4-1-Offline-Approximations：Belady-AD" class="headerlink" title="4.1 Offline Approximations：Belady AD"></a>4.1 Offline Approximations：Belady AD</h2><p>尝试寻找一种排序函数。</p>
+<p>按照Goh-Barabasi score为object进行排序，速度快，但效果不好。</p>
+<p>按照该object的下一访问（假定miss）的aggregate latency进行排序，效果同样不好。因为尽管某object的下一次访问的aggregate latency很高，但可能同样很晚到来。</p>
+<p>BELADY-AD的rank函数定义为：<br>$$<br>Rank(x)&#x3D;\frac{AggDelay(x)}{TTNA(x)}<br>$$<br>其中，AggDelay为该object的下一访问（假定miss）的aggregate latency，TTNA为距离下一次该object被request的timestep数。<br><img src="https://img-blog.csdnimg.cn/3ff2cd55be3e401f83d5e6e5f6052720.png" alt="在这里插入图片描述"><br>如图12所示，Belady-AD对BELATEDLY的拟合效果很好，对250K个request，Belady-AD只需要3秒，而BELATEDLY则需要8小时。</p>
+<h2 id="4-2-Online-Algorithm：MAD"><a href="#4-2-Online-Algorithm：MAD" class="headerlink" title="4.2 Online Algorithm：MAD"></a>4.2 Online Algorithm：MAD</h2><p>rank函数中的TTNA很好得到，因为传统算法的排序函数本质上就是1&#x2F;TNNA，所以选择传统算法中的较优者即可。</p>
+<p>对于Aggregate Delay，作者假设过去所有对于该object的request均miss，然后计算Aggregate Delay的平均值，这种方法的皮尔逊相关系数为0.7。具体算法如下：<br><img src="https://img-blog.csdnimg.cn/537a6271bf6c41ffa77dd79a15a66763.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>该算法和文中描述的算法思想相符吗？文中说：”assuming that all past requests to x were misses”，而该算法明显不是这样做的。但直观上感觉伪代码的算法更合理一些。</p>
+</blockquote>
+<p>competitive ratio</p>
+<h1 id="5-Evaluation"><a href="#5-Evaluation" class="headerlink" title="5 Evaluation"></a>5 Evaluation</h1><h2 id="5-1-Experimental-setup"><a href="#5-1-Experimental-setup" class="headerlink" title="5.1 Experimental setup"></a>5.1 Experimental setup</h2><p><img src="https://img-blog.csdnimg.cn/8f3ac9f0cc5a45fc81b6530f7f3bd271.png" alt="在这里插入图片描述"><br>Client向Load Balancer发送一个16B的object id，然后Load Balance将id传输到相应的Cache Shard。Cache通过查找表判断object是否在当前cache中，如果在则直接向Client发送结果，否则将request传输到Flow Manager。Flow Manager为每个id保存一个未完成request的队列。当Flow Manager收到request时，首先判断当前id是否已经存在queue，没有则创建一个新的队列，有则将该request加入到队尾。Network Manager负责查询backing store。Flow Manager接收Network Manager的反馈，向cache发送写请求，cache更新，该id队列中的所有request处理完毕。</p>
+<p>作者使用64路组相联cache，大小为object最大值的5%，固定object的大小为1KB，request interval为1微秒。</p>
+<h2 id="5-2-Prototype-Evaluation-on-CDN-Trace"><a href="#5-2-Prototype-Evaluation-on-CDN-Trace" class="headerlink" title="5.2 Prototype Evaluation on CDN Trace"></a>5.2 Prototype Evaluation on CDN Trace</h2><p><img src="https://img-blog.csdnimg.cn/7d71e5c3098246cf9a91e0f266b4adbf.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>作者的数据假设所有backend的延迟均一样，而对于更复杂的情况，需要设计更合适的rank函数。</p>
+</blockquote>
+<p>为了观察MAD的内存消耗，作者使用了两种安装策略：“strawman”为所有object安装4个计数器，“efficient”值为cache中的object安装4个计数器。“efficient”和“strawman”的平均latency差距不超过6%，所以作者最终采用了“efficient”。对于1KB的object，消耗只有3%。</p>
+<p>由前文可知，计算rank函数的时间复杂度是线性的（可以优化成常数）。</p>
+<p>为了方便研究，作者对cache模型进行了简化：假设时间是离散的（request恰好在timestep的起始时刻到来）、cache的管理操作是可以瞬时完成的、network的latency是给定的。<br><img src="https://img-blog.csdnimg.cn/0ade28c3d21346c58d9c227e4f8136f2.png" alt="在这里插入图片描述"><br>由图15可知，这种简化是符合实际的（CDF为累积分布函数）。</p>
+<h2 id="5-3-Simulation-Results：Systems"><a href="#5-3-Simulation-Results：Systems" class="headerlink" title="5.3 Simulation Results：Systems"></a>5.3 Simulation Results：Systems</h2><p><img src="https://img-blog.csdnimg.cn/1f5226e001b24cd4bc0f4dd814df92ad.png" alt="在这里插入图片描述"><br>由图16可知，MAD对于传统算法的提升是比较明显的。</p>
+<blockquote>
+<p>其实对现有系统的提升不是很明显。。。但发展潜力很大。</p>
+</blockquote>
+<p>MAD对于CDN和分布式存储的提升是明显的，然而对于IDS的提升却很有限。</p>
+<h2 id="5-4-Simulation-Results：Analysis"><a href="#5-4-Simulation-Results：Analysis" class="headerlink" title="5.4 Simulation Results：Analysis"></a>5.4 Simulation Results：Analysis</h2><p><img src="https://img-blog.csdnimg.cn/844110a8af9844c5925bd81722d86131.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/873c1d3dfd204ec7ab40ef2f27c656b5.png" alt="在这里插入图片描述"><br>如图20所示，尽管MAD算法并未考虑Goh-Barabasi Score，但MAD还是很倾向于bursty objects</p>
+<blockquote>
+<p>为啥负优化的这么多？</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/f86b9ad16c434758aa11094bd922c56c.png" alt="在这里插入图片描述"><br>MAD算法可能导致bandwidth的增加。</p>
+<h1 id="6-Limitations-and-Open-Questions"><a href="#6-Limitations-and-Open-Questions" class="headerlink" title="6 Limitations and Open Questions"></a>6 Limitations and Open Questions</h1><p>作者并没有研究变化的backing store latency的情况，也没有考虑不同object大小的情况。且作者假设一旦fetch结束，队列中所有的request都处理完毕，而实际上可能是按顺序处理。此外，预取算法也需要在delayed hit存在的情况下被重新审视。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#cache" >
+    <span class="tag-code">cache</span>
+  </a>
+
+  <a href="/tags#delayed hit" >
+    <span class="tag-code">delayed hit</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2022/07/23/RobinHood-Tail-Latency-Aware-Caching-Dynamic-Reallocation-from-Cache-Rich-to-Cache-Poor%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <span class="nav-arrow">← </span>
+        
+          RobinHood: Tail Latency Aware Caching-Dynamic Reallocation from Cache-Rich to Cache-Poor学习笔记
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2022/07/23/Learning-Relaxed-Belady-for-Content-Distribution-Network-Caching%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+          Learning Relaxed Belady for Content Distribution Network Caching学习笔记
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="toc-nav-text">参考资料：</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Abstract"><span class="toc-nav-text">Abstract</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#1-Introduction"><span class="toc-nav-text">1 Introduction</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#2-The-Problem-with-Delayed-Hits"><span class="toc-nav-text">2 The Problem with Delayed Hits</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-1-Classic-Caching-Algorithm"><span class="toc-nav-text">2.1 Classic Caching Algorithm</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-2-Belady-is-Not-Latency-Minimal"><span class="toc-nav-text">2.2 Belady is Not Latency-Minimal</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-3-Delayed-Hits-and-Practical-Algorithm"><span class="toc-nav-text">2.3 Delayed Hits and Practical Algorithm</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-4-Minimizing-Latency-is-challenging"><span class="toc-nav-text">2.4 Minimizing Latency is challenging</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#3-Latency-Offline-Optimal"><span class="toc-nav-text">3 Latency Offline Optimal</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-1-Network-Flow-Formulation"><span class="toc-nav-text">3.1 Network Flow Formulation</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-2-Delayed-Hits-and-Empirical-Latencies"><span class="toc-nav-text">3.2 Delayed Hits and Empirical Latencies</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#4-APPROXIMATING-BELATEDLY"><span class="toc-nav-text">4 APPROXIMATING BELATEDLY</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-1-Offline-Approximations%EF%BC%9ABelady-AD"><span class="toc-nav-text">4.1 Offline Approximations：Belady AD</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-2-Online-Algorithm%EF%BC%9AMAD"><span class="toc-nav-text">4.2 Online Algorithm：MAD</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#5-Evaluation"><span class="toc-nav-text">5 Evaluation</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-1-Experimental-setup"><span class="toc-nav-text">5.1 Experimental setup</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-2-Prototype-Evaluation-on-CDN-Trace"><span class="toc-nav-text">5.2 Prototype Evaluation on CDN Trace</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-3-Simulation-Results%EF%BC%9ASystems"><span class="toc-nav-text">5.3 Simulation Results：Systems</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-4-Simulation-Results%EF%BC%9AAnalysis"><span class="toc-nav-text">5.4 Simulation Results：Analysis</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#6-Limitations-and-Open-Questions"><span class="toc-nav-text">6 Limitations and Open Questions</span></a>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/2022/07/23/Caching-with-Delayed-Hits学习笔记/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>
