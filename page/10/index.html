@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -289,6 +289,220 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">算法自学__动态规划入门</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-07-23 16:20:58" itemprop="dateCreated datePublished" datetime="2022-07-23T16:20:58+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-12-27 16:47:48" itemprop="dateModified" datetime="2022-12-27T16:47:48+08:00">2022-12-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>参考资料:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/39948290">https://www.zhihu.com/question/39948290</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zw6161080123/article/details/80639932">https://blog.csdn.net/zw6161080123/article/details/80639932</a></li>
+</ul>
+<h1 id="算法引入"><a href="#算法引入" class="headerlink" title="算法引入"></a>算法引入</h1><p>我们先考虑一个经典问题:<br>小明要爬上一个n级的台阶, 他每次可以走1级或2级, 求不同的走法数.</p>
+<h2 id="经典递归算法"><a href="#经典递归算法" class="headerlink" title="经典递归算法"></a>经典递归算法</h2><p>代码:</p>
+<pre><code>int solve(int n) {
+    if (n == 1)return 1;
+    else if (n == 2)return 2;
+    else return solve(n - 1) + solve(n - 2);
+}
+int main() {
+    int n;
+    cin &gt;&gt; n;
+    cout &lt;&lt; solve(n);
+    return 0;
+}
+</code></pre><p>时间复杂度: O(2^n)<br>我们可以发现, 上述算法包含着大量的重复计算:<br>假设<code>n=5</code>, 根据上述算法, 我们需要先计算<code>solve(4)</code>和<code>solve(3)</code><br>而要计算<code>solve(4)</code>, 必须先计算<code>solve(3)</code>和<code>solve(2)</code><br>我们注意到<code>solve(3)</code>被计算了两次.<br>当问题规模更大时, 重复计算会更多, 导致问题不能在理想的时间内得到解决.</p>
+<h2 id="动态规划算法"><a href="#动态规划算法" class="headerlink" title="动态规划算法"></a>动态规划算法</h2><p>如果我们将已经解决的问题的结果保存下来, 在解决新问题时直接调取旧问题的结果, 就能节省不少时间, 这就是最简单的<strong>动态规划</strong></p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+int dp[100];
+void solve(int n) {
+    if (n &lt;= 2) return;
+    else {
+        for (int i = 3; i &lt;= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+    }
+}
+int main() {
+    dp[1] = 1, dp[2] = 2;
+    int n;
+    cin &gt;&gt; n;
+    solve(n);
+    cout &lt;&lt; dp[n];
+    return 0;
+}
+</code></pre><p>时间复杂度: O(n)</p>
+<h1 id="动态规划算法-1"><a href="#动态规划算法-1" class="headerlink" title="动态规划算法"></a>动态规划算法</h1><h2 id="能用动态规划解决的问题的特点"><a href="#能用动态规划解决的问题的特点" class="headerlink" title="能用动态规划解决的问题的特点"></a>能用动态规划解决的问题的特点</h2><ul>
+<li>最优化原理: 问题的最优解所包含的<strong>子问题的解</strong>也是最优的.</li>
+<li>无后效性: 某个阶段的决策一旦确定, 就不受后续决策的影响.</li>
+<li>有重叠的子问题(<em>该性质不是必须的, 但是若没有这条性质, 动态规划算法将不具有优势</em>).</li>
+</ul>
+<h2 id="算法实现的步骤"><a href="#算法实现的步骤" class="headerlink" title="算法实现的步骤"></a>算法实现的步骤</h2><ol>
+<li>创建一个数组(数组的维数与问题相关), 用以保存子问题的结果.</li>
+<li>设置数组的边界值.</li>
+<li>求出<strong>状态转移方程</strong>, 即找到每个状态与上一个状态的关系.</li>
+<li>返回需要的值.</li>
+</ol>
+<h2 id="经典例题"><a href="#经典例题" class="headerlink" title="经典例题"></a>经典例题</h2><h3 id="1-最长不连续递增子列"><a href="#1-最长不连续递增子列" class="headerlink" title="1.最长不连续递增子列"></a>1.最长不连续递增子列</h3><p>对应题目: <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-increasing-subsequence/">LeetCode第300题</a></p>
+<p>算法思想:</p>
+<ul>
+<li>定义状态<code>dp[i]</code>为: 以<code>nums[i]</code>为<strong>尾元素</strong>的上升子序列的最长长度.</li>
+<li>状态转移: 对于每一个<code>j</code>属于<code>[0, i)</code>, 若<code>nums[i] &gt; nums[j]</code>, 则<code>dp[i] = max(dp[i], dp[j]+1)</code></li>
+<li>遍历<code>dp</code>数组, 数组中的最大元素即为原问题的答案.</li>
+</ul>
+<p>代码实现:</p>
+<pre><code>int lengthOfLIS(int* nums, int numsSize){
+    int dp[2505];
+    for(int i=0;i&lt;numsSize;i++){        //求以nums[i]为结尾的最长递增子列
+        dp[i]=1;        //初值为1
+        for(int j=0;j&lt;i;j++){
+            if(nums[i]&gt;nums[j]){
+                dp[i]=fmax(dp[i],dp[j]+1);        //状态转移方程
+            }
+        }
+    }
+    int max=0;
+    for(int i=0;i&lt;numsSize;i++){
+        if(dp[i]&gt;max) max=dp[i];
+    }
+    return max;
+}
+// 时间复杂度O(n^2)
+</code></pre><p>算法改进:<br>定义<code>tail</code>数组, <code>tail[i]</code>表示: 长度为<code>i+1</code>的所有递增子列的最小尾元素.<br>我们容易知道, <code>tail</code>数组是严格单调递增的.<br>状态转移定义为:</p>
+<ol>
+<li>若当前元素<code>e</code>大于<code>tail[i]</code>, 则<code>tail[i+1]=e</code>(<em>得到了一个长度为<code>i+2</code>的递增子列, 最小尾元素为<code>e</code></em>)</li>
+<li>若当前元素<code>e</code>小于等于<code>tail[i]</code>, 二分查找到<code>tail</code>数组中<strong>第一个</strong>大于<code>e</code>的数字, 并将其更新为<code>e</code></li>
+</ol>
+<p>当我们遍历整个数组后, <code>tail</code>数组中的元素个数即为最长递增子列的长度.</p>
+<p>代码实现:</p>
+<pre><code>class Solution {
+public:
+    int lengthOfLIS(vector&lt;int&gt;&amp; nums) {
+        int tail[2505];
+        tail[0]=nums[0];
+        int ans=1;
+        int len=nums.size();
+        for(int i=1;i&lt;len;i++){
+            if(nums[i]&gt;tail[ans-1]){
+                tail[ans++]=nums[i];
+            }
+            else if(nums[i]==tail[ans-1]) continue;
+            else{
+                int L=0,R=ans-1,flag=0;
+                while(L&lt;=R){
+                    int mid=(L+R)&gt;&gt;1;
+                    if(nums[i]&gt;tail[mid]) L=mid+1;
+                    else{
+                        flag=mid;
+                        R=mid-1;
+                    }
+                }
+                if(nums[i]==tail[flag]) continue;
+                tail[flag]=nums[i];
+            }
+        }
+        return ans;
+    }
+};
+//时间复杂度O(nlogn)
+</code></pre><h3 id="2-数组最大连续子序列和"><a href="#2-数组最大连续子序列和" class="headerlink" title="2. 数组最大连续子序列和"></a>2. 数组最大连续子序列和</h3><p>对应题目: LeetCode第53题</p>
+<p>代码实现:</p>
+<pre><code>class Solution {
+public:
+    int maxSubArray(vector&lt;int&gt;&amp; nums) {
+        int len=nums.size();
+        int dp[100005];
+        dp[0]=nums[0];
+        int max=dp[0];
+        for(int i=1;i&lt;len;i++){
+            dp[i]=fmax(dp[i-1]+nums[i],nums[i]);
+            if(dp[i]&gt;max) max=dp[i];
+        }
+        return max;
+    }
+};
+</code></pre>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1539,168 +1753,6 @@ print(t1*t2)        # 则对应位置的数据进行计算
 </code></pre><p>广播原则: 如果两个数组的后缘维度（trailing dimension，即从末尾开始算起的维度）的轴长度相符，或其中的一方的长度为1，则认为它们是广播兼容的。广播会在缺失和（或）长度为1的维度上进行。</p>
 <h1 id="轴"><a href="#轴" class="headerlink" title="轴"></a>轴</h1><p>轴在numpy中用0, 1, 2, 3……表示. 对于一维数组, 只有一个0轴, 对于三维数组, 有0, 1, 2三个轴</p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E5%85%AD%EF%BC%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E5%85%AD%EF%BC%9E/" class="post-title-link" itemprop="url">Python3自学笔记 ＜六＞</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-07-23 16:06:24" itemprop="dateCreated datePublished" datetime="2022-07-23T16:06:24+08:00">2022-07-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-07-27 19:06:20" itemprop="dateModified" datetime="2022-07-27T19:06:20+08:00">2022-07-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/language/" itemprop="url" rel="index"><span itemprop="name">language</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>参考资料:<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-tutorial.html">https://www.runoob.com/python3/python3-tutorial.html</a></p>
-<h1 id="Python3面向对象"><a href="#Python3面向对象" class="headerlink" title="Python3面向对象"></a>Python3面向对象</h1><h2 id="类定义"><a href="#类定义" class="headerlink" title="类定义"></a>类定义</h2><pre><code>class ClassName:
-    &lt;statement-1&gt;
-    .
-    .
-    .
-    &lt;statement-2&gt;
-</code></pre><h2 id="类对象"><a href="#类对象" class="headerlink" title="类对象"></a>类对象</h2><pre><code>class MyClass:
-x = 1                #属性必须赋初值
-
-def f(self):
-    return self.x + 1
-
-#创建类的对象
-y = MyClass()
-
-#访问类的属性和方法
-print(y.f())                        #2
-print(y.x)                            #1
-</code></pre><p>构造函数<code>__init__()</code></p>
-<pre><code># 与C++的不同之处在于, 类的数据成员可以在构造函数内定义;
-# self的作用和C++中的this类似, 但不可以省略
-class MyComplex:
-def __init__(self, re, im):
-    self.re = re
-    self.im = im
-
-
-x = MyComplex(1, 2)
-print(x.re, x.im)
-</code></pre><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><pre><code>class DerivedClassName(BaseClassName):
-    &lt;statement-1&gt;
-    .
-    .
-    .
-    &lt;statement-2&gt;    
-</code></pre><p>派生类会继承基类的属性和方法</p>
-<pre><code>class PEOPLE:
-def __init__(self, name, age, weight):
-    self.name = name
-    self.age = age
-    self.__weight = weight  # weight为私有属性
-
-def speak(self):
-    print(f"我叫{self.name},今年{self.age}岁")
-
-
-class STUDENT(PEOPLE):
-    def __init__(self, name, age, weight, grade):
-        PEOPLE.__init__(self, name, age, weight)
-        self.grade = grade
-
-    # 覆写父类的方法
-    def speak(self):
-        print(f"我叫{self.name},今年{self.age}岁,在读{self.grade}年级")
-
-
-s = STUDENT('Tom', 10, 60, 3)
-s.speak()
-</code></pre><h2 id="多继承"><a href="#多继承" class="headerlink" title="多继承"></a>多继承</h2><pre><code># 若是父类中有相同的方法名, 而在子类使用时未指定, Python从左向右搜索
-class DerivedClassName(Base1, Base2, Base3):
-    &lt;statement-1&gt;
-    .
-    .
-    .
-    &lt;statement-N&gt;
-</code></pre><h2 id="运算符的重载"><a href="#运算符的重载" class="headerlink" title="运算符的重载"></a>运算符的重载</h2><pre><code>class A:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def __add__(self, other):
-        return A(self.x + other.x, self.y + other.y)
-
-
-a = A(1, 2)
-b = A(3, 4)
-c = a + b
-</code></pre>
       
     </div>
 

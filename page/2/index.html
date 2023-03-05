@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -289,6 +289,122 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/02/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">操作系统——文件系统</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-02-12 15:10:59 / Modified: 15:11:33" itemprop="dateCreated datePublished" datetime="2023-02-12T15:10:59+08:00">2023-02-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="1-文件管理概述"><a href="#1-文件管理概述" class="headerlink" title="1 文件管理概述"></a>1 文件管理概述</h1><p>一个文件有哪些属性？</p>
+<ul>
+<li>文件名：由创建文件的用户指定，同一目录下不允许有重名文件。</li>
+<li>标识符：操作系统区分文件的内部名称。</li>
+<li>类型、大小、创建时间、保护信息等。</li>
+</ul>
+<p>文件内部的逻辑结构：</p>
+<ul>
+<li>流式文件：无结构文件，由一些二进制或字符流组成。</li>
+<li>记录式文件：有结构文件，由一系列记录组成。</li>
+</ul>
+<h1 id="2-文件的逻辑结构"><a href="#2-文件的逻辑结构" class="headerlink" title="2 文件的逻辑结构"></a>2 文件的逻辑结构</h1><p>记录式文件：由一组相似的记录组成，每条记录包含若干数据项，每条记录有一个数据项可作为<strong>关键字</strong>。根据各条记录的长度，可分为<strong>定长记录</strong>和<strong>可变长记录</strong>两种。</p>
+<p><img src="https://img-blog.csdnimg.cn/2dbbda69206e46529fe061ef53b36447.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/1c9231a6f33d4d0fa892031f16bef0e9.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/0fb88f20e6bf427b9ecd21ffc2493d95.png" alt="在这里插入图片描述"></p>
+<h1 id="3-文件目录"><a href="#3-文件目录" class="headerlink" title="3 文件目录"></a>3 文件目录</h1><p>文件目录基于<strong>FCB</strong>实现文件的<strong>按名存取</strong>。<br>文件目录包含两种目录项：普通文件的FCB、子目录的<strong>目录文件</strong>的FCB。目录文件至少包含两个目录项：当前目录项（.）和父目录项（..）。</p>
+<p><img src="https://img-blog.csdnimg.cn/b87b70c49c2748bbad0555064615d7a3.png" alt="在这里插入图片描述"></p>
+<p>单级目录结构：整个系统中只建立一个文件目录。在多用户环境中易出现<strong>命名冲突</strong>问题。</p>
+<p>两级目录结构：<br><img src="https://img-blog.csdnimg.cn/aecd1c6116ae4090b8a042ed971ad043.png" alt="在这里插入图片描述"></p>
+<p>多级目录结构：又称为“树形目录结构”。从<strong>根目录</strong>出发的路径称为<strong>绝对路径</strong>；从<strong>当前目录</strong>触发的路径称为<strong>相对路径</strong>。树形目录结构<strong>不利于文件共享</strong>。</p>
+<p>无环图目录结构：<br><img src="https://img-blog.csdnimg.cn/f3cedcca60c5432a81bdf89c38e8158d.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/f6aa4c3c8d79409b949c77667b983756.png" alt="在这里插入图片描述"></p>
+<h1 id="4-文件的物理结构"><a href="#4-文件的物理结构" class="headerlink" title="4 文件的物理结构"></a>4 文件的物理结构</h1><p>磁盘中的存储单元也会被分为一个个<strong>磁盘块</strong>，在很多操作系统中，磁盘块大小与内存块、页面大小相同。</p>
+<p><img src="https://img-blog.csdnimg.cn/cfc2b312bb5e4ab88cab53d3eb4af828.png" alt="在这里插入图片描述"></p>
+<h2 id="4-1-连续分配方式"><a href="#4-1-连续分配方式" class="headerlink" title="4.1 连续分配方式"></a>4.1 连续分配方式</h2><p>要求：每个文件在磁盘上占有一组<strong>连续</strong>的块。</p>
+<p><img src="https://img-blog.csdnimg.cn/28f335cba8a4465a96041d0c08c5e1cc.png" alt="在这里插入图片描述"></p>
+<p>优点：支持随机访问；顺序读/写速度最快（磁头移动距离短）。<br>缺点：不利于文件扩展；物理空间利用效率低，产生难以处理的磁盘碎片。</p>
+<h2 id="4-2-链接分配方式"><a href="#4-2-链接分配方式" class="headerlink" title="4.2 链接分配方式"></a>4.2 链接分配方式</h2><p>隐式链接：<br><img src="https://img-blog.csdnimg.cn/974f72d7df0544abaeff03cfa610ca7c.png" alt="在这里插入图片描述"><br>优点：磁盘利用率高，没有磁盘碎片；方便文件扩展。<br>缺点：只支持顺序访问，不支持随机访问。</p>
+<p>显式链接：<br><img src="https://img-blog.csdnimg.cn/4311a9d8c1094a67a501428e24d2860c.png" alt="在这里插入图片描述"></p>
+<p>优点：由于FAT表常驻内存，当我们想要访问某个逻辑块时，可以通过查表的方式找到其对应的物理块，所以显示链接是支持随机访问的；不会产生磁盘碎片；方便文件扩展。<br>缺点：FAT表需要占用一定的存储空间。</p>
+<h2 id="4-3-索引分配方式"><a href="#4-3-索引分配方式" class="headerlink" title="4.3 索引分配方式"></a>4.3 索引分配方式</h2><p><img src="https://img-blog.csdnimg.cn/9e56e8a8bf364a14ad442de8dbcb5f2d.png" alt="在这里插入图片描述"></p>
+<p>优点：支持随机访问；方便文件扩展。<br>缺点：索引表占用存储空间。</p>
+<p>如果一个文件的索引表的大小超过一个磁盘块的大小，应该如何处理？<br><img src="https://img-blog.csdnimg.cn/f86c1447c3524acdb9bf54f0e308f73f.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/258186602a54494684558401e8b01e51.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>各级索引表最大不能超过一个物理块。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/358e46774edd43dfb122be4e5f67e104.png" alt="在这里插入图片描述"></p>
+<h1 id="5-文件存储空间管理"><a href="#5-文件存储空间管理" class="headerlink" title="5 文件存储空间管理"></a>5 文件存储空间管理</h1><p><img src="https://img-blog.csdnimg.cn/2babacc1dc7a4372a632b04fd077af24.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/2b9f49cb293b40668dac9dcb33132d02.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/131c4bf543254ed684792afa681b6ed5.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/7039522d0e5f4d429c879a9b233325e7.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/2eeecf86014147c983f92810f3becad1.png" alt="在这里插入图片描述"></p>
+<h1 id="6-文件的基本操作"><a href="#6-文件的基本操作" class="headerlink" title="6  文件的基本操作"></a>6  文件的基本操作</h1><p><img src="https://img-blog.csdnimg.cn/e98e839b51ec42ee9b29a2d0c9195c0c.png" alt="在这里插入图片描述"></p>
+<h1 id="7-文件共享"><a href="#7-文件共享" class="headerlink" title="7 文件共享"></a>7 文件共享</h1><p><img src="https://img-blog.csdnimg.cn/fc4c1a70b51c4e45b1d3d62645fdd1ba.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/18f40eb1f7334fdeb73ff9436128606d.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/eff263bb45e744539d6169af761864fb.png" alt="在这里插入图片描述"></p>
+<h1 id="8-文件保护"><a href="#8-文件保护" class="headerlink" title="8 文件保护"></a>8 文件保护</h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1566,99 +1682,6 @@ f[i-1][j-1][k] + g[i-1][j-1][k-1], &a[i]==b[i]\\
 <p>状态转移方程二：</p>
 <script type="math/tex; mode=display">g[i][j][k] = f[i][j][k] + g[i-1][j][k]</script><p>解释：根据<code>g[i][j][k]</code>的定义，<code>a[i]</code>要么选，要么不选。选的情形，对应<code>f[i][j][k]</code>；不选的情形，对应<code>g[i-1][j][k]</code>。</p>
 <h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1005</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxm = <span class="number">205</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> p = <span class="number">1000000007</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> f[<span class="number">2</span>][maxm][maxm];</span><br><span class="line"><span class="type">int</span> g[<span class="number">2</span>][maxm][maxm];</span><br><span class="line"><span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> n, m, K;</span><br><span class="line"><span class="type">char</span> a[maxn], b[maxm];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m&gt;&gt;K;</span><br><span class="line">	<span class="comment">//让字符串从下标1开始</span></span><br><span class="line">	cin&gt;&gt;a+<span class="number">1</span>&gt;&gt;b+<span class="number">1</span>;</span><br><span class="line">	<span class="comment">//保证(a[i]==b[j])为真，且j为1、k为1时，f[cnt][j][k]为1</span></span><br><span class="line">	g[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>] = g[<span class="number">1</span>][<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="comment">//滚掉i</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=<span class="built_in">min</span>(m, i);j++){</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">1</span>;k&lt;=K;k++){</span><br><span class="line">				<span class="keyword">if</span>(a[i]==b[j]){</span><br><span class="line">					f[cnt][j][k] = (f[cnt^<span class="number">1</span>][j<span class="number">-1</span>][k]+g[cnt^<span class="number">1</span>][j<span class="number">-1</span>][k<span class="number">-1</span>]) % p;</span><br><span class="line">				}</span><br><span class="line">				<span class="keyword">else</span>{</span><br><span class="line">					f[cnt][j][k] = <span class="number">0</span>;</span><br><span class="line">				}</span><br><span class="line">				g[cnt][j][k] = (g[cnt^<span class="number">1</span>][j][k]+f[cnt][j][k]) % p;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		cnt = cnt^<span class="number">1</span>;</span><br><span class="line">	}</span><br><span class="line">	cout&lt;&lt;g[cnt^<span class="number">1</span>][m][K];</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/13/%E6%B4%9B%E8%B0%B7%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94P1120-%E5%B0%8F%E6%9C%A8%E6%A3%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/12/13/%E6%B4%9B%E8%B0%B7%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94P1120-%E5%B0%8F%E6%9C%A8%E6%A3%8D/" class="post-title-link" itemprop="url">洛谷刷题笔记——P1120 小木棍</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-12-13 18:27:27 / Modified: 18:29:03" itemprop="dateCreated datePublished" datetime="2022-12-13T18:27:27+08:00">2022-12-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>参考资料</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/solution/P1120">https://www.luogu.com.cn/problem/solution/P1120</a></li>
-</ul>
-<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>乔治有一些同样长的小木棍，他把这些木棍随意砍成几段，直到每段的长都不超过 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex;" xmlns="http://www.w3.org/2000/svg" width="2.262ex" height="1.557ex" role="img" focusable="false" viewBox="0 -666 1000 688"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g></g></g></svg></mjx-container>。</p>
-<p>现在，他想把小木棍拼接成原来的样子，但是却忘记了自己开始时有多少根木棍和它们的长度。</p>
-<p>给出每段小木棍的长度，编程帮他找出原始木棍的最小可能长度。</p>
-<h1 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h1><p>第一行是一个整数 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.357ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 600 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container>，表示小木棍的个数。<br>第二行有 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.357ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 600 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container> 个整数，表示各个木棍的长度 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="1.937ex" height="1.355ex" role="img" focusable="false" viewBox="0 -441 856 598.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(562,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container>。</p>
-<h1 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h1><p>输出一行一个整数表示答案。</p>
-<h1 id="样例-1"><a href="#样例-1" class="headerlink" title="样例 #1"></a>样例 #1</h1><h2 id="样例输入-1"><a href="#样例输入-1" class="headerlink" title="样例输入 #1"></a>样例输入 #1</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">9</span><br><span class="line">5 2 1 5 2 1 5 2 1</span><br></pre></td></tr></table></figure>
-<h2 id="样例输出-1"><a href="#样例输出-1" class="headerlink" title="样例输出 #1"></a>样例输出 #1</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6</span><br></pre></td></tr></table></figure>
-<h1 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h1><p>对于全部测试点，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.312ex;" xmlns="http://www.w3.org/2000/svg" width="10.785ex" height="1.819ex" role="img" focusable="false" viewBox="0 -666 4767.1 804"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(777.8,0)"><path data-c="2264" d="M674 636Q682 636 688 630T694 615T687 601Q686 600 417 472L151 346L399 228Q687 92 691 87Q694 81 694 76Q694 58 676 56H670L382 192Q92 329 90 331Q83 336 83 348Q84 359 96 365Q104 369 382 500T665 634Q669 636 674 636ZM84 -118Q84 -108 99 -98H678Q694 -104 694 -118Q694 -130 679 -138H98Q84 -131 84 -118Z"></path></g><g data-mml-node="mi" transform="translate(1833.6,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(2711.3,0)"><path data-c="2264" d="M674 636Q682 636 688 630T694 615T687 601Q686 600 417 472L151 346L399 228Q687 92 691 87Q694 81 694 76Q694 58 676 56H670L382 192Q92 329 90 331Q83 336 83 348Q84 359 96 365Q104 369 382 500T665 634Q669 636 674 636ZM84 -118Q84 -108 99 -98H678Q694 -104 694 -118Q694 -130 679 -138H98Q84 -131 84 -118Z"></path></g><g data-mml-node="mn" transform="translate(3767.1,0)"><path data-c="36" d="M42 313Q42 476 123 571T303 666Q372 666 402 630T432 550Q432 525 418 510T379 495Q356 495 341 509T326 548Q326 592 373 601Q351 623 311 626Q240 626 194 566Q147 500 147 364L148 360Q153 366 156 373Q197 433 263 433H267Q313 433 348 414Q372 400 396 374T435 317Q456 268 456 210V192Q456 169 451 149Q440 90 387 34T253 -22Q225 -22 199 -14T143 16T92 75T56 172T42 313ZM257 397Q227 397 205 380T171 335T154 278T148 216Q148 133 160 97T198 39Q222 21 251 21Q302 21 329 59Q342 77 347 104T352 209Q352 289 347 316T329 361Q302 397 257 397Z"></path><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z" transform="translate(500,0)"></path></g></g></g></svg></mjx-container>，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="11.364ex" height="1.864ex" role="img" focusable="false" viewBox="0 -666 5023.1 823.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(777.8,0)"><path data-c="2264" d="M674 636Q682 636 688 630T694 615T687 601Q686 600 417 472L151 346L399 228Q687 92 691 87Q694 81 694 76Q694 58 676 56H670L382 192Q92 329 90 331Q83 336 83 348Q84 359 96 365Q104 369 382 500T665 634Q669 636 674 636ZM84 -118Q84 -108 99 -98H678Q694 -104 694 -118Q694 -130 679 -138H98Q84 -131 84 -118Z"></path></g><g data-mml-node="msub" transform="translate(1833.6,0)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(562,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(2967.3,0)"><path data-c="2264" d="M674 636Q682 636 688 630T694 615T687 601Q686 600 417 472L151 346L399 228Q687 92 691 87Q694 81 694 76Q694 58 676 56H670L382 192Q92 329 90 331Q83 336 83 348Q84 359 96 365Q104 369 382 500T665 634Q669 636 674 636ZM84 -118Q84 -108 99 -98H678Q694 -104 694 -118Q694 -130 679 -138H98Q84 -131 84 -118Z"></path></g><g data-mml-node="mn" transform="translate(4023.1,0)"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g></g></g></svg></mjx-container>。</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><p>定义<code>cnt</code>表示原始木棍的数量，<code>len</code>表示每根原始木棍的长度，<code>sum</code>表示木棍的总长度。</p>
-<p>定义状态<code>(num, pre, last)</code>，其中<code>num</code>表示当前正在拼的<strong>原始木棍</strong>的编号，<code>pre</code>表示上一个使用的<strong>小木棍</strong>的编号，<code>last</code>表示当前<strong>原始木棍的剩余长度</strong>。</p>
-<ul>
-<li>如果<code>last</code>为0，说明当前原始木棍已经拼接完成。此时，如果有<code>num</code>和<code>cnt</code>相等，说明所有木棍拼接成功；如果<code>num</code>和<code>cnt</code>不相等，则继续拼接下一个原始木棍。</li>
-<li>如果<code>last</code>不为0，则选择尚未使用的小木棍来拼接该原始木棍。</li>
-</ul>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>优化1：仅需要考虑<code>len &lt;= sum/2</code>的情况。</p>
-<p>优化2：当前状态为：完成了某个原始木棍的拼接，准备进入下一个原始木棍的拼接。在这一状态下，我们选取一根<strong>最长的</strong>、尚未使用过的小木棍来进行拼接，<strong>如果拼接失败，则无需再考虑其他木棍</strong>，直接从当前状态返回。这是因为，所有未使用过的小木棍最终都要被用来拼接成原始木棍，所以选择先从哪根小木棍开始都是一样的。也就是说，当前状态并不能导出拼接成功的状态。</p>
-<p>优化3：当前状态为：尚未完成该原始木棍的拼接，且选择了一个<strong>长度恰好为<code>last</code>的小木棍</strong>。如果上述选择导致拼接失败，则<strong>无需再考虑其他小木棍</strong>，直接从当前状态返回。这是因为，如果当前状态能导出一个拼凑完成的状态，那么这个长度为<code>last</code>的木棍<strong>在之后也必须要被使用</strong>。显然，在<strong>剩余小木棍较多</strong>的当前状态下，选择长度为<code>last</code>的小木棍都不能完成拼接，在后面<strong>剩余小木棍更少</strong>的状态下，度为<code>last</code>的小木棍一定也不能完成拼接。也就是说，当前状态并不能导出拼接成功的状态。</p>
-<p>优化4：使用<strong>二分查找</strong>的方法，找到第一个长度<code>&lt;= last</code>的小木棍的编号，然后从该编号开始选择。需要特别注意的是，二分查找的左边界可以优化为<code>pre+1</code>。</p>
-<p>优化5：预处理<code>Next[x]</code>数组，存储第一个长度<code>&lt; x</code>的小木棍的下标。</p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> maxn 70</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> a[maxn];</span><br><span class="line"><span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> M = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> m = <span class="number">0</span>;</span><br><span class="line"><span class="type">bool</span> vis[maxn];</span><br><span class="line"><span class="type">int</span> Next[maxn];</span><br><span class="line"><span class="type">bool</span> flag = <span class="literal">false</span>; </span><br><span class="line"><span class="type">int</span> cnt, len;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span>{</span><br><span class="line">	<span class="keyword">return</span> x&gt;y;</span><br><span class="line">} </span><br><span class="line"></span><br><span class="line"><span class="comment">//num：当前正在拼的是第几个原木棍 </span></span><br><span class="line"><span class="comment">//pre：上一个使用的小木棍的编号</span></span><br><span class="line"><span class="comment">//last：拼完这个原木棍，还需要的长度 </span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> num, <span class="type">int</span> pre, <span class="type">int</span> last)</span></span>{</span><br><span class="line">	<span class="comment">//当前原木棍拼成功了 </span></span><br><span class="line">	<span class="keyword">if</span>(last==<span class="number">0</span>){</span><br><span class="line">		<span class="comment">//所有木棍拼凑成功 </span></span><br><span class="line">		<span class="keyword">if</span>(num==cnt){</span><br><span class="line">			flag = <span class="literal">true</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span>{</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">				<span class="keyword">if</span>(vis[i]) <span class="keyword">continue</span>;</span><br><span class="line">				vis[i] = <span class="literal">true</span>;</span><br><span class="line">				<span class="built_in">dfs</span>(num+<span class="number">1</span>, i, len-a[i]);</span><br><span class="line">				vis[i] = <span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">if</span>(flag) <span class="keyword">return</span>;</span><br><span class="line">				<span class="keyword">return</span>;		<span class="comment">//优化2 </span></span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	} </span><br><span class="line">	<span class="keyword">else</span>{</span><br><span class="line">		<span class="comment">//二分查找第一个长度小于剩余长度的小木棍</span></span><br><span class="line">		<span class="type">int</span> L=pre+<span class="number">1</span>, R=n, mid, pos=n;</span><br><span class="line">		<span class="keyword">while</span>(L&lt;=R){</span><br><span class="line">			mid = (L+R)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(a[mid]&lt;=last){</span><br><span class="line">				pos = mid;</span><br><span class="line">				R = mid<span class="number">-1</span>;</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">else</span>{</span><br><span class="line">				L = mid+<span class="number">1</span>;</span><br><span class="line">			}</span><br><span class="line">		} </span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=pos;i&lt;=n;i++){</span><br><span class="line">			<span class="keyword">if</span>(vis[i]) <span class="keyword">continue</span>;</span><br><span class="line">			vis[i] = <span class="literal">true</span>;</span><br><span class="line">			<span class="built_in">dfs</span>(num, i, last-a[i]);</span><br><span class="line">			vis[i] = <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">if</span>(flag) <span class="keyword">return</span>;</span><br><span class="line">			<span class="keyword">if</span>(last==a[i]) <span class="keyword">return</span>;</span><br><span class="line">			<span class="keyword">if</span>(a[i]==m) <span class="keyword">continue</span>;		<span class="comment">//优化3 </span></span><br><span class="line">			<span class="keyword">else</span> i = Next[a[i]]<span class="number">-1</span>;</span><br><span class="line">		} 	</span><br><span class="line">	} </span><br><span class="line">} </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="built_in">memset</span>(vis, <span class="number">0</span>, <span class="built_in">sizeof</span>(vis));</span><br><span class="line">	cin&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">		cin&gt;&gt;a[i];</span><br><span class="line">		sum += a[i];</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">sort</span>(a+<span class="number">1</span>, a+n+<span class="number">1</span>, cmp);</span><br><span class="line">	M = a[<span class="number">1</span>];</span><br><span class="line">	m = a[n];</span><br><span class="line">	<span class="comment">//预处理next</span></span><br><span class="line">	<span class="type">int</span> temp = a[<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=n;i++){</span><br><span class="line">		<span class="keyword">if</span>(a[i]!=temp){</span><br><span class="line">			Next[temp] = i;</span><br><span class="line">			temp = a[i];</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> k=M;k&lt;=sum/<span class="number">2</span>;k++){</span><br><span class="line">		<span class="keyword">if</span>(sum-(sum/k)*k!=<span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">		flag = <span class="literal">false</span>;</span><br><span class="line">		vis[<span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">		cnt = sum/k;</span><br><span class="line">		len = k;</span><br><span class="line">		<span class="built_in">dfs</span>(<span class="number">1</span>, <span class="number">1</span>, k-a[<span class="number">1</span>]);</span><br><span class="line">		vis[<span class="number">1</span>] = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">if</span>(flag){</span><br><span class="line">			cout&lt;&lt;k;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	cout&lt;&lt;sum;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 
       
     </div>

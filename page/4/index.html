@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -289,6 +289,185 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6/" class="post-title-link" itemprop="url">操作系统——处理机调度</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-11-13 17:37:17 / Modified: 17:41:45" itemprop="dateCreated datePublished" datetime="2022-11-13T17:37:17+08:00">2022-11-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="1-调度的三个层次"><a href="#1-调度的三个层次" class="headerlink" title="1. 调度的三个层次"></a>1. 调度的三个层次</h1><h2 id="1-1-作业调度"><a href="#1-1-作业调度" class="headerlink" title="1.1 作业调度"></a>1.1 作业调度</h2><p>作业调度决定是否为作业<strong>创建相应的进程</strong>（建立PCB），并将其加入将要执行的进程集合中。</p>
+<p>作业调度是<strong>外存与内存</strong>之间的调度。每个作业只会被调入一次、调出一次，作业调度主要关注<strong>调入</strong>问题，因为只有调入的时机需要操作系统决定。</p>
+<h2 id="1-2-内存调度"><a href="#1-2-内存调度" class="headerlink" title="1.2 内存调度"></a>1.2 内存调度</h2><p> 引入虚存技术后，可以将暂时不能运行的进程移至外存等待，即变为<strong>挂起状态</strong>。处于挂起状态的进程的PCB会<strong>常驻内存</strong>，被放入<strong>挂起队列</strong>中。</p>
+<p>内存调度调度就是决定是否将一个挂起进程载入内存。</p>
+<p>一个进程可能被多次调入、调出内存，因此内存调度的发生频率比作业调度高。</p>
+<h2 id="1-3-进程调度"><a href="#1-3-进程调度" class="headerlink" title="1.3 进程调度"></a>1.3 进程调度</h2><p>进程调度决定哪个就绪进程将被处理机执行。</p>
+<p>进程调度的频率很高，一般几十毫秒一次。</p>
+<h2 id="1-4-三层调度的对比"><a href="#1-4-三层调度的对比" class="headerlink" title="1.4 三层调度的对比"></a>1.4 三层调度的对比</h2><p><img src="https://img-blog.csdnimg.cn/8c7a9f461559443ca5bfa2dead01e96d.png" alt="在这里插入图片描述"></p>
+<h1 id="2-进程调度"><a href="#2-进程调度" class="headerlink" title="2. 进程调度"></a>2. 进程调度</h1><h2 id="2-1-进程调度的时机"><a href="#2-1-进程调度的时机" class="headerlink" title="2.1 进程调度的时机"></a>2.1 进程调度的时机</h2><p>需要进行进程调度、切换的情况：</p>
+<ul>
+<li>当前进程<strong>主动</strong>放弃处理机：<ul>
+<li>进程正常终止</li>
+<li>运行过程中发生异常而终止</li>
+<li>进程主动请求阻塞（如I/O请求）</li>
+</ul>
+</li>
+<li>当前进程<strong>被动</strong>放弃处理机：<ul>
+<li>时间片用完</li>
+<li>有更紧急的事需要处理（I/O中断）</li>
+<li>有更高优先级的进程进入就绪队列</li>
+</ul>
+</li>
+</ul>
+<p>不能进行进程调度、切换的情况：</p>
+<ul>
+<li>在处理中断的过程中</li>
+<li>进程在<strong>操作系统内核程序临界区</strong></li>
+<li>在原子操作过程中</li>
+</ul>
+<h2 id="2-2-进程调度的方式"><a href="#2-2-进程调度的方式" class="headerlink" title="2.2 进程调度的方式"></a>2.2 进程调度的方式</h2><p>被抢占方式：只允许进程主动放弃处理机。这种方式实现简单，但无法处理紧急任务，适合早期的批处理系统。</p>
+<p>抢占方式：允许进程被动放弃处理机。</p>
+<h2 id="2-3-进程的切换与过程"><a href="#2-3-进程的切换与过程" class="headerlink" title="2.3 进程的切换与过程"></a>2.3 进程的切换与过程</h2><p>进程切换的过程主要完成了：</p>
+<ol>
+<li>对原来运行进程的各种数据的保存。</li>
+<li>对将要运行进程的各种数据的恢复。<blockquote>
+<p>各种数据包括：程序计数器、程序状态字、数据寄存器等，这些信息一般保存在进程控制块中。</p>
+</blockquote>
+</li>
+</ol>
+<p>由此可见，进程切换是<strong>有代价</strong>的，过于频繁的切换可能会导致系统效率的降低。</p>
+<h1 id="3-调度算法的评价指标"><a href="#3-调度算法的评价指标" class="headerlink" title="3 调度算法的评价指标"></a>3 调度算法的评价指标</h1><h2 id="3-1-CPU利用率"><a href="#3-1-CPU利用率" class="headerlink" title="3.1 CPU利用率"></a>3.1 CPU利用率</h2><p>CPU“忙碌”的时间占总时间的比例。</p>
+<h2 id="3-2-系统吞吐量"><a href="#3-2-系统吞吐量" class="headerlink" title="3.2 系统吞吐量"></a>3.2 系统吞吐量</h2><p> 单位时间内完成作业的数量。</p>
+<h2 id="3-3-周转时间"><a href="#3-3-周转时间" class="headerlink" title="3.3 周转时间"></a>3.3 周转时间</h2><p> 从作业被<strong>提交</strong>给系统开始，到作业<strong>完成</strong>为止的这段时间间隔。它包括4个部分：</p>
+<ol>
+<li>作业在外存上等待作业调度的时间。</li>
+<li>进程在就绪队列上等待调度的时间。</li>
+<li>进程等待I/O操作完成的时间。</li>
+</ol>
+<p>作业周转时间 = 作业完成时间 - 作业提交时间</p>
+<p>平均周转时间 = 各作业周转时间之和 / 作业数</p>
+<p>带权周转时间 = 作业周转时间 / 作业实际运行的时间</p>
+<p>平均带权周转时间 = 各带权周转时间 / 作业数</p>
+<h2 id="3-4-等待时间"><a href="#3-4-等待时间" class="headerlink" title="3.4 等待时间"></a>3.4 等待时间</h2><p>指进程/作业处于<strong>等待处理机状态</strong>的时间之和。</p>
+<p>对进程来说，等待时间是指进程<strong>建立</strong>后，<strong>等待</strong>被服务的时间之和。注意：在等待I/O完成的期间，其实也是在被I/O设备服务的，所以不计入等待时间。</p>
+<p>对作业来说，相比进程还要额外考虑作业在<strong>外存后备队列</strong>中的等待时间。</p>
+<blockquote>
+<p>等待时间 = 周转时间 - 运行时间 - I/O操作时间</p>
+</blockquote>
+<p>一般而言，一个作业/进程需要CPU、I/O设备服务多久都是固定的，因此调度算法只会影响作业/进程的等待时间。</p>
+<h2 id="3-5-响应时间"><a href="#3-5-响应时间" class="headerlink" title="3.5 响应时间"></a>3.5 响应时间</h2><p>用户提交请求到首次产生响应的时间。</p>
+<blockquote>
+<p>响应时间 = 进程第一次被CPU执行的时刻 - 提交时间（不确定）</p>
+</blockquote>
+<h1 id="4-调度算法"><a href="#4-调度算法" class="headerlink" title="4 调度算法"></a>4 调度算法</h1><h2 id="4-1-先来先服务"><a href="#4-1-先来先服务" class="headerlink" title="4.1 先来先服务"></a>4.1 先来先服务</h2><p>从“公平”的角度考虑，按照作业/进程<strong>到达</strong>的<strong>先后顺序</strong>进行服务。</p>
+<blockquote>
+<p>从另一个角度说，优先为等待时间最长的作业/进程服务。</p>
+</blockquote>
+<p>对于作业调度，考虑的是哪个作业先到达后备队列；对于进程调度，考虑的是哪个进程先到达<strong>就绪队列</strong>。</p>
+<p>非抢占式算法。</p>
+<p>优点：公平、实现简单，不会导致饥饿。<br>缺点：对长作业不利、对短作业不利。</p>
+<h2 id="4-2-短作业优先"><a href="#4-2-短作业优先" class="headerlink" title="4.2 短作业优先"></a>4.2 短作业优先</h2><p>为了追求最少的平均等待时间、最少的平均周转时间、最少的平均带权周转时间，让<strong>服务时间最短</strong>的作业优先得到服务。</p>
+<p>短作业优先算法默认是<strong>非抢占式</strong>的，每次调度时选择当前<strong>已到达</strong>且<strong>运行时间最短</strong>的作业。</p>
+<p>抢占式的短作业优先算法又称“最短剩余时间优先算法”，每当<strong>有进程加入就绪队列</strong>或<strong>进程完成</strong>时就需要进行调度，选择<strong>剩余执行时间</strong>最短的作业。</p>
+<p>优点：“最短的”平均等待时间、平均周转时间<br>缺点：不公平；对短作业有利，对长作业不利；可能导致饥饿，甚至“饿死”；作业的运行时间<strong>由用户提供</strong>，不一定真实。</p>
+<h2 id="4-3-高响应比优先"><a href="#4-3-高响应比优先" class="headerlink" title="4.3 高响应比优先"></a>4.3 高响应比优先</h2><p>综合考虑作业/进程的等待时间和要求服务的时间，在每次调度时选择<strong>响应比最高</strong>的作业/进程为其服务。</p>
+<p>响应比 = （等待时间+要求服务时间）/ 要求服务时间</p>
+<p><strong>非抢占式</strong>算法。</p>
+<p>优点：综合考虑了等待时间和运行时间，不会导致饥饿。</p>
+<h2 id="4-4-时间片轮转调度算法"><a href="#4-4-时间片轮转调度算法" class="headerlink" title="4.4 时间片轮转调度算法"></a>4.4 时间片轮转调度算法</h2><p>按照各进程到达就绪队列的顺序，轮流让各个进程执行一个<strong>时间片</strong>（如100ms）。若进程未在一个时间片内执行完，则剥夺处理机，将该进程放到就绪队列的<strong>队尾</strong>重新排队。</p>
+<blockquote>
+<p>如果一个进程时间片到的时刻，一个新进程恰好进入就绪队列，则默认新进程排在<strong>前面</strong>。</p>
+</blockquote>
+<p>该算法适用于进程调度，属于<strong>抢占式</strong>算法，由时钟装置发出<strong>时钟中断</strong>来通知CPU时间片到。</p>
+<p>若时间片过长，则时间片轮转调度算法<strong>退化</strong>为先来先服务算法，大大增加进程<strong>响应</strong>时间；若时间片过短，则会导致进程调度过于频繁，进程切换的开销过大。</p>
+<p>优点：公平；响应快；不会导致饥饿。<br>缺点：不区分任务的紧急程度。</p>
+<h2 id="4-5-优先级调度算法"><a href="#4-5-优先级调度算法" class="headerlink" title="4.5 优先级调度算法"></a>4.5 优先级调度算法</h2><p>调度时选择<strong>优先级最高</strong>的作业/进程。</p>
+<p>非抢占式、抢占式均有。非抢占式的进程调度只发生在<strong>进程主动放弃</strong>处理机时，而抢占式的进程调度还会发生在<strong>就绪队列变化</strong>时。</p>
+<p>优先级有<strong>静态优先级</strong>和<strong>动态优先级</strong>两种：</p>
+<ul>
+<li>静态优先级：进程<strong>创建</strong>时决定，之后一直不变。</li>
+<li>动态优先级：进程创建时有一个初始值，之后根据情况动态调整优先级。</li>
+</ul>
+<p>通常：</p>
+<ul>
+<li>系统进程优先级高于用户进程</li>
+<li>前台进程高于后台进程</li>
+<li><strong>I/O型</strong>进程高于<strong>计算型</strong>进程<blockquote>
+<p>解释：如果让I/O型进程优先运行，则I/O设备可以尽早投入使用，以实现I/O设备和CPU的并行工作，提高资源利用率、系统吞吐量。</p>
+</blockquote>
+</li>
+</ul>
+<p>处于公平、资源利用率等角度考虑：</p>
+<ul>
+<li>如果某进程在就绪队列中等待时间过长，则适当提升其优先级。</li>
+<li>如果某进程占用处理机时间过长，则适当降低其优先级。</li>
+</ul>
+<p>优点：可以区分进程的重要程度、紧急程度；灵活。<br>缺点：可能导致饥饿。</p>
+<h2 id="4-6-多级反馈队列调度算法"><a href="#4-6-多级反馈队列调度算法" class="headerlink" title="4.6 多级反馈队列调度算法"></a>4.6 多级反馈队列调度算法</h2><p>设置多级就绪队列，各级队列<strong>优先级从高到低</strong>，<strong>时间片从小到大</strong>。新进程到达时，先进入第1级队列，按照先来先服务原则排队等待时间片，若<strong>时间片到</strong>进程还未结束，则进程进入<strong>下一级队列队尾</strong>，如果此时已经在最下级队列，则重新放回<strong>该队列队尾</strong>。只有<strong>前k级</strong>队列为空时，才会为第k+1级<strong>队头</strong>的进程分配时间片。</p>
+<p><strong>抢占式算法</strong>。在k级队列的进程运行过程中，若<strong>上级队列</strong>进入了一个新进程，则此新进程会抢占处理机，原来运行的进程放回<strong>k级队列</strong>的<strong>队尾</strong>。</p>
+<p>优点：综合上述算法的特点。<br>缺点：可能导致饥饿。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1261,165 +1440,6 @@ cn.pat
 <p>本题可以通过<strong>线段树</strong>来解决：叶子结点记录<code>1</code>操作带来的因子<code>m</code>（根据操作的序号修改对应叶子的结点的值），中间结点记录区间乘积，并对<code>M</code>取模。具体来说，当第<code>i</code>个操作<code>1 m</code>到来后，就执行函数将<code>l==r &amp;&amp; l== i</code>的叶子结点的值修改为<code>m</code>，即<code>modify(1, i, i, m)</code>；当第<code>j</code>个操作<code>2 m</code>到来后，就将<code>l==r &amp;&amp; l== m</code>的叶子结点的值修改为<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="1.131ex" height="1.507ex" role="img" focusable="false" viewBox="0 -666 500 666"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></svg></mjx-container>，即<code>modify(1, m, m, 1)</code></p>
 <p>具体细节见代码</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> maxn 100005</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> t, Q, M;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span>{</span><br><span class="line">	<span class="type">int</span> l, r;</span><br><span class="line">	<span class="type">int</span> v;</span><br><span class="line">}tree[maxn&lt;&lt;<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pushUp</span><span class="params">(<span class="type">int</span> i)</span></span>{</span><br><span class="line">	<span class="type">int</span> lc = i&lt;&lt;<span class="number">1</span>, rc = i&lt;&lt;<span class="number">1</span>|<span class="number">1</span>;</span><br><span class="line">	tree[i].v = tree[lc].v*tree[rc].v;</span><br><span class="line">	tree[i].v %= M;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">build</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> l, <span class="type">int</span> r)</span></span>{</span><br><span class="line">	tree[i].l = l, tree[i].r = r;</span><br><span class="line">	<span class="keyword">if</span>(l==r){</span><br><span class="line">		tree[i].v = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}<span class="keyword">else</span>{</span><br><span class="line">		<span class="type">int</span> mid = (l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">		<span class="built_in">build</span>(i&lt;&lt;<span class="number">1</span>, l, mid);</span><br><span class="line">		<span class="built_in">build</span>(i&lt;&lt;<span class="number">1</span>|<span class="number">1</span>, mid+<span class="number">1</span>, r);</span><br><span class="line">		<span class="built_in">pushUp</span>(i);</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">modify</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> l, <span class="type">int</span> r, <span class="type">int</span> m)</span></span>{</span><br><span class="line">	<span class="keyword">if</span>(tree[i].l&gt;r||tree[i].r&lt;l){</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}<span class="keyword">else</span> <span class="keyword">if</span>(tree[i].l&gt;=l&amp;&amp;tree[i].r&lt;=r){</span><br><span class="line">		tree[i].v = m;</span><br><span class="line">	}<span class="keyword">else</span>{</span><br><span class="line">		<span class="built_in">modify</span>(i&lt;&lt;<span class="number">1</span>, l, r, m);</span><br><span class="line">		<span class="built_in">modify</span>(i&lt;&lt;<span class="number">1</span>|<span class="number">1</span>, l, r, m);</span><br><span class="line">		<span class="built_in">pushUp</span>(i);</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	cin&gt;&gt;t;</span><br><span class="line">	<span class="keyword">while</span>(t--){</span><br><span class="line">		cin&gt;&gt;Q&gt;&gt;M;</span><br><span class="line">		<span class="built_in">build</span>(<span class="number">1</span>, <span class="number">1</span>, Q);</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=Q;i++){</span><br><span class="line">			<span class="type">int</span> op, m;</span><br><span class="line">			cin&gt;&gt;op&gt;&gt;m;</span><br><span class="line">			<span class="keyword">if</span>(op==<span class="number">1</span>){</span><br><span class="line">				<span class="built_in">modify</span>(<span class="number">1</span>, i, i, m);</span><br><span class="line">			}<span class="keyword">else</span>{</span><br><span class="line">				<span class="built_in">modify</span>(<span class="number">1</span>, m, m, <span class="number">1</span>);</span><br><span class="line">			}</span><br><span class="line">			cout&lt;&lt;tree[<span class="number">1</span>].v&lt;&lt;<span class="string">'\n'</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">} </span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/19/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E3%80%8B%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/19/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E3%80%8B%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/" class="post-title-link" itemprop="url">《计算机网络》——应用层</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-09-19 21:20:34" itemprop="dateCreated datePublished" datetime="2022-09-19T21:20:34+08:00">2022-09-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-09-20 08:20:42" itemprop="dateModified" datetime="2022-09-20T08:20:42+08:00">2022-09-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="2-1-应用层协议原理（P54）"><a href="#2-1-应用层协议原理（P54）" class="headerlink" title="2.1 应用层协议原理（P54）"></a>2.1 应用层协议原理（P54）</h1><p>研发网络应用的核心是写出能够运行在不同端系统和通过网络彼此交流的程序。</p>
-<h2 id="2-1-1-网络应用程序体系结构"><a href="#2-1-1-网络应用程序体系结构" class="headerlink" title="2.1.1 网络应用程序体系结构"></a>2.1.1 网络应用程序体系结构</h2><p>两种主流的<strong>应用体系结构</strong>：客户-服务器体系结构、对等体系结构。</p>
-<p><strong>客户-服务器体系</strong>：服务器是一个总是打开的主机，它为称为客户的主机提供服务。服务器具有固定的、周知的IP地址。服务器往往有数据中心构成。最典型的例子是web应用。</p>
-<p><strong>P2P体系</strong>：应用程序在主机对之间直接通信。P2P体系结构具有自扩展性，每个对等方在享受服务的同时也为系统提供服务能力。</p>
-<h2 id="2-1-2-进程通信"><a href="#2-1-2-进程通信" class="headerlink" title="2.1.2 进程通信"></a>2.1.2 进程通信</h2><h3 id="2-1-2-1-客户和服务器进程"><a href="#2-1-2-1-客户和服务器进程" class="headerlink" title="2.1.2.1 客户和服务器进程"></a>2.1.2.1 客户和服务器进程</h3><p>网络应用程序有成对的进程组成，这些进程通过网络相互发送报文。对每对通信的进程，通常将两个进程之一称为“客户”，另一个进程称为“服务器”。在P2P体系中，下载文件的进程称为“客户”，上传文件的称为“服务器”。</p>
-<h3 id="2-1-2-2-进程与计算机网络之间的接口"><a href="#2-1-2-2-进程与计算机网络之间的接口" class="headerlink" title="2.1.2.2 进程与计算机网络之间的接口"></a>2.1.2.2 进程与计算机网络之间的接口</h3><p>进程通过称为<strong>套接字</strong>的软件接口向网络发送报文和从网络接收报文。</p>
-<p>套接字是主机内应用层与运输层之间的接口。</p>
-<h3 id="2-1-2-3-进程寻址"><a href="#2-1-2-3-进程寻址" class="headerlink" title="2.1.2.3 进程寻址"></a>2.1.2.3 进程寻址</h3><p>IP地址是一个能唯一标识主机的32比特的量。</p>
-<p>发送进程必须指定运行在主机上的接收进程。</p>
-<h2 id="2-1-3-可供应用程序使用的运输服务"><a href="#2-1-3-可供应用程序使用的运输服务" class="headerlink" title="2.1.3 可供应用程序使用的运输服务"></a>2.1.3 可供应用程序使用的运输服务</h2><p>应用程序的服务要求大体有4类：可靠数据传输、吞吐量、定时和安全性。</p>
-<p><strong>可靠数据传输</strong>：将数据正确、完整地从一端传输到另一端。邮件、文件传输等需要可靠数据传输，多媒体应用一般不需要。</p>
-<p><strong>吞吐量</strong>：在波动的网络中保证吞吐量。</p>
-<p><strong>定时</strong>：控制发送方到接收方地延迟。</p>
-<p><strong>安全性</strong></p>
-<h2 id="2-1-4-因特网提供地运输服务"><a href="#2-1-4-因特网提供地运输服务" class="headerlink" title="2.1.4 因特网提供地运输服务"></a>2.1.4 因特网提供地运输服务</h2><p>因特网为应用程序提供了两个运输层协议：UDP、TCP。</p>
-<h3 id="2-1-4-1-TCP服务"><a href="#2-1-4-1-TCP服务" class="headerlink" title="2.1.4.1 TCP服务"></a>2.1.4.1 TCP服务</h3><p>TCP服务包括面向连接服务和可靠数据传输服务。</p>
-<p><strong>面向连接服务</strong>：在报文开始传输之前，TCP让客户和服务器交换运输层控制信息，称为“握手”。然后两个进程的套接字之间就建立了TCP联系。连接双方可以同时进行收发报文。应用程序结束报文发送后，TCP连接必须拆除。</p>
-<p><strong>可靠的数据传输服务</strong>：无差错、无冗余。</p>
-<p>TCP协议还具有拥塞控制机制，当发送方和接收方之间出现网络拥塞时，TCP会抑制发送进程。</p>
-<h3 id="2-1-4-2-UDP服务"><a href="#2-1-4-2-UDP服务" class="headerlink" title="2.1.4.2 UDP服务"></a>2.1.4.2 UDP服务</h3><p>UCP服务仅提供最小服务，没有握手过程、不保证报文能送达接收进程、报文可能乱序到达、没有拥塞控制机制。</p>
-<h3 id="2-1-4-3-因特网运输协议所不提供的服务"><a href="#2-1-4-3-因特网运输协议所不提供的服务" class="headerlink" title="2.1.4.3 因特网运输协议所不提供的服务"></a>2.1.4.3 因特网运输协议所不提供的服务</h3><p>因特网运输协议不保证吞吐量和定时。</p>
-<h2 id="2-1-5-应用层协议"><a href="#2-1-5-应用层协议" class="headerlink" title="2.1.5 应用层协议"></a>2.1.5 应用层协议</h2><p>应用层协议定义了运行在不同端系统上的应用程序进程如何相互传递报文。<br>应用层协议定义了：</p>
-<ol>
-<li>交换报文的类型（请求报文or响应报文）</li>
-<li>交换报文类型的语法</li>
-<li>字段的语意</li>
-<li>确定一个进程何时、如何发送报文、如何对报文进行响应的规则。</li>
-</ol>
-<h1 id="2-2-Web和HTTP（P64）"><a href="#2-2-Web和HTTP（P64）" class="headerlink" title="2.2 Web和HTTP（P64）"></a>2.2 Web和HTTP（P64）</h1><h2 id="2-2-1-HTTP概况"><a href="#2-2-1-HTTP概况" class="headerlink" title="2.2.1 HTTP概况"></a>2.2.1 HTTP概况</h2><p>Web的应用协议是<strong>超文本传输协议</strong>（HTTP）。HTTP由一个客户程序和一个服务器程序组成，HTTP定义了报文的结构和交换报文的方式。</p>
-<p>Web页面是由<strong>对象</strong>组成的。一个对象只是一个文件，如一个HTML文件、一个JPEG图形等，且它们可通过一个<strong>URL地址</strong>寻址。多数Web界面含有一个HTML基本文件和几个引用对象，HTML基本文件通过对象的URL地址引用页面中的其他对象。每个URL地址由两部分组成：存放对象二点服务器主机名、对象的路径名（例如，<a target="_blank" rel="noopener" href="http://www.someSchool.edu/someDepartment/picture.gif中，www.someSchool为主机名，/someDepartment/picture.gif为路径名）。">http://www.someSchool.edu/someDepartment/picture.gif中，www.someSchool为主机名，/someDepartment/picture.gif为路径名）。</a></p>
-<p>HTTP定义了Web客户向Web服务器请求Web页面的方式，以及服务器向客户传送Web页面的方式。<br><img src="https://img-blog.csdnimg.cn/37d7822975494b67a814cde082bf5482.jpeg#pic_center" alt="在这里插入图片描述"><br>HTTP使用TCP作为它的支撑运输协议。HTTP客户首先发起一个与服务器的TCP连接，连接建立后，客户和服务器就可以通过自己的套接字发送和接受报文。</p>
-<p>HTTP服务器不保存关于客户的任何信息，是一个<strong>无状态协议</strong>。</p>
-<h2 id="2-2-2-非持续连接和持续连接"><a href="#2-2-2-非持续连接和持续连接" class="headerlink" title="2.2.2 非持续连接和持续连接"></a>2.2.2 非持续连接和持续连接</h2><p>在许多因特网应用程序中，客户和服务器在一个相当长的时间内保持通信，客户在此期间会对服务器发出一系列请求。如果每个请求是经一个单独的TCP连接发送，则该应用程序称为使用<strong>非连续连接</strong>，如果所有请求经同一个TCP连接发送，称为<strong>持续连接</strong>。</p>
-<p>HTTP技能使用非持续连接也能使用持续连接，默认使用持续连接。</p>
-<h3 id="2-2-2-1-采用非持续连接的HTTP"><a href="#2-2-2-1-采用非持续连接的HTTP" class="headerlink" title="2.2.2.1 采用非持续连接的HTTP"></a>2.2.2.1 采用非持续连接的HTTP</h3><p><img src="https://img-blog.csdnimg.cn/e172550228f749f6b3764cfa75a5d2f4.jpeg#pic_center" alt="在这里插入图片描述"><br>在非持续连接中，每个TCP连接在服务器发送一个对象后关闭，每个TCP连接只传输一个请求报文和一个响应报文。</p>
-<p><img src="https://img-blog.csdnimg.cn/2afd90679ef74e81a698309bb33eafee.jpeg#pic_center" alt="在这里插入图片描述"><br>定义RRT（Round-Trip Time）为一个短分组从客户到服务器然后再返回客户所花费的时间。如上图所示，浏览器与服务器建立TCP连接涉及一次“三次握手”过程，即客户向服务器发送一个小TCP报文段，服务器用一个小TCP报文段做出确认和响应，最后客户向服务器返回确认。“三次握手”的前两次握手消耗了一个RRT时间，客户结合第三次握手向TCP连接发送一个HTTP请求报文，请求报文到达服务器后，服务器在该TCP连接上发送HTML文件。所以，总的响应时间为两个RRT时间加上服务器传输HTML文件的时间。</p>
-<h3 id="2-2-2-2-采用持续连接的HTTP"><a href="#2-2-2-2-采用持续连接的HTTP" class="headerlink" title="2.2.2.2 采用持续连接的HTTP"></a>2.2.2.2 采用持续连接的HTTP</h3><p>非持续连接有一些缺点：</p>
-<ol>
-<li>必须为每一个对象建立和维护一个全新的连接，而客户和服务器需要为该连接分配TCP缓冲区和保持TCP变量，这给Web服务器带来了严重的负担。</li>
-<li>每一个对象要经历两倍RTT时延。</li>
-</ol>
-<p>在采用持续连接的情况下，服务器在发送响应后保持TCP连接打开，对对象的请求可以连续发出，不必等到响应（流水线）。一段时间未使用后，连接关闭。</p>
-<h2 id="2-2-3-HTTP报文格式"><a href="#2-2-3-HTTP报文格式" class="headerlink" title="2.2.3 HTTP报文格式"></a>2.2.3 HTTP报文格式</h2><h3 id="2-2-3-1-HTTP请求报文"><a href="#2-2-3-1-HTTP请求报文" class="headerlink" title="2.2.3.1 HTTP请求报文"></a>2.2.3.1 HTTP请求报文<img src="https://img-blog.csdnimg.cn/e9923dbbc42741af916ad1e3b8f8499c.jpeg#pic_center" alt="在这里插入图片描述"></h3><p>上图为一个典型的HTTP请求报文。该报文由ASCII文本书写，由5行组成，每行由一个回车和换行符结束（最后一行还有一个额外的回车和换行符）。HTTP请求报文的第一行称为<strong>请求行</strong>，后面的行称为<strong>首部行</strong>。请求行有3个字段：方法字段、URL字段和HTTP版本字段。</p>
-<p><img src="https://img-blog.csdnimg.cn/241ddd78e3d84917b233b67d537eccd7.jpeg#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/23f19a7ace7649e18ffab790e9482c10.jpeg#pic_center" alt="在这里插入图片描述"><br>再GET方法中，“实体体”为空，使用POST方法时需要使用实体体。</p>
-<h3 id="2-2-3-2-HTTP响应报文"><a href="#2-2-3-2-HTTP响应报文" class="headerlink" title="2.2.3.2 HTTP响应报文"></a>2.2.3.2 HTTP响应报文</h3><p>l<img src="https://img-blog.csdnimg.cn/c3dd7d6c1cd6403b8824d60ee1d348a0.jpeg#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="2-2-4-用户与服务器的交互：cookie"><a href="#2-2-4-用户与服务器的交互：cookie" class="headerlink" title="2.2.4 用户与服务器的交互：cookie"></a>2.2.4 用户与服务器的交互：cookie</h2><p>HTTP使用cookie来允许站点对用户进行跟踪。<br><img src="https://img-blog.csdnimg.cn/d242be4158054a09b05be5ea6deaa564.jpeg#pic_center" alt="在这里插入图片描述"><br>如上图所示，cookie有4个组件：HTTP响应报文中的一个cookie首部行、HTTP请求报文中的一个cookie首部行、客户端系统保留的cookie文件（由浏览器管理）、位于Web站点的一个后端数据库。假设Susan使用PC上的IE浏览器上网，她首次访问Amazon.com，当请求报文到达Amazon Web服务器时，该Web站点产生一个唯一的识别码，并以此索引后端数据库中的一个表项。然后，Amazon Web服务器用一个包含<code>Set cookie:</code>首部的HTTP响应报文对Susan的浏览器进行相应。Susan的浏览器收到响应报文时，它会根据<code>Set cookie:</code>首部的内容再特定cookie文件中添加一行，改行包括服务器主机名和cookie识别码。当Susan再次浏览Amazon网页时，浏览器会查询cookie文件并抽取她对这个网站的识别码，并放到HTTP报文的<code>cookie:</code>首部行中。这样，Amazon就可以跟踪Susan再Amazon站点的活动。</p>
-<h2 id="2-2-5-Web缓存"><a href="#2-2-5-Web缓存" class="headerlink" title="2.2.5 Web缓存"></a>2.2.5 Web缓存</h2><p><img src="https://img-blog.csdnimg.cn/8f1f3c67207c4c229be45d2a904d7122.jpeg#pic_center" alt="在这里插入图片描述"><br><strong>Web缓存器</strong>也叫<strong>代理服务器</strong>。Web服务器有自己的磁盘存储空间，保存着最近请求的对象的副本。Web缓存器既是客户也是服务器，由ISP购买并安装，可以减少客户请求的响应时间，减少机构的接入链路到因特网的通信量。</p>
-<h2 id="2-2-6-条件GET方法"><a href="#2-2-6-条件GET方法" class="headerlink" title="2.2.6 条件GET方法"></a>2.2.6 条件GET方法</h2><h1 id="2-3-因特网中的电子邮件（P75）"><a href="#2-3-因特网中的电子邮件（P75）" class="headerlink" title="2.3 因特网中的电子邮件（P75）"></a>2.3 因特网中的电子邮件（P75）</h1><p><img src="https://img-blog.csdnimg.cn/06bd1dbe59fc440eaa94536527a2b105.jpeg#pic_center" alt="在这里插入图片描述"><br>上图展示了电子邮件系统的总体情况。电子邮件系统由3部分组成：用户代理、邮件服务器、SMTP协议。</p>
-<p>SMTP使用TCP可靠数据传输服务，由发送方的客户端和接收方的服务器端组成，每台邮件服务器上同时运行着客户端和服务器端。</p>
-<h2 id="2-3-1-SMTP协议"><a href="#2-3-1-SMTP协议" class="headerlink" title="2.3.1 SMTP协议"></a>2.3.1 SMTP协议</h2><p>SMTP用于从发送方的邮件服务器发送报文到被发送方的邮件服务器。<br><img src="https://img-blog.csdnimg.cn/070d41a069924bc4bdc2ec5741e242c1.jpeg#pic_center" alt="在这里插入图片描述"><br>SMTP一般不使用中间邮件服务器发送邮件。如果上图中，Bob的邮件服务器没有开机，发送出的报文会留在Alice的邮件服务器上并等待进行新的尝试。</p>
-<p>客户SMTP在25号端口建立一个到服务器SMTP的TCP连接。连接建立后，进行SMTP的握手阶段，SMTP客户指示发送方的邮件地址和接收方的邮件地址。当客户和服务器彼此“介绍”之后，客户发送报文。如果另有报文发送，就在相同的TCP连接上重复这种处理，否则TCP连接关闭。</p>
-<p><img src="https://img-blog.csdnimg.cn/166f790700404a118e4d36c28ae77b50.jpeg#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="2-3-2-与HTTP的对比"><a href="#2-3-2-与HTTP的对比" class="headerlink" title="2.3.2 与HTTP的对比"></a>2.3.2 与HTTP的对比</h2><p>相同点：持续连接。</p>
-<p>不同点：</p>
-<ol>
-<li>HTTP是<strong>拉协议</strong>，TCP连接是由接收文件的一方发起的；SMTP是<strong>推协议</strong>，TCP连接是由发送文件的一方发起的。</li>
-<li>SMTP要求每个报文采用7比特ASCII码格式；HTTP无要求。</li>
-<li>如果一个报文中同时包含图片和文本，HTTP会分别将每个对象封装到响应报文中，SMTP将所有对象放入一个报文之中。</li>
-</ol>
-<h2 id="2-3-3-邮件报文格式"><a href="#2-3-3-邮件报文格式" class="headerlink" title="2.3.3 邮件报文格式"></a>2.3.3 邮件报文格式</h2><p>邮件报文由首部行和报文体构成。每个首部必须包含<code>From:</code>和<code>To:</code>首部行，首部行和报文体之间用空行分隔。<br><img src="https://img-blog.csdnimg.cn/dcc9a03b90934a089db572f1a54fb3a8.jpeg#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="2-3-4-邮件访问协议"><a href="#2-3-4-邮件访问协议" class="headerlink" title="2.3.4 邮件访问协议"></a>2.3.4 邮件访问协议</h2><p><img src="https://img-blog.csdnimg.cn/3d03e38544434bd7b70cfdc88a3c6260.jpeg#pic_center" alt="在这里插入图片描述"><br>为什么不将报文由Alice的代理通过SMTP直接发送到Bob的邮件服务器呢？因为不通过Alice的邮件服务器进行中继，如果Bob的邮件服务器处于关闭状态，Alice的邮件将不能发送。采用Alice的邮件服务器作为中继后，Alice的服务器可以重复尝试向Bob的邮件服务器发送报文。</p>
-<p>由于SMTP是推协议，所以Bob不能通过SMTP来获取邮件服务器上的邮件。</p>
-<h3 id="2-3-4-1-POP3"><a href="#2-3-4-1-POP3" class="headerlink" title="2.3.4.1 POP3"></a>2.3.4.1 POP3</h3><p>当用户代理打开了一个到邮件服务器110端口的TCP连接后，POP3开始工作。POP3的工作分为三个阶段：特许、事务处理、更新。特许阶段中，用户代理以明文发送用户名和口令；事务处理阶段中，用户代理取回报文，还可以对报文做删除标记、获取邮件的统计信息；更新阶段发生在客户发出quit命令后，这时，邮件服务器会删除那些有删除标记的报文。<br><img src="https://img-blog.csdnimg.cn/4d6969199e5a4d00a5683daa7ac8e035.jpeg#pic_center" alt="在这里插入图片描述"><br>服务器会对用户代理的命令做出回答（<code>+OK</code>，<code>-ERR</code>）。<br><img src="https://img-blog.csdnimg.cn/353b1b7b93f045ac83cbd932ab7afa1a.jpeg#pic_center" alt="在这里插入图片描述"><br><code>list</code>命令要求邮件服务器列出所有存储的报文的长度。</p>
-<p>使用“下载并删除”方式可能导致用户在一台设备上获取邮件后，不能再在其他的设备上获取邮件。</p>
-<p>在用户代理和邮件服务器进行POP3会话期间，POP3服务器会保留一些状态信息（如哪些报文被标记删除）。但POP3服务器不会再会话过程中携带状态信息。</p>
-<h3 id="2-3-4-2-IMAP协议"><a href="#2-3-4-2-IMAP协议" class="headerlink" title="2.3.4.2 IMAP协议"></a>2.3.4.2 IMAP协议</h3><p><img src="https://img-blog.csdnimg.cn/b7f87f73ab2742b280b71fc8859bc2d0.jpeg#pic_center" alt="在这里插入图片描述"></p>
-<h1 id="2-4-DNS：因特网的目录服务（P83）"><a href="#2-4-DNS：因特网的目录服务（P83）" class="headerlink" title="2.4 DNS：因特网的目录服务（P83）"></a>2.4 DNS：因特网的目录服务（P83）</h1><h2 id="2-4-1-DNS提供服务"><a href="#2-4-1-DNS提供服务" class="headerlink" title="2.4.1 DNS提供服务"></a>2.4.1 DNS提供服务</h2><p>识别主机有两种方式：主机名、IP地址。DNS提供了主机名到IP地址转换的目录服务。DNS是一个由分层的DNS服务器实现的分布式数据库，是一个使得主机能够查询分布式数据库的应用层协议。DNS运行在UDP协议上，使用53号端口。</p>
-<p>除了主机名到IP地址的转换外，DNS还提供了如下服务：</p>
-<ol>
-<li>主机别名。</li>
-<li>邮件服务器别名。</li>
-<li>负载分配。繁忙的站点可能分布在多台服务器上，每台服务器运行在不同的端系统上，每个端系统有着不同的IP地址。因此，一个主机名可能对应了一个IP地址的集合，DNS在每个回答中循环这些地址的次序（客户总是向IP地址排在最前面的服务器发送HTTP请求报文）。</li>
-</ol>
-<h2 id="2-4-2-DNS工作机理概述"><a href="#2-4-2-DNS工作机理概述" class="headerlink" title="2.4.2 DNS工作机理概述"></a>2.4.2 DNS工作机理概述</h2><p>如果DNS服务器采用集中式设计，可能产生如下问题：</p>
-<ol>
-<li>单点故障。</li>
-<li>通信容量。</li>
-<li>远距离的集中式数据库</li>
-<li>维护。</li>
-</ol>
-<h3 id="2-4-2-1-分布式、层次数据库"><a href="#2-4-2-1-分布式、层次数据库" class="headerlink" title="2.4.2.1 分布式、层次数据库"></a>2.4.2.1 分布式、层次数据库</h3><p>有3种类型的DNS服务器：根服务器、顶级域（TLD）服务器、权威服务器。根服务器提供TLD服务器的IP地址，TLD服务器提供权威服务器的IP地址，权威服务器将主机名映射为IP地址。</p>
-<p>本地DNS服务器起代理作用，负责将用户的DNS请求转发到DNS服务器层次结构中。<br><img src="https://img-blog.csdnimg.cn/4cc0f728c107433b854c2c1cf11e3371.jpeg#pic_center" alt="在这里插入图片描述"><br>上图为“递归+迭代”模式，在实践中较为常用<br><img src="https://img-blog.csdnimg.cn/ac3f57d7251846aea9ef788ab428c990.jpeg#pic_center" alt="在这里插入图片描述"><br>上图为纯递归模式。</p>
-<h3 id="2-4-2-2-DNS缓存"><a href="#2-4-2-2-DNS缓存" class="headerlink" title="2.4.2.2 DNS缓存"></a>2.4.2.2 DNS缓存</h3><p>当某个DNS服务器接收一个DNS回答时，它能将映射关系保存在本地。</p>
-<h2 id="2-4-3-DNS记录和报文"><a href="#2-4-3-DNS记录和报文" class="headerlink" title="2.4.3 DNS记录和报文"></a>2.4.3 DNS记录和报文</h2><p><img src="https://img-blog.csdnimg.cn/fb73669704cc4780a9f5cca0bfbbaa97.jpeg#pic_center" alt="在这里插入图片描述">  </p>
 
       
     </div>

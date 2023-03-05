@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -289,6 +289,208 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/An-Analysis-of-Facebook-Photo-Caching%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/23/An-Analysis-of-Facebook-Photo-Caching%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">An Analysis of Facebook Photo Caching学习笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-07-23 17:52:33" itemprop="dateCreated datePublished" datetime="2022-07-23T17:52:33+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-07-28 17:01:28" itemprop="dateModified" datetime="2022-07-28T17:01:28+08:00">2022-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/lab/" itemprop="url" rel="index"><span itemprop="name">lab</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>参考资料：</p>
+<ul>
+<li>An Analysis of Facebook Photo Caching<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1>Facebook的照片服务包含多级缓存：browser cache、Edge Cache、Origin Cache等。</li>
+</ul>
+<p>作者的研究：</p>
+<ol>
+<li>量化了每个层完成的服务占比：browser cache——65.5%、Edge Cache——20.0%、Origin Cache——4.6%、Backend storage——9.9%。</li>
+<li>揭露了相当一部分requests被分配到了远处的data center处理。</li>
+<li>演示了使用S4LRU为Edge和Origin层带来的提升。</li>
+<li>展示了照片的流行程度与其“年龄”和作者的关系。</li>
+</ol>
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h1><p>作者着重研究了如下问题：</p>
+<ol>
+<li>不同cache层和backend server分别完成了多少工作。</li>
+<li>requests是如何在不同层次之间移动的。</li>
+<li>cache size和淘汰算法对cache表现的影响。</li>
+<li>哪些元数据有助于对访问模式进行预测。</li>
+</ol>
+<p>作者发现：</p>
+<ol>
+<li>不同cache层一共完成了将近90%的工作，对于最流行的前0.03%的内容，cache几乎完成了100%的工作。</li>
+<li>request往往要诉诸于其他区域，而非在本地解决。</li>
+<li>通过在Edge层实现区域协作、在Edge和Origin层使用先进的淘汰算法，从而提高cache的命中率。</li>
+<li>内容的流行度符合对时间的Pareto分布，且与作者社交关系有关。</li>
+</ol>
+<h1 id="2-Facebook’s-Photo-Serving-Stack"><a href="#2-Facebook’s-Photo-Serving-Stack" class="headerlink" title="2 Facebook’s Photo-Serving Stack"></a>2 Facebook’s Photo-Serving Stack</h1><h2 id="2-1-The-Facebook-Photo-Caching-Stack"><a href="#2-1-The-Facebook-Photo-Caching-Stack" class="headerlink" title="2.1 The Facebook Photo-Caching Stack"></a>2.1 The Facebook Photo-Caching Stack</h2><p><img src="https://img-blog.csdnimg.cn/0ac15384b261406db95a273f08be9592.png" alt="在这里插入图片描述"></p>
+<p>当用户从FaceBook的前端网页服务器上接收一个HTML文件后，浏览器就会根据HTML文件中嵌入的URLs来下载图片。URLs包括一个用以知识图片尺寸的标识符，和fetch path的编码。fetch path指示了每一层miss时，该转向哪里。</p>
+<p>层次结构：clients<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.706ex" height="1.181ex" role="img" focusable="false" viewBox="0 -511 1638 522"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="27F6" d="M84 237T84 250T98 270H1444Q1328 357 1301 493Q1301 494 1301 496T1300 499Q1300 511 1317 511H1320Q1329 511 1332 510T1338 506T1341 497T1344 481T1352 456Q1374 389 1425 336T1544 261Q1553 258 1553 250Q1553 244 1548 241T1524 231T1486 212Q1445 186 1415 152T1370 85T1349 35T1341 4Q1339 -6 1336 -8T1320 -11Q1300 -11 1300 0Q1300 7 1305 25Q1337 151 1444 230H98Q84 237 84 250Z"></path></g></g></g></svg></mjx-container>browser’s cache<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.706ex" height="1.181ex" role="img" focusable="false" viewBox="0 -511 1638 522"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="27F6" d="M84 237T84 250T98 270H1444Q1328 357 1301 493Q1301 494 1301 496T1300 499Q1300 511 1317 511H1320Q1329 511 1332 510T1338 506T1341 497T1344 481T1352 456Q1374 389 1425 336T1544 261Q1553 258 1553 250Q1553 244 1548 241T1524 231T1486 212Q1445 186 1415 152T1370 85T1349 35T1341 4Q1339 -6 1336 -8T1320 -11Q1300 -11 1300 0Q1300 7 1305 25Q1337 151 1444 230H98Q84 237 84 250Z"></path></g></g></g></svg></mjx-container>Edge Cache<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.706ex" height="1.181ex" role="img" focusable="false" viewBox="0 -511 1638 522"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="27F6" d="M84 237T84 250T98 270H1444Q1328 357 1301 493Q1301 494 1301 496T1300 499Q1300 511 1317 511H1320Q1329 511 1332 510T1338 506T1341 497T1344 481T1352 456Q1374 389 1425 336T1544 261Q1553 258 1553 250Q1553 244 1548 241T1524 231T1486 212Q1445 186 1415 152T1370 85T1349 35T1341 4Q1339 -6 1336 -8T1320 -11Q1300 -11 1300 0Q1300 7 1305 25Q1337 151 1444 230H98Q84 237 84 250Z"></path></g></g></g></svg></mjx-container>Origin Cache<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.706ex" height="1.181ex" role="img" focusable="false" viewBox="0 -511 1638 522"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="27F6" d="M84 237T84 250T98 270H1444Q1328 357 1301 493Q1301 494 1301 496T1300 499Q1300 511 1317 511H1320Q1329 511 1332 510T1338 506T1341 497T1344 481T1352 456Q1374 389 1425 336T1544 261Q1553 258 1553 250Q1553 244 1548 241T1524 231T1486 212Q1445 186 1415 152T1370 85T1349 35T1341 4Q1339 -6 1336 -8T1320 -11Q1300 -11 1300 0Q1300 7 1305 25Q1337 151 1444 230H98Q84 237 84 250Z"></path></g></g></g></svg></mjx-container>backend server</p>
+<p>Browser：存在于client本地，通过哈希表查找内容，使用LRU淘汰算法。如果miss，则发送HTTP请求到互联网上。</p>
+<p>Edge：主要存在于PoPs中，也有很少一部分独立存在，将meta data存储于哈希表中，将图片存储于flash memory中，使用FIFO淘汰算法。</p>
+<p>Origin：通过图片的id将图片存储于哈希表中，和Edge Cache类似，使用FIFO算法。</p>
+<p>Haystack：</p>
+<h2 id="2-2-Photo-Transformation"><a href="#2-2-Photo-Transformation" class="headerlink" title="2.2 Photo Transformation"></a>2.2 Photo Transformation</h2><p>图片的裁剪和不同大小会使cache复杂化。</p>
+<p>同一个图片的不同transformations被视作独立的个体。这些transformations由Resizer实现。Resizer与Origin Cache位于同一位置。</p>
+<p>当图片首次上传到facebook时，图片会被裁剪成几种常见的大小，保存在backend中。</p>
+<blockquote>
+<p>能不能将上传的图片直接保存在cache中？这样做似乎会导致“距离”较远的用户无法访问图片。</p>
+<h2 id="2-3-Objective-of-the-Caching-Stack"><a href="#2-3-Objective-of-the-Caching-Stack" class="headerlink" title="2.3 Objective of the Caching Stack"></a>2.3 Objective of the Caching Stack</h2><p>Edge Cache的目标是减少Edge层和Origin层之间的带宽。其他cache的目标是对下一层进行sheltering（即提高命中率）。<br>这两个有什么本质区别吗？？</p>
+</blockquote>
+<h1 id="3-Methodology"><a href="#3-Methodology" class="headerlink" title="3 Methodology"></a>3 Methodology</h1><h2 id="3-1-Multi-Point-Data-Collection"><a href="#3-1-Multi-Point-Data-Collection" class="headerlink" title="3.1 Multi-Point Data Collection"></a>3.1 Multi-Point Data Collection</h2><p>为了简化问题，作者只收集了台式机用户的信息，而排除了移动用户的信息，出于以下几点原因：</p>
+<ol>
+<li>所有的浏览器用统一的网页编码方式。</li>
+<li>desktop的更新是及时的。<blockquote>
+<p>固定端和移动端的区别还是挺大的？所以仅仅研究固定端会带来很大的偏差吧？</p>
+</blockquote>
+</li>
+</ol>
+<p>当浏览器加载某些特定的图片时，一段javascript程序就会向Scribe发送报告。</p>
+<p>当有HTTP回复发送回client时，Edge Cache便向Scribe发送报告。即使request在Edge Cache未命中，Edge返回的信息中也会包含来自下游的一些信息，所以Edge Cache发送的报告同时包括Edge Cache和Origin Cache的命中/缺失信息。</p>
+<p>当某个请求在backend上完成时，Origin host便向Scribe发送报告。</p>
+<h2 id="3-2-Correlating-Request"><a href="#3-2-Correlating-Request" class="headerlink" title="3.2 Correlating Request"></a>3.2 Correlating Request</h2><p>我们对于信息的采集，让我们实现了如下目标：</p>
+<ol>
+<li>探究有多少request在browser cache层解决</li>
+<li>探究request沿cache层次结构传递的路径</li>
+</ol>
+<p>但我们的采集方法也带来了一些挑战：</p>
+<ol>
+<li>判断browser cache的命中是十分困难的。为此，我们通过对比相同URL在浏览器和Edge上的数量，来判断命中。</li>
+</ol>
+<h2 id="3-3-Sampling-Bias"><a href="#3-3-Sampling-Bias" class="headerlink" title="3.3 Sampling Bias"></a>3.3 Sampling Bias</h2><p>有两种采样策略：</p>
+<ol>
+<li>随机对requests进行采样。</li>
+<li>对图片的id进行随机采样。</li>
+</ol>
+<p>作者选择后者，出于以下两个原因：</p>
+<ol>
+<li>避免了对流行图片的偏好</li>
+<li>可以通过id号很方便观察图片在不同layer中的情况。</li>
+</ol>
+<p>但这种方法亦有缺陷。最终实验证明，采样下的cache表现与实际cache表现类似，所以可以认为没有偏差。</p>
+<blockquote>
+<p>为什么不能对requests进行采样呢？虽然request中，popular图片占比会更多，但这不是恰好符合现实吗？不是更有助于对实际情况进行分析吗?</p>
+<p>为什么根据id进行采样，不同popular level的图片的比例仍然会有不同？workload该如何理解？每张图片（包括其transformation）在workload中会有重复吗？</p>
+<p>一种可能的解释：workload和request本质上是一样的，但前者是与时间无关，后者与时间有关。作者之所以认为对request采样会对“暂时流行”的图片有偏好，是因为采样的那段时间很可能是其唯一流行的时间。</p>
+<h2 id="3-4-Privacy-Preservation"><a href="#3-4-Privacy-Preservation" class="headerlink" title="3.4 Privacy Preservation"></a>3.4 Privacy Preservation</h2><h1 id="4-Workload-Characteristics"><a href="#4-Workload-Characteristics" class="headerlink" title="4 Workload Characteristics"></a>4 Workload Characteristics</h1><p><img src="https://img-blog.csdnimg.cn/82b272b690f447d1a2d4d20bf1031f0f.jpeg#pic_center" alt="在这里插入图片描述"><br>观察“Photos w/o size”，我们发现各个层级的图片数量接近，大约都为1.3M。相邻两个层级的差值，代表了在前一层处理的图片数量。所以对于1.3M不流行的图片，往往在每层cache中都miss了。</p>
+</blockquote>
+<p>观察“Photos w/ size”，我们发现Origin cache和Backend之间的差值最大，考虑到Origin cache层具有裁剪图片的功能，说明前几层的miss中，有相当一部分都是由于图片大小不符。</p>
+<h2 id="4-1-Popularity-Distribution"><a href="#4-1-Popularity-Distribution" class="headerlink" title="4.1 Popularity Distribution"></a>4.1 Popularity Distribution</h2><p><img src="https://img-blog.csdnimg.cn/070ea770fe974b09a98fd2eaf23cb8b4.jpeg#pic_center" alt="在这里插入图片描述"><br>观察图（a）-（d），发现图片的流行程度符合Zifian律，且随着cache层的深入趋于平缓，因为真正流行的图片已经被前面的cache处理完了。</p>
+<p>观察图（e）-（g），发现同一图片在不同层级的流行程度排名是不一样的，排名变化越大，说明x轴的cache的表现越好。</p>
+<blockquote>
+<p>这是符合逻辑的，因为流行的图片往往容易被靠前的cache处理，导致request很少到达后面的cache。但图（e）中，在browser中前几名的图片，在Edge中依然是前几名，这似乎有些反直觉吧？这是否意味着browser cache的表现并不好？</p>
+</blockquote>
+<h2 id="4-2-Hit-Ratio"><a href="#4-2-Hit-Ratio" class="headerlink" title="4.2 Hit Ratio"></a>4.2 Hit Ratio</h2><p><img src="https://img-blog.csdnimg.cn/5d01d850d74d4f8b8237e05621dde599.jpeg#pic_center" alt="在这里插入图片描述"><br>图（a）展示了不同层次处理的request占比。</p>
+<p>图（b）展示了，将图片根据流行程度排名进行分组后，不同组在不同层次被处理的占比。</p>
+<p>图（c）展示了，不同层次的各个组的命中率。仔细观察，作者发现在browser中，B组的命中率比C组要低。作者通过数据证明，B组是“病毒式”的图片，这意味着多数用户只愿意打开B一次，而部分用户则会重复访问这些图片</p>
+<blockquote>
+<p>设想一种极端情况，假如某张图片只有一个用户重复访问，且访问次数极高，而其余用户均只访问一次，则这张图片在browser层的命中率一定不会很高，因为只有那个重复访问该图片的用户会贡献命中。</p>
+</blockquote>
+<h1 id="5-Geographic-Traffic-Distribution"><a href="#5-Geographic-Traffic-Distribution" class="headerlink" title="5 Geographic Traffic Distribution"></a>5 Geographic Traffic Distribution</h1><h2 id="5-1-Client-To-Edge-Cache-Traffic"><a href="#5-1-Client-To-Edge-Cache-Traffic" class="headerlink" title="5.1 Client To Edge Cache Traffic"></a>5.1 Client To Edge Cache Traffic</h2><p><img src="https://img-blog.csdnimg.cn/92f9b69e2cd447939011f54c07270d09.png" alt="在这里插入图片描述"><br>图5展示了每个城市的用户发送的request最终被不同Edge Cache处理的比例。注意到，每座城市的request均被所有的Edge Cache服务，即使有些Edge Cache距离当前城市很远，有着很高的延迟。并且，城市的requests中的大多数往往不是被距离最近的Edge Cache处理的。</p>
+<p>上述现象是由基于总延迟、Edge Cache容量、ISP成本的路由政策造成的。当收到request时，DNS服务器会综合考虑延迟、“交通”状况、“交通”花费来选择最佳的Edge Cache。</p>
+<p>由于Facebook的Edge Cache分配政策，同一用户可能在不同的时间段内被不同的Edge Cache服务，这导致了Cache命中率的下降。</p>
+<h2 id="5-2-Edge-Cache-to-Origin-Cache-Traffic"><a href="#5-2-Edge-Cache-to-Origin-Cache-Traffic" class="headerlink" title="5.2 Edge Cache to Origin Cache Traffic"></a>5.2 Edge Cache to Origin Cache Traffic</h2><p>Facebook的照片服务集中在4个数据中心，每个数据中心都有Origin Cache，所有的Origin Cache均被视作一个整体。<br><img src="https://img-blog.csdnimg.cn/aaca9c48478c4e5eb33dbc64de9ba0d9.png" alt="在这里插入图片描述"><br>图6描述了每个Edge Cache向不同数据中心发出的request所占的比例。由图可知，各个城市的比例分布几乎相同，再次证明了这4个Origin Cache的整体性。</p>
+<h2 id="5-3-Cross-Region-Traffic-at-Backend"><a href="#5-3-Cross-Region-Traffic-at-Backend" class="headerlink" title="5.3 Cross-Region Traffic at Backend"></a>5.3 Cross-Region Traffic at Backend</h2><p>有两种情况会导致request不能在当前backend处理：</p>
+<ol>
+<li>由于Facebook经常对Backend的数据进行迁移，所以偶尔会发生无法在当前backend找到目标的情况。</li>
+<li>当前backend出于脱机或过载而无法响应请求。</li>
+</ol>
+<p>以上两种情况出现的概率一般不超过0.5%。</p>
+<h1 id="6-Potential-Improvements"><a href="#6-Potential-Improvements" class="headerlink" title="6 Potential Improvements"></a>6 Potential Improvements</h1><h2 id="6-1-Browser-Cache"><a href="#6-1-Browser-Cache" class="headerlink" title="6.1 Browser Cache"></a>6.1 Browser Cache</h2><p><img src="https://img-blog.csdnimg.cn/ff9efaeb830b478c89b2cb14cbcd17ad.png" alt="在这里插入图片描述"><br>如图8所示，越活跃的用户，其browser cache的命中率越高。总的命中率为65.5%.</p>
+<p>作者假设browser cache拥有无限的容量，从而将cold miss和capacity miss（由于容量不足而淘汰object造成的miss）区分开来，其结果给出了提升cache容量和改进淘汰算法带来的提升的上界。由上图可知，不活跃用户不会因为cache无限的容量而获益（由此可见，这些用户的miss大多为cold miss）。</p>
+<p>作者同样假设resize的工作由用户完成，这种情况下，不活跃用户的提升程度较大。</p>
+<blockquote>
+<p>我认为，browser cache的提升空间并不大，且提升cache space或resize都会给用户带来体验上的损失。</p>
+<h2 id="6-2-Edge-Cache"><a href="#6-2-Edge-Cache" class="headerlink" title="6.2 Edge Cache"></a>6.2 Edge Cache</h2><p><img src="https://img-blog.csdnimg.cn/128e2d100a774eaea9ea3e212fdc4cb1.png" alt="在这里插入图片描述"><br>作者着重研究了9个常用的Edge Cache，“All”代表所有Edge Cache的总hit ratio，“Coord”代表一个假设的、由这9个Edge Cache合体而成的Edge Cache的hit ratio。<br>Edge Cache的提升空间就很大，可以重点研究。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/78afd79ac4da4ee3bf2edc3c13a4b99b.png" alt="在这里插入图片描述"><br>图10展示了cache size和淘汰算法对Edge Cache命中率的影响。图中提及的淘汰算法如表4所示。<br><img src="https://img-blog.csdnimg.cn/11bdb802f3c04da982c2f50fd8636c38.png" alt="在这里插入图片描述"><br>图10（a）、（b）中的灰线即原命中率，横轴上的“x”即原容量。这里，作者解释了“sheltering”和“bandwidth reduction”的区别：前者致力于减少向下一层的request数，即提高object-hit ratio；后者致力于提高byte-hit ratio。由图10可知，S4LRU是不错的淘汰算法，但提升空间仍然很大。<br>观察图10（a）、（b）中的灰线可以发现，使用更好的淘汰算法可以在更小的cache上保证命中率不变。</p>
+<p>作者再次讨论了“合体版”Edge Cache的情况，出于以下两点考虑：</p>
+<ol>
+<li>现有结构下，同一照片可能在不同的Edge Cache中均有存储，而“合体”后只需存储一张即可，从而留出更的空间存储其他图片。</li>
+<li>“合体版”Edge Cache可以避免由于用户在不同Edge Cache之间的切换而造成的cold miss。</li>
+</ol>
+<h2 id="6-3-Origin-Cache"><a href="#6-3-Origin-Cache" class="headerlink" title="6.3 Origin Cache"></a>6.3 Origin Cache</h2><p><img src="https://img-blog.csdnimg.cn/7b084a930e0a473b9c64bc4aade4d5ce.png" alt="在这里插入图片描述"><br>从图11中可以看出，现有Origin Cache的提升空间是很大的。</p>
+<h1 id="7-Social-Network-Analysis"><a href="#7-Social-Network-Analysis" class="headerlink" title="7 Social-Network Analysis"></a>7 Social-Network Analysis</h1><blockquote>
+<p>这部分感觉像是凑数的。。。</p>
+</blockquote>
+<h2 id="7-1-Content-Age-Effect"><a href="#7-1-Content-Age-Effect" class="headerlink" title="7.1 Content Age Effect"></a>7.1 Content Age Effect</h2><p><img src="https://img-blog.csdnimg.cn/18eca43d0ab64035b4e71c8b025410ed.png" alt="在这里插入图片描述"></p>
+<h2 id="7-2-Social-Effects"><a href="#7-2-Social-Effects" class="headerlink" title="7.2 Social Effects"></a>7.2 Social Effects</h2><p><img src="https://img-blog.csdnimg.cn/e688676d4e804cb7a5fd4003a1fe5a99.png" alt="在这里插入图片描述"></p>
+<h1 id="9-Conclusions-amp-Future-Directions"><a href="#9-Conclusions-amp-Future-Directions" class="headerlink" title="9 Conclusions & Future Directions"></a>9 Conclusions &amp; Future Directions</h1><p>根据元数据预测未来的访问模式？</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1405,102 +1607,6 @@ x_k-x_{k-1}\leq w(v_{k-1},v_k)</script><p>采用反证法，假设存在某一�
 <p>我们将每个<strong>连通分支</strong>看作一个物品. 所有连通分支保存在数组<code>w[][2]</code>中, <code>w[i][0]</code>表示第<code>i</code>个连通分支中来自一号监狱的人数, <code>w[i][1]</code>表示第<code>i</code>个连通分支中来自二号监狱的人数.</p>
 <p>此时, 这个看似生疏的<strong>监狱分配问题</strong>, 已经可以转化为我们熟悉的<strong>01背包</strong>问题: 背包有两个口袋, 每个口袋的容量为<code>m/2</code>, 我们要在保证两个口袋重量一致的前提下, 尽可能地选择<strong>总重量</strong>最大的物品.</p>
 <h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstring&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt;graph[<span class="number">401</span>];</span><br><span class="line"><span class="type">bool</span> vis[<span class="number">401</span>];</span><br><span class="line"><span class="type">int</span> color[<span class="number">401</span>];		<span class="comment">//染色</span></span><br><span class="line"><span class="type">int</span> cnt_color;			<span class="comment">//颜色 </span></span><br><span class="line"><span class="type">int</span> dp[<span class="number">101</span>][<span class="number">101</span>]; </span><br><span class="line"><span class="type">int</span> w[<span class="number">401</span>][<span class="number">2</span>];			<span class="comment">//物品 </span></span><br><span class="line"><span class="type">int</span> n,m=<span class="number">0</span>,r;</span><br><span class="line"><span class="type">int</span> a,b;</span><br><span class="line"><span class="type">bool</span> flag;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>{		<span class="comment">//初始化 </span></span><br><span class="line">	flag=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">2</span>*m;i++) graph[i].<span class="built_in">clear</span>();</span><br><span class="line">	<span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis));</span><br><span class="line">	<span class="built_in">memset</span>(color,<span class="number">0</span>,<span class="built_in">sizeof</span>(color));</span><br><span class="line">	<span class="built_in">memset</span>(dp,<span class="number">1</span>&lt;&lt;<span class="number">7</span>,<span class="built_in">sizeof</span>(dp));		<span class="comment">//条件限制 </span></span><br><span class="line">	dp[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">memset</span>(w,<span class="number">0</span>,<span class="built_in">sizeof</span>(w)); </span><br><span class="line">	cnt_color=<span class="number">1</span>;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> cnt)</span></span>{		<span class="comment">//图染色 </span></span><br><span class="line">	vis[s]=<span class="number">1</span>;</span><br><span class="line">	color[s]=cnt;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;graph[s].<span class="built_in">size</span>();i++){</span><br><span class="line">		<span class="type">int</span> to=graph[s][i];</span><br><span class="line">		<span class="keyword">if</span>(vis[to]) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="built_in">dfs</span>(to,cnt);</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">transform</span><span class="params">()</span></span>{			<span class="comment">//将连通分支转化为物品 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++){</span><br><span class="line">		w[color[i]][<span class="number">0</span>]++;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=m+<span class="number">1</span>;i&lt;=<span class="number">2</span>*m;i++){</span><br><span class="line">		w[color[i]][<span class="number">1</span>]++;</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>{				<span class="comment">//动态规划 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;cnt_color;i++){</span><br><span class="line">		<span class="type">int</span> w1=w[i][<span class="number">0</span>],w2=w[i][<span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=m/<span class="number">2</span>;j&gt;=w1;j--){</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> k=m/<span class="number">2</span>;k&gt;=w2;k--){</span><br><span class="line">				dp[j][k]=<span class="built_in">max</span>(dp[j][k],dp[j-w1][k-w2]+w1+w2);</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	cin&gt;&gt;n;</span><br><span class="line">	<span class="keyword">while</span>(n--){</span><br><span class="line">		cin&gt;&gt;m&gt;&gt;r;</span><br><span class="line">		<span class="built_in">init</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;r;i++){</span><br><span class="line">			cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">			b+=m;</span><br><span class="line">			graph[a].<span class="built_in">push_back</span>(b);		<span class="comment">//双向建图 </span></span><br><span class="line">			graph[b].<span class="built_in">push_back</span>(a);</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">2</span>*m;i++){		<span class="comment">//染色 </span></span><br><span class="line">			<span class="keyword">if</span>(vis[i]) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="built_in">dfs</span>(i,cnt_color);</span><br><span class="line">			cnt_color++;</span><br><span class="line">		} </span><br><span class="line">		<span class="built_in">transform</span>();</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=m/<span class="number">2</span>;i&gt;<span class="number">0</span>;i--){</span><br><span class="line">			<span class="keyword">if</span>(dp[i][i]&gt;=<span class="number">0</span>){</span><br><span class="line">				cout&lt;&lt;dp[i][i]/<span class="number">2</span>&lt;&lt;<span class="string">'\n'</span>;</span><br><span class="line">				flag=<span class="number">1</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span>(flag) <span class="keyword">continue</span>;</span><br><span class="line">		cout&lt;&lt;<span class="number">0</span>&lt;&lt;<span class="string">'\n'</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1050/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1050/" class="post-title-link" itemprop="url">HUST算法实践__POJ1050</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-07-23 17:18:30" itemprop="dateCreated datePublished" datetime="2022-07-23T17:18:30+08:00">2022-07-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-07-29 17:25:02" itemprop="dateModified" datetime="2022-07-29T17:25:02+08:00">2022-07-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="题目传送门"><a href="#题目传送门" class="headerlink" title="题目传送门"></a><a target="_blank" rel="noopener" href="http://poj.org/problem?id=1050">题目传送门</a></h1><h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>Given a two-dimensional array of positive and negative integers, a sub-rectangle is any contiguous sub-array of size 1*1 or greater located within the whole array. The sum of a rectangle is the sum of all the elements in that rectangle. In this problem the sub-rectangle with the largest sum is referred to as the maximal sub-rectangle.<br>As an example, the maximal sub-rectangle of the array:</p>
-<p>0 -2 -7 0<br>9 2 -6 2<br>-4 1 -4 1<br>-1 8 0 -2<br>is in the lower left corner:</p>
-<p>9 2<br>-4 1<br>-1 8<br>and has a sum of 15.</p>
-<h1 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h1><p>The input consists of an N * N array of integers. The input begins with a single positive integer N on a line by itself, indicating the size of the square two-dimensional array. This is followed by N^2 integers separated by whitespace (spaces and newlines). These are the N^2 integers of the array, presented in row-major order. That is, all numbers in the first row, left to right, then all numbers in the second row, left to right, etc. N may be as large as 100. The numbers in the array will be in the range [-127,127].</p>
-<h1 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h1><p>Output the sum of the maximal sub-rectangle.</p>
-<h1 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h1><p>对于一个<strong>一维数组</strong>, 我们已经知道如何用动态规划的思想求解其最大子段和 (不熟悉的同学可以移步<a target="_blank" rel="noopener" href="https://blog.csdn.net/MaTF_/article/details/122679311?spm=1001.2014.3001.5501">https://blog.csdn.net/MaTF_/article/details/122679311?spm=1001.2014.3001.5501</a>), 其状态转移方程为<code>dp[i]=max(arr[i],dp[i-1]+arr[i])</code></p>
-<p>我们可以尝试将<strong>矩阵</strong>转化为多个一维数组, 转化方式为: 枚举<code>(i,j)</code>,满足<code>i&lt;=j</code>, 将第<code>i</code>行到第<code>j</code>行<strong>纵坐标相同</strong>的元素全部相加(借助<strong>差分数组</strong>), 构成一个一维数组.</p>
-<p>我们对转化而来的<strong>每一个一维数组</strong>, 分别求其最大字段和, 所有最大子段和中中的最大值即为所求答案.</p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> maxn 105</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> arr[maxn][maxn];</span><br><span class="line"><span class="type">int</span> new_arr[<span class="number">10000</span>][maxn];</span><br><span class="line"><span class="type">int</span> dp[<span class="number">10000</span>][maxn];</span><br><span class="line"><span class="type">int</span> d[maxn][maxn];</span><br><span class="line"><span class="type">int</span> cnt=<span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> _max=<span class="number">-99999999</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>{		<span class="comment">//将矩阵转化为若干一维数组</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++){</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>;j&lt;=n;j++){</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">1</span>;k&lt;=n;k++){</span><br><span class="line">				new_arr[cnt][k]=d[j][k]-d[i][k];</span><br><span class="line">			} </span><br><span class="line">			cnt++;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">find_max</span><span class="params">(<span class="type">int</span> x)</span></span>{	<span class="comment">//求解一维数组的最大子段和</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">		dp[x][i]=<span class="built_in">max</span>(new_arr[x][i],dp[x][i<span class="number">-1</span>]+new_arr[x][i]);</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>{			<span class="comment">//求解所有一维数组的最大子段和</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;cnt;i++){</span><br><span class="line">		<span class="built_in">find_max</span>(i);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	cin&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j++){</span><br><span class="line">			cin&gt;&gt;arr[i][j];</span><br><span class="line">			d[i][j]=d[i<span class="number">-1</span>][j]+arr[i][j];</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">init</span>();</span><br><span class="line">	<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;cnt;i++){			<span class="comment">//遍历找答案</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j++){</span><br><span class="line">			_max=<span class="built_in">max</span>(dp[i][j],_max);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	cout&lt;&lt;_max;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">} </span><br></pre></td></tr></table></figure>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32062909">https://zhuanlan.zhihu.com/p/32062909</a></li>
-</ul>
 
       
     </div>

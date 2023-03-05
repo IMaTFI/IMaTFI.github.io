@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -289,6 +289,99 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/13/%E6%B4%9B%E8%B0%B7%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94P1120-%E5%B0%8F%E6%9C%A8%E6%A3%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/12/13/%E6%B4%9B%E8%B0%B7%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94P1120-%E5%B0%8F%E6%9C%A8%E6%A3%8D/" class="post-title-link" itemprop="url">洛谷刷题笔记——P1120 小木棍</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-12-13 18:27:27 / Modified: 18:29:03" itemprop="dateCreated datePublished" datetime="2022-12-13T18:27:27+08:00">2022-12-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>参考资料</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/solution/P1120">https://www.luogu.com.cn/problem/solution/P1120</a></li>
+</ul>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>乔治有一些同样长的小木棍，他把这些木棍随意砍成几段，直到每段的长都不超过 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex;" xmlns="http://www.w3.org/2000/svg" width="2.262ex" height="1.557ex" role="img" focusable="false" viewBox="0 -666 1000 688"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g></g></g></svg></mjx-container>。</p>
+<p>现在，他想把小木棍拼接成原来的样子，但是却忘记了自己开始时有多少根木棍和它们的长度。</p>
+<p>给出每段小木棍的长度，编程帮他找出原始木棍的最小可能长度。</p>
+<h1 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h1><p>第一行是一个整数 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.357ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 600 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container>，表示小木棍的个数。<br>第二行有 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.357ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 600 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container> 个整数，表示各个木棍的长度 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="1.937ex" height="1.355ex" role="img" focusable="false" viewBox="0 -441 856 598.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(562,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container>。</p>
+<h1 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h1><p>输出一行一个整数表示答案。</p>
+<h1 id="样例-1"><a href="#样例-1" class="headerlink" title="样例 #1"></a>样例 #1</h1><h2 id="样例输入-1"><a href="#样例输入-1" class="headerlink" title="样例输入 #1"></a>样例输入 #1</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">9</span><br><span class="line">5 2 1 5 2 1 5 2 1</span><br></pre></td></tr></table></figure>
+<h2 id="样例输出-1"><a href="#样例输出-1" class="headerlink" title="样例输出 #1"></a>样例输出 #1</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6</span><br></pre></td></tr></table></figure>
+<h1 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h1><p>对于全部测试点，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.312ex;" xmlns="http://www.w3.org/2000/svg" width="10.785ex" height="1.819ex" role="img" focusable="false" viewBox="0 -666 4767.1 804"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(777.8,0)"><path data-c="2264" d="M674 636Q682 636 688 630T694 615T687 601Q686 600 417 472L151 346L399 228Q687 92 691 87Q694 81 694 76Q694 58 676 56H670L382 192Q92 329 90 331Q83 336 83 348Q84 359 96 365Q104 369 382 500T665 634Q669 636 674 636ZM84 -118Q84 -108 99 -98H678Q694 -104 694 -118Q694 -130 679 -138H98Q84 -131 84 -118Z"></path></g><g data-mml-node="mi" transform="translate(1833.6,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(2711.3,0)"><path data-c="2264" d="M674 636Q682 636 688 630T694 615T687 601Q686 600 417 472L151 346L399 228Q687 92 691 87Q694 81 694 76Q694 58 676 56H670L382 192Q92 329 90 331Q83 336 83 348Q84 359 96 365Q104 369 382 500T665 634Q669 636 674 636ZM84 -118Q84 -108 99 -98H678Q694 -104 694 -118Q694 -130 679 -138H98Q84 -131 84 -118Z"></path></g><g data-mml-node="mn" transform="translate(3767.1,0)"><path data-c="36" d="M42 313Q42 476 123 571T303 666Q372 666 402 630T432 550Q432 525 418 510T379 495Q356 495 341 509T326 548Q326 592 373 601Q351 623 311 626Q240 626 194 566Q147 500 147 364L148 360Q153 366 156 373Q197 433 263 433H267Q313 433 348 414Q372 400 396 374T435 317Q456 268 456 210V192Q456 169 451 149Q440 90 387 34T253 -22Q225 -22 199 -14T143 16T92 75T56 172T42 313ZM257 397Q227 397 205 380T171 335T154 278T148 216Q148 133 160 97T198 39Q222 21 251 21Q302 21 329 59Q342 77 347 104T352 209Q352 289 347 316T329 361Q302 397 257 397Z"></path><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z" transform="translate(500,0)"></path></g></g></g></svg></mjx-container>，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="11.364ex" height="1.864ex" role="img" focusable="false" viewBox="0 -666 5023.1 823.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(777.8,0)"><path data-c="2264" d="M674 636Q682 636 688 630T694 615T687 601Q686 600 417 472L151 346L399 228Q687 92 691 87Q694 81 694 76Q694 58 676 56H670L382 192Q92 329 90 331Q83 336 83 348Q84 359 96 365Q104 369 382 500T665 634Q669 636 674 636ZM84 -118Q84 -108 99 -98H678Q694 -104 694 -118Q694 -130 679 -138H98Q84 -131 84 -118Z"></path></g><g data-mml-node="msub" transform="translate(1833.6,0)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(562,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(2967.3,0)"><path data-c="2264" d="M674 636Q682 636 688 630T694 615T687 601Q686 600 417 472L151 346L399 228Q687 92 691 87Q694 81 694 76Q694 58 676 56H670L382 192Q92 329 90 331Q83 336 83 348Q84 359 96 365Q104 369 382 500T665 634Q669 636 674 636ZM84 -118Q84 -108 99 -98H678Q694 -104 694 -118Q694 -130 679 -138H98Q84 -131 84 -118Z"></path></g><g data-mml-node="mn" transform="translate(4023.1,0)"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g></g></g></svg></mjx-container>。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><p>定义<code>cnt</code>表示原始木棍的数量，<code>len</code>表示每根原始木棍的长度，<code>sum</code>表示木棍的总长度。</p>
+<p>定义状态<code>(num, pre, last)</code>，其中<code>num</code>表示当前正在拼的<strong>原始木棍</strong>的编号，<code>pre</code>表示上一个使用的<strong>小木棍</strong>的编号，<code>last</code>表示当前<strong>原始木棍的剩余长度</strong>。</p>
+<ul>
+<li>如果<code>last</code>为0，说明当前原始木棍已经拼接完成。此时，如果有<code>num</code>和<code>cnt</code>相等，说明所有木棍拼接成功；如果<code>num</code>和<code>cnt</code>不相等，则继续拼接下一个原始木棍。</li>
+<li>如果<code>last</code>不为0，则选择尚未使用的小木棍来拼接该原始木棍。</li>
+</ul>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>优化1：仅需要考虑<code>len &lt;= sum/2</code>的情况。</p>
+<p>优化2：当前状态为：完成了某个原始木棍的拼接，准备进入下一个原始木棍的拼接。在这一状态下，我们选取一根<strong>最长的</strong>、尚未使用过的小木棍来进行拼接，<strong>如果拼接失败，则无需再考虑其他木棍</strong>，直接从当前状态返回。这是因为，所有未使用过的小木棍最终都要被用来拼接成原始木棍，所以选择先从哪根小木棍开始都是一样的。也就是说，当前状态并不能导出拼接成功的状态。</p>
+<p>优化3：当前状态为：尚未完成该原始木棍的拼接，且选择了一个<strong>长度恰好为<code>last</code>的小木棍</strong>。如果上述选择导致拼接失败，则<strong>无需再考虑其他小木棍</strong>，直接从当前状态返回。这是因为，如果当前状态能导出一个拼凑完成的状态，那么这个长度为<code>last</code>的木棍<strong>在之后也必须要被使用</strong>。显然，在<strong>剩余小木棍较多</strong>的当前状态下，选择长度为<code>last</code>的小木棍都不能完成拼接，在后面<strong>剩余小木棍更少</strong>的状态下，度为<code>last</code>的小木棍一定也不能完成拼接。也就是说，当前状态并不能导出拼接成功的状态。</p>
+<p>优化4：使用<strong>二分查找</strong>的方法，找到第一个长度<code>&lt;= last</code>的小木棍的编号，然后从该编号开始选择。需要特别注意的是，二分查找的左边界可以优化为<code>pre+1</code>。</p>
+<p>优化5：预处理<code>Next[x]</code>数组，存储第一个长度<code>&lt; x</code>的小木棍的下标。</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> maxn 70</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> a[maxn];</span><br><span class="line"><span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> M = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> m = <span class="number">0</span>;</span><br><span class="line"><span class="type">bool</span> vis[maxn];</span><br><span class="line"><span class="type">int</span> Next[maxn];</span><br><span class="line"><span class="type">bool</span> flag = <span class="literal">false</span>; </span><br><span class="line"><span class="type">int</span> cnt, len;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span>{</span><br><span class="line">	<span class="keyword">return</span> x&gt;y;</span><br><span class="line">} </span><br><span class="line"></span><br><span class="line"><span class="comment">//num：当前正在拼的是第几个原木棍 </span></span><br><span class="line"><span class="comment">//pre：上一个使用的小木棍的编号</span></span><br><span class="line"><span class="comment">//last：拼完这个原木棍，还需要的长度 </span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> num, <span class="type">int</span> pre, <span class="type">int</span> last)</span></span>{</span><br><span class="line">	<span class="comment">//当前原木棍拼成功了 </span></span><br><span class="line">	<span class="keyword">if</span>(last==<span class="number">0</span>){</span><br><span class="line">		<span class="comment">//所有木棍拼凑成功 </span></span><br><span class="line">		<span class="keyword">if</span>(num==cnt){</span><br><span class="line">			flag = <span class="literal">true</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span>{</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">				<span class="keyword">if</span>(vis[i]) <span class="keyword">continue</span>;</span><br><span class="line">				vis[i] = <span class="literal">true</span>;</span><br><span class="line">				<span class="built_in">dfs</span>(num+<span class="number">1</span>, i, len-a[i]);</span><br><span class="line">				vis[i] = <span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">if</span>(flag) <span class="keyword">return</span>;</span><br><span class="line">				<span class="keyword">return</span>;		<span class="comment">//优化2 </span></span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	} </span><br><span class="line">	<span class="keyword">else</span>{</span><br><span class="line">		<span class="comment">//二分查找第一个长度小于剩余长度的小木棍</span></span><br><span class="line">		<span class="type">int</span> L=pre+<span class="number">1</span>, R=n, mid, pos=n;</span><br><span class="line">		<span class="keyword">while</span>(L&lt;=R){</span><br><span class="line">			mid = (L+R)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(a[mid]&lt;=last){</span><br><span class="line">				pos = mid;</span><br><span class="line">				R = mid<span class="number">-1</span>;</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">else</span>{</span><br><span class="line">				L = mid+<span class="number">1</span>;</span><br><span class="line">			}</span><br><span class="line">		} </span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=pos;i&lt;=n;i++){</span><br><span class="line">			<span class="keyword">if</span>(vis[i]) <span class="keyword">continue</span>;</span><br><span class="line">			vis[i] = <span class="literal">true</span>;</span><br><span class="line">			<span class="built_in">dfs</span>(num, i, last-a[i]);</span><br><span class="line">			vis[i] = <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">if</span>(flag) <span class="keyword">return</span>;</span><br><span class="line">			<span class="keyword">if</span>(last==a[i]) <span class="keyword">return</span>;</span><br><span class="line">			<span class="keyword">if</span>(a[i]==m) <span class="keyword">continue</span>;		<span class="comment">//优化3 </span></span><br><span class="line">			<span class="keyword">else</span> i = Next[a[i]]<span class="number">-1</span>;</span><br><span class="line">		} 	</span><br><span class="line">	} </span><br><span class="line">} </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="built_in">memset</span>(vis, <span class="number">0</span>, <span class="built_in">sizeof</span>(vis));</span><br><span class="line">	cin&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">		cin&gt;&gt;a[i];</span><br><span class="line">		sum += a[i];</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">sort</span>(a+<span class="number">1</span>, a+n+<span class="number">1</span>, cmp);</span><br><span class="line">	M = a[<span class="number">1</span>];</span><br><span class="line">	m = a[n];</span><br><span class="line">	<span class="comment">//预处理next</span></span><br><span class="line">	<span class="type">int</span> temp = a[<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=n;i++){</span><br><span class="line">		<span class="keyword">if</span>(a[i]!=temp){</span><br><span class="line">			Next[temp] = i;</span><br><span class="line">			temp = a[i];</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> k=M;k&lt;=sum/<span class="number">2</span>;k++){</span><br><span class="line">		<span class="keyword">if</span>(sum-(sum/k)*k!=<span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">		flag = <span class="literal">false</span>;</span><br><span class="line">		vis[<span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">		cnt = sum/k;</span><br><span class="line">		len = k;</span><br><span class="line">		<span class="built_in">dfs</span>(<span class="number">1</span>, <span class="number">1</span>, k-a[<span class="number">1</span>]);</span><br><span class="line">		vis[<span class="number">1</span>] = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">if</span>(flag){</span><br><span class="line">			cout&lt;&lt;k;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	cout&lt;&lt;sum;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1721,185 +1814,6 @@ mjx-container[display="true"] + br {
 <li>一个m：n联系转换为一个关系模式。与该多元联系相连的各实体的码以及联系本身的属性均转换为关系的属性，各实体的码的组成关系的码。</li>
 <li>具有<strong>相同码</strong>的关系模式可合并。</li>
 </ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6/" class="post-title-link" itemprop="url">操作系统——处理机调度</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-11-13 17:37:17 / Modified: 17:41:45" itemprop="dateCreated datePublished" datetime="2022-11-13T17:37:17+08:00">2022-11-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="1-调度的三个层次"><a href="#1-调度的三个层次" class="headerlink" title="1. 调度的三个层次"></a>1. 调度的三个层次</h1><h2 id="1-1-作业调度"><a href="#1-1-作业调度" class="headerlink" title="1.1 作业调度"></a>1.1 作业调度</h2><p>作业调度决定是否为作业<strong>创建相应的进程</strong>（建立PCB），并将其加入将要执行的进程集合中。</p>
-<p>作业调度是<strong>外存与内存</strong>之间的调度。每个作业只会被调入一次、调出一次，作业调度主要关注<strong>调入</strong>问题，因为只有调入的时机需要操作系统决定。</p>
-<h2 id="1-2-内存调度"><a href="#1-2-内存调度" class="headerlink" title="1.2 内存调度"></a>1.2 内存调度</h2><p> 引入虚存技术后，可以将暂时不能运行的进程移至外存等待，即变为<strong>挂起状态</strong>。处于挂起状态的进程的PCB会<strong>常驻内存</strong>，被放入<strong>挂起队列</strong>中。</p>
-<p>内存调度调度就是决定是否将一个挂起进程载入内存。</p>
-<p>一个进程可能被多次调入、调出内存，因此内存调度的发生频率比作业调度高。</p>
-<h2 id="1-3-进程调度"><a href="#1-3-进程调度" class="headerlink" title="1.3 进程调度"></a>1.3 进程调度</h2><p>进程调度决定哪个就绪进程将被处理机执行。</p>
-<p>进程调度的频率很高，一般几十毫秒一次。</p>
-<h2 id="1-4-三层调度的对比"><a href="#1-4-三层调度的对比" class="headerlink" title="1.4 三层调度的对比"></a>1.4 三层调度的对比</h2><p><img src="https://img-blog.csdnimg.cn/8c7a9f461559443ca5bfa2dead01e96d.png" alt="在这里插入图片描述"></p>
-<h1 id="2-进程调度"><a href="#2-进程调度" class="headerlink" title="2. 进程调度"></a>2. 进程调度</h1><h2 id="2-1-进程调度的时机"><a href="#2-1-进程调度的时机" class="headerlink" title="2.1 进程调度的时机"></a>2.1 进程调度的时机</h2><p>需要进行进程调度、切换的情况：</p>
-<ul>
-<li>当前进程<strong>主动</strong>放弃处理机：<ul>
-<li>进程正常终止</li>
-<li>运行过程中发生异常而终止</li>
-<li>进程主动请求阻塞（如I/O请求）</li>
-</ul>
-</li>
-<li>当前进程<strong>被动</strong>放弃处理机：<ul>
-<li>时间片用完</li>
-<li>有更紧急的事需要处理（I/O中断）</li>
-<li>有更高优先级的进程进入就绪队列</li>
-</ul>
-</li>
-</ul>
-<p>不能进行进程调度、切换的情况：</p>
-<ul>
-<li>在处理中断的过程中</li>
-<li>进程在<strong>操作系统内核程序临界区</strong></li>
-<li>在原子操作过程中</li>
-</ul>
-<h2 id="2-2-进程调度的方式"><a href="#2-2-进程调度的方式" class="headerlink" title="2.2 进程调度的方式"></a>2.2 进程调度的方式</h2><p>被抢占方式：只允许进程主动放弃处理机。这种方式实现简单，但无法处理紧急任务，适合早期的批处理系统。</p>
-<p>抢占方式：允许进程被动放弃处理机。</p>
-<h2 id="2-3-进程的切换与过程"><a href="#2-3-进程的切换与过程" class="headerlink" title="2.3 进程的切换与过程"></a>2.3 进程的切换与过程</h2><p>进程切换的过程主要完成了：</p>
-<ol>
-<li>对原来运行进程的各种数据的保存。</li>
-<li>对将要运行进程的各种数据的恢复。<blockquote>
-<p>各种数据包括：程序计数器、程序状态字、数据寄存器等，这些信息一般保存在进程控制块中。</p>
-</blockquote>
-</li>
-</ol>
-<p>由此可见，进程切换是<strong>有代价</strong>的，过于频繁的切换可能会导致系统效率的降低。</p>
-<h1 id="3-调度算法的评价指标"><a href="#3-调度算法的评价指标" class="headerlink" title="3 调度算法的评价指标"></a>3 调度算法的评价指标</h1><h2 id="3-1-CPU利用率"><a href="#3-1-CPU利用率" class="headerlink" title="3.1 CPU利用率"></a>3.1 CPU利用率</h2><p>CPU“忙碌”的时间占总时间的比例。</p>
-<h2 id="3-2-系统吞吐量"><a href="#3-2-系统吞吐量" class="headerlink" title="3.2 系统吞吐量"></a>3.2 系统吞吐量</h2><p> 单位时间内完成作业的数量。</p>
-<h2 id="3-3-周转时间"><a href="#3-3-周转时间" class="headerlink" title="3.3 周转时间"></a>3.3 周转时间</h2><p> 从作业被<strong>提交</strong>给系统开始，到作业<strong>完成</strong>为止的这段时间间隔。它包括4个部分：</p>
-<ol>
-<li>作业在外存上等待作业调度的时间。</li>
-<li>进程在就绪队列上等待调度的时间。</li>
-<li>进程等待I/O操作完成的时间。</li>
-</ol>
-<p>作业周转时间 = 作业完成时间 - 作业提交时间</p>
-<p>平均周转时间 = 各作业周转时间之和 / 作业数</p>
-<p>带权周转时间 = 作业周转时间 / 作业实际运行的时间</p>
-<p>平均带权周转时间 = 各带权周转时间 / 作业数</p>
-<h2 id="3-4-等待时间"><a href="#3-4-等待时间" class="headerlink" title="3.4 等待时间"></a>3.4 等待时间</h2><p>指进程/作业处于<strong>等待处理机状态</strong>的时间之和。</p>
-<p>对进程来说，等待时间是指进程<strong>建立</strong>后，<strong>等待</strong>被服务的时间之和。注意：在等待I/O完成的期间，其实也是在被I/O设备服务的，所以不计入等待时间。</p>
-<p>对作业来说，相比进程还要额外考虑作业在<strong>外存后备队列</strong>中的等待时间。</p>
-<blockquote>
-<p>等待时间 = 周转时间 - 运行时间 - I/O操作时间</p>
-</blockquote>
-<p>一般而言，一个作业/进程需要CPU、I/O设备服务多久都是固定的，因此调度算法只会影响作业/进程的等待时间。</p>
-<h2 id="3-5-响应时间"><a href="#3-5-响应时间" class="headerlink" title="3.5 响应时间"></a>3.5 响应时间</h2><p>用户提交请求到首次产生响应的时间。</p>
-<blockquote>
-<p>响应时间 = 进程第一次被CPU执行的时刻 - 提交时间（不确定）</p>
-</blockquote>
-<h1 id="4-调度算法"><a href="#4-调度算法" class="headerlink" title="4 调度算法"></a>4 调度算法</h1><h2 id="4-1-先来先服务"><a href="#4-1-先来先服务" class="headerlink" title="4.1 先来先服务"></a>4.1 先来先服务</h2><p>从“公平”的角度考虑，按照作业/进程<strong>到达</strong>的<strong>先后顺序</strong>进行服务。</p>
-<blockquote>
-<p>从另一个角度说，优先为等待时间最长的作业/进程服务。</p>
-</blockquote>
-<p>对于作业调度，考虑的是哪个作业先到达后备队列；对于进程调度，考虑的是哪个进程先到达<strong>就绪队列</strong>。</p>
-<p>非抢占式算法。</p>
-<p>优点：公平、实现简单，不会导致饥饿。<br>缺点：对长作业不利、对短作业不利。</p>
-<h2 id="4-2-短作业优先"><a href="#4-2-短作业优先" class="headerlink" title="4.2 短作业优先"></a>4.2 短作业优先</h2><p>为了追求最少的平均等待时间、最少的平均周转时间、最少的平均带权周转时间，让<strong>服务时间最短</strong>的作业优先得到服务。</p>
-<p>短作业优先算法默认是<strong>非抢占式</strong>的，每次调度时选择当前<strong>已到达</strong>且<strong>运行时间最短</strong>的作业。</p>
-<p>抢占式的短作业优先算法又称“最短剩余时间优先算法”，每当<strong>有进程加入就绪队列</strong>或<strong>进程完成</strong>时就需要进行调度，选择<strong>剩余执行时间</strong>最短的作业。</p>
-<p>优点：“最短的”平均等待时间、平均周转时间<br>缺点：不公平；对短作业有利，对长作业不利；可能导致饥饿，甚至“饿死”；作业的运行时间<strong>由用户提供</strong>，不一定真实。</p>
-<h2 id="4-3-高响应比优先"><a href="#4-3-高响应比优先" class="headerlink" title="4.3 高响应比优先"></a>4.3 高响应比优先</h2><p>综合考虑作业/进程的等待时间和要求服务的时间，在每次调度时选择<strong>响应比最高</strong>的作业/进程为其服务。</p>
-<p>响应比 = （等待时间+要求服务时间）/ 要求服务时间</p>
-<p><strong>非抢占式</strong>算法。</p>
-<p>优点：综合考虑了等待时间和运行时间，不会导致饥饿。</p>
-<h2 id="4-4-时间片轮转调度算法"><a href="#4-4-时间片轮转调度算法" class="headerlink" title="4.4 时间片轮转调度算法"></a>4.4 时间片轮转调度算法</h2><p>按照各进程到达就绪队列的顺序，轮流让各个进程执行一个<strong>时间片</strong>（如100ms）。若进程未在一个时间片内执行完，则剥夺处理机，将该进程放到就绪队列的<strong>队尾</strong>重新排队。</p>
-<blockquote>
-<p>如果一个进程时间片到的时刻，一个新进程恰好进入就绪队列，则默认新进程排在<strong>前面</strong>。</p>
-</blockquote>
-<p>该算法适用于进程调度，属于<strong>抢占式</strong>算法，由时钟装置发出<strong>时钟中断</strong>来通知CPU时间片到。</p>
-<p>若时间片过长，则时间片轮转调度算法<strong>退化</strong>为先来先服务算法，大大增加进程<strong>响应</strong>时间；若时间片过短，则会导致进程调度过于频繁，进程切换的开销过大。</p>
-<p>优点：公平；响应快；不会导致饥饿。<br>缺点：不区分任务的紧急程度。</p>
-<h2 id="4-5-优先级调度算法"><a href="#4-5-优先级调度算法" class="headerlink" title="4.5 优先级调度算法"></a>4.5 优先级调度算法</h2><p>调度时选择<strong>优先级最高</strong>的作业/进程。</p>
-<p>非抢占式、抢占式均有。非抢占式的进程调度只发生在<strong>进程主动放弃</strong>处理机时，而抢占式的进程调度还会发生在<strong>就绪队列变化</strong>时。</p>
-<p>优先级有<strong>静态优先级</strong>和<strong>动态优先级</strong>两种：</p>
-<ul>
-<li>静态优先级：进程<strong>创建</strong>时决定，之后一直不变。</li>
-<li>动态优先级：进程创建时有一个初始值，之后根据情况动态调整优先级。</li>
-</ul>
-<p>通常：</p>
-<ul>
-<li>系统进程优先级高于用户进程</li>
-<li>前台进程高于后台进程</li>
-<li><strong>I/O型</strong>进程高于<strong>计算型</strong>进程<blockquote>
-<p>解释：如果让I/O型进程优先运行，则I/O设备可以尽早投入使用，以实现I/O设备和CPU的并行工作，提高资源利用率、系统吞吐量。</p>
-</blockquote>
-</li>
-</ul>
-<p>处于公平、资源利用率等角度考虑：</p>
-<ul>
-<li>如果某进程在就绪队列中等待时间过长，则适当提升其优先级。</li>
-<li>如果某进程占用处理机时间过长，则适当降低其优先级。</li>
-</ul>
-<p>优点：可以区分进程的重要程度、紧急程度；灵活。<br>缺点：可能导致饥饿。</p>
-<h2 id="4-6-多级反馈队列调度算法"><a href="#4-6-多级反馈队列调度算法" class="headerlink" title="4.6 多级反馈队列调度算法"></a>4.6 多级反馈队列调度算法</h2><p>设置多级就绪队列，各级队列<strong>优先级从高到低</strong>，<strong>时间片从小到大</strong>。新进程到达时，先进入第1级队列，按照先来先服务原则排队等待时间片，若<strong>时间片到</strong>进程还未结束，则进程进入<strong>下一级队列队尾</strong>，如果此时已经在最下级队列，则重新放回<strong>该队列队尾</strong>。只有<strong>前k级</strong>队列为空时，才会为第k+1级<strong>队头</strong>的进程分配时间片。</p>
-<p><strong>抢占式算法</strong>。在k级队列的进程运行过程中，若<strong>上级队列</strong>进入了一个新进程，则此新进程会抢占处理机，原来运行的进程放回<strong>k级队列</strong>的<strong>队尾</strong>。</p>
-<p>优点：综合上述算法的特点。<br>缺点：可能导致饥饿。</p>
 
       
     </div>
