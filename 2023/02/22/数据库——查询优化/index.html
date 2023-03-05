@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="9.1 关系数据库的查询处理（P275）查询处理的任务是把用户提交给关系数据库管理系统的查询语句转换为高效的查询执行计划。 9.1.1 查询处理步骤（P275）查询处理可以分为4个阶段：查询分析、查询检查、查询优化、查询执行。    9.1.2 实现查询操作的算法示例（P277）9.1.2.1 选择操作的实现顺序扫描 索引扫描 多索引扫描 9.1.2.2 连接操作的实现以 SELECT * FRO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库——查询优化">
+<meta property="og:url" content="http://example.com/2023/02/22/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="9.1 关系数据库的查询处理（P275）查询处理的任务是把用户提交给关系数据库管理系统的查询语句转换为高效的查询执行计划。 9.1.1 查询处理步骤（P275）查询处理可以分为4个阶段：查询分析、查询检查、查询优化、查询执行。    9.1.2 实现查询操作的算法示例（P277）9.1.2.1 选择操作的实现顺序扫描 索引扫描 多索引扫描 9.1.2.2 连接操作的实现以 SELECT * FRO">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/4d8bb6e8532b498ab481d73234ddd963.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/24231f720c0e487ca334920a5c8a695b.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/1bb068185e5647659a52ecf9ab3e41a8.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/955a7af7c46b416d838d2a1c8ff71ff2.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/c0c248c429ee4a93952c51fbfd6322ba.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/34251873f48c4bfbabcc521540362690.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2a4c7133383c4d7b8be3bd664dc61fe8.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/05dd6634c1084d82899b3ce90a4f9cf5.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/5975f36c79ef4454aa9f084bb40bf2d9.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/1ec8a0f7868242c6b3e51cf9a61d7e93.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/beab08d776004162a01cd1499ef4b3fb.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/4646ab3cb88b4eb8ae8cdceff8da268b.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/a7ccb70fa0df432eaff04c121c0ef17f.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6d4b220e0bcc4c8d81816b3c24001699.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/4ef1ca96112b48688175b37404a2e500.png">
+<meta property="article:published_time" content="2023-02-22T08:03:09.000Z">
+<meta property="article:modified_time" content="2023-02-23T04:27:19.928Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/4d8bb6e8532b498ab481d73234ddd963.png">
+
+
+<link rel="canonical" href="http://example.com/2023/02/22/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/02/22/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/","path":"2023/02/22/数据库——查询优化/","title":"数据库——查询优化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数据库——查询优化 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#9-1-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%EF%BC%88P275%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">9.1 关系数据库的查询处理（P275）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#9-1-1-%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%E6%AD%A5%E9%AA%A4%EF%BC%88P275%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">9.1.1 查询处理步骤（P275）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-1-2-%E5%AE%9E%E7%8E%B0%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C%E7%9A%84%E7%AE%97%E6%B3%95%E7%A4%BA%E4%BE%8B%EF%BC%88P277%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">9.1.2 实现查询操作的算法示例（P277）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-2-1-%E9%80%89%E6%8B%A9%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">9.1.2.1 选择操作的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E6%89%AB%E6%8F%8F"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">顺序扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%89%AB%E6%8F%8F"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">索引扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%B4%A2%E5%BC%95%E6%89%AB%E6%8F%8F"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">多索引扫描</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-2-2-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">9.1.2.2 连接操作的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E5%B5%8C%E5%A5%97%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">循环嵌套算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F-%E5%90%88%E5%B9%B6%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">排序-合并算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">索引连接算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hash-join-%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">hash join 算法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-2-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%EF%BC%88P279%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">9.2 查询优化（P279）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-1-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E6%A6%82%E8%BF%B0%EF%BC%88P280%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">9.2.1 查询优化概述（P280）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-3-%E4%BB%A3%E6%95%B0%E4%BC%98%E5%8C%96%EF%BC%88P282%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">9.3 代数优化（P282）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#9-3-1-%E4%BB%A3%E6%95%B0%E4%BC%98%E5%8C%96%E7%9A%84%E4%B8%80%E8%88%AC%E5%87%86%E5%88%99"><span class="nav-number">3.1.</span> <span class="nav-text">9.3.1 代数优化的一般准则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-3-2-%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E7%AD%89%E4%BB%B7%E5%8F%98%E6%8D%A2%E8%A7%84%E5%88%99"><span class="nav-number">3.2.</span> <span class="nav-text">9.3.2 关系代数等价变换规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-3-3-%E6%9F%A5%E8%AF%A2%E6%A0%91%E7%9A%84%E5%90%AF%E5%8F%91%E5%BC%8F%E4%BC%98%E5%8C%96"><span class="nav-number">3.3.</span> <span class="nav-text">9.3.3 查询树的启发式优化</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/22/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数据库——查询优化 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据库——查询优化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-02-22 16:03:09" itemprop="dateCreated datePublished" datetime="2023-02-22T16:03:09+08:00">2023-02-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-02-23 12:27:19" itemprop="dateModified" datetime="2023-02-23T12:27:19+08:00">2023-02-23</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="9-1-关系数据库的查询处理（P275）"><a href="#9-1-关系数据库的查询处理（P275）" class="headerlink" title="9.1 关系数据库的查询处理（P275）"></a>9.1 关系数据库的查询处理（P275）</h1><p>查询处理的任务是把用户提交给关系数据库管理系统的查询语句转换为高效的查询执行计划。</p>
+<h2 id="9-1-1-查询处理步骤（P275）"><a href="#9-1-1-查询处理步骤（P275）" class="headerlink" title="9.1.1 查询处理步骤（P275）"></a>9.1.1 查询处理步骤（P275）</h2><p>查询处理可以分为4个阶段：查询分析、查询检查、查询优化、查询执行。</p>
+<p><img src="https://img-blog.csdnimg.cn/4d8bb6e8532b498ab481d73234ddd963.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/24231f720c0e487ca334920a5c8a695b.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/1bb068185e5647659a52ecf9ab3e41a8.png" alt="在这里插入图片描述"></p>
+<h2 id="9-1-2-实现查询操作的算法示例（P277）"><a href="#9-1-2-实现查询操作的算法示例（P277）" class="headerlink" title="9.1.2 实现查询操作的算法示例（P277）"></a>9.1.2 实现查询操作的算法示例（P277）</h2><h3 id="9-1-2-1-选择操作的实现"><a href="#9-1-2-1-选择操作的实现" class="headerlink" title="9.1.2.1 选择操作的实现"></a>9.1.2.1 选择操作的实现</h3><h4 id="顺序扫描"><a href="#顺序扫描" class="headerlink" title="顺序扫描"></a>顺序扫描</h4><p><img src="https://img-blog.csdnimg.cn/955a7af7c46b416d838d2a1c8ff71ff2.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/c0c248c429ee4a93952c51fbfd6322ba.png" alt="在这里插入图片描述"></p>
+<h4 id="索引扫描"><a href="#索引扫描" class="headerlink" title="索引扫描"></a>索引扫描</h4><p><img src="https://img-blog.csdnimg.cn/34251873f48c4bfbabcc521540362690.png" alt="在这里插入图片描述"></p>
+<h4 id="多索引扫描"><a href="#多索引扫描" class="headerlink" title="多索引扫描"></a>多索引扫描</h4><p><img src="https://img-blog.csdnimg.cn/2a4c7133383c4d7b8be3bd664dc61fe8.png" alt="在这里插入图片描述"></p>
+<h3 id="9-1-2-2-连接操作的实现"><a href="#9-1-2-2-连接操作的实现" class="headerlink" title="9.1.2.2 连接操作的实现"></a>9.1.2.2 连接操作的实现</h3><p>以 <code>SELECT * FROM Student, SC WHERE Student.Sno=SC.Sno</code>为例</p>
+<h4 id="循环嵌套算法"><a href="#循环嵌套算法" class="headerlink" title="循环嵌套算法"></a>循环嵌套算法</h4><p>对外层循环（Student表）中的每个元组，检查内层循环（SC表）中的每个元组，检查这两个元组是否满足连接条件，如果满足则串接后作为结果输出，知道外层循环的所有元组处理完为止。</p>
+<h4 id="排序-合并算法"><a href="#排序-合并算法" class="headerlink" title="排序-合并算法"></a>排序-合并算法</h4><p>等值连接的常用算法，尤其适合参与连接的表已经排好序的情况。</p>
+<p>一般步骤：</p>
+<ul>
+<li>对参与连接且没有排序的表按照连接属性进行排序</li>
+<li>取Student表中的第一个Sno，以此扫描SC表中具有相同Sno的元组，把它们连接起来。当扫描到Sno不相同的一个SC元组时，返回扫描Student表中的下一个元组，直到Student表全部扫描完。</li>
+</ul>
+<h4 id="索引连接算法"><a href="#索引连接算法" class="headerlink" title="索引连接算法"></a>索引连接算法</h4><p>一般步骤：</p>
+<ul>
+<li>在SC表上建立Sno索引</li>
+<li>对Student中的没一个元组，由Sno值通过SC索引查找相应的SC元组</li>
+<li>把这些SC元组和Student元组连接起来</li>
+</ul>
+<h4 id="hash-join-算法"><a href="#hash-join-算法" class="headerlink" title="hash join 算法"></a>hash join 算法</h4><p>将连接属性作为hash码，用同一个hash函数将Student表和SC表中的元组散列到hash表中。</p>
+<p>一般步骤：</p>
+<ul>
+<li>划分阶段：对元组较少的表（如Student表）进行一遍处理，把它的元组按hash函数散列到hash表的桶中</li>
+<li>试探阶段：对另一个表进行一遍处理，把它的元组按hash函数散列，找到对应的桶，把SC元组与桶中相匹配的Student元组连接起来</li>
+</ul>
+<h1 id="9-2-查询优化（P279）"><a href="#9-2-查询优化（P279）" class="headerlink" title="9.2 查询优化（P279）"></a>9.2 查询优化（P279）</h1><h2 id="9-2-1-查询优化概述（P280）"><a href="#9-2-1-查询优化概述（P280）" class="headerlink" title="9.2.1 查询优化概述（P280）"></a>9.2.1 查询优化概述（P280）</h2><h1 id="9-3-代数优化（P282）"><a href="#9-3-代数优化（P282）" class="headerlink" title="9.3 代数优化（P282）"></a>9.3 代数优化（P282）</h1><h2 id="9-3-1-代数优化的一般准则"><a href="#9-3-1-代数优化的一般准则" class="headerlink" title="9.3.1 代数优化的一般准则"></a>9.3.1 代数优化的一般准则</h2><ul>
+<li>选择运算应尽可能先做</li>
+<li>执行连接操作前对关系适当进行预处理（按连接属性排序，在连接属性上建立索引）</li>
+<li>投影运算和选择运算同时做</li>
+<li>将投影运算与前面或后面的双目运算结合</li>
+</ul>
+<h2 id="9-3-2-关系代数等价变换规则"><a href="#9-3-2-关系代数等价变换规则" class="headerlink" title="9.3.2 关系代数等价变换规则"></a>9.3.2 关系代数等价变换规则</h2><p>略</p>
+<h2 id="9-3-3-查询树的启发式优化"><a href="#9-3-3-查询树的启发式优化" class="headerlink" title="9.3.3 查询树的启发式优化"></a>9.3.3 查询树的启发式优化</h2><p>例：求选修了课程C2的学生姓名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT  Student.Sname</span><br><span class="line">FROM    Student, SC</span><br><span class="line">WHERE  Student.Sno=SC.Sno</span><br><span class="line">AND     SC.Cno='2'; </span><br></pre></td></tr></table></figure>
+<p>优化方法：</p>
+<ol>
+<li>将查询结果转换成某种内部表示<br><img src="https://img-blog.csdnimg.cn/05dd6634c1084d82899b3ce90a4f9cf5.png" alt="在这里插入图片描述"></li>
+<li>转换为关系代数表达式<br><img src="https://img-blog.csdnimg.cn/5975f36c79ef4454aa9f084bb40bf2d9.png" alt="在这里插入图片描述"></li>
+<li>分解选择<br><img src="https://img-blog.csdnimg.cn/1ec8a0f7868242c6b3e51cf9a61d7e93.png" alt="在这里插入图片描述"></li>
+<li>选择下移<br><img src="https://img-blog.csdnimg.cn/beab08d776004162a01cd1499ef4b3fb.png" alt="在这里插入图片描述"></li>
+<li>投影下移<br><img src="https://img-blog.csdnimg.cn/4646ab3cb88b4eb8ae8cdceff8da268b.png" alt="在这里插入图片描述"></li>
+<li>串接合并<br><img src="https://img-blog.csdnimg.cn/a7ccb70fa0df432eaff04c121c0ef17f.png" alt="在这里插入图片描述"></li>
+<li>分组<br><img src="https://img-blog.csdnimg.cn/6d4b220e0bcc4c8d81816b3c24001699.png" alt="在这里插入图片描述"></li>
+<li>得到结果<br><img src="https://img-blog.csdnimg.cn/4ef1ca96112b48688175b37404a2e500.png" alt="在这里插入图片描述"></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/02/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="数据库——关系数据库">
+                  <i class="fa fa-chevron-left"></i> 数据库——关系数据库
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/02/22/Prepare-for-IELTS%E2%80%94%E2%80%94English-in-Genshin-Impact/" rel="next" title="Prepare for IELTS -- English in Genshin Impact">
+                  Prepare for IELTS -- English in Genshin Impact <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cdn":"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="7.1 数据库设计概述（P205）数据库设计指：对于一个给定的应用环境，构造最有的数据库模式，建立数据库及其应用系统，有效存储数据，满足用户信息要求和处理要求。 7.1.1 数据库设计的特点（P206）三分技术，七分管理，十二分基础数据。 7.1.2 数据库设计方法（P207）7.1.3 数据库设计的基本步骤（P207）7.1.4 数据库设计过程中的各级模式（P210）7.2 需求分析（P211）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库——数据库设计">
+<meta property="og:url" content="http://example.com/2022/11/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="7.1 数据库设计概述（P205）数据库设计指：对于一个给定的应用环境，构造最有的数据库模式，建立数据库及其应用系统，有效存储数据，满足用户信息要求和处理要求。 7.1.1 数据库设计的特点（P206）三分技术，七分管理，十二分基础数据。 7.1.2 数据库设计方法（P207）7.1.3 数据库设计的基本步骤（P207）7.1.4 数据库设计过程中的各级模式（P210）7.2 需求分析（P211）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/9c36e37430e549809a6cc8eb9ebc5566.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d0733646e3a24ac4bc2b0e3e9d0817d2.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2a86f007f02042499c1b934ce673e3e1.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/766100fede9040729bef8b6de4f7f78f.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/b7a73791b73347239814923302ceb2e3.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/241789d3157e49159e3af16cd12bca61.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ef4403d4e3f540859000f89fc6120b8b.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6dbc0ccab3104204b0ea99ef0bf359f3.png">
+<meta property="article:published_time" content="2022-11-14T04:23:58.000Z">
+<meta property="article:modified_time" content="2022-11-14T04:30:02.281Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/9c36e37430e549809a6cc8eb9ebc5566.png">
+
+
+<link rel="canonical" href="http://example.com/2022/11/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/11/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/","path":"2022/11/14/数据库——数据库设计/","title":"数据库——数据库设计"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数据库——数据库设计 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#7-1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E6%A6%82%E8%BF%B0%EF%BC%88P205%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">7.1 数据库设计概述（P205）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%89%B9%E7%82%B9%EF%BC%88P206%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">7.1.1 数据库设计的特点（P206）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-2-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95%EF%BC%88P207%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">7.1.2 数据库设计方法（P207）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-3-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4%EF%BC%88P207%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">7.1.3 数据库设计的基本步骤（P207）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-4-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E5%90%84%E7%BA%A7%E6%A8%A1%E5%BC%8F%EF%BC%88P210%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">7.1.4 数据库设计过程中的各级模式（P210）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-2-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90%EF%BC%88P211%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">7.2 需求分析（P211）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-1-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90%E7%9A%84%E4%BB%BB%E5%8A%A1%EF%BC%88P211%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">7.2.1 需求分析的任务（P211）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-2-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%88P212%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">7.2.2 需求分析的方法（P212）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-3-%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8%EF%BC%88P213%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">7.2.3 数据字典（P213）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A1%B9"><span class="nav-number">2.3.1.</span> <span class="nav-text">数据项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.3.2.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">2.3.3.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="nav-number">2.3.4.</span> <span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="nav-number">2.3.5.</span> <span class="nav-text">处理过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-3-%E6%A6%82%E5%BF%B5%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%88P215%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">7.3 概念结构设计（P215）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-1-%E6%A6%82%E5%BF%B5%E6%A8%A1%E5%9E%8B%EF%BC%88P215%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">7.3.1 概念模型（P215）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-2-E-R%E6%A8%A1%E5%9E%8B%EF%BC%88P215%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">7.3.2 E-R模型（P215）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%E4%B9%8B%E9%97%B4%E7%9A%84%E8%81%94%E7%B3%BB"><span class="nav-number">3.2.1.</span> <span class="nav-text">实体之间的联系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-R%E5%9B%BE"><span class="nav-number">3.2.2.</span> <span class="nav-text">E-R图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-3-%E6%89%A9%E5%B1%95%E7%9A%84E-R%E6%A8%A1%E5%9E%8B%EF%BC%88P218%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">7.3.3 扩展的E-R模型（P218）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-4-UML%EF%BC%88P223%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">7.3.4 UML（P223）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-5-%E6%A6%82%E5%BF%B5%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%88P224%EF%BC%89"><span class="nav-number">3.5.</span> <span class="nav-text">7.3.5 概念结构设计（P224）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%E4%B8%8E%E5%B1%9E%E6%80%A7%E7%9A%84%E5%88%92%E5%88%86%E5%8E%9F%E5%88%99"><span class="nav-number">3.5.1.</span> <span class="nav-text">实体与属性的划分原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-R%E5%9B%BE%E7%9A%84%E9%9B%86%E6%88%90"><span class="nav-number">3.5.2.</span> <span class="nav-text">E-R图的集成</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-4-%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%88P231%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">7.4 逻辑结构设计（P231）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-4-1-E-R%E5%9B%BE%E5%90%91%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%BD%AC%E6%8D%A2%EF%BC%88P231%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">7.4.1 E-R图向关系模型的转换（P231）</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数据库——数据库设计 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据库——数据库设计
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-11-14 12:23:58 / Modified: 12:30:02" itemprop="dateCreated datePublished" datetime="2022-11-14T12:23:58+08:00">2022-11-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="7-1-数据库设计概述（P205）"><a href="#7-1-数据库设计概述（P205）" class="headerlink" title="7.1 数据库设计概述（P205）"></a>7.1 数据库设计概述（P205）</h1><p><strong>数据库设计</strong>指：对于一个给定的<strong>应用环境</strong>，构造最有的<strong>数据库模式</strong>，建立数据库及其应用系统，有效存储数据，满足用户信息要求和处理要求。</p>
+<h2 id="7-1-1-数据库设计的特点（P206）"><a href="#7-1-1-数据库设计的特点（P206）" class="headerlink" title="7.1.1 数据库设计的特点（P206）"></a>7.1.1 数据库设计的特点（P206）</h2><p>三分技术，七分管理，十二分基础数据。</p>
+<h2 id="7-1-2-数据库设计方法（P207）"><a href="#7-1-2-数据库设计方法（P207）" class="headerlink" title="7.1.2 数据库设计方法（P207）"></a>7.1.2 数据库设计方法（P207）</h2><h2 id="7-1-3-数据库设计的基本步骤（P207）"><a href="#7-1-3-数据库设计的基本步骤（P207）" class="headerlink" title="7.1.3 数据库设计的基本步骤（P207）"></a>7.1.3 数据库设计的基本步骤（P207）</h2><h2 id="7-1-4-数据库设计过程中的各级模式（P210）"><a href="#7-1-4-数据库设计过程中的各级模式（P210）" class="headerlink" title="7.1.4 数据库设计过程中的各级模式（P210）"></a>7.1.4 数据库设计过程中的各级模式（P210）</h2><h1 id="7-2-需求分析（P211）"><a href="#7-2-需求分析（P211）" class="headerlink" title="7.2 需求分析（P211）"></a>7.2 需求分析（P211）</h1><h2 id="7-2-1-需求分析的任务（P211）"><a href="#7-2-1-需求分析的任务（P211）" class="headerlink" title="7.2.1 需求分析的任务（P211）"></a>7.2.1 需求分析的任务（P211）</h2><p> 确定系统的功能，关注信息要求、处理要求、安全性与完整性要求。  </p>
+<h2 id="7-2-2-需求分析的方法（P212）"><a href="#7-2-2-需求分析的方法（P212）" class="headerlink" title="7.2.2 需求分析的方法（P212）"></a>7.2.2 需求分析的方法（P212）</h2><h2 id="7-2-3-数据字典（P213）"><a href="#7-2-3-数据字典（P213）" class="headerlink" title="7.2.3 数据字典（P213）"></a>7.2.3 数据字典（P213）</h2><p>数据字典是关于数据库中<strong>数据的描述</strong>，即<strong>元数据</strong>。</p>
+<p>数据字典通常包括数据项、数据结构、数据流、数据存储和过程处理。</p>
+<h3 id="数据项"><a href="#数据项" class="headerlink" title="数据项"></a>数据项</h3><p><img src="https://img-blog.csdnimg.cn/9c36e37430e549809a6cc8eb9ebc5566.png" alt="在这里插入图片描述"></p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p><img src="https://img-blog.csdnimg.cn/d0733646e3a24ac4bc2b0e3e9d0817d2.png" alt="在这里插入图片描述"></p>
+<h3 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h3><p><img src="https://img-blog.csdnimg.cn/2a86f007f02042499c1b934ce673e3e1.png" alt="在这里插入图片描述"></p>
+<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><p><img src="https://img-blog.csdnimg.cn/766100fede9040729bef8b6de4f7f78f.png" alt="在这里插入图片描述"></p>
+<h3 id="处理过程"><a href="#处理过程" class="headerlink" title="处理过程"></a>处理过程</h3><p><img src="https://img-blog.csdnimg.cn/b7a73791b73347239814923302ceb2e3.png" alt="在这里插入图片描述"></p>
+<h1 id="7-3-概念结构设计（P215）"><a href="#7-3-概念结构设计（P215）" class="headerlink" title="7.3 概念结构设计（P215）"></a>7.3 概念结构设计（P215）</h1><h2 id="7-3-1-概念模型（P215）"><a href="#7-3-1-概念模型（P215）" class="headerlink" title="7.3.1 概念模型（P215）"></a>7.3.1 概念模型（P215）</h2><h2 id="7-3-2-E-R模型（P215）"><a href="#7-3-2-E-R模型（P215）" class="headerlink" title="7.3.2 E-R模型（P215）"></a>7.3.2 E-R模型（P215）</h2><h3 id="实体之间的联系"><a href="#实体之间的联系" class="headerlink" title="实体之间的联系"></a>实体之间的联系</h3><p><img src="https://img-blog.csdnimg.cn/241789d3157e49159e3af16cd12bca61.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/ef4403d4e3f540859000f89fc6120b8b.png" alt="在这里插入图片描述"></p>
+<h3 id="E-R图"><a href="#E-R图" class="headerlink" title="E-R图"></a>E-R图</h3><ul>
+<li>矩形框——实体型</li>
+<li>菱形框——联系类型</li>
+<li>椭圆形框——实体型或联系类型的属性</li>
+<li>直线——实体型和联系类型用直线相连，线旁标注联系的种类。</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/6dbc0ccab3104204b0ea99ef0bf359f3.png" alt="在这里插入图片描述"></p>
+<h2 id="7-3-3-扩展的E-R模型（P218）"><a href="#7-3-3-扩展的E-R模型（P218）" class="headerlink" title="7.3.3 扩展的E-R模型（P218）"></a>7.3.3 扩展的E-R模型（P218）</h2><h2 id="7-3-4-UML（P223）"><a href="#7-3-4-UML（P223）" class="headerlink" title="7.3.4 UML（P223）"></a>7.3.4 UML（P223）</h2><h2 id="7-3-5-概念结构设计（P224）"><a href="#7-3-5-概念结构设计（P224）" class="headerlink" title="7.3.5 概念结构设计（P224）"></a>7.3.5 概念结构设计（P224）</h2><h3 id="实体与属性的划分原则"><a href="#实体与属性的划分原则" class="headerlink" title="实体与属性的划分原则"></a>实体与属性的划分原则</h3><p>为了简化E-R图，现实世界的事务能作为属性，就作为属性。</p>
+<p>符合下述两个条件的事物，可以作为属性：</p>
+<ol>
+<li>属性必须是<strong>不可分</strong>的<strong>数据项</strong>，不能包含其他属性。</li>
+<li>属性不能与其他实体具有联系。</li>
+</ol>
+<h3 id="E-R图的集成"><a href="#E-R图的集成" class="headerlink" title="E-R图的集成"></a>E-R图的集成</h3><p>在开发一个大型信息系统时，常常要首先设计各<strong>子系统的分E-R图</strong>，然后将它们<strong>集成</strong>起来。E-R图的集成一般分为以下两步：</p>
+<ol>
+<li>合并，解决各E-R图之间的冲突。</li>
+<li>修改和重构，消除不必要的冗余。</li>
+</ol>
+<p>各子系统的E-R图之间的冲突主要有3类：</p>
+<ol>
+<li>属性冲突：<ul>
+<li>属性<strong>域</strong>冲突： 属性值的类型、取值范围、取值集合不同。</li>
+<li>属性取值<strong>单位</strong>冲突。</li>
+</ul>
+</li>
+<li>命名冲突：<ul>
+<li>有同名异义、异名同义两种。</li>
+<li>命名冲突可能发生在实体、联系、<strong>属性</strong>上。</li>
+</ul>
+</li>
+<li><p>结构冲突</p>
+<ul>
+<li><p>同一对象在不同应用中有不同的抽象。</p>
+<blockquote>
+<p>如：“职工”在某些局部应用中被当作实体，在另一局部应用中被当作属性。</p>
+</blockquote>
+</li>
+<li><p>同一主体在不同子系统的E-R图所包含的<strong>属性个数</strong>和<strong>属性排列次序</strong>不完全相同。</p>
+</li>
+<li>实体间的联系在不同E-R图中为不同的类型。</li>
+</ul>
+</li>
+</ol>
+<p>消除冗余主要通过分析法。</p>
+<h1 id="7-4-逻辑结构设计（P231）"><a href="#7-4-逻辑结构设计（P231）" class="headerlink" title="7.4 逻辑结构设计（P231）"></a>7.4 逻辑结构设计（P231）</h1><h2 id="7-4-1-E-R图向关系模型的转换（P231）"><a href="#7-4-1-E-R图向关系模型的转换（P231）" class="headerlink" title="7.4.1 E-R图向关系模型的转换（P231）"></a>7.4.1 E-R图向关系模型的转换（P231）</h2><p>一个实体型转换为一个关系模式，关系的属性就是实体的属性，关系的码就是实体的码。</p>
+<p>对于实体间的联系，有如下不同的情况：</p>
+<ol>
+<li>一个1：1联系可以转换为一个独立的关系模式，也可以与任意一端合并。如果转换为一个独立的关系模式，则<strong>各实体的码</strong>以及<strong>联系本身的属性</strong>均转换为关系的属性；如果与某一端实体对应的关系模式合并，则需要在该关系的属性中加入<strong>另一个关系模式的码</strong>和联系本身的属性。</li>
+<li>一个1：n联系可以转换为一个独立的关系模式，也可以与<strong>n端</strong>的关系模式合并。如果转换为一个独立的关系模式，则与该联系相连的各实体的码以及联系本身的属性均转换为关系的属性，而<strong>关系的码</strong>为<strong>n端</strong>实体的<strong>码</strong>。</li>
+<li>一个m：n联系转换为一个关系模式。与该多元联系相连的各实体的码以及联系本身的属性均转换为关系的属性，各实体的码的组成关系的码。</li>
+<li>具有<strong>相同码</strong>的关系模式可合并。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6/" rel="prev" title="操作系统——处理机调度">
+                  <i class="fa fa-chevron-left"></i> 操作系统——处理机调度
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/" rel="next" title="数据库——关系数据理论">
+                  数据库——关系数据理论 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cdn":"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

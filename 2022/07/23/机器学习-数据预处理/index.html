@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="数据预处理均值移除 对某一列的数据进行处理, 使其均值为0, 标准差为1  均值为0: 每个数据减去均值 标准差为1: 每个数据除以标准差调用API  123456789101112import numpy as npimport sklearn.preprocessing as spraw_sample &#x3D; np.array([    [17., 90., 4000.],    [20., 80">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习__数据预处理">
+<meta property="og:url" content="http://example.com/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数据预处理均值移除 对某一列的数据进行处理, 使其均值为0, 标准差为1  均值为0: 每个数据减去均值 标准差为1: 每个数据除以标准差调用API  123456789101112import numpy as npimport sklearn.preprocessing as spraw_sample &#x3D; np.array([    [17., 90., 4000.],    [20., 80">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-07-23T08:27:54.000Z">
+<meta property="article:modified_time" content="2022-07-23T08:28:34.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="sklearn">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/","path":"2022/07/23/机器学习-数据预处理/","title":"机器学习__数据预处理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>机器学习__数据预处理 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%87%E5%80%BC%E7%A7%BB%E9%99%A4"><span class="nav-number">1.0.1.</span> <span class="nav-text">均值移除</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%B0%83%E7%94%A8API"><span class="nav-number">1.0.1.0.0.1.</span> <span class="nav-text">调用API</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8C%83%E5%9B%B4%E7%BC%A9%E6%94%BE"><span class="nav-number">1.0.2.</span> <span class="nav-text">范围缩放</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%B0%83%E7%94%A8API-1"><span class="nav-number">1.0.2.0.0.1.</span> <span class="nav-text">调用API</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.0.2.0.0.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%92%E4%B8%80%E5%8C%96"><span class="nav-number">1.0.3.</span> <span class="nav-text">归一化</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%B0%83%E7%94%A8API-2"><span class="nav-number">1.0.3.0.0.1.</span> <span class="nav-text">调用API</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="nav-number">1.0.3.0.0.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%80%BC%E5%8C%96"><span class="nav-number">1.0.4.</span> <span class="nav-text">二值化</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%B0%83%E7%94%A8API-3"><span class="nav-number">1.0.4.0.0.1.</span> <span class="nav-text">调用API</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="机器学习__数据预处理 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          机器学习__数据预处理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-07-23 16:27:54 / Modified: 16:28:34" itemprop="dateCreated datePublished" datetime="2022-07-23T16:27:54+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ML/" itemprop="url" rel="index"><span itemprop="name">ML</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><h3 id="均值移除"><a href="#均值移除" class="headerlink" title="均值移除"></a>均值移除</h3><p> 对某一列的数据进行处理, 使其均值为0, 标准差为1</p>
+<ul>
+<li>均值为0: 每个数据减去均值</li>
+<li>标准差为1: 每个数据除以标准差<h6 id="调用API"><a href="#调用API" class="headerlink" title="调用API"></a>调用API</h6></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> sklearn.preprocessing <span class="keyword">as</span> sp</span><br><span class="line"></span><br><span class="line">raw_sample = np.array([</span><br><span class="line">    [<span class="number">17.</span>, <span class="number">90.</span>, <span class="number">4000.</span>],</span><br><span class="line">    [<span class="number">20.</span>, <span class="number">80.</span>, <span class="number">5000.</span>],</span><br><span class="line">    [<span class="number">23.</span>, <span class="number">75.</span>, <span class="number">5500.</span>]])</span><br><span class="line">result = sp.scale(raw_sample)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[-1.22474487  1.33630621 -1.33630621]</span></span><br><span class="line"><span class="comment">#  [ 0.         -0.26726124  0.26726124]</span></span><br><span class="line"><span class="comment">#  [ 1.22474487 -1.06904497  1.06904497]]</span></span><br></pre></td></tr></table></figure>
+<h3 id="范围缩放"><a href="#范围缩放" class="headerlink" title="范围缩放"></a>范围缩放</h3><p>对某一列的数据进行处理, 将其特征值缩放值某个区间内, 一般为<code>[0, 1]</code></p>
+<ul>
+<li>每个数据减去最小值</li>
+<li>每个数据除以最大值<h6 id="调用API-1"><a href="#调用API-1" class="headerlink" title="调用API"></a>调用API</h6></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">raw_sample = np.array([</span><br><span class="line">    [<span class="number">17.</span>, <span class="number">90.</span>, <span class="number">4000.</span>],</span><br><span class="line">    [<span class="number">20.</span>, <span class="number">80.</span>, <span class="number">5000.</span>],</span><br><span class="line">    [<span class="number">23.</span>, <span class="number">75.</span>, <span class="number">5500.</span>]])</span><br><span class="line"><span class="comment"># 创建MinMax缩放器</span></span><br><span class="line">mms = sp.MinMaxScaler(feature_range=(<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line"><span class="comment"># 调用mms对象的方法执行缩放操作, 返回缩放后的结果</span></span><br><span class="line">result = mms.fit_transform(raw_sample)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[0.         1.         0.        ]</span></span><br><span class="line"><span class="comment">#  [0.5        0.33333333 0.66666667]</span></span><br><span class="line"><span class="comment">#  [1.         0.         1.        ]]</span></span><br></pre></td></tr></table></figure>
+<h6 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> raw_sample.T:</span><br><span class="line">    min_val = row.<span class="built_in">min</span>()</span><br><span class="line">    max_val = row.<span class="built_in">max</span>()</span><br><span class="line">    A = np.array([[min_val, <span class="number">1</span>], [max_val, <span class="number">1</span>]])</span><br><span class="line">    B = np.array([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">    x = np.linalg.solve(A, B)</span><br><span class="line">    new_row = x[<span class="number">0</span>]*row + x[<span class="number">1</span>]</span><br><span class="line">    new_samples.append(new_row)</span><br><span class="line">result = np.array(new_samples).T</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[ 0.00000000e+00  1.00000000e+00  0.00000000e+00]</span></span><br><span class="line"><span class="comment">#  [ 5.00000000e-01  3.33333333e-01  6.66666667e-01]</span></span><br><span class="line"><span class="comment">#  [ 1.00000000e+00 -8.88178420e-16  1.00000000e+00]]</span></span><br></pre></td></tr></table></figure>
+<h3 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h3><p>对某一行的数据进行处理, 将每个样本的每个特征值除以样本各个特征值绝对值的总和</p>
+<h6 id="调用API-2"><a href="#调用API-2" class="headerlink" title="调用API"></a>调用API</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">raw_sample = np.array([</span><br><span class="line">    [<span class="number">12</span>, <span class="number">24</span>, <span class="number">4</span>],</span><br><span class="line">    [<span class="number">3</span>, <span class="number">6</span>, <span class="number">1</span>],</span><br><span class="line">    [<span class="number">13</span>, <span class="number">20</span>, <span class="number">10</span>]</span><br><span class="line">]).astype(<span class="string">'float32'</span>)</span><br><span class="line"><span class="comment"># norm 范数</span></span><br><span class="line"><span class="comment">#   第一范数l1: 向量中各特征值的绝对值之和</span></span><br><span class="line"><span class="comment">#   第二范数l2: 向量中各特征值的平方之和</span></span><br><span class="line">result = sp.normalize(raw_sample, norm = <span class="string">'l1'</span>)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.30232558 0.4651163  0.23255815]]</span></span><br></pre></td></tr></table></figure>
+<h6 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nor_sample = raw_sample.copy()</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> nor_sample:</span><br><span class="line">    row /= <span class="built_in">abs</span>(row).<span class="built_in">sum</span>()</span><br><span class="line"><span class="built_in">print</span>(nor_sample)</span><br><span class="line"><span class="comment"># [[0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.30232558 0.4651163  0.23255815]]</span></span><br></pre></td></tr></table></figure>
+<h3 id="二值化"><a href="#二值化" class="headerlink" title="二值化"></a>二值化</h3><p>设定一个阈值, 将数组中<code>&gt;</code>阈值的数据赋值为<code>1</code>, <code>&lt;=</code>阈值的数据赋值为<code>0</code></p>
+<h6 id="调用API-3"><a href="#调用API-3" class="headerlink" title="调用API"></a>调用API</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">_<span class="built_in">bin</span> = sp.Binarizer(threshold=<span class="number">3</span>)</span><br><span class="line">raw_sample = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">result = _<span class="built_in">bin</span>.transform(raw_sample)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[0 0 0 0]</span></span><br><span class="line"><span class="comment">#  [1 1 1 1]</span></span><br><span class="line"><span class="comment">#  [1 1 1 1]]</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/sklearn/" rel="tag"># sklearn</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/23/pandas%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-DataFrame/" rel="prev" title="pandas自学笔记__DataFrame">
+                  <i class="fa fa-chevron-left"></i> pandas自学笔记__DataFrame
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E6%A0%91%E5%BD%A2%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="next" title="算法自学__树形动态规划">
+                  算法自学__树形动态规划 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cdn":"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

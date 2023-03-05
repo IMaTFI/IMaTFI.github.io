@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="3.1 运输层概述运输层的功能：为不同主机上的进程提供逻辑通信。 因特网上的运输层协议：  用户数据报协议UDP（数据报） 传输控制协议TCP（报文段）  3.2 端口与套接字  IP协议提供的复用&#x2F;分用是将TCP报文段和UDP数据报分开。  3.3 无连接传输：UDPUDP提供的功能：  多路复用&#x2F;分用 差错检查   UDP的优势：  无需建立连接：建立连接会增加时延 简单：无需维护连接状态 首">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络——运输层">
+<meta property="og:url" content="http://example.com/2022/11/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="3.1 运输层概述运输层的功能：为不同主机上的进程提供逻辑通信。 因特网上的运输层协议：  用户数据报协议UDP（数据报） 传输控制协议TCP（报文段）  3.2 端口与套接字  IP协议提供的复用&#x2F;分用是将TCP报文段和UDP数据报分开。  3.3 无连接传输：UDPUDP提供的功能：  多路复用&#x2F;分用 差错检查   UDP的优势：  无需建立连接：建立连接会增加时延 简单：无需维护连接状态 首">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/f6286f73f150415f9f0521504c707876.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ea4d1efcbda145e0af57529c9b7b0757.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/1479ed7ccec64f47836bcfe23c66b326.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ae8fe79b3a974d8584b2f53fdcbed310.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ca67752fb5ed484f860c3864ffe18da9.jpeg#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/92ca995d84f34110bdbc1b7c4328df12.jpeg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/15e8cf628ae146689cf164db5c01889e.jpeg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/5ebd2a68a6364a7ab0fd8a03df62796a.jpeg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7fea1cf8bf5f47cfbc827fcf11aa6118.jpeg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6913b4e70a0546499a600850b0b0e7c8.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2e61f60c63c340bdb81123743bdb8d2f.jpeg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/52f75d382cf44b3bb57c85b1d59e8772.jpeg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/b591b303c90a49daaaacabb43a248cf9.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/baa483401e454a95a24d6a35904166c9.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/9b1507865f304acc9b5b49659db58454.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d2ccbff085094f31af646d7fc58bd5f5.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7da56116b64e47439318469afa529f95.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/fab2e0de7faa40e68e1be6342c67a788.jpeg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/1308d4f624b34ceaa0daf9ca7aa4fc34.jpeg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ea00a025127a4c18b115d09de076bb92.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ff044b742d984da7a6b29c017f60ffb4.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/15dec7262a434f72992fec97716d1d39.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/33c35fc050b44c4eadf45762e2109f60.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d5c01f3f50804702bb254a0893c0af7a.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/beea3f6ed3ed4171b61490f2816f832e.png">
+<meta property="article:published_time" content="2022-11-29T15:09:23.000Z">
+<meta property="article:modified_time" content="2022-11-29T15:12:52.587Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/f6286f73f150415f9f0521504c707876.png">
+
+
+<link rel="canonical" href="http://example.com/2022/11/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/11/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/","path":"2022/11/29/计算机网络——运输层/","title":"计算机网络——运输层"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>计算机网络——运输层 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-1-%E8%BF%90%E8%BE%93%E5%B1%82%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">3.1 运输层概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-2-%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">2.</span> <span class="nav-text">3.2 端口与套接字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-3-%E6%97%A0%E8%BF%9E%E6%8E%A5%E4%BC%A0%E8%BE%93%EF%BC%9AUDP"><span class="nav-number">3.</span> <span class="nav-text">3.3 无连接传输：UDP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-4-%E6%95%B0%E6%8D%AE%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93"><span class="nav-number">4.</span> <span class="nav-text">3.4 数据可靠传输</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-1-%E5%8F%AF%E9%9D%A0%E4%BF%A1%E9%81%93%E4%B8%8A%E7%9A%84%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93"><span class="nav-number">4.1.</span> <span class="nav-text">3.4.1 可靠信道上的可靠传输</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-5-%E7%AE%80%E5%8D%95%E5%81%9C%E7%AD%89%E5%8D%8F%E8%AE%AE"><span class="nav-number">5.</span> <span class="nav-text">3.5 简单停等协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-6-%E5%AE%9E%E7%94%A8%E5%81%9C%E7%AD%89%E5%8D%8F%E8%AE%AE"><span class="nav-number">6.</span> <span class="nav-text">3.6 实用停等协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-7-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E5%8D%8F%E8%AE%AE"><span class="nav-number">7.</span> <span class="nav-text">3.7 滑动窗口协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-1-GBN%E5%8D%8F%E8%AE%AE"><span class="nav-number">7.1.</span> <span class="nav-text">3.7.1 GBN协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-2-SR%E5%8D%8F%E8%AE%AE"><span class="nav-number">7.2.</span> <span class="nav-text">3.7.2 SR协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-3-%E5%88%86%E7%BB%84%E5%BA%8F%E5%8F%B7%E4%B8%8E%E7%AA%97%E5%8F%A3%E5%A4%A7%E5%B0%8F%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">7.3.</span> <span class="nav-text">3.7.3 分组序号与窗口大小的关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-8-TCP%E6%8A%A5%E6%96%87%E6%AE%B5%E9%A6%96%E9%83%A8%E7%BB%93%E6%9E%84"><span class="nav-number">8.</span> <span class="nav-text">3.8 TCP报文段首部结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-9-TCP%E7%A1%AE%E8%AE%A4%E5%8F%B7%E5%92%8CACK"><span class="nav-number">9.</span> <span class="nav-text">3.9 TCP确认号和ACK</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-10-TCP%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4%E9%97%B4%E9%9A%94%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="nav-number">10.</span> <span class="nav-text">3.10 TCP超时时间间隔的设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-11-TCP%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E6%9C%BA%E5%88%B6"><span class="nav-number">11.</span> <span class="nav-text">3.11 TCP可靠传输机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-12-TCP%E7%9A%84%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="nav-number">12.</span> <span class="nav-text">3.12 TCP的流量控制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-13-TCP%E7%9A%84%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86"><span class="nav-number">13.</span> <span class="nav-text">3.13 TCP的连接管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-14-%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E6%A6%82%E8%BF%B0"><span class="nav-number">14.</span> <span class="nav-text">3.14 拥塞控制概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-15-TCP%E7%9A%84%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">15.</span> <span class="nav-text">3.15 TCP的拥塞控制</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="计算机网络——运输层 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机网络——运输层
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-11-29 23:09:23 / Modified: 23:12:52" itemprop="dateCreated datePublished" datetime="2022-11-29T23:09:23+08:00">2022-11-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="3-1-运输层概述"><a href="#3-1-运输层概述" class="headerlink" title="3.1 运输层概述"></a>3.1 运输层概述</h1><p>运输层的功能：为不同主机上的进程提供逻辑通信。</p>
+<p>因特网上的运输层协议：</p>
+<ul>
+<li>用户数据报协议UDP（数据报）</li>
+<li>传输控制协议TCP（报文段）</li>
+</ul>
+<h1 id="3-2-端口与套接字"><a href="#3-2-端口与套接字" class="headerlink" title="3.2 端口与套接字"></a>3.2 端口与套接字</h1><p><img src="https://img-blog.csdnimg.cn/f6286f73f150415f9f0521504c707876.png" alt=" "></p>
+<blockquote>
+<p>IP协议提供的复用/分用是将TCP报文段和UDP数据报分开。</p>
+</blockquote>
+<h1 id="3-3-无连接传输：UDP"><a href="#3-3-无连接传输：UDP" class="headerlink" title="3.3 无连接传输：UDP"></a>3.3 无连接传输：UDP</h1><p>UDP提供的功能：</p>
+<ul>
+<li>多路复用/分用</li>
+<li>差错检查</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/ea4d1efcbda145e0af57529c9b7b0757.png" alt="在这里插入图片描述"></p>
+<p>UDP的优势：</p>
+<ul>
+<li>无需建立连接：建立连接会增加时延</li>
+<li>简单：无需维护连接状态</li>
+<li>首部开销少：仅有8字节</li>
+<li>无拥塞控制：“想发就发”</li>
+</ul>
+<p>UDP的问题：</p>
+<ul>
+<li>路由器中大量的分组溢出</li>
+<li>显著减小TCP通信速率，甚至挤垮TCP会话</li>
+</ul>
+<h1 id="3-4-数据可靠传输"><a href="#3-4-数据可靠传输" class="headerlink" title="3.4 数据可靠传输"></a>3.4 数据可靠传输</h1><p>数据在传输过程中<strong>不会丢失</strong>，在传输过程中<strong>不会出错</strong>。</p>
+<p><img src="https://img-blog.csdnimg.cn/1479ed7ccec64f47836bcfe23c66b326.png" alt="在这里插入图片描述"></p>
+<h2 id="3-4-1-可靠信道上的可靠传输"><a href="#3-4-1-可靠信道上的可靠传输" class="headerlink" title="3.4.1 可靠信道上的可靠传输"></a>3.4.1 可靠信道上的可靠传输</h2><p>底层信道完全可靠，不会产生比特错误，不会丢失分组。<br><img src="https://img-blog.csdnimg.cn/ae8fe79b3a974d8584b2f53fdcbed310.png" alt="在这里插入图片描述"></p>
+<h1 id="3-5-简单停等协议"><a href="#3-5-简单停等协议" class="headerlink" title="3.5 简单停等协议"></a>3.5 简单停等协议</h1><p>场景：</p>
+<ul>
+<li>分组比特可能受损。</li>
+<li>所有传输的分组都会被按序接受，不会丢失。</li>
+</ul>
+<p>初步考虑：</p>
+<ul>
+<li>判断分组受损——差错检测。</li>
+<li>通知发送方分组是否受损——接收方反馈（ACK、NAK）。</li>
+<li>得知分组受损后，发送方的处理手段——出错重传。</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/ca67752fb5ed484f860c3864ffe18da9.jpeg#pic_center" alt="在这里插入图片描述"></p>
+<p>利用缓冲区缓存已发出但未收到反馈的报文段，接收方和发送方各一个报文段大小的缓冲区即可。</p>
+<p>新的问题：ACK、NAK分组受损。<br>解决方案：将所有受损的分组<strong>视为NAK</strong>，并对分组进行<strong>编号</strong>从而<strong>避免重传</strong>。</p>
+<p><img src="https://img-blog.csdnimg.cn/92ca995d84f34110bdbc1b7c4328df12.jpeg" alt="请添加图片描述"></p>
+<p>实际的网络中，<strong>只使用ACK</strong>，ACK中必须指出被确认分组的<strong>序号</strong><br><img src="https://img-blog.csdnimg.cn/15e8cf628ae146689cf164db5c01889e.jpeg" alt="请添加图片描述"></p>
+<h1 id="3-6-实用停等协议"><a href="#3-6-实用停等协议" class="headerlink" title="3.6 实用停等协议"></a>3.6 实用停等协议</h1><p>场景：不仅有比特差错，还会<strong>丢包</strong>。</p>
+<p>怎样检测丢包？ 超时重传。 </p>
+<p><img src="https://img-blog.csdnimg.cn/5ebd2a68a6364a7ab0fd8a03df62796a.jpeg" alt="请添加图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/7fea1cf8bf5f47cfbc827fcf11aa6118.jpeg" alt="请添加图片描述"><br>至此，通过检验和、序号、计时器、确认分组等技术，我们实现了可靠的数据传输。<br>但是，停等协议传输效率较低。</p>
+<h1 id="3-7-滑动窗口协议"><a href="#3-7-滑动窗口协议" class="headerlink" title="3.7 滑动窗口协议"></a>3.7 滑动窗口协议</h1><p>提高性能的一种可行方法：发送方<strong>发送多个分组</strong>而<strong>无需等待</strong>。</p>
+<ul>
+<li>扩充序号范围</li>
+<li>更大的缓冲区：发送方要缓存<strong>所有未收到确认的分组</strong>，接收方<strong>可能</strong>要缓存<strong>乱序到达</strong>的分组。</li>
+</ul>
+<p>流水线技术工作原理：<br><img src="https://img-blog.csdnimg.cn/6913b4e70a0546499a600850b0b0e7c8.png" alt="在这里插入图片描述"></p>
+<h2 id="3-7-1-GBN协议"><a href="#3-7-1-GBN协议" class="headerlink" title="3.7.1 GBN协议"></a>3.7.1 GBN协议</h2><p>丢失的分组和其后的分组全部重传（重传发送方<strong>缓冲区内的所有分组</strong>），接收方只需缓存一个分组。</p>
+<p><img src="https://img-blog.csdnimg.cn/2e61f60c63c340bdb81123743bdb8d2f.jpeg" alt="请添加图片描述"></p>
+<p>在GBN协议中，对一个分组进行确认，意味着其前的分组都被确认，称为<strong>累积确认</strong>。</p>
+<p>在GBN协议中，只需设置<strong>一个计时器</strong>，负责记录序号为<code>base</code>的分组是否超时，若超时，则重传所有<strong>发送且还未确认</strong>的分组，并重启计时器；若没有超时，则重启计时器（若没有发送且还未确认的分组，则不需要重启计时器）。</p>
+<h2 id="3-7-2-SR协议"><a href="#3-7-2-SR协议" class="headerlink" title="3.7.2 SR协议"></a>3.7.2 SR协议</h2><p>只重传丢失的分组，接收方的缓冲区需要和发送方<strong>一样大</strong>。</p>
+<p>在SR协议中，需要为<strong>每个已发送且未确认</strong>的分组<strong>设置一个定时器</strong>。</p>
+<p><img src="https://img-blog.csdnimg.cn/52f75d382cf44b3bb57c85b1d59e8772.jpeg" alt="请添加图片描述"></p>
+<h2 id="3-7-3-分组序号与窗口大小的关系"><a href="#3-7-3-分组序号与窗口大小的关系" class="headerlink" title="3.7.3 分组序号与窗口大小的关系"></a>3.7.3 分组序号与窗口大小的关系</h2><p>假设：</p>
+<ul>
+<li>分组序号为<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.179ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 521 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g></g></g></svg></mjx-container>位。</li>
+<li>发送窗口大小为<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.355ex;" xmlns="http://www.w3.org/2000/svg" width="3.074ex" height="1.901ex" role="img" focusable="false" viewBox="0 -683 1358.6 840.1"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g><g data-mml-node="mi" transform="translate(977,-150) scale(0.707)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g></g></g></g></svg></mjx-container>，接收窗口大小为<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="3.045ex" height="1.902ex" role="img" focusable="false" viewBox="0 -683 1345.9 840.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g><g data-mml-node="mi" transform="translate(977,-150) scale(0.707)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container>。（接收窗口中的分组为<strong>接收方等待接收的分组</strong>）</li>
+</ul>
+<p>现在考虑一种极端情况，发送窗口内的分组全部成功发送了，但所有相应的ACK全部丢失了。为了保证发送窗口和接收窗口没有交集，我们必须保证：</p>
+<script type="math/tex; mode=display">W_s+W_r\le 2^k</script><p>对GBN协议，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.355ex;" xmlns="http://www.w3.org/2000/svg" width="12.14ex" height="2.287ex" role="img" focusable="false" viewBox="0 -853.7 5366 1010.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g><g data-mml-node="mi" transform="translate(977,-150) scale(0.707)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g></g><g data-mml-node="mo" transform="translate(1636.4,0)"><path data-c="2264" d="M674 636Q682 636 688 630T694 615T687 601Q686 600 417 472L151 346L399 228Q687 92 691 87Q694 81 694 76Q694 58 676 56H670L382 192Q92 329 90 331Q83 336 83 348Q84 359 96 365Q104 369 382 500T665 634Q669 636 674 636ZM84 -118Q84 -108 99 -98H678Q694 -104 694 -118Q694 -130 679 -138H98Q84 -131 84 -118Z"></path></g><g data-mml-node="msup" transform="translate(2692.2,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(533,363) scale(0.707)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g></g><g data-mml-node="mo" transform="translate(3865.8,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(4866,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></svg></mjx-container>，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="7.193ex" height="1.902ex" role="img" focusable="false" viewBox="0 -683 3179.5 840.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g><g data-mml-node="mi" transform="translate(977,-150) scale(0.707)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(1623.7,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mn" transform="translate(2679.5,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></svg></mjx-container>；对SR协议，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="16.35ex" height="2.288ex" role="img" focusable="false" viewBox="0 -853.7 7226.7 1011.5"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g><g data-mml-node="mi" transform="translate(977,-150) scale(0.707)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g></g><g data-mml-node="mo" transform="translate(1636.4,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msub" transform="translate(2692.2,0)"><g data-mml-node="mi"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g><g data-mml-node="mi" transform="translate(977,-150) scale(0.707)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(4315.9,0)"><path data-c="2264" d="M674 636Q682 636 688 630T694 615T687 601Q686 600 417 472L151 346L399 228Q687 92 691 87Q694 81 694 76Q694 58 676 56H670L382 192Q92 329 90 331Q83 336 83 348Q84 359 96 365Q104 369 382 500T665 634Q669 636 674 636ZM84 -118Q84 -108 99 -98H678Q694 -104 694 -118Q694 -130 679 -138H98Q84 -131 84 -118Z"></path></g><g data-mml-node="msup" transform="translate(5371.6,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g><g data-mml-node="mo" transform="translate(521,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1299,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></g></g></svg></mjx-container>。</p>
+<h1 id="3-8-TCP报文段首部结构"><a href="#3-8-TCP报文段首部结构" class="headerlink" title="3.8 TCP报文段首部结构"></a>3.8 TCP报文段首部结构</h1><p><img src="https://img-blog.csdnimg.cn/b591b303c90a49daaaacabb43a248cf9.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>源端口、目的端口：在运输层标识源进程和目的进程。</li>
+<li>序号：TCP报文段的数据部分的<strong>第一个字节</strong>在<strong>整个字节流中的序号</strong>。</li>
+<li><p>ACK、确认号：当ACK为1时，确认号才有意义。确认号的含义为：<strong>期待</strong>收到的<strong>分组的序号</strong>。</p>
+<blockquote>
+<p>确认号可以实现<strong>捎带确认</strong>，即接收方在向发送方发送数据的同时，也确认了发送方之前发送的数据。</p>
+</blockquote>
+</li>
+<li><p>首部长度：TCP报文段首部的<strong>行数</strong>（一行4B），最少5行，最多15行。</p>
+</li>
+<li>窗口：用于流量控制。</li>
+<li>URG、紧急指针：当URG为1时，将数据部分中<strong>紧急指针之前</strong>的所有数据全部紧急交付给上层。</li>
+<li>PSH：PSH为1时，将全部数据紧急交付给上层。</li>
+</ul>
+<h1 id="3-9-TCP确认号和ACK"><a href="#3-9-TCP确认号和ACK" class="headerlink" title="3.9 TCP确认号和ACK"></a>3.9 TCP确认号和ACK</h1><p>序列号：报文段数据第一个字节在数据流中的编号。</p>
+<p>确认ACK：</p>
+<ul>
+<li>期待得到下一个字节的序列号</li>
+<li><p>累计ACK</p>
+<blockquote>
+<p>与GBN不同的是，接收方<strong>允许缓存乱序分组</strong>，但TCP协议没有规定对乱序分组的处理方式。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/baa483401e454a95a24d6a35904166c9.png" alt="在这里插入图片描述"></p>
+<h1 id="3-10-TCP超时时间间隔的设置"><a href="#3-10-TCP超时时间间隔的设置" class="headerlink" title="3.10 TCP超时时间间隔的设置"></a>3.10 TCP超时时间间隔的设置</h1><p>超时时间间隔：</p>
+</li>
+<li>过长：浪费时间。</li>
+<li>过短：产生过早超时，造成不必要的重传。</li>
+</ul>
+<p>应该保证超时时间间隔<strong>略大于RTT</strong>。</p>
+<p>在实际情况中，RTT是随时间波动的。那么，我们该如何估计RTT呢？</p>
+<ul>
+<li>SampleRTT：报文段被发出到收到确认之间的时间。</li>
+<li>估算RTT的方法：<br><img src="https://img-blog.csdnimg.cn/9b1507865f304acc9b5b49659db58454.png" alt="在这里插入图片描述"></li>
+<li>RTT的波动情况：<br><img src="https://img-blog.csdnimg.cn/d2ccbff085094f31af646d7fc58bd5f5.png" alt="在这里插入图片描述"></li>
+<li>超时时间间隔的设置：<br><img src="https://img-blog.csdnimg.cn/7da56116b64e47439318469afa529f95.png" alt="在这里插入图片描述"></li>
+</ul>
+<h1 id="3-11-TCP可靠传输机制"><a href="#3-11-TCP可靠传输机制" class="headerlink" title="3.11 TCP可靠传输机制"></a>3.11 TCP可靠传输机制</h1><p>  <img src="https://img-blog.csdnimg.cn/fab2e0de7faa40e68e1be6342c67a788.jpeg" alt="请添加图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/1308d4f624b34ceaa0daf9ca7aa4fc34.jpeg" alt="请添加图片描述"></p>
+<p><strong>快速重传</strong>：如果发送方收到一个分组的3个<strong>冗余ACK</strong>，则认为该报文段丢失，重传该分组。</p>
+<blockquote>
+<p>注意：对一个分组的第一个ACK不是冗余ACK。也就是说，如果发送方收到一个分组的4个ACK，则认为该报文段丢失。</p>
+</blockquote>
+<p>超时间隔加倍：每次TCP<strong>重传</strong>均将下一次超时间隔设为<strong>先前值的两倍</strong>。</p>
+<h1 id="3-12-TCP的流量控制"><a href="#3-12-TCP的流量控制" class="headerlink" title="3.12 TCP的流量控制"></a>3.12 TCP的流量控制</h1><p>如果发送方<strong>发送速度很快</strong>，而接收方的<strong>处理速度较慢</strong>，就会造成接收方的缓冲区被占满，导致大量的分组被丢弃，进而导致大量的<strong>分组被重传</strong>，产生了对信道资源的浪费。</p>
+<p>接收方计算缓冲区中的空闲空间大小，并将其写入TCP报文的窗口字段中。发送方知道接收方缓冲区空闲空间的大小后，也将自己的发送缓冲区大小设置为该值。</p>
+<p>考虑一种特殊情况：如果接收方的<strong>缓冲区满</strong>，且接收方<strong>对最后一个分组进行确认</strong>，则发送方会知悉接收方当前没有空闲区，于是<strong>发送方停止发送数据</strong>，接收方因而也<strong>不会产生任何反馈</strong>，通信进入一种“假死”状态。<br>所以在TCP的实际实现中，发送方知道接收方没有空闲区后，会持续发送数据大小为一个字节的数据。</p>
+<h1 id="3-13-TCP的连接管理"><a href="#3-13-TCP的连接管理" class="headerlink" title="3.13 TCP的连接管理"></a>3.13 TCP的连接管理</h1><p><strong>TCP连接的建立：</strong><br><img src="https://img-blog.csdnimg.cn/ea00a025127a4c18b115d09de076bb92.png" alt="在这里插入图片描述"><br>第三次握手会携带数据报文，所以可以认为TCP连接的建立需要一个RTT。</p>
+<p>TCP连接的建立必须一次性完成，不允许分阶段完成。</p>
+<p><strong>TCP连接的释放：</strong><br><img src="https://img-blog.csdnimg.cn/ff044b742d984da7a6b29c017f60ffb4.png" alt="在这里插入图片描述"><br>TCP连接的释放可以分阶段完成。</p>
+<p><img src="https://img-blog.csdnimg.cn/15dec7262a434f72992fec97716d1d39.png" alt="在这里插入图片描述"><br>如果服务器没有收到第三次握手，则会造成客户机进入了连接状态，而服务器没有进入连接状态。此时，服务器可以通过RST开关来尝试重新建立连接。</p>
+<h1 id="3-14-拥塞控制概述"><a href="#3-14-拥塞控制概述" class="headerlink" title="3.14 拥塞控制概述"></a>3.14 拥塞控制概述</h1><p>拥塞：大量的分组堆积在网络核心，导致排队时延长，产生大量丢包。</p>
+<p>端到端拥塞控制：</p>
+<ul>
+<li>网络层不为拥塞提供任何帮助。</li>
+<li>端系统通过对网络行为（丢包、实验增加）的观测判断网络是否发生拥塞。</li>
+</ul>
+<h1 id="3-15-TCP的拥塞控制"><a href="#3-15-TCP的拥塞控制" class="headerlink" title="3.15 TCP的拥塞控制"></a>3.15 TCP的拥塞控制</h1><p>如何控制TCP发送方外发速率？引入拥塞窗口。</p>
+<p>发送方如何感知拥塞？</p>
+<ul>
+<li>超时</li>
+<li>3个冗余ACK</li>
+</ul>
+<p>Reno算法<br><img src="https://img-blog.csdnimg.cn/33c35fc050b44c4eadf45762e2109f60.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/d5c01f3f50804702bb254a0893c0af7a.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/beea3f6ed3ed4171b61490f2816f832e.png" alt="在这里插入图片描述"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/" rel="prev" title="数据库——关系数据理论">
+                  <i class="fa fa-chevron-left"></i> 数据库——关系数据理论
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%E6%A6%82%E8%BF%B0/" rel="next" title="计算机网络——计算机网络和因特网概述">
+                  计算机网络——计算机网络和因特网概述 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cdn":"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

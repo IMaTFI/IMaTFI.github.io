@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="问题提出：  数据库的一大特点是数据可以共享，但不是无条件的共享。 数据库的数据共享在DBMS的严格控制之下，只允许有合法使用权限的用户访问相应的数据。  4.2 数据库安全性控制（P137）4.2.1 用户身份鉴别（P138）用户身份鉴别是系统提供的最外层安全保护措施。 基本方法：  系统提供一定的方式让用户标识自己的名字或身份； 系统内部记录着所有合法用户的标识； 每次用户要求进入系统时，由系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库——数据库安全性">
+<meta property="og:url" content="http://example.com/2023/02/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E6%80%A7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="问题提出：  数据库的一大特点是数据可以共享，但不是无条件的共享。 数据库的数据共享在DBMS的严格控制之下，只允许有合法使用权限的用户访问相应的数据。  4.2 数据库安全性控制（P137）4.2.1 用户身份鉴别（P138）用户身份鉴别是系统提供的最外层安全保护措施。 基本方法：  系统提供一定的方式让用户标识自己的名字或身份； 系统内部记录着所有合法用户的标识； 每次用户要求进入系统时，由系">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/db5a745106bd437c866ea7a3e17ad863.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/b5e49120c1e84d90820e917a640061be.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e1c6adcfdb3f45b6ac523ad741537136.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d51144671be748858d9fd6fc81fb29dc.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/889d67e5719443c892ec14fa5536b592.png">
+<meta property="article:published_time" content="2023-02-08T14:59:36.000Z">
+<meta property="article:modified_time" content="2023-02-08T15:00:13.930Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/db5a745106bd437c866ea7a3e17ad863.png">
+
+
+<link rel="canonical" href="http://example.com/2023/02/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E6%80%A7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/02/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E6%80%A7/","path":"2023/02/08/数据库——数据库安全性/","title":"数据库——数据库安全性"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数据库——数据库安全性 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#4-2-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E6%80%A7%E6%8E%A7%E5%88%B6%EF%BC%88P137%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">4.2 数据库安全性控制（P137）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-1-%E7%94%A8%E6%88%B7%E8%BA%AB%E4%BB%BD%E9%89%B4%E5%88%AB%EF%BC%88P138%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">4.2.1 用户身份鉴别（P138）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-2-%E5%AD%98%E5%8F%96%E6%8E%A7%E5%88%B6%EF%BC%88P140%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">4.2.2 存取控制（P140）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-3-%E8%87%AA%E4%B8%BB%E5%AD%98%E5%8F%96%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95%EF%BC%88P140%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">4.2.3 自主存取控制方法（P140）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-4-%E6%8E%88%E6%9D%83%EF%BC%9A%E6%8E%88%E4%BA%88%E4%B8%8E%E6%94%B6%E5%9B%9E%EF%BC%88P141%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">4.2.4 授权：授予与收回（P141）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-5-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%92%E8%89%B2"><span class="nav-number">1.5.</span> <span class="nav-text">4.2.5 数据库角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-6-%E5%BC%BA%E5%88%B6%E5%AD%98%E5%8F%96%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95%EF%BC%88P147%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">4.2.6 强制存取控制方法（P147）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-3-%E8%A7%86%E5%9B%BE%E6%9C%BA%E5%88%B6%EF%BC%88P149%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">4.3 视图机制（P149）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-4-%E5%AE%A1%E8%AE%A1%EF%BC%88P149%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">4.4 审计（P149）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86%EF%BC%88P151%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">4.5 数据加密（P151）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-6-%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E6%80%A7%EF%BC%88PPT%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">4.6 统计数据库安全性（PPT）</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数据库——数据库安全性 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据库——数据库安全性
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-02-08 22:59:36 / Modified: 23:00:13" itemprop="dateCreated datePublished" datetime="2023-02-08T22:59:36+08:00">2023-02-08</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>问题提出：</p>
+<ul>
+<li>数据库的一大特点是数据可以共享，但不是无条件的共享。</li>
+<li>数据库的数据共享在DBMS的严格控制之下，只允许有合法使用权限的用户访问相应的数据。</li>
+</ul>
+<h1 id="4-2-数据库安全性控制（P137）"><a href="#4-2-数据库安全性控制（P137）" class="headerlink" title="4.2 数据库安全性控制（P137）"></a>4.2 数据库安全性控制（P137）</h1><h2 id="4-2-1-用户身份鉴别（P138）"><a href="#4-2-1-用户身份鉴别（P138）" class="headerlink" title="4.2.1 用户身份鉴别（P138）"></a>4.2.1 用户身份鉴别（P138）</h2><p>用户身份鉴别是系统提供的<strong>最外层</strong>安全保护措施。</p>
+<p>基本方法：</p>
+<ul>
+<li>系统提供一定的方式让用户标识自己的名字或身份；</li>
+<li>系统内部记录着所有合法用户的标识；</li>
+<li>每次用户要求进入系统时，由系统核对用户提供的身份标识；</li>
+<li>通过鉴定后才提供机器使用权。</li>
+<li>用户标识和鉴定可以重复多次</li>
+</ul>
+<h2 id="4-2-2-存取控制（P140）"><a href="#4-2-2-存取控制（P140）" class="headerlink" title="4.2.2 存取控制（P140）"></a>4.2.2 存取控制（P140）</h2><p>存取控制机制包括<strong>定义存取权限</strong>和<strong>检查存取权限</strong>两部分，二者共同构成DBMS的存取控制子系统。</p>
+<ul>
+<li>定义用户权限：在数据库系统中，为了保证用户只能访问他有权存取的数据，必须预先对每个用户定义存取权限。</li>
+<li>合法权限检查：对于通过鉴定获得上机权的用户（即合法用户），系统根据他的存取权限定义对他的各种操作请求进行控制，确保他只执行合法操作。</li>
+</ul>
+<p>常用存取控制方法：</p>
+<ul>
+<li>自主存取控制：<ul>
+<li><strong>同一用户</strong>对于<strong>不同的数据对象</strong>有<strong>不同的存取权限</strong></li>
+<li><strong>不同的用户</strong>对<strong>同一对象</strong>也有<strong>不同的权限</strong></li>
+<li>用户还可将其拥有的存取权限<strong>转授</strong>给其他用户</li>
+</ul>
+</li>
+<li>强制存取控制：<ul>
+<li>每一个<strong>数据对象</strong>被标以一定的<strong>密级</strong></li>
+<li>每一个<strong>用户</strong>也被授予某一个<strong>级别的许可证</strong></li>
+<li>对于任意一个对象，只有具有<strong>合法许可证</strong>的用户才可以存取</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-2-3-自主存取控制方法（P140）"><a href="#4-2-3-自主存取控制方法（P140）" class="headerlink" title="4.2.3 自主存取控制方法（P140）"></a>4.2.3 自主存取控制方法（P140）</h2><p>自主存取控制（<strong>DAC</strong>）。</p>
+<p>存取权限由两个要素组成：数据对象、操作类型。</p>
+<p>在数据库系统中，定义存取权限称为<strong>授权</strong>。</p>
+<p>优点：</p>
+<ul>
+<li>能够通过授权机制有效地控制其他用户对敏感数据的存取。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>可能存在数据的“无意泄露”。原因：<strong>数据本身</strong>无安全性标记。解决：实施强制存取控制策略。</li>
+</ul>
+<h2 id="4-2-4-授权：授予与收回（P141）"><a href="#4-2-4-授权：授予与收回（P141）" class="headerlink" title="4.2.4 授权：授予与收回（P141）"></a>4.2.4 授权：授予与收回（P141）</h2><p><code>GRANT</code>语句：<br><img src="https://img-blog.csdnimg.cn/db5a745106bd437c866ea7a3e17ad863.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p><code>with grant option</code>表示获得权限的用户可以把权限再授予其它用户。<br>SQL标准不允许<strong>循环授权</strong>。</p>
+</blockquote>
+<p>例：<br><img src="https://img-blog.csdnimg.cn/b5e49120c1e84d90820e917a640061be.png" alt="在这里插入图片描述"></p>
+<p><code>REVOKE</code>语句：<br><img src="https://img-blog.csdnimg.cn/e1c6adcfdb3f45b6ac523ad741537136.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>收回权限时，若该用户已将权限授予其它用户，则也<strong>一并收回</strong>。</p>
+</blockquote>
+<p>例：<br><img src="https://img-blog.csdnimg.cn/d51144671be748858d9fd6fc81fb29dc.png" alt="在这里插入图片描述"></p>
+<p><code>CREATER USER</code>语句：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &lt;username&gt; [WITH] [DBA|RESOURCE|CONNECT]</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>如果未指定，默认用户具有<code>CONNECT</code>权限。<br><code>CREATER USER</code>语句不是SQL标准。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/889d67e5719443c892ec14fa5536b592.png" alt="在这里插入图片描述"></p>
+<h2 id="4-2-5-数据库角色"><a href="#4-2-5-数据库角色" class="headerlink" title="4.2.5 数据库角色"></a>4.2.5 数据库角色</h2><p>数据库角色是<strong>被命名的一组</strong>与数据库<strong>操作</strong>相关的<strong>权限</strong>，角色是权限的集合。</p>
+<p>角色的创建：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE ROLE &lt;角色名&gt;</span><br></pre></td></tr></table></figure></p>
+<p>给角色授权：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GRANT  &lt;权限&gt;[,&lt;权限&gt;]</span><br><span class="line"> ON &lt;对象类型&gt;对象名  </span><br><span class="line"> TO &lt;角色&gt;[,&lt;角色&gt;]…</span><br></pre></td></tr></table></figure><br>将一个角色授权其他的角色或用户：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GRANT  &lt;角色1&gt;[,&lt;角色2&gt;]…</span><br><span class="line">TO  &lt;角色3&gt;[,&lt;用户1&gt;]… </span><br><span class="line">[WITH ADMIN OPTION]</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>指定了WITH ADMIN OPTION则<strong>获得</strong>某种权限的角色或用户还可以把这种权限<strong>授予</strong>其他角色</p>
+</blockquote>
+<h2 id="4-2-6-强制存取控制方法（P147）"><a href="#4-2-6-强制存取控制方法（P147）" class="headerlink" title="4.2.6 强制存取控制方法（P147）"></a>4.2.6 强制存取控制方法（P147）</h2><p>强制存取控制（<strong>MAC</strong>）。</p>
+<p>在MAC中，全部实体被分为<strong>主体</strong>和<strong>客体</strong>两大类：</p>
+<ul>
+<li>主体：系统中的活动实体<ul>
+<li>DBMS所管理的实际用户</li>
+<li>代表用户的各进程</li>
+</ul>
+</li>
+<li>客体：系统中的被动实体，是受主体操纵的<ul>
+<li>文件</li>
+<li>基表</li>
+<li>索引</li>
+<li>视图</li>
+</ul>
+</li>
+</ul>
+<p>敏感度标记：</p>
+<ul>
+<li>绝密（Top Secret）</li>
+<li>机密（Secret）</li>
+<li>可信（Confidential）</li>
+<li>公开（Public）</li>
+</ul>
+<p>主体的敏感度标记称为<strong>许可证级别</strong>；客体的敏感度标记称为<strong>密级</strong>。<br>MAC机制就是通过对比主体和客体的敏感度，最终确定主体是否能够存取客体。</p>
+<p>规则：</p>
+<ul>
+<li>仅当<strong>主体</strong>的许可证级别<strong>大于</strong>或等于<strong>客体</strong>的密级时，该主体才能<strong>读取</strong>相应的客体；</li>
+<li>仅当<strong>主体</strong>的许可证级别<strong>小于</strong>或等于<strong>客体</strong>的密级时，该主体才能<strong>写</strong>相应的客体。</li>
+</ul>
+<blockquote>
+<p>第二条规则为了防止禁止了拥有高许可证级别的主体更新低密级的数据对象。例如，某TS级主体读取TS级数据后，将其写入P级数据中，造成了数据泄露。</p>
+</blockquote>
+<p>MAC控制的特点：</p>
+<ul>
+<li>MAC是对数据本身进行密级标记</li>
+<li>无论数据如何复制，<strong>标记与数据</strong>是一个不可分的<strong>整体</strong></li>
+<li>只有符合密级标记要求的用户才可以操纵数据，从而提供了更高级别的安全性</li>
+</ul>
+<h1 id="4-3-视图机制（P149）"><a href="#4-3-视图机制（P149）" class="headerlink" title="4.3 视图机制（P149）"></a>4.3 视图机制（P149）</h1><p><strong>视图机制</strong>与<strong>授权机制</strong>配合使用：首先用视图机制<strong>屏蔽</strong>掉一部分保密数据，视图上面再进一步定义存取权限，间接实现了<strong>支持存取谓词</strong>的用户权限定义。</p>
+<p>例：王平只能检索计算机系学生的信息。</p>
+<ol>
+<li>先建立计算机系学生的视图CS_Student： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW CS_Student</span><br><span class="line">AS </span><br><span class="line">SELECT </span><br><span class="line">FROM   Student</span><br><span class="line">WHERE  Sdept='CS'；</span><br></pre></td></tr></table></figure></li>
+<li>在视图上进一步定义存取权限： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GRANT  SELECT</span><br><span class="line">ON  CS_Student  </span><br><span class="line">TO 王平 ；</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="4-4-审计（P149）"><a href="#4-4-审计（P149）" class="headerlink" title="4.4 审计（P149）"></a>4.4 审计（P149）</h1><p>什么是审计？</p>
+<ul>
+<li>启用一个专用的审计日志（Audit Log），将用户对数据库的所有<strong>操作记录</strong>在上面。</li>
+<li>DBA可以利用审计日志中的追踪信息，<strong>找出非法存取数据</strong>的人。</li>
+</ul>
+<h2 id="4-5-数据加密（P151）"><a href="#4-5-数据加密（P151）" class="headerlink" title="4.5 数据加密（P151）"></a>4.5 数据加密（P151）</h2><h2 id="4-6-统计数据库安全性（PPT）"><a href="#4-6-统计数据库安全性（PPT）" class="headerlink" title="4.6 统计数据库安全性（PPT）"></a>4.6 统计数据库安全性（PPT）</h2><p>统计数据库的特点：</p>
+<ul>
+<li><strong>允许</strong>用户查询<strong>聚集类型</strong>的信息（例如合计、平均值等）</li>
+<li><strong>不允许</strong>查询<strong>单个</strong>记录信息</li>
+</ul>
+<p>规则：</p>
+<ul>
+<li>任何查询至少要<strong>涉及</strong>N(N足够大)个以上的记录。</li>
+<li>任意两个查询的<strong>相交数据项</strong>不能超过M个。</li>
+<li>任一用户的<strong>查询次数</strong>不能超过1+(N-2)/M。<blockquote>
+<p>是“不超过”吗？应该是“小于”1+(N-2)/M次吧？</p>
+</blockquote>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/02/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%8C%E6%95%B4%E6%80%A7/" rel="prev" title="数据库——数据库完整性">
+                  <i class="fa fa-chevron-left"></i> 数据库——数据库完整性
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/02/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="next" title="操作系统——文件系统">
+                  操作系统——文件系统 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cdn":"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

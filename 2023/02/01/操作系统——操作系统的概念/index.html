@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1 操作系统的概念、功能和目标操作系统的定义：  负责管理协调硬件、软件等计算机资源 为上层的应用程序、用户提供简单易用的服务 计算机中最基本的系统软件  作为系统资源的管理者：  功能：处理机管理、存储器管理、文件管理、设备管理 目标：安全高效  作为用户和计算机硬件之间的接口：  命令接口：允许用户直接使用（如：命令行中的指令） 程序接口：允许用户通过程序间接使用 图形用户界面  作为最接近硬">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统——操作系统的概念">
+<meta property="og:url" content="http://example.com/2023/02/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1 操作系统的概念、功能和目标操作系统的定义：  负责管理协调硬件、软件等计算机资源 为上层的应用程序、用户提供简单易用的服务 计算机中最基本的系统软件  作为系统资源的管理者：  功能：处理机管理、存储器管理、文件管理、设备管理 目标：安全高效  作为用户和计算机硬件之间的接口：  命令接口：允许用户直接使用（如：命令行中的指令） 程序接口：允许用户通过程序间接使用 图形用户界面  作为最接近硬">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/097b7d415a99456b9f1e307c916e055f.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2a35449d39b44b17abc002ced9bb511d.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/032783c9aa274570a8f2976f22bf5d08.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e2d30ca3e91b4ac8a6cf0c2acba56103.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/9f5f6a9125fb4ce5b838604ddc065910.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/4a89659e87224902b57b64260289e317.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6bb75f57f4d34ac89bc07562bb1fe034.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/9ce39e61e22845adad85298c605f2d1a.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/4127ff8d15c0423a9ad1c9856cbab6a0.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/947e31132ea54adeb50aa70163a2c7ac.png">
+<meta property="article:published_time" content="2023-02-01T07:45:16.000Z">
+<meta property="article:modified_time" content="2023-02-24T07:51:54.901Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/097b7d415a99456b9f1e307c916e055f.png">
+
+
+<link rel="canonical" href="http://example.com/2023/02/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/02/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5/","path":"2023/02/01/操作系统——操作系统的概念/","title":"操作系统——操作系统的概念"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>操作系统——操作系统的概念 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">1 操作系统的概念、功能和目标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-number">2.</span> <span class="nav-text">2 操作系统的特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%94%A8%E7%9A%84%E5%8F%91%E5%B1%95%E5%92%8C%E5%88%86%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">3 操作系统用的发展和分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E6%89%8B%E5%B7%A5%E6%93%8D%E4%BD%9C%E9%98%B6%E6%AE%B5"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 手工操作阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 单道批处理系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 多道批处理系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E5%88%86%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 分时操作系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-%E5%AE%9E%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 实时操作系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">4 操作系统的运行机制与体系结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="nav-number">5.</span> <span class="nav-text">5 中断和异常</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">6.</span> <span class="nav-text">6 系统调用</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="操作系统——操作系统的概念 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统——操作系统的概念
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-02-01 15:45:16" itemprop="dateCreated datePublished" datetime="2023-02-01T15:45:16+08:00">2023-02-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-02-24 15:51:54" itemprop="dateModified" datetime="2023-02-24T15:51:54+08:00">2023-02-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-操作系统的概念、功能和目标"><a href="#1-操作系统的概念、功能和目标" class="headerlink" title="1 操作系统的概念、功能和目标"></a>1 操作系统的概念、功能和目标</h1><p>操作系统的定义：</p>
+<ul>
+<li>负责管理协调硬件、软件等计算机资源</li>
+<li>为上层的<strong>应用程序</strong>、<strong>用户</strong>提供简单易用的服务</li>
+<li>计算机中最基本的<strong>系统软件</strong></li>
+</ul>
+<p>作为系统资源的管理者：</p>
+<ul>
+<li>功能：处理机管理、存储器管理、文件管理、设备管理</li>
+<li>目标：安全高效</li>
+</ul>
+<p>作为用户和计算机硬件之间的接口：</p>
+<ul>
+<li>命令接口：允许用户直接使用（如：命令行中的指令）</li>
+<li>程序接口：允许用户通过程序间接使用</li>
+<li>图形用户界面</li>
+</ul>
+<p>作为最接近硬件的层次：</p>
+<ul>
+<li>实现对硬件机器的扩展</li>
+</ul>
+<blockquote>
+<p>p33 1-1 存储程序式计算机的特点：指令流驱动计算、集中顺序过程控制（集中：CPU集中管理、顺序：程序计数器控制、过程：模拟人手工操作）。</p>
+<p>p34 1-7 什么是操作系统？操作系统的特征是什么？<br>操作系统（OS）是一个大型的<strong>软件系统</strong>，它负责计算机系统<strong>软、硬件资源的分配</strong>，<strong>控制和协调并发活动</strong>，提供给用户和其他软件方便的<strong>接口和环境</strong>，使用户获得良好的工作环境。特点：并发、共享、虚拟、不确定。</p>
+</blockquote>
+<h1 id="2-操作系统的特征"><a href="#2-操作系统的特征" class="headerlink" title="2 操作系统的特征"></a>2 操作系统的特征</h1><ul>
+<li>并发：宏观上同时进行，微观上交替进行</li>
+<li>共享：系统中的资源可供多个并发进程共同使用（互斥共享、同时共享）</li>
+<li>虚拟：把一个物理上的实体变为若干逻辑上的对应物</li>
+<li>异步（不确定）：多个程序并发执行时，每个进程的执行是“走走停停”的，推进速度是不可预知的</li>
+</ul>
+<blockquote>
+<p>p53 什么是操作系统虚拟机？<br>答：配置了操作系统的裸机。虚拟机没有中断；虚拟机为每个任务提供了一个虚拟处理器；虚拟机提供了更强的指令系统。</p>
+<p>p53 在设计操作系统时，可以考虑的结构组织有哪几种？<br>答：单内核、微内核、伴生内核。</p>
+<h1 id="3-操作系统用的发展和分类"><a href="#3-操作系统用的发展和分类" class="headerlink" title="3 操作系统用的发展和分类"></a>3 操作系统用的发展和分类</h1><h2 id="3-1-手工操作阶段"><a href="#3-1-手工操作阶段" class="headerlink" title="3.1 手工操作阶段"></a>3.1 手工操作阶段</h2><p><img src="https://img-blog.csdnimg.cn/097b7d415a99456b9f1e307c916e055f.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<h2 id="3-2-单道批处理系统"><a href="#3-2-单道批处理系统" class="headerlink" title="3.2 单道批处理系统"></a>3.2 单道批处理系统</h2><p><img src="https://img-blog.csdnimg.cn/2a35449d39b44b17abc002ced9bb511d.png" alt="在这里插入图片描述"></p>
+<h2 id="3-3-多道批处理系统"><a href="#3-3-多道批处理系统" class="headerlink" title="3.3 多道批处理系统"></a>3.3 多道批处理系统</h2><p><img src="https://img-blog.csdnimg.cn/032783c9aa274570a8f2976f22bf5d08.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>P33 1-5 什么是多道程序设计技术？试分析多道程序设计技术的特征？<br>答：多道程序设计技术：在计算机主存中同时存放几道<strong>相互独立</strong>的程序。这些程序在<strong>管理程序</strong>控制之下，<strong>相互穿插</strong>地运行。当某道程序因某种原因不能继续运行下去时(如等待外部设备传输数据)，管理程序便将另一道程序投入运行。特点：多道 （内存中存放多个相互独立的程序）、宏观上并行 （相互穿插运行）、微观上串行 （CPU上永远只能执行单个程序）。</p>
+</blockquote>
+<h2 id="3-4-分时操作系统"><a href="#3-4-分时操作系统" class="headerlink" title="3.4 分时操作系统"></a>3.4 分时操作系统</h2><p><img src="https://img-blog.csdnimg.cn/e2d30ca3e91b4ac8a6cf0c2acba56103.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>P33 1-2 批处理系统和分时系统各具有什么特点？为什么分时系统响应比较快？<br>答：批处理系统的特点：程序包中的上一个程序执行完毕后，下一个程序自动投入运行，程序包中的程序执行切换无需人工干预。分时系统的特点：联机交互，独占使用，响应时间快</p>
+<p>P34 1-6 什么是分时技术？<br>答：所谓分时技术，是把<strong>处理机时间</strong>划分成很短的<strong>时间片</strong>(如几百毫秒)<strong>轮流</strong>地分配给各个应用程序使用，如果某个程序在分配的时间片用完之前计算还未完成，该程序就暂停执行，等待下一次获得时间片后再继续计算。</p>
+</blockquote>
+<h2 id="3-5-实时操作系统"><a href="#3-5-实时操作系统" class="headerlink" title="3.5 实时操作系统"></a>3.5 实时操作系统</h2><p><img src="https://img-blog.csdnimg.cn/9f5f6a9125fb4ce5b838604ddc065910.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>P33 1-3 实时系统和分时系统的本质区别？<br>答：实时系统强调<strong>可预测性</strong>，即在规定的时间内完成事务的处理。</p>
+</blockquote>
+<h1 id="4-操作系统的运行机制与体系结构"><a href="#4-操作系统的运行机制与体系结构" class="headerlink" title="4 操作系统的运行机制与体系结构"></a>4 操作系统的运行机制与体系结构</h1><p>指令分为<strong>特权指令</strong>和<strong>非特权指令</strong>。特权指令不允许用户程序执行。</p>
+<p>处理器有两种状态：<strong>用户态</strong>（目态）和<strong>核心态</strong>（管态）。通过程序状态字寄存器<strong>PSW中的标志位</strong>来标识当前处理器的状态。处于<strong>用户态</strong>的CPU只能执行<strong>非特权指令</strong>。</p>
+<p>程序分为<strong>内核程序</strong>和<strong>应用程序</strong>。内核程序运行在核心态，应用程序运行在用户态。</p>
+<blockquote>
+<p>p53 2-3 什么是处理机的态？为什么要区分处理机的态？<br>答：处理机所处的状态、正在处理哪类程序；保护操作系统。</p>
+<p>p53 2-4 什么是管态？什么是用户态？<br>答：管态：操作系统的<strong>管理程序</strong>执行时机器所处的状态，又称处理机的特权态。在此状态下处理机可使用<strong>全部指令</strong>（包括一组特权指令）、使用<strong>全部系统资源</strong>（包括整个存储区域）。用户态：<strong>用户程序</strong>执行时机器所处的状态称为用户态。在此状态下<strong>禁止使用特权指令</strong>，<strong>不能直接取用资源</strong>与<strong>改变机器状态</strong>，并且只允许用户程序<strong>访问自己的存储区域</strong>。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/4a89659e87224902b57b64260289e317.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/6bb75f57f4d34ac89bc07562bb1fe034.png" alt="在这里插入图片描述"></p>
+<h1 id="5-中断和异常"><a href="#5-中断和异常" class="headerlink" title="5 中断和异常"></a>5 中断和异常</h1><p>发生中断意味着需要<strong>操作系统介入</strong>，开展管理工作。</p>
+<p>中断发生后，CPU立即进入<strong>核心态</strong>，当前进程暂缓执行。中断时<strong>用户态转换到核心态</strong>的<strong>唯一途径</strong>，中断可以使操作系统得到计算机的控制权。</p>
+<blockquote>
+<p>p53 2-5 什么是中断？在计算机系统中为什么要引入中断？<br>答：所谓中断是指<strong>某个事件</strong> (例如电源掉电、定点加法溢出或I/O传输结束等)<strong>发生</strong>时，系统<strong>中止现行程序</strong>的运行、<strong>引出处理事件程序</strong>对该事件进行处理，处理完毕后<strong>返回断点继续执行</strong>的过程。应用程序（用户态）的执行时常需要操作系统（内核态）的“帮助”。中断的本质是<strong>受保护的状态转换</strong>，转换的过程中不允许存在让用户程序干预的可能。</p>
+<p>p53 2-6 按中断的功能分，中断有哪几种类型？<br>答：输入输出中断、外中断、机器故障中断、程序性中断、访管中断。</p>
+<p>p53 2-7 什么是强迫性中断？什么是自愿中断？试举例说明。<br>答：强迫性中断不是当前程序所期待的，而自愿中断是当前程序所期待的。访管中断属于自愿中断类型。</p>
+<p>p53 2-8 中断和俘获有什么不同？<br>答：中断源于CPU外部，俘获源于CPU内部。</p>
+<p>p53 2-9 什么是中断响应？其实质是什么？<br>答：中断响应指CPU<strong>发现已有中断请求</strong>，<strong>中止当前程序执行</strong>，并<strong>自动引出中断处理程序</strong>的过程。其实质是交换<strong>用户程序</strong>和<strong>中断处理程序</strong>的<strong>指令执行地址</strong>和<strong>处理机状态</strong>。</p>
+<p>p53 2-10 什么是程序状态字？在微机中其一般由哪两部分组成？<br>答：PSW是反应程序执行时机器所处的<strong>现行状态</strong>的代码，包括：指令地址、指令执行情况、处理机状态、应屏蔽的中断等。PSW的主要作用是实现<strong>程序状态的保护和恢复</strong>。在微机中，一般由<strong>指令计数器</strong>和<strong>处理机状态寄存器</strong>组成。</p>
+<p>p53 2-11 什么是向量中断？什么是中断向量？<br>答：向量中断：当中断发生时，由<strong>中断源</strong>自己<strong>引导处理机进入中断服务程序</strong>的中断过程称为向量中断。中断向量：每类中断类型都有自己的中断向量，包含：<strong>中断服务例程的入口地址</strong>和<strong>程序状态字</strong>。</p>
+<p>p53 2-12 软件中断的处理过程？<br>答：保护现场和传递参数；执行相应的中断服务例程；恢复和退出中断。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/9ce39e61e22845adad85298c605f2d1a.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/4127ff8d15c0423a9ad1c9856cbab6a0.png" alt="在这里插入图片描述"></p>
+<h1 id="6-系统调用"><a href="#6-系统调用" class="headerlink" title="6 系统调用"></a>6 系统调用</h1><p><img src="https://img-blog.csdnimg.cn/947e31132ea54adeb50aa70163a2c7ac.png" alt="在这里插入图片描述"></p>
+<p>系统调用的过程：传递系统调用所需的参数 -&gt; 执行陷入指令 -&gt; 执行相应系统调用的服务程序 -&gt; 返回用户程序。</p>
+<blockquote>
+<p>陷入指令在用户态执行，执行陷入指令后立即引发一个内中断，使CPU进入核心态。<br>发出系统调用请求在用户态，对系统调用进行处理在核心态。<br>陷入指令是唯一一个只能在用户态执行，不能在核心态执行的指令。</p>
+<p>p73 3-1 什么是系统生成？<br>答：所谓系统生成，就是指为了满足<strong>物理设备的约束</strong>和<strong>需要的系统功</strong>能，通过组装一批模块来<strong>产生</strong>一个清晰的、使用方便的<strong>操作系统</strong>的过程。简单地说就是<strong>系统的安装</strong>，即将OS安装到启动装置（可以是磁盘，也可以是tftp服务器的某个目录）</p>
+<p>p73 3-2 系统引导的主要任务是什么？<br>答：将操作系统的必要部分装入主存并对系统进行初始化工作，最终使系统处于命令接收状态。主要有<strong>独立引导方式</strong>和<strong>辅助下装方式</strong>两种。</p>
+<p>p73 3-3 处理应用程序分哪几个步骤？这几个步骤之间是什么关系？<br>答：步骤：编辑、编译、链接、运行。这4个步骤相互关联、顺序执行。</p>
+<p>p73 3-4 静态链接和动态链接有什么区别？<br>答：静态链接将所有外部函数的调用都连接到目标文件中形成一个完整的主存映像，动态链接是将连接这一工作延迟到<strong>程序运行时</strong>进行。</p>
+<p>p73 3-5 用户与操作系统的接口是什么？<br>操作系统的用户界面 (或称接口) 是操作系统提供给用户与计算机打交道的外部机制。用户能够借助这种机制和系统提供的手段来<strong>控制</strong>用户所在的系统。</p>
+<p>p73 3-8 什么是系统功能调用？对操作系统的服务请求与一般的子程序调用有什么区别？<br>答：系统调用是用户在程序一级<strong>请求操作系统服务</strong>的一种手段，它是带有一定<strong>功能号</strong>的<strong>访管指令</strong>。其功能是由操作系统中的程序完成的，即由软件方法实现的。系统调用代码属于OS（驻留在内存），一般库函数由开发软件提供，由编译工具链入用户程序。<strong>系统调用代码的执行引起CPU状态的变化</strong>：用户态核心态，一般库函数的执行不会引起CPU状态的变化：用户态。系统调用减小了用户程序大小。</p>
+<p>p73 3-9 为了实现系统调用，操作系统设计者应该做哪些工作？<br>答：（1）<strong>编写</strong>实现各种子功能的<strong>例行子程序</strong>，并对其进行<strong>编号</strong>。（2）构造例行<strong>子程序入口地址表</strong>，各个例行子程序的入口地址按其编号存入表中。（3）编写<strong>访管中断处理程序</strong>，该程序的功能为：<strong>保护现场</strong>；取系统功能调用号i，根据例行子程序入口地址表和i值跳转执行相应例程。</p>
+<p>p73 3-10 简述系统功能调用的执行过程。<br>答：用户程序执行到系统调用命令时，会发生<strong>中断</strong>，处理器由用户态变为核心态，操作系统的<strong>访管中断程序</strong>得到控制权。它根据系统调用的功能号，根据例行子程序入口地址表跳转到相应的例程去执行，完成用户要求的服务功能后，退出中断，返回用户程序断点继续执行。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/06/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E8%83%8C%E5%8C%85%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="prev" title="算法自学__背包动态规划">
+                  <i class="fa fa-chevron-left"></i> 算法自学__背包动态规划
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/02/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E4%B8%BB%E5%AD%98%E7%AE%A1%E7%90%86/" rel="next" title="操作系统——主存管理">
+                  操作系统——主存管理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cdn":"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

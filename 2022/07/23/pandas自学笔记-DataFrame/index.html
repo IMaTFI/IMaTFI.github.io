@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="参考资料:  黑马程序员相关教程  创建12345678910111213141516171819202122232425262728# 通过array创建DataFramet &#x3D; pd.DataFrame(np.arange(12).reshape(3, 4))print(t)#    0  1   2   3# 0  0  1   2   3# 1  4  5   6   7# 2  8  9">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pandas自学笔记__DataFrame">
+<meta property="og:url" content="http://example.com/2022/07/23/pandas%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-DataFrame/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="参考资料:  黑马程序员相关教程  创建12345678910111213141516171819202122232425262728# 通过array创建DataFramet &#x3D; pd.DataFrame(np.arange(12).reshape(3, 4))print(t)#    0  1   2   3# 0  0  1   2   3# 1  4  5   6   7# 2  8  9">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-07-23T08:27:05.000Z">
+<meta property="article:modified_time" content="2022-07-27T11:03:40.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="pandas">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/23/pandas%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-DataFrame/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/07/23/pandas%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-DataFrame/","path":"2022/07/23/pandas自学笔记-DataFrame/","title":"pandas自学笔记__DataFrame"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>pandas自学笔记__DataFrame | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96csv%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">读取csv文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DataFrame%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">DataFrame的属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DataFrame%E7%9A%84%E6%8E%92%E5%BA%8F"><span class="nav-number">4.</span> <span class="nav-text">DataFrame的排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">5.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E7%B4%A2%E5%BC%95"><span class="nav-number">5.1.</span> <span class="nav-text">行索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E7%B4%A2%E5%BC%95"><span class="nav-number">5.2.</span> <span class="nav-text">列索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%A0%87%E7%AD%BE%E7%B4%A2%E5%BC%95"><span class="nav-number">5.3.</span> <span class="nav-text">通过标签索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E4%BD%8D%E7%BD%AE%E7%B4%A2%E5%BC%95"><span class="nav-number">5.4.</span> <span class="nav-text">通过位置索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E7%B4%A2%E5%BC%95"><span class="nav-number">5.5.</span> <span class="nav-text">布尔索引</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E5%A4%B1%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">缺失数据处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%95%B0%E6%8D%AE%E6%98%AF%E5%90%A6%E4%B8%BANaN"><span class="nav-number">6.1.</span> <span class="nav-text">判断数据是否为NaN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4NaN%E6%89%80%E5%9C%A8%E7%9A%84%E8%A1%8C%E5%88%97"><span class="nav-number">6.2.</span> <span class="nav-text">删除NaN所在的行列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A1%AB%E5%85%85NaN"><span class="nav-number">6.3.</span> <span class="nav-text">填充NaN</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/pandas%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-DataFrame/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="pandas自学笔记__DataFrame | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          pandas自学笔记__DataFrame
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-07-23 16:27:05" itemprop="dateCreated datePublished" datetime="2022-07-23T16:27:05+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-07-27 19:03:40" itemprop="dateModified" datetime="2022-07-27T19:03:40+08:00">2022-07-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ML/" itemprop="url" rel="index"><span itemprop="name">ML</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>参考资料:</p>
+<ul>
+<li>黑马程序员相关教程</li>
+</ul>
+<h1 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过array创建DataFrame</span></span><br><span class="line">t = pd.DataFrame(np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>, <span class="number">4</span>))</span><br><span class="line"><span class="built_in">print</span>(t)</span><br><span class="line"><span class="comment">#    0  1   2   3</span></span><br><span class="line"><span class="comment"># 0  0  1   2   3</span></span><br><span class="line"><span class="comment"># 1  4  5   6   7</span></span><br><span class="line"><span class="comment"># 2  8  9  10  11</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定DataFrame的index和columns</span></span><br><span class="line">t1 = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">t2 = pd.DataFrame(t1, index=<span class="built_in">list</span>(<span class="string">"123"</span>), columns=<span class="built_in">list</span>(<span class="string">"abcd"</span>))</span><br><span class="line"><span class="built_in">print</span>(t2)</span><br><span class="line"><span class="comment">#    a  b   c   d</span></span><br><span class="line"><span class="comment"># 1  0  1   2   3</span></span><br><span class="line"><span class="comment"># 2  4  5   6   7</span></span><br><span class="line"><span class="comment"># 3  8  9  10  11</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过字典创建DataFrame</span></span><br><span class="line">d1 = {<span class="string">'name'</span>: <span class="string">"张三"</span>, <span class="string">'age'</span>: <span class="number">18</span>, <span class="string">'del'</span>: <span class="number">10010</span>}</span><br><span class="line">d2 = {<span class="string">'name'</span>: <span class="string">'李四'</span>, <span class="string">'del'</span>: <span class="number">10086</span>}</span><br><span class="line">d3 = {<span class="string">'age'</span>: <span class="number">17</span>}</span><br><span class="line">L = [d1, d2, d3]</span><br><span class="line">t = pd.DataFrame(L)</span><br><span class="line"><span class="built_in">print</span>(t)</span><br><span class="line"><span class="comment">#   name   age      del</span></span><br><span class="line"><span class="comment"># 0   张三  18.0  10010.0</span></span><br><span class="line"><span class="comment"># 1   李四   NaN  10086.0</span></span><br><span class="line"><span class="comment"># 2  NaN  17.0      NaN</span></span><br></pre></td></tr></table></figure>
+<h1 id="读取csv文件"><a href="#读取csv文件" class="headerlink" title="读取csv文件"></a>读取csv文件</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">t = pd.read_csv(<span class="string">"./train.csv"</span>)</span><br><span class="line"><span class="built_in">print</span>(t)</span><br><span class="line"><span class="comment">#      PassengerId  Survived  Pclass  ...     Fare Cabin  Embarked</span></span><br><span class="line"><span class="comment"># 0              1         0       3  ...   7.2500   NaN         S</span></span><br><span class="line"><span class="comment"># 1              2         1       1  ...  71.2833   C85         C</span></span><br><span class="line"><span class="comment"># 2              3         1       3  ...   7.9250   NaN         S</span></span><br><span class="line"><span class="comment"># 3              4         1       1  ...  53.1000  C123         S</span></span><br><span class="line"><span class="comment"># 4              5         0       3  ...   8.0500   NaN         S</span></span><br><span class="line"><span class="comment"># ..           ...       ...     ...  ...      ...   ...       ...</span></span><br><span class="line"><span class="comment"># 886          887         0       2  ...  13.0000   NaN         S</span></span><br><span class="line"><span class="comment"># 887          888         1       1  ...  30.0000   B42         S</span></span><br><span class="line"><span class="comment"># 888          889         0       3  ...  23.4500   NaN         S</span></span><br><span class="line"><span class="comment"># 889          890         1       1  ...  30.0000  C148         C</span></span><br><span class="line"><span class="comment"># 890          891         0       3  ...   7.7500   NaN         Q</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># [891 rows x 12 columns]</span></span><br></pre></td></tr></table></figure>
+<h1 id="DataFrame的属性"><a href="#DataFrame的属性" class="headerlink" title="DataFrame的属性"></a>DataFrame的属性</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">t = pd.read_csv(<span class="string">"./train.csv"</span>)</span><br><span class="line"><span class="built_in">print</span>(t.index)  <span class="comment"># 获取DataFrame的行索引</span></span><br><span class="line"><span class="comment"># RangeIndex(start=0, stop=891, step=1)</span></span><br><span class="line"><span class="built_in">print</span>(t.columns)    <span class="comment"># 获取DataFrame的列索引</span></span><br><span class="line"><span class="comment"># Index(['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp',</span></span><br><span class="line"><span class="comment">#        'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked'],</span></span><br><span class="line"><span class="comment">#       dtype='object')</span></span><br><span class="line"><span class="built_in">print</span>(t.shape)      <span class="comment"># 获取DataFrame的形状</span></span><br><span class="line"><span class="comment"># (891, 12)</span></span><br><span class="line"><span class="built_in">print</span>(t.dtypes)     <span class="comment"># 获取DataFrame中每一个列索引对应的数据类型</span></span><br><span class="line"><span class="comment"># PassengerId      int64</span></span><br><span class="line"><span class="comment"># Survived         int64</span></span><br><span class="line"><span class="comment"># Pclass           int64</span></span><br><span class="line"><span class="comment"># Name            object</span></span><br><span class="line"><span class="comment"># Sex             object</span></span><br><span class="line"><span class="comment"># Age            float64</span></span><br><span class="line"><span class="comment"># SibSp            int64</span></span><br><span class="line"><span class="comment"># Parch            int64</span></span><br><span class="line"><span class="comment"># Ticket          object</span></span><br><span class="line"><span class="comment"># Fare           float64</span></span><br><span class="line"><span class="comment"># Cabin           object</span></span><br><span class="line"><span class="comment"># Embarked        object</span></span><br><span class="line"><span class="comment"># dtype: object</span></span><br><span class="line"><span class="built_in">print</span>(t.ndim)       <span class="comment"># 获取DataFrame的维度</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="built_in">print</span>(t.head())     <span class="comment"># 显示DataFrame的前几行(默认5行)</span></span><br><span class="line"><span class="comment">#    PassengerId  Survived  Pclass  ...     Fare Cabin  Embarked</span></span><br><span class="line"><span class="comment"># 0            1         0       3  ...   7.2500   NaN         S</span></span><br><span class="line"><span class="comment"># 1            2         1       1  ...  71.2833   C85         C</span></span><br><span class="line"><span class="comment"># 2            3         1       3  ...   7.9250   NaN         S</span></span><br><span class="line"><span class="comment"># 3            4         1       1  ...  53.1000  C123         S</span></span><br><span class="line"><span class="comment"># 4            5         0       3  ...   8.0500   NaN         S</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># [5 rows x 12 columns]</span></span><br><span class="line"><span class="built_in">print</span>(t.tail())     <span class="comment"># 显示DataFrame的后几行(默认5行)</span></span><br><span class="line"><span class="comment">#      PassengerId  Survived  Pclass  ...   Fare Cabin  Embarked</span></span><br><span class="line"><span class="comment"># 886          887         0       2  ...  13.00   NaN         S</span></span><br><span class="line"><span class="comment"># 887          888         1       1  ...  30.00   B42         S</span></span><br><span class="line"><span class="comment"># 888          889         0       3  ...  23.45   NaN         S</span></span><br><span class="line"><span class="comment"># 889          890         1       1  ...  30.00  C148         C</span></span><br><span class="line"><span class="comment"># 890          891         0       3  ...   7.75   NaN         Q</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># [5 rows x 12 columns]</span></span><br><span class="line"><span class="built_in">print</span>(t.describe())     <span class="comment"># 显示DataFrame的统计信息</span></span><br><span class="line"><span class="comment">#        PassengerId    Survived      Pclass  ...       SibSp       Parch        Fare</span></span><br><span class="line"><span class="comment"># count   891.000000  891.000000  891.000000  ...  891.000000  891.000000  891.000000</span></span><br><span class="line"><span class="comment"># mean    446.000000    0.383838    2.308642  ...    0.523008    0.381594   32.204208</span></span><br><span class="line"><span class="comment"># std     257.353842    0.486592    0.836071  ...    1.102743    0.806057   49.693429</span></span><br><span class="line"><span class="comment"># min       1.000000    0.000000    1.000000  ...    0.000000    0.000000    0.000000</span></span><br><span class="line"><span class="comment"># 25%     223.500000    0.000000    2.000000  ...    0.000000    0.000000    7.910400</span></span><br><span class="line"><span class="comment"># 50%     446.000000    0.000000    3.000000  ...    0.000000    0.000000   14.454200</span></span><br><span class="line"><span class="comment"># 75%     668.500000    1.000000    3.000000  ...    1.000000    0.000000   31.000000</span></span><br><span class="line"><span class="comment"># max     891.000000    1.000000    3.000000  ...    8.000000    6.000000  512.329200</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># [8 rows x 7 columns]</span></span><br></pre></td></tr></table></figure>
+<h1 id="DataFrame的排序"><a href="#DataFrame的排序" class="headerlink" title="DataFrame的排序"></a>DataFrame的排序</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">t = pd.read_csv(<span class="string">"train.csv"</span>);</span><br><span class="line"><span class="built_in">print</span>(t.sort_values(by=<span class="string">"Fare"</span>, ascending=<span class="literal">False</span>))    	<span class="comment">#按照"Fare"的值进行升序排列</span></span><br><span class="line"><span class="comment">#      PassengerId  Survived  Pclass  ...      Fare        Cabin  Embarked</span></span><br><span class="line"><span class="comment"># 258          259         1       1  ...  512.3292          NaN         C</span></span><br><span class="line"><span class="comment"># 737          738         1       1  ...  512.3292         B101         C</span></span><br><span class="line"><span class="comment"># 679          680         1       1  ...  512.3292  B51 B53 B55         C</span></span><br><span class="line"><span class="comment"># 88            89         1       1  ...  263.0000  C23 C25 C27         S</span></span><br><span class="line"><span class="comment"># 27            28         0       1  ...  263.0000  C23 C25 C27         S</span></span><br><span class="line"><span class="comment"># ..           ...       ...     ...  ...       ...          ...       ...</span></span><br><span class="line"><span class="comment"># 633          634         0       1  ...    0.0000          NaN         S</span></span><br><span class="line"><span class="comment"># 413          414         0       2  ...    0.0000          NaN         S</span></span><br><span class="line"><span class="comment"># 822          823         0       1  ...    0.0000          NaN         S</span></span><br><span class="line"><span class="comment"># 732          733         0       2  ...    0.0000          NaN         S</span></span><br><span class="line"><span class="comment"># 674          675         0       2  ...    0.0000          NaN         S</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># [891 rows x 12 columns]</span></span><br></pre></td></tr></table></figure>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><h2 id="行索引"><a href="#行索引" class="headerlink" title="行索引"></a>行索引</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">t = pd.DataFrame(np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>, <span class="number">4</span>))</span><br><span class="line"><span class="built_in">print</span>(t[:<span class="number">2</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(t[:<span class="number">2</span>]))</span><br><span class="line"><span class="comment">#    0  1  2  3</span></span><br><span class="line"><span class="comment"># 0  0  1  2  3</span></span><br><span class="line"><span class="comment"># 1  4  5  6  7</span></span><br><span class="line"><span class="comment"># &lt;class 'pandas.core.frame.DataFrame'&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="列索引"><a href="#列索引" class="headerlink" title="列索引"></a>列索引</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">t = pd.DataFrame(np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>, <span class="number">4</span>))</span><br><span class="line"><span class="built_in">print</span>(t[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(t[<span class="number">1</span>]))</span><br><span class="line"><span class="comment"># 0    0</span></span><br><span class="line"><span class="comment"># 1    4</span></span><br><span class="line"><span class="comment"># 2    8</span></span><br><span class="line"><span class="comment"># Name: 0, dtype: int32</span></span><br><span class="line"><span class="comment"># &lt;class 'pandas.core.series.Series'&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="通过标签索引"><a href="#通过标签索引" class="headerlink" title="通过标签索引"></a>通过标签索引</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">t = pd.DataFrame(np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>, <span class="number">4</span>), index=<span class="built_in">list</span>(<span class="string">"abc"</span>), columns=<span class="built_in">list</span>(<span class="string">"WXYZ"</span>))</span><br><span class="line"><span class="built_in">print</span>(t)</span><br><span class="line"><span class="comment">#    W  X   Y   Z</span></span><br><span class="line"><span class="comment"># a  0  1   2   3</span></span><br><span class="line"><span class="comment"># b  4  5   6   7</span></span><br><span class="line"><span class="comment"># c  8  9  10  11</span></span><br><span class="line"><span class="built_in">print</span>(t.loc[<span class="string">'a'</span>, :])</span><br><span class="line"><span class="comment"># W    0</span></span><br><span class="line"><span class="comment"># X    1</span></span><br><span class="line"><span class="comment"># Y    2</span></span><br><span class="line"><span class="comment"># Z    3</span></span><br><span class="line"><span class="comment"># Name: a, dtype: int32</span></span><br><span class="line"><span class="built_in">print</span>(t.loc[<span class="string">'b'</span>, <span class="string">'X'</span>])</span><br><span class="line"><span class="comment"># 5</span></span><br><span class="line"><span class="built_in">print</span>(t.loc[<span class="string">'a'</span>:<span class="string">'c'</span>, <span class="string">'W'</span>:<span class="string">'X'</span>])		<span class="comment"># 冒号右边的标签包含在切片中</span></span><br><span class="line"><span class="comment">#    W  X</span></span><br><span class="line"><span class="comment"># a  0  1</span></span><br><span class="line"><span class="comment"># b  4  5</span></span><br><span class="line"><span class="comment"># c  8  9</span></span><br></pre></td></tr></table></figure>
+<h2 id="通过位置索引"><a href="#通过位置索引" class="headerlink" title="通过位置索引"></a>通过位置索引</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">t = pd.DataFrame(np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>, <span class="number">4</span>), index=<span class="built_in">list</span>(<span class="string">"abc"</span>), columns=<span class="built_in">list</span>(<span class="string">"WXYZ"</span>))</span><br><span class="line"><span class="built_in">print</span>(t)</span><br><span class="line"><span class="comment">#    W  X   Y   Z</span></span><br><span class="line"><span class="comment"># a  0  1   2   3</span></span><br><span class="line"><span class="comment"># b  4  5   6   7</span></span><br><span class="line"><span class="comment"># c  8  9  10  11</span></span><br><span class="line"><span class="built_in">print</span>(t.iloc[<span class="number">0</span>, :])</span><br><span class="line"><span class="comment"># W    0</span></span><br><span class="line"><span class="comment"># X    1</span></span><br><span class="line"><span class="comment"># Y    2</span></span><br><span class="line"><span class="comment"># Z    3</span></span><br><span class="line"><span class="comment"># Name: a, dtype: int32</span></span><br><span class="line"><span class="built_in">print</span>(t.iloc[<span class="number">1</span>, <span class="number">1</span>])</span><br><span class="line"><span class="comment"># 5</span></span><br><span class="line"><span class="built_in">print</span>(t.iloc[<span class="number">0</span>:<span class="number">2</span>, <span class="number">0</span>:<span class="number">1</span>])		<span class="comment"># 冒号右边的位置不包含在切片中</span></span><br><span class="line"><span class="comment">#    W</span></span><br><span class="line"><span class="comment"># a  0</span></span><br><span class="line"><span class="comment"># b  4</span></span><br></pre></td></tr></table></figure>
+<h2 id="布尔索引"><a href="#布尔索引" class="headerlink" title="布尔索引"></a>布尔索引</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">t = pd.read_csv(<span class="string">"train.csv"</span>)</span><br><span class="line"><span class="built_in">print</span>(t[(t[<span class="string">"Fare"</span>] &gt; <span class="number">200</span>) &amp; (t[<span class="string">"Embarked"</span>] == <span class="string">'S'</span>)])</span><br><span class="line"><span class="comment">#      PassengerId  Survived  Pclass  ...      Fare        Cabin  Embarked</span></span><br><span class="line"><span class="comment"># 27            28         0       1  ...  263.0000  C23 C25 C27         S</span></span><br><span class="line"><span class="comment"># 88            89         1       1  ...  263.0000  C23 C25 C27         S</span></span><br><span class="line"><span class="comment"># 341          342         1       1  ...  263.0000  C23 C25 C27         S</span></span><br><span class="line"><span class="comment"># 438          439         0       1  ...  263.0000  C23 C25 C27         S</span></span><br><span class="line"><span class="comment"># 527          528         0       1  ...  221.7792          C95         S</span></span><br><span class="line"><span class="comment"># 689          690         1       1  ...  211.3375           B5         S</span></span><br><span class="line"><span class="comment"># 730          731         1       1  ...  211.3375           B5         S</span></span><br><span class="line"><span class="comment"># 779          780         1       1  ...  211.3375           B3         S</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># [8 rows x 12 columns]</span></span><br></pre></td></tr></table></figure>
+<h1 id="缺失数据处理"><a href="#缺失数据处理" class="headerlink" title="缺失数据处理"></a>缺失数据处理</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">t = pd.DataFrame(np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>, <span class="number">4</span>), index=<span class="built_in">list</span>(<span class="string">"abc"</span>), columns=<span class="built_in">list</span>(<span class="string">"WXYZ"</span>))</span><br><span class="line">t.loc[<span class="string">'b'</span>, <span class="string">'W'</span>:<span class="string">'X'</span>] = np.nan</span><br><span class="line">t.loc[<span class="string">'c'</span>, :] = np.nan</span><br><span class="line"><span class="built_in">print</span>(t)</span><br><span class="line"><span class="comment">#      W    X    Y    Z</span></span><br><span class="line"><span class="comment"># a  0.0  1.0  2.0  3.0</span></span><br><span class="line"><span class="comment"># b  NaN  NaN  6.0  7.0</span></span><br><span class="line"><span class="comment"># c  NaN  NaN  NaN  NaN</span></span><br></pre></td></tr></table></figure>
+<h2 id="判断数据是否为NaN"><a href="#判断数据是否为NaN" class="headerlink" title="判断数据是否为NaN"></a>判断数据是否为<code>NaN</code></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t.isnull())</span><br><span class="line"><span class="comment">#        W      X      Y      Z</span></span><br><span class="line"><span class="comment"># a  False  False  False  False</span></span><br><span class="line"><span class="comment"># b   True   True  False  False</span></span><br><span class="line"><span class="comment"># c   True   True   True   True</span></span><br><span class="line"><span class="built_in">print</span>(t.notnull())</span><br><span class="line"><span class="comment">#        W      X      Y      Z</span></span><br><span class="line"><span class="comment"># a   True   True   True   True</span></span><br><span class="line"><span class="comment"># b  False  False   True   True</span></span><br><span class="line"><span class="comment"># c  False  False  False  False</span></span><br></pre></td></tr></table></figure>
+<h2 id="删除NaN所在的行列"><a href="#删除NaN所在的行列" class="headerlink" title="删除NaN所在的行列"></a>删除<code>NaN</code>所在的行列</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t.dropna(how=<span class="string">"any"</span>))</span><br><span class="line"><span class="comment">#      W    X    Y    Z</span></span><br><span class="line"><span class="comment"># a  0.0  1.0  2.0  3.0</span></span><br><span class="line"><span class="built_in">print</span>(t.dropna(how=<span class="string">"all"</span>))</span><br><span class="line"><span class="comment">#      W    X    Y    Z</span></span><br><span class="line"><span class="comment"># a  0.0  1.0  2.0  3.0</span></span><br><span class="line"><span class="comment"># b  NaN  NaN  6.0  7.0</span></span><br></pre></td></tr></table></figure>
+<h2 id="填充NaN"><a href="#填充NaN" class="headerlink" title="填充NaN"></a>填充<code>NaN</code></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t.fillna(<span class="number">0</span>))</span><br><span class="line"><span class="comment">#      W    X    Y    Z</span></span><br><span class="line"><span class="comment"># a  0.0  1.0  2.0  3.0</span></span><br><span class="line"><span class="comment"># b  0.0  0.0  6.0  7.0</span></span><br><span class="line"><span class="comment"># c  0.0  0.0  0.0  0.0</span></span><br><span class="line"><span class="built_in">print</span>(t.fillna(t.mean()))</span><br><span class="line"><span class="comment">#      W    X    Y    Z</span></span><br><span class="line"><span class="comment"># a  0.0  1.0  2.0  3.0</span></span><br><span class="line"><span class="comment"># b  0.0  1.0  6.0  7.0</span></span><br><span class="line"><span class="comment"># c  0.0  1.0  4.0  5.0</span></span><br><span class="line"><span class="built_in">print</span>(t[<span class="string">"W"</span>].fillna(t[<span class="string">"W"</span>].mean()))</span><br><span class="line"><span class="comment"># a    0.0</span></span><br><span class="line"><span class="comment"># b    0.0</span></span><br><span class="line"><span class="comment"># c    0.0</span></span><br><span class="line"><span class="comment"># Name: W, dtype: float64</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/pandas/" rel="tag"># pandas</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E8%BF%9B%E9%98%B6/" rel="prev" title="算法自学__背包问题进阶">
+                  <i class="fa fa-chevron-left"></i> 算法自学__背包问题进阶
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/" rel="next" title="机器学习__数据预处理">
+                  机器学习__数据预处理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cdn":"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

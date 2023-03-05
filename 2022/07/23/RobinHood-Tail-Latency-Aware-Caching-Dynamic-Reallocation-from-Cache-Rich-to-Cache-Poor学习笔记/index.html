@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="参考资料 RobinHood: Tail Latency Aware Caching-Dynamic Reallocation from Cache-Rich to Cache-Poor  Abstract造成tail latency原因：单个用户请求可能会查询多个后端服务器，而不同的服务器的查询延迟差别高达2个数量级。 RobinHood通过将缓存资源从缓存丰富的服务器向缓存缺乏的服务器调度，来">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RobinHood: Tail Latency Aware Caching-Dynamic Reallocation from Cache-Rich to Cache-Poor学习笔记">
+<meta property="og:url" content="http://example.com/2022/07/23/RobinHood-Tail-Latency-Aware-Caching-Dynamic-Reallocation-from-Cache-Rich-to-Cache-Poor%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="参考资料 RobinHood: Tail Latency Aware Caching-Dynamic Reallocation from Cache-Rich to Cache-Poor  Abstract造成tail latency原因：单个用户请求可能会查询多个后端服务器，而不同的服务器的查询延迟差别高达2个数量级。 RobinHood通过将缓存资源从缓存丰富的服务器向缓存缺乏的服务器调度，来">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d6b6489b6d8e4191b5077e9e61dd0ce9.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6e07415902554621933abbfb09eec3cc.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/b6dcc9af77b04afc8543ade669aae2b6.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/83d34d2cb119456f80da11db816bb043.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/93e1fa3b792d4826a9ad507b353fa9ef.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7d7fe51cbcc440ada6690f4f5f175abb.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/baabcb89b37c4560a79411d7ab0975be.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/a89c133d593f40f595279f1f51b576e3.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/000186b9cb464174bbed8565ad5c3799.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/942dd7ae70bd4a548aa0e8a687a7b950.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/8fc4924dc7e042e5b57b8427aac5efd7.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/10b926dcd675477a9ded5a95d695638f.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/9ad354306609446295af7646ab00575d.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/31db9fb1fedc435b86d294ce4b94305c.png">
+<meta property="article:published_time" content="2022-07-23T09:53:40.000Z">
+<meta property="article:modified_time" content="2022-07-28T08:49:32.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="cache">
+<meta property="article:tag" content="tail latency">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/d6b6489b6d8e4191b5077e9e61dd0ce9.png">
+
+
+<link rel="canonical" href="http://example.com/2022/07/23/RobinHood-Tail-Latency-Aware-Caching-Dynamic-Reallocation-from-Cache-Rich-to-Cache-Poor%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/07/23/RobinHood-Tail-Latency-Aware-Caching-Dynamic-Reallocation-from-Cache-Rich-to-Cache-Poor%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/","path":"2022/07/23/RobinHood-Tail-Latency-Aware-Caching-Dynamic-Reallocation-from-Cache-Rich-to-Cache-Poor学习笔记/","title":"RobinHood: Tail Latency Aware Caching-Dynamic Reallocation from Cache-Rich to Cache-Poor学习笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RobinHood: Tail Latency Aware Caching-Dynamic Reallocation from Cache-Rich to Cache-Poor学习笔记 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number"></span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Introduction"><span class="nav-number"></span> <span class="nav-text">1    Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Background-and-Challenges"><span class="nav-number"></span> <span class="nav-text">2    Background and Challenges</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-The-goal-of-RobinHood"><span class="nav-number"></span> <span class="nav-text">2.1    The goal of RobinHood</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Challenges-of-caching-for-tail-latency"><span class="nav-number"></span> <span class="nav-text">2.2 Challenges of caching for tail latency</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-Time-varying-latency-imbalance"><span class="nav-number">1.</span> <span class="nav-text">2.2.1 Time-varying latency imbalance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-%E5%BB%B6%E8%BF%9F%E4%B8%8E%E7%89%B9%E5%AE%9A%E6%9F%A5%E8%AF%A2%E6%88%96%E6%9F%A5%E8%AF%A2%E7%8E%87%E6%97%A0%E5%85%B3"><span class="nav-number">2.</span> <span class="nav-text">2.2.2 延迟与特定查询或查询率无关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-Latency-depends-on-request-structure%EF%BC%8Cwhich-varies-greatly"><span class="nav-number">3.</span> <span class="nav-text">2.2.3 Latency depends on request structure，which varies greatly</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-The-RobinHood-Caching-system"><span class="nav-number"></span> <span class="nav-text">3 The RobinHood Caching system</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-The-basic-RobinHood-algorithm"><span class="nav-number"></span> <span class="nav-text">3.1 The basic RobinHood algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-refining-the-RobinHood-algorithm"><span class="nav-number"></span> <span class="nav-text">3.2 refining the RobinHood algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-RobinHood-architecture"><span class="nav-number"></span> <span class="nav-text">3.3 RobinHood architecture</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-System-Implementation-and-Challenges"><span class="nav-number"></span> <span class="nav-text">4 System Implementation and Challenges</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-Implementation-and-testbed"><span class="nav-number"></span> <span class="nav-text">4.1 Implementation and testbed</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-Implementation-challenges"><span class="nav-number"></span> <span class="nav-text">4.2 Implementation challenges</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-Generating-experimental-data"><span class="nav-number"></span> <span class="nav-text">4.3 Generating experimental data</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Evaluation"><span class="nav-number"></span> <span class="nav-text">5 Evaluation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-1-Competing-caching-systems"><span class="nav-number"></span> <span class="nav-text">5.1 Competing caching systems</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-How-much-does-RobinHood-improve-SLO-violations-for-OneRF%E2%80%99s-workload%EF%BC%9F"><span class="nav-number"></span> <span class="nav-text">5.2 How much does RobinHood improve SLO violations for OneRF’s workload？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-How-much-variability-can-RobinHood-handle%EF%BC%9F"><span class="nav-number"></span> <span class="nav-text">5.3 How much variability can RobinHood handle？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-How-robust-is-RobinHood-to-simultaneously-latency-spikes"><span class="nav-number"></span> <span class="nav-text">5.4 How robust is RobinHood to simultaneously latency spikes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5-How-much-space-does-RobinHood-save"><span class="nav-number"></span> <span class="nav-text">5.5 How much space does RobinHood save</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-6-What-is-the-overhead-of-running-RobinHood"><span class="nav-number"></span> <span class="nav-text">5.6 What is the overhead of running RobinHood</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Discussion"><span class="nav-number"></span> <span class="nav-text">6 Discussion</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-Related-Work"><span class="nav-number"></span> <span class="nav-text">7 Related Work</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-Conclusions"><span class="nav-number"></span> <span class="nav-text">8 Conclusions</span></a></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/RobinHood-Tail-Latency-Aware-Caching-Dynamic-Reallocation-from-Cache-Rich-to-Cache-Poor%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RobinHood: Tail Latency Aware Caching-Dynamic Reallocation from Cache-Rich to Cache-Poor学习笔记 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RobinHood: Tail Latency Aware Caching-Dynamic Reallocation from Cache-Rich to Cache-Poor学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-07-23 17:53:40" itemprop="dateCreated datePublished" datetime="2022-07-23T17:53:40+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-07-28 16:49:32" itemprop="dateModified" datetime="2022-07-28T16:49:32+08:00">2022-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/lab/" itemprop="url" rel="index"><span itemprop="name">lab</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li>RobinHood: Tail Latency Aware Caching-Dynamic Reallocation from Cache-Rich to Cache-Poor</li>
+</ul>
+<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>造成<strong>tail latency</strong>原因：单个用户请求可能会查询多个后端服务器，而不同的服务器的查询延迟差别高达2个数量级。</p>
+<p><strong>RobinHood</strong>通过将缓存资源从缓存丰富的服务器向缓存缺乏的服务器调度，来改善tail latency问题。</p>
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1    Introduction"></a>1    Introduction</h1><p>P99：前99%快的延迟时间中的最长延迟。<br><img src="https://img-blog.csdnimg.cn/d6b6489b6d8e4191b5077e9e61dd0ce9.png" alt="在这里插入图片描述"><br>用户的request被处理成多个query，交由多个backend处理，当所有query处理完毕后，用户才收到结果。所有query并行处理，tail latency取决于最慢的query。</p>
+<p>tail latency的来源是动态的<br><img src="https://img-blog.csdnimg.cn/6e07415902554621933abbfb09eec3cc.png" alt="在这里插入图片描述"><br>由图2可知，不同backend在不同时间都出现了高延迟。</p>
+<p>一些现有方法致力于平衡server之间的负载，从而平衡backend之间的tail latency。但受限于结构约束，某些query只能由特定的backend处理，所以在不同backend之间平衡负载是不可能的。<br>另一种方法是将服务器分配给高延迟的backend。由于backend的延迟情况变化很快，所以这种方法需要快速扩展backend，但这是很困难的。</p>
+<p>RobinHood通过动态分配cache空间来降低整体的tail latency，但可能会造成某些backend的tail latency的提高。由于许多cache系统支持空间分配，所以使用RobinHood是很方便的。</p>
+<p>RobinHood不是传统的cache系统。传统cache系统通过保证popular object的命中，减少query的平均延迟。而request的尾延迟往往是由miss造成的。</p>
+<h1 id="2-Background-and-Challenges"><a href="#2-Background-and-Challenges" class="headerlink" title="2    Background and Challenges"></a>2    Background and Challenges</h1><h2 id="2-1-The-goal-of-RobinHood"><a href="#2-1-The-goal-of-RobinHood" class="headerlink" title="2.1    The goal of RobinHood"></a>2.1    The goal of RobinHood</h2><p>实现RobinHood的关键点在于找出造成高P99延迟的backend，即cache-poor backend。然后将cache资源向poor处转移。RobinHood会牺牲一些backend的延迟，从而获取闲置的cache空间。<br>获得额外的cache空间后，cache-poor backend对应的cache的命中率提高，访问这些backend的query就会变少。</p>
+<blockquote>
+<p>换句话说，如某个backend的表现不好，就尽可能减少其工作量。</p>
+</blockquote>
+<p>另外，减少query还有助于减少backend之间的资源竞争，从而显著减少P99。</p>
+<h2 id="2-2-Challenges-of-caching-for-tail-latency"><a href="#2-2-Challenges-of-caching-for-tail-latency" class="headerlink" title="2.2 Challenges of caching for tail latency"></a>2.2 Challenges of caching for tail latency</h2><h3 id="2-2-1-Time-varying-latency-imbalance"><a href="#2-2-1-Time-varying-latency-imbalance" class="headerlink" title="2.2.1 Time-varying latency imbalance"></a>2.2.1 Time-varying latency imbalance</h3><p><img src="https://img-blog.csdnimg.cn/b6dcc9af77b04afc8543ade669aae2b6.png" alt="在这里插入图片描述"><br>不同后端服务器延迟不同，相同后端服务器不同时间延迟不同。某些backend很慢，因为它不止为OneRF服务。</p>
+<blockquote>
+<p>这可能也解释了为什么其他方法不能有效改善tail latency的问题。</p>
+</blockquote>
+<p>传统缓存系统假设延迟平衡。而当不同后端延迟不同时，cache miss的代价是不一样的。</p>
+<h3 id="2-2-2-延迟与特定查询或查询率无关"><a href="#2-2-2-延迟与特定查询或查询率无关" class="headerlink" title="2.2.2 延迟与特定查询或查询率无关"></a>2.2.2 延迟与特定查询或查询率无关</h3><p>高延迟与特定的query无关、与query的流行程度无关，它更像是反映了backend的一种状态。<br><img src="https://img-blog.csdnimg.cn/83d34d2cb119456f80da11db816bb043.png" alt="在这里插入图片描述"><br>图4说明了latency与query的流行度无关。</p>
+<p>此外，latency也和查询率无关。某个backend的查询率低，并不意味着其计算资源丰富，因为它很可能正在被其他业务所占用。</p>
+<blockquote>
+<p>是否存在某种方法，能统计backend上所有不同来源的query？这样或许就能揭示查询率和latency之间的关系。</p>
+</blockquote>
+<p>传统方式（多个后端服务器共享一个cache空间，共用一个淘汰机制）和cache分割方式都倾向于将大的cache空间分配给查询次数较多的后端处理器。然而根据上文可知，查询率的高低与延迟无关，所以好的cache应着重考虑查询延迟。</p>
+<h3 id="2-2-3-Latency-depends-on-request-structure，which-varies-greatly"><a href="#2-2-3-Latency-depends-on-request-structure，which-varies-greatly" class="headerlink" title="2.2.3 Latency depends on request structure，which varies greatly"></a>2.2.3 Latency depends on request structure，which varies greatly</h3><p>request structure：request到query的映射。<br>batch size：单个backend处理的query数量。（对一个request而言，吗？）<br>fanout：单个request查询的backend的数量。</p>
+<p>对于一个给定的backend，作者研究了这个backend上batch size的平均值和涉及到这个backend的request的fanout的平均值。</p>
+<blockquote>
+<p>为什么要研究这些？<br>作者是怎么证明tail latency和request structure有关的？</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/93e1fa3b792d4826a9ad507b353fa9ef.png" alt="在这里插入图片描述"><br>由表1可知，不同backend之间的batch size和fanout差别很大。</p>
+<p>传统方法下，即使以P99作为优化标准对存储系统进行优化，效果也不明显。如果一个backend只处理很少量的query，即使其延迟很高，也不会对P99产生多大的影响，但一个同时考虑查询率和延迟的系统可能会为这个backend分配大量的cache空间，然而这并不能提升P99。</p>
+<blockquote>
+<p>RobinHood为什么可以避免这种现象？是因为集合S的选取吗？如果其他算法也只关注集合S，是不是也能避免这个问题呢？<br>似乎不是集合S的原因，因为对于RobinHood而言，即使你的延迟再高，最多也只能使你的RBC+1！</p>
+<h1 id="3-The-RobinHood-Caching-system"><a href="#3-The-RobinHood-Caching-system" class="headerlink" title="3 The RobinHood Caching system"></a>3 The RobinHood Caching system</h1><h2 id="3-1-The-basic-RobinHood-algorithm"><a href="#3-1-The-basic-RobinHood-algorithm" class="headerlink" title="3.1 The basic RobinHood algorithm"></a>3.1 The basic RobinHood algorithm</h2><p>RobinHood回收每个backend的1%的cache space，称为“税金”。根据哪些backend缺乏cache space来将“税金”重新分配。<br>1%是怎么来的？是否可以通过一种机器学习算法，计算出更好的比例？不过好像不太重要。。。</p>
+</blockquote>
+<p>RobinHood维持一个长度为<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="1.885ex" height="1.62ex" role="img" focusable="false" viewBox="0 -716 833 716"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path></g></g></g></svg></mjx-container>秒的窗口，在此期间对每个request的latency进行监控。RobinHood监测P98.5到P99.5的requests，称为集合S，并找出每个request中响应最慢的backend，然后统计每个backend响应最慢的次数，称为request blocking count（RBC）。RobinHood依据RBC进行“税金”分配。</p>
+<p>为什么选择RBC作为评价标准呢？如上文所说，只关注backend的latency是不够的，因为慢并不意味着最慢，backend的延迟会因为其batch size和fanout而被隐藏或放大。举例来说，如果一个backend的latency较高，但涉及该backend的request的fanout很大，则该backend成为最慢者的概率相对较低。一个backend的RBC很高，意味着其造成了高延迟，还意味着改善其延迟将有效地降低整体延迟。</p>
+<blockquote>
+<p>RBC好就好在，它不仅考虑了延迟，还将request structure也考虑了进来。</p>
+</blockquote>
+<p>集合S为什么没有直接设置为&gt;P99的request呢？因为&gt;P99的request中有“outliers”，这些“outliers”的latency即使经过显著优化，也依然远大于P99，这对于优化P99是没有意义的。</p>
+<blockquote>
+<p>选择P99~P99.5不好吗?</p>
+<h2 id="3-2-refining-the-RobinHood-algorithm"><a href="#3-2-refining-the-RobinHood-algorithm" class="headerlink" title="3.2 refining the RobinHood algorithm"></a>3.2 refining the RobinHood algorithm</h2><p>两个改进：</p>
+<ol>
+<li>basic RobinHood假设每个backend都能迅速填满新增的cache space，而实际情况中，某些backend的hit ratio已经很高，导致额外的cache space不能很好地利用。假如某些backend的已分配空间与已使用空间的差值占已使用空间的比例超过30%，RobinHood会忽视这些backend的RBC，转去优化其他的backend。<br>换句话说，这种情况下RobinHood失效了。可以对这种情况进行进一步研究，如果这种情况经常出现的话，则可以考虑通过其他手段去解决这些backend的延迟问题。</li>
+</ol>
+</blockquote>
+<ol>
+<li>basic RobinHood假设所有backend都是一个大cache的一部分，而实际的系统中可能有多个application server（这些server共用backend）。所以RobinHood在每个server上都安排了一个本地的controller。假设<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="7.094ex" height="1.805ex" role="img" focusable="false" viewBox="0 -716 3135.6 798"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path></g><g data-mml-node="mo" transform="translate(1110.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mn" transform="translate(2166.6,0)"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"></path></g><g data-mml-node="mi" transform="translate(2666.6,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g></g></g></svg></mjx-container>，不论server的cache的初始状态如何，只要RBC数据相同，RobinHood都能在30min内达到几乎相同的分配策略。</li>
+</ol>
+<h2 id="3-3-RobinHood-architecture"><a href="#3-3-RobinHood-architecture" class="headerlink" title="3.3 RobinHood architecture"></a>3.3 RobinHood architecture</h2><p><img src="https://img-blog.csdnimg.cn/7d7fe51cbcc440ada6690f4f5f175abb.png" alt="在这里插入图片描述"></p>
+<p>使用RobinHood需要在现有系统上增加两个额外部分。首先是一个轻量的cache controller，以实现在server上的缓存调度。controller的输入是RBC。然后是一个集中式的RBC server，用于统计每个backend的RBC。</p>
+<p>RobinHood可以很快地从突发错误中恢复，且成本低、不会造成额外延迟。RobinHood controller和RBC server不在request和query的关键路径上，不会造成额外成本。</p>
+<h1 id="4-System-Implementation-and-Challenges"><a href="#4-System-Implementation-and-Challenges" class="headerlink" title="4 System Implementation and Challenges"></a>4 System Implementation and Challenges</h1><h2 id="4-1-Implementation-and-testbed"><a href="#4-1-Implementation-and-testbed" class="headerlink" title="4.1 Implementation and testbed"></a>4.1 Implementation and testbed</h2><p>RobinHood controller是一个轻量的python进程，从RBC server接收RBC数据，计算cache size。RBC server用Go语言实现。在作者的测试中，所有cache都具有动态分配的功能，每个application都有32GB的cache容量。</p>
+<p>作者使用了不同的backend系统和一个能持续发送request的generator，每个request平均“分裂”成50个query。一个query首先在本地cache中查找，miss后进入相应的backend。在作者的实验中，每秒有20万个query（峰值为50万）</p>
+<h2 id="4-2-Implementation-challenges"><a href="#4-2-Implementation-challenges" class="headerlink" title="4.2 Implementation challenges"></a>4.2 Implementation challenges</h2><p>作者遇到最大的挑战是如何扩展他们的系统，是其能横跨20个不同的backend系统，处理20万-50万每秒的query数。作者放弃了碎片化的cache结构，因为这意味着每个query都要查询所有cache，造成过高的时间成本</p>
+<blockquote>
+<p>既然如此，sharded cache的优点在哪里呢？部署方便？使用和规模较大的工作场景？</p>
+</blockquote>
+<p>另一个困难时重新分配cache空间带来的延迟。Memcached的分配API的页大小为1MB，1%的cache空间大约为327页。但该延迟95%的情况下不会超过5秒。 </p>
+<h2 id="4-3-Generating-experimental-data"><a href="#4-3-Generating-experimental-data" class="headerlink" title="4.3 Generating experimental data"></a>4.3 Generating experimental data</h2><p>作者的对RobinHood的评估基于Microsoft提供的2018年的数据。object的大小从几B到上百KB，平均值为23KB。</p>
+<h1 id="5-Evaluation"><a href="#5-Evaluation" class="headerlink" title="5 Evaluation"></a>5 Evaluation</h1><p>作者目标是达到SLO标准，即将P99控制在150ms。每过5秒，作者统计前60秒的P99，并以不符合SLO的概率作为分数。通过与5个cache系统的对比，回答了下面5个问题：</p>
+<ol>
+<li>RobinHood将OneRF工作集的SLO violation改善了多少？</li>
+<li>RobinHood能处理多大的变化？</li>
+<li>RoinHood对延迟“尖峰”的健壮性？</li>
+<li>RobinHood节省了多少空间？</li>
+<li>运行RobinHood的成本？</li>
+</ol>
+<h1 id="5-1-Competing-caching-systems"><a href="#5-1-Competing-caching-systems" class="headerlink" title="5.1 Competing caching systems"></a>5.1 Competing caching systems</h1><p><img src="https://img-blog.csdnimg.cn/baabcb89b37c4560a79411d7ab0975be.png" alt="在这里插入图片描述"></p>
+<h2 id="5-2-How-much-does-RobinHood-improve-SLO-violations-for-OneRF’s-workload？"><a href="#5-2-How-much-does-RobinHood-improve-SLO-violations-for-OneRF’s-workload？" class="headerlink" title="5.2 How much does RobinHood improve SLO violations for OneRF’s workload？"></a>5.2 How much does RobinHood improve SLO violations for OneRF’s workload？</h2><p> 作者通过在不同的backend上加上不同资源限制，实现了对latency imbalance的模拟。作者也对负载“尖峰”进行了合理的模拟。<br> <img src="https://img-blog.csdnimg.cn/a89c133d593f40f595279f1f51b576e3.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/000186b9cb464174bbed8565ad5c3799.png" alt="在这里插入图片描述"><br>由图8、9可知，RobinHood在绝大多数的时间里符合SLO标准，且有效地平衡了不同backend之间地RBC。</p>
+<h2 id="5-3-How-much-variability-can-RobinHood-handle？"><a href="#5-3-How-much-variability-can-RobinHood-handle？" class="headerlink" title="5.3 How much variability can RobinHood handle？"></a>5.3 How much variability can RobinHood handle？</h2><p>作者模拟了计算资源在50分钟内持续减少的情况。<br><img src="https://img-blog.csdnimg.cn/942dd7ae70bd4a548aa0e8a687a7b950.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/8fc4924dc7e042e5b57b8427aac5efd7.png" alt="在这里插入图片描述"><br>注意，图10对应的backend的latency与query rate无关，这是符合实际的；图11对应的backend的latency与query rate有关，这是不符合实际的。可以看出，无论是哪种情况，RobinHood的表现都很好。</p>
+<h2 id="5-4-How-robust-is-RobinHood-to-simultaneously-latency-spikes"><a href="#5-4-How-robust-is-RobinHood-to-simultaneously-latency-spikes" class="headerlink" title="5.4 How robust is RobinHood to simultaneously latency spikes"></a>5.4 How robust is RobinHood to simultaneously latency spikes</h2><p> 在本阶段，作者将backend的计算资源进行随机增加或减少。<br> <img src="https://img-blog.csdnimg.cn/10b926dcd675477a9ded5a95d695638f.png" alt="在这里插入图片描述"><br> 观察图（a）可知，多个backend可能在同一时刻遭受了很大的资源限制，这对降低tail latency造成了更大的困难。</p>
+<h2 id="5-5-How-much-space-does-RobinHood-save"><a href="#5-5-How-much-space-does-RobinHood-save" class="headerlink" title="5.5 How much space does RobinHood save"></a>5.5 How much space does RobinHood save</h2><p><img src="https://img-blog.csdnimg.cn/9ad354306609446295af7646ab00575d.png" alt="在这里插入图片描述"><br>即使假设TAO++拥有未来的知识，要想让其达到RobinHood的效果，也需要额外的73%cache空间。</p>
+<h2 id="5-6-What-is-the-overhead-of-running-RobinHood"><a href="#5-6-What-is-the-overhead-of-running-RobinHood" class="headerlink" title="5.6 What is the overhead of running RobinHood"></a>5.6 What is the overhead of running RobinHood</h2><p>对每秒1000request的application server，网络传输成本小于8KB每秒。</p>
+<p>CPU消耗小到不可观察，内存消耗一般小于25KB。</p>
+<p>在多线程缓存系统中，缩小分区会导致一些并发缓存操作阻塞，从而增加hit latency<br><img src="https://img-blog.csdnimg.cn/31db9fb1fedc435b86d294ce4b94305c.png" alt="在这里插入图片描述"><br>但是，tail latency主要来源于miss，所以P99 hit latency的提升并不会对P99产生影响。</p>
+<h1 id="6-Discussion"><a href="#6-Discussion" class="headerlink" title="6 Discussion"></a>6 Discussion</h1><ol>
+<li>非凸的miss curves：虽然RobinHood的运行不依赖miss，但miss率的激增可能会导致RobinHood效果下降。</li>
+<li>过高的查询速率可能会给RBC server带来负担。这种情况下可以在计算RBC时只考虑部分采样出来的requests。</li>
+<li>某些backends可能共用一个存储器，这种情况下，RobinHood只给其中一个backend分配cache效果是很差的。可以通过对backend进行分组来解决这个问题。</li>
+<li>面临不同业务时，Robinhood可能会采用不同的分配策略，导致不同业务的分配策略相互影响，甚至抵消。</li>
+<li>分布式缓存：不能改善cache hotspots问题，但不关心。<blockquote>
+<p>啥是cache hotspots</p>
+</blockquote>
+</li>
+<li>cache命中率低，分配效率低</li>
+<li>多样的评价标准，可以通过更改S来适应。</li>
+</ol>
+<h1 id="7-Related-Work"><a href="#7-Related-Work" class="headerlink" title="7 Related Work"></a>7 Related Work</h1><p>RobinHood是第一个通过cache来直接解决tail latency问题的工作。</p>
+<p>前人对于cache的工作，集中于如何提高hit ratio。提高hit ratio有助于改善平均latency，而不能改善tail latency。前人的工作还集中于将miss cost纳入淘汰决策。还有一些分支致力于改善cache本身的性能，如吞吐率、hit latency、load balance和结构。</p>
+<h1 id="8-Conclusions"><a href="#8-Conclusions" class="headerlink" title="8 Conclusions"></a>8 Conclusions</h1><p>这篇论文解在维持低尾延迟方面解决了两个问题。第一个问题是系统资源的分配问题，RobinHood为每个backend引入了RBC的概念，从而识别出哪些backend需要额外的资源。第二个问题是解决有状态后端系统之间的延迟不平衡问题，这些系统无法直接扩展以利用额外的资源。RobinHood利用了多层系统中现有的缓存层，将缓存空间差异分配给各个后端，而不是直接扩展它们。</p>
+<p>RobinHood演示了如何找到造成P99的源头。RobinHood还展示了cache可以用来改善尾延迟。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/cache/" rel="tag"># cache</a>
+              <a href="/tags/tail-latency/" rel="tag"># tail latency</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/23/An-Analysis-of-Facebook-Photo-Caching%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="An Analysis of Facebook Photo Caching学习笔记">
+                  <i class="fa fa-chevron-left"></i> An Analysis of Facebook Photo Caching学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/23/Caching-with-Delayed-Hits%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="Caching with Delayed Hits学习笔记">
+                  Caching with Delayed Hits学习笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cdn":"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
