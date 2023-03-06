@@ -298,6 +298,99 @@ mjx-container[display="true"] + br {
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1636/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1636/" class="post-title-link" itemprop="url">HUST算法实践__POJ1636</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-07-23 17:20:40" itemprop="dateCreated datePublished" datetime="2022-07-23T17:20:40+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-07-29 17:25:34" itemprop="dateModified" datetime="2022-07-29T17:25:34+08:00">2022-07-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>In order to lower the risk of riots and escape attempts, the boards of two nearby prisons of equal prisoner capacity, have decided to rearrange their prisoners among themselves. They want to exchange half of the prisoners of one prison, for half of the prisoners of the other. However, from the archived information of the prisoners’ crime history, they know that some pairs of prisoners are dangerous to keep in the same prison, and that is why they are separated today, i.e. for every such pair of prisoners, one prisoners serves time in the first prison, and the other in the second one. The boards agree on the importance of keeping these pairs split between the prisons, which makes their rearrangement task a bit tricky. In fact, they soon find out that sometimes it is impossible to fulfil their wish of swapping half of the prisoners. Whenever this is the case, they have to settle for exchanging as close to one half of the prisoners as possible.</p>
+<h1 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h1><p>On the first line of the input is a single positive integer n, telling the number of test scenarios to follow. Each scenario begins with a line containing two non-negative integers m and r, 1 &lt; m &lt; 200 being the number of prisoners in each of the two prisons, and r the number of dangerous pairs among the prisoners. Then follow r lines each containing a pair xi yi of integers in the range 1 to m,which means that prisoner xi of the first prison must not be placed in the same prison as prisoner yi of the second prison.</p>
+<h1 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h1><p>For each test scenario, output one line containing the largest integer k &lt;= m/2 , such that it is possible to exchange k prisoners of the first prison for k prisoners of the second prison without getting two prisoners of any dangerous pair in the same prison.</p>
+<h1 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h1><p>根据题目的描述我们可以知道, 假如<strong>一号监狱</strong>中的<code>i</code>号犯人与<strong>二号监狱</strong>中的<code>j</code>号犯人之间存在危险, 那么在将<code>i</code>号犯人从<strong>一号监狱</strong>移动到的二号监狱的同时, 必须也将<code>j</code>号犯人移动到<strong>一号监狱</strong>. 这意味着, 我们可以将<code>i</code>号犯人和<code>j</code>号犯人的移动看作<strong>同时发生</strong>的.</p>
+<p>更一般地, 一号监狱中的某个犯人, 可能与多个二号监狱中的犯人存在危险, 而这些二号监狱中的犯人中也可能不止与一号监狱中的那个犯人存在危险. </p>
+<p>所以, 我们可以把犯人之间的关系抽象为一个<strong>无向图</strong>, 若两个犯人之间存在危险, 则有一条<strong>无向边</strong>将两个犯人相连. 我们借助<strong>深度优先搜索</strong>, 可以很方便地将图染色, 求出所有的<strong>连通分支</strong>. </p>
+<p>我们将每个<strong>连通分支</strong>看作一个物品. 所有连通分支保存在数组<code>w[][2]</code>中, <code>w[i][0]</code>表示第<code>i</code>个连通分支中来自一号监狱的人数, <code>w[i][1]</code>表示第<code>i</code>个连通分支中来自二号监狱的人数.</p>
+<p>此时, 这个看似生疏的<strong>监狱分配问题</strong>, 已经可以转化为我们熟悉的<strong>01背包</strong>问题: 背包有两个口袋, 每个口袋的容量为<code>m/2</code>, 我们要在保证两个口袋重量一致的前提下, 尽可能地选择<strong>总重量</strong>最大的物品.</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstring&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt;graph[<span class="number">401</span>];</span><br><span class="line"><span class="type">bool</span> vis[<span class="number">401</span>];</span><br><span class="line"><span class="type">int</span> color[<span class="number">401</span>];		<span class="comment">//染色</span></span><br><span class="line"><span class="type">int</span> cnt_color;			<span class="comment">//颜色 </span></span><br><span class="line"><span class="type">int</span> dp[<span class="number">101</span>][<span class="number">101</span>]; </span><br><span class="line"><span class="type">int</span> w[<span class="number">401</span>][<span class="number">2</span>];			<span class="comment">//物品 </span></span><br><span class="line"><span class="type">int</span> n,m=<span class="number">0</span>,r;</span><br><span class="line"><span class="type">int</span> a,b;</span><br><span class="line"><span class="type">bool</span> flag;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>{		<span class="comment">//初始化 </span></span><br><span class="line">	flag=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">2</span>*m;i++) graph[i].<span class="built_in">clear</span>();</span><br><span class="line">	<span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis));</span><br><span class="line">	<span class="built_in">memset</span>(color,<span class="number">0</span>,<span class="built_in">sizeof</span>(color));</span><br><span class="line">	<span class="built_in">memset</span>(dp,<span class="number">1</span>&lt;&lt;<span class="number">7</span>,<span class="built_in">sizeof</span>(dp));		<span class="comment">//条件限制 </span></span><br><span class="line">	dp[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">memset</span>(w,<span class="number">0</span>,<span class="built_in">sizeof</span>(w)); </span><br><span class="line">	cnt_color=<span class="number">1</span>;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> cnt)</span></span>{		<span class="comment">//图染色 </span></span><br><span class="line">	vis[s]=<span class="number">1</span>;</span><br><span class="line">	color[s]=cnt;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;graph[s].<span class="built_in">size</span>();i++){</span><br><span class="line">		<span class="type">int</span> to=graph[s][i];</span><br><span class="line">		<span class="keyword">if</span>(vis[to]) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="built_in">dfs</span>(to,cnt);</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">transform</span><span class="params">()</span></span>{			<span class="comment">//将连通分支转化为物品 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++){</span><br><span class="line">		w[color[i]][<span class="number">0</span>]++;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=m+<span class="number">1</span>;i&lt;=<span class="number">2</span>*m;i++){</span><br><span class="line">		w[color[i]][<span class="number">1</span>]++;</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>{				<span class="comment">//动态规划 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;cnt_color;i++){</span><br><span class="line">		<span class="type">int</span> w1=w[i][<span class="number">0</span>],w2=w[i][<span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=m/<span class="number">2</span>;j&gt;=w1;j--){</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> k=m/<span class="number">2</span>;k&gt;=w2;k--){</span><br><span class="line">				dp[j][k]=<span class="built_in">max</span>(dp[j][k],dp[j-w1][k-w2]+w1+w2);</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	cin&gt;&gt;n;</span><br><span class="line">	<span class="keyword">while</span>(n--){</span><br><span class="line">		cin&gt;&gt;m&gt;&gt;r;</span><br><span class="line">		<span class="built_in">init</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;r;i++){</span><br><span class="line">			cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">			b+=m;</span><br><span class="line">			graph[a].<span class="built_in">push_back</span>(b);		<span class="comment">//双向建图 </span></span><br><span class="line">			graph[b].<span class="built_in">push_back</span>(a);</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">2</span>*m;i++){		<span class="comment">//染色 </span></span><br><span class="line">			<span class="keyword">if</span>(vis[i]) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="built_in">dfs</span>(i,cnt_color);</span><br><span class="line">			cnt_color++;</span><br><span class="line">		} </span><br><span class="line">		<span class="built_in">transform</span>();</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=m/<span class="number">2</span>;i&gt;<span class="number">0</span>;i--){</span><br><span class="line">			<span class="keyword">if</span>(dp[i][i]&gt;=<span class="number">0</span>){</span><br><span class="line">				cout&lt;&lt;dp[i][i]/<span class="number">2</span>&lt;&lt;<span class="string">'\n'</span>;</span><br><span class="line">				flag=<span class="number">1</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span>(flag) <span class="keyword">continue</span>;</span><br><span class="line">		cout&lt;&lt;<span class="number">0</span>&lt;&lt;<span class="string">'\n'</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/HUST%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5-POJ1050/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -786,98 +879,6 @@ mjx-container[display="true"] + br {
 </ul>
 <h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line">queue&lt;string&gt;q;</span><br><span class="line">map&lt;string,<span class="type">int</span>&gt;vis;</span><br><span class="line">map&lt;string,<span class="type">int</span>&gt;ans;</span><br><span class="line">string a,b=<span class="string">"123804765"</span>;</span><br><span class="line"><span class="type">int</span> dx[<span class="number">4</span>]={<span class="number">-3</span>,<span class="number">-1</span>,<span class="number">1</span>,<span class="number">3</span>};</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">getX</span><span class="params">(string a)</span></span>{</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">9</span>;i++){</span><br><span class="line">		<span class="keyword">if</span>(a[i]==<span class="string">'0'</span>) <span class="keyword">return</span> i;</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bfs</span><span class="params">(string a,string b)</span></span>{</span><br><span class="line">	<span class="keyword">if</span>(a==b){</span><br><span class="line">		cout&lt;&lt;<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line">	q.<span class="built_in">push</span>(a);</span><br><span class="line">	vis[a]=<span class="number">1</span>;</span><br><span class="line">	ans[a]=<span class="number">0</span>;</span><br><span class="line">	q.<span class="built_in">push</span>(b);</span><br><span class="line">	vis[b]=<span class="number">2</span>;</span><br><span class="line">	ans[b]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(!q.<span class="built_in">empty</span>()){</span><br><span class="line">		string c=q.<span class="built_in">front</span>();</span><br><span class="line">		q.<span class="built_in">pop</span>();</span><br><span class="line">		<span class="type">int</span> x=<span class="built_in">getX</span>(c);</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++){</span><br><span class="line">			<span class="keyword">if</span>(x%<span class="number">3</span>==<span class="number">0</span>&amp;&amp;dx[i]==<span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">if</span>(x%<span class="number">3</span>==<span class="number">2</span>&amp;&amp;dx[i]==<span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="type">int</span> mx=x+dx[i];</span><br><span class="line">			<span class="keyword">if</span>(mx&lt;<span class="number">0</span>||mx&gt;=<span class="number">9</span>) <span class="keyword">continue</span>;</span><br><span class="line">			string str=c;</span><br><span class="line">			<span class="built_in">swap</span>(str[x],str[mx]);</span><br><span class="line">			<span class="keyword">if</span>(vis[str]==vis[c]) <span class="keyword">continue</span>;</span><br><span class="line">			vis[str]+=vis[c];</span><br><span class="line">			ans[str]+=ans[c]+<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(vis[str]==<span class="number">3</span>){</span><br><span class="line">				cout&lt;&lt;ans[str];</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			} </span><br><span class="line">			q.<span class="built_in">push</span>(str);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	cin&gt;&gt;a;</span><br><span class="line">	<span class="built_in">bfs</span>(a,b);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E7%BA%BF%E6%AE%B5%E6%A0%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E7%BA%BF%E6%AE%B5%E6%A0%91/" class="post-title-link" itemprop="url">算法自学__线段树</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-07-23 16:53:10" itemprop="dateCreated datePublished" datetime="2022-07-23T16:53:10+08:00">2022-07-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-03-06 13:30:15" itemprop="dateModified" datetime="2023-03-06T13:30:15+08:00">2023-03-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>本文主要涉及普通线段树、可持久化线段树等知识。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E7%BA%BF%E6%AE%B5%E6%A0%91/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 

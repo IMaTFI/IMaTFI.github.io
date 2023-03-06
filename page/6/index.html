@@ -298,6 +298,136 @@ mjx-container[display="true"] + br {
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/02/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%B8%B8%E7%94%A8STL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/08/02/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%B8%B8%E7%94%A8STL/" class="post-title-link" itemprop="url">算法竞赛常用STL</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-08-02 13:48:55" itemprop="dateCreated datePublished" datetime="2022-08-02T13:48:55+08:00">2022-08-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-12-13 18:30:28" itemprop="dateModified" datetime="2022-12-13T18:30:28+08:00">2022-12-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>参考资料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_49486457/article/details/123439229">https://blog.csdn.net/weixin_49486457/article/details/123439229</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xzxl/p/7266404.html">https://www.cnblogs.com/xzxl/p/7266404.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36631379/article/details/108833192">https://blog.csdn.net/qq_36631379/article/details/108833192</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.acwing.com/blog/content/9/">https://www.acwing.com/blog/content/9/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Anber82/p/11351833.html">https://www.cnblogs.com/Anber82/p/11351833.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_18815817/article/details/82431685">https://blog.csdn.net/qq_18815817/article/details/82431685</a></li>
+</ul>
+<h1 id="1-vector"><a href="#1-vector" class="headerlink" title="1 vector"></a>1 vector</h1><blockquote>
+<p>可用来实现图论中的邻接表</p>
+</blockquote>
+<h2 id="1-1-头文件"><a href="#1-1-头文件" class="headerlink" title="1.1 头文件"></a>1.1 头文件</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="1-2-创建"><a href="#1-2-创建" class="headerlink" title="1.2 创建"></a>1.2 创建</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法一</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; a;			<span class="comment">//创建空vector</span></span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(<span class="number">10</span>)</span></span>;		<span class="comment">//创建容量为10的vector</span></span><br><span class="line"><span class="comment">//方法三</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(<span class="number">10</span>, <span class="number">1</span>)</span></span>;	<span class="comment">//创建容量为10，每个元素初值为1的vector</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-3-常用方法"><a href="#1-3-常用方法" class="headerlink" title="1.3 常用方法"></a>1.3 常用方法</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a.<span class="built_in">size</span>();		<span class="comment">//返回a的大小</span></span><br><span class="line">a.<span class="built_in">empty</span>();		<span class="comment">//判断a是否为空，是则为true，反之为false</span></span><br><span class="line">a.<span class="built_in">clear</span>();		<span class="comment">//清空a</span></span><br><span class="line">a.<span class="built_in">front</span>();		<span class="comment">//返回a中的第一个元素</span></span><br><span class="line">a.<span class="built_in">back</span>();		<span class="comment">//返回a中的最后一个元素</span></span><br><span class="line">a.<span class="built_in">push_back</span>(x)	<span class="comment">//在a的尾部插入一个元素x</span></span><br><span class="line">a.<span class="built_in">pop_back</span>()	<span class="comment">//删除a的最后一个元素，返回值为void</span></span><br></pre></td></tr></table></figure>
+<p>此外，<code>vector</code>还支持比较运算，比较方法为<strong>字典序比较</strong>。</p>
+<h2 id="1-4-常用技巧"><a href="#1-4-常用技巧" class="headerlink" title="1.4 常用技巧"></a>1.4 常用技巧</h2><h3 id="1-4-1-遍历vector"><a href="#1-4-1-遍历vector" class="headerlink" title="1.4.1 遍历vector"></a>1.4.1 遍历vector</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;a.<span class="built_in">size</span>();i++){</span><br><span class="line">	cout&lt;&lt;a[i]&lt;&lt;<span class="string">' '</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h1 id="2-pair"><a href="#2-pair" class="headerlink" title="2 pair"></a>2 pair</h1><blockquote>
+<p>不是很常用</p>
+</blockquote>
+<h2 id="2-1-头文件"><a href="#2-1-头文件" class="headerlink" title="2.1 头文件"></a>2.1 头文件</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;utility&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="2-2-创建"><a href="#2-2-创建" class="headerlink" title="2.2 创建"></a>2.2 创建</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法一</span></span><br><span class="line"><span class="function">pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; <span class="title">p1</span><span class="params">(<span class="number">1</span>, <span class="number">2</span>)</span></span>;</span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line">pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; p2;</span><br><span class="line">p2 = <span class="built_in">make_pair</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-访问"><a href="#2-3-访问" class="headerlink" title="2.3 访问"></a>2.3 访问</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p1.first;		<span class="comment">//第一个元素</span></span><br><span class="line">p2.second;		<span class="comment">//第二个元素</span></span><br></pre></td></tr></table></figure>
+<h1 id="3-string"><a href="#3-string" class="headerlink" title="3 string"></a>3 string</h1><h2 id="3-1-头文件"><a href="#3-1-头文件" class="headerlink" title="3.1 头文件"></a>3.1 头文件</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="3-2-创建"><a href="#3-2-创建" class="headerlink" title="3.2 创建"></a>3.2 创建</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">string s = <span class="string">"12345"</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="3-3-常用方法"><a href="#3-3-常用方法" class="headerlink" title="3.3 常用方法"></a>3.3 常用方法</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//substr()不会改变原字符串</span></span><br><span class="line">s.<span class="built_in">substr</span>(<span class="number">1</span>, <span class="number">3</span>);		<span class="comment">//返回从下标为1的字符开始，长度为3的子串</span></span><br><span class="line">s.<span class="built_in">substr</span>(<span class="number">2</span>);		<span class="comment">//返回从下标为2的字符开始，以最后一个字符为结尾的子串</span></span><br><span class="line"></span><br><span class="line">s.<span class="built_in">push_back</span>(<span class="string">'0'</span>);	<span class="comment">//尾插一个字符'0'</span></span><br><span class="line"></span><br><span class="line">string s = <span class="string">"123"</span>;</span><br><span class="line">string b = <span class="string">"hello"</span>;</span><br><span class="line">s.<span class="built_in">insert</span>(<span class="number">1</span>, b, <span class="number">0</span>, <span class="number">2</span>);	<span class="comment">//将b中从下标为1的字符开始，长度为2的子串插入到s的下标为1的字符之前</span></span><br><span class="line">						<span class="comment">//s = "1he23"</span></span><br><span class="line"></span><br><span class="line">s.<span class="built_in">clear</span>()			<span class="comment">//清空字符串</span></span><br><span class="line">s.<span class="built_in">empty</span>()			<span class="comment">//判断s是否为空字符串</span></span><br><span class="line">s.<span class="built_in">size</span>()			<span class="comment">//返回s的大小</span></span><br><span class="line"></span><br><span class="line">s.<span class="built_in">find</span>(a, pos)		<span class="comment">//从字符串s的下标pos处向后检索，遇到字串a则返回字串a的下标，否则返回npos</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">stoi</span>(s, n, b)		<span class="comment">//将字符串s从下标为n的字符开始的子串当作b进制的数字，转化成十进制的整型。</span></span><br><span class="line">string s = <span class="string">"1010"</span>;</span><br><span class="line"><span class="type">int</span> a = <span class="built_in">stoi</span>(s, <span class="number">0</span>, <span class="number">2</span>);	<span class="comment">//a = 10;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">to_string</span>(a)	<span class="comment">//a为任意类型的数值类型</span></span><br></pre></td></tr></table></figure>
+<h1 id="4-queue-amp-stack"><a href="#4-queue-amp-stack" class="headerlink" title="4 queue&stack"></a>4 queue&amp;stack</h1><h2 id="4-1-头文件"><a href="#4-1-头文件" class="headerlink" title="4.1 头文件"></a>4.1 头文件</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stack&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="4-2-创建"><a href="#4-2-创建" class="headerlink" title="4.2 创建"></a>4.2 创建</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">stack&lt;<span class="type">int</span>&gt; s;</span><br></pre></td></tr></table></figure>
+<h2 id="4-3-常用方法"><a href="#4-3-常用方法" class="headerlink" title="4.3 常用方法"></a>4.3 常用方法</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//queue和stack共有的：</span></span><br><span class="line">a.<span class="built_in">size</span>();</span><br><span class="line">a.<span class="built_in">empty</span>();</span><br><span class="line">a.<span class="built_in">push</span>();</span><br><span class="line">a.<span class="built_in">pop</span>();</span><br><span class="line"><span class="comment">//stack</span></span><br><span class="line">s.<span class="built_in">top</span>();		<span class="comment">//返回栈顶元素</span></span><br><span class="line"><span class="comment">//queue</span></span><br><span class="line">q.<span class="built_in">front</span>();		<span class="comment">//返回队首元素</span></span><br><span class="line">q.<span class="built_in">back</span>();		<span class="comment">//返回队尾元素</span></span><br></pre></td></tr></table></figure>
+<h1 id="5-priority-queue"><a href="#5-priority-queue" class="headerlink" title="5 priority_queue"></a>5 priority_queue</h1><blockquote>
+<p>可以理解为二叉堆，很实用！</p>
+</blockquote>
+<h2 id="5-1-头文件"><a href="#5-1-头文件" class="headerlink" title="5.1 头文件"></a>5.1 头文件</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;queue&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="5-2-创建"><a href="#5-2-创建" class="headerlink" title="5.2 创建"></a>5.2 创建</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法1</span></span><br><span class="line">priority_queue&lt;<span class="type">int</span>&gt; q;		<span class="comment">//默认为大根堆</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//方法2：自定义比较函数</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">cmp</span>{		<span class="comment">//仿函数</span></span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span><span class="type">const</span></span>{		<span class="comment">//重载“()”运算符</span></span><br><span class="line">		<span class="keyword">return</span> a&gt;b;</span><br><span class="line">	}</span><br><span class="line">};</span><br><span class="line">priority_queue&lt;<span class="type">int</span>, vector&lt;<span class="type">int</span>&gt;, cmp&gt;;		<span class="comment">//小根堆</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//方法3：结构体优先队列</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span>{</span><br><span class="line">	<span class="type">int</span> x, y;</span><br><span class="line">	<span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> node&amp; n)<span class="type">const</span>{</span><br><span class="line">		<span class="keyword">return</span> x&gt;n.x;</span><br><span class="line">	}</span><br><span class="line">};</span><br><span class="line">priority_queue&lt;node&gt; q;</span><br></pre></td></tr></table></figure>
+<h2 id="5-3-常用方法"><a href="#5-3-常用方法" class="headerlink" title="5.3 常用方法"></a>5.3 常用方法</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">q.<span class="built_in">size</span>();</span><br><span class="line">q.<span class="built_in">empty</span>();</span><br><span class="line">q.<span class="built_in">push</span>(); </span><br><span class="line">q.<span class="built_in">pop</span>(); 	<span class="comment">//弹出堆顶元素</span></span><br><span class="line">q.<span class="built_in">top</span>();	<span class="comment">// 返回堆顶元素</span></span><br></pre></td></tr></table></figure>
+<h1 id="6-deque"><a href="#6-deque" class="headerlink" title="6 deque"></a>6 deque</h1><h2 id="6-1-头文件"><a href="#6-1-头文件" class="headerlink" title="6.1 头文件"></a>6.1 头文件</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;deque&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="6-2-创建"><a href="#6-2-创建" class="headerlink" title="6.2 创建"></a>6.2 创建</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deque&lt;<span class="type">int</span>&gt; dq;</span><br></pre></td></tr></table></figure>
+<h2 id="6-3-常用方法"><a href="#6-3-常用方法" class="headerlink" title="6.3 常用方法"></a>6.3 常用方法</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dq.<span class="built_in">size</span>();</span><br><span class="line">dq.<span class="built_in">empty</span>();</span><br><span class="line">dq.<span class="built_in">clear</span>();</span><br><span class="line">dq.<span class="built_in">front</span>();</span><br><span class="line">dq.<span class="built_in">back</span>();</span><br><span class="line">dq.<span class="built_in">push_back</span>(); <span class="comment">//向最后插入一个元素</span></span><br><span class="line">dq.<span class="built_in">pop_back</span>(); <span class="comment">//弹出最后一个元素</span></span><br><span class="line">dq.<span class="built_in">push_front</span>(); <span class="comment">//向队首插入一个元素</span></span><br><span class="line">dq.<span class="built_in">pop_front</span>();<span class="comment">//弹出第一个元素</span></span><br></pre></td></tr></table></figure>
+<h1 id="7-set"><a href="#7-set" class="headerlink" title="7 set"></a>7 set</h1><blockquote>
+<p>类似数学中的集合</p>
+<h2 id="7-1-头文件"><a href="#7-1-头文件" class="headerlink" title="7.1 头文件"></a>7.1 头文件</h2></blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;set&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="7-2-创建"><a href="#7-2-创建" class="headerlink" title="7.2 创建"></a>7.2 创建</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set&lt;<span class="type">int</span>&gt; s;</span><br></pre></td></tr></table></figure>
+<h2 id="7-3-常用方法"><a href="#7-3-常用方法" class="headerlink" title="7.3 常用方法"></a>7.3 常用方法</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">s.<span class="built_in">size</span>();</span><br><span class="line">s.<span class="built_in">empty</span>();</span><br><span class="line">s.<span class="built_in">clear</span>();</span><br><span class="line">s.<span class="built_in">insert</span>();</span><br><span class="line">s.<span class="built_in">find</span>();		<span class="comment">//没找到则返回s.end()</span></span><br><span class="line">s.<span class="built_in">count</span>();</span><br><span class="line">s.<span class="built_in">erase</span>(x);</span><br><span class="line">s.<span class="built_in">erase</span>(s.<span class="built_in">begin</span>(),s.<span class="built_in">end</span>());</span><br></pre></td></tr></table></figure>
+<h1 id="8-unordered-map"><a href="#8-unordered-map" class="headerlink" title="8 unordered_map"></a>8 unordered_map</h1><blockquote>
+<p>需要支持C++11</p>
+</blockquote>
+<h2 id="8-1-头文件"><a href="#8-1-头文件" class="headerlink" title="8.1 头文件"></a>8.1 头文件</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="8-2-创建"><a href="#8-2-创建" class="headerlink" title="8.2 创建"></a>8.2 创建</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unordered_map&lt;string, <span class="type">double</span>&gt; t;</span><br></pre></td></tr></table></figure>
+<h2 id="8-3-常用方法"><a href="#8-3-常用方法" class="headerlink" title="8.3 常用方法"></a>8.3 常用方法</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//插入</span></span><br><span class="line">t[<span class="string">"July"</span>] = <span class="number">7</span>;</span><br><span class="line"><span class="comment">//判断键值是否存在。若存在，则：</span></span><br><span class="line">t.<span class="built_in">count</span>(<span class="string">"July"</span>) != <span class="number">0</span>;</span><br><span class="line">t.<span class="built_in">find</span>(<span class="string">"July"</span>) != t.<span class="built_in">end</span>();</span><br></pre></td></tr></table></figure>
+<h1 id="9-algorithm"><a href="#9-algorithm" class="headerlink" title="9 algorithm"></a>9 algorithm</h1><h2 id="9-1-sort"><a href="#9-1-sort" class="headerlink" title="9.1 sort"></a>9.1 sort</h2><p>默认升序排序<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法一</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">NODE</span>{</span><br><span class="line">	<span class="type">int</span> x, y;</span><br><span class="line">	<span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> NODE&amp; n)<span class="type">const</span>{</span><br><span class="line">		<span class="keyword">if</span>(x==n.x) y&lt;n.y;</span><br><span class="line">		<span class="keyword">return</span> x&lt;n.x;</span><br><span class="line">	}</span><br><span class="line">}node[maxn];</span><br><span class="line"><span class="built_in">sort</span>(node, node+maxn)</span><br><span class="line"></span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">NODE</span>{</span><br><span class="line">	<span class="type">int</span> x, y;</span><br><span class="line">}node[maxn];</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(NODE a, NODE b)</span></span>{</span><br><span class="line">	<span class="keyword">if</span>(a.x==b.x) a.y&lt;b.y;</span><br><span class="line">	<span class="keyword">return</span> a.x&lt;b.x;</span><br><span class="line">}</span><br><span class="line"><span class="built_in">sort</span>(node, node+maxn, cmp);</span><br></pre></td></tr></table></figure></p>
+<h2 id="9-2-unique"><a href="#9-2-unique" class="headerlink" title="9.2 unique"></a>9.2 unique</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">10</span>] = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">9</span>, <span class="number">0</span>};</span><br><span class="line"><span class="type">int</span> n = <span class="built_in">unique</span>(a, a+<span class="number">10</span>)-a;		<span class="comment">//n为去重后数组的长度</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++) cout&lt;&lt;a[i]&lt;&lt;<span class="string">' '</span>;	<span class="comment">//1，2，1，3，5，9，0</span></span><br></pre></td></tr></table></figure>
+<h2 id="9-3-lower-bound"><a href="#9-3-lower-bound" class="headerlink" title="9.3 lower_bound"></a>9.3 lower_bound</h2><p>功能：返回指向第一个值不小于<code>val</code>的位置（一般情况下需要保证数组有序）。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//形式一：</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">ForwardIterator</span>, <span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="function">ForwardIterator <span class="title">lower_bound</span> <span class="params">(ForwardIterator first, ForwardIterator last,  <span class="type">const</span> T&amp; val)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//形式二：</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">ForwardIterator</span>, <span class="keyword">class</span> <span class="title class_">T</span>, <span class="keyword">class</span> <span class="title class_">Compare</span>&gt;</span><br><span class="line"><span class="function">ForwardIterator <span class="title">lower_bound</span> <span class="params">(ForwardIterator first, ForwardIterator last, <span class="type">const</span> T&amp; val, Compare comp)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p><code>sort</code>+<code>unique</code>+<code>lower_bound</code>可以实现<strong>离散化</strong>，代码如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">7</span>] = {<span class="number">12313987</span>, <span class="number">5723891</span>, <span class="number">471823956</span>, <span class="number">12313987</span>, <span class="number">75698634</span>, <span class="number">2141749</span>, <span class="number">471823956</span>};</span><br><span class="line"><span class="type">int</span> b[<span class="number">7</span>];</span><br><span class="line"><span class="built_in">memcpy</span>(b, a, <span class="built_in">sizeof</span>(a));</span><br><span class="line"><span class="built_in">sort</span>(b, b+<span class="number">7</span>);</span><br><span class="line"><span class="type">int</span> n = <span class="built_in">unique</span>(b, b+<span class="number">7</span>)-b;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">7</span>;i++){</span><br><span class="line">	a[i] = <span class="built_in">lower_bound</span>(b, b+n, a[i])-b;</span><br><span class="line">	cout&lt;&lt;a[i]&lt;&lt;<span class="string">' '</span>;</span><br><span class="line">}	</span><br><span class="line"><span class="comment">//2 1 4 2 3 0 4</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="9-4-gcd"><a href="#9-4-gcd" class="headerlink" title="9.4 __gcd"></a>9.4 __gcd</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n=<span class="number">35</span>, m=<span class="number">45</span>;</span><br><span class="line"><span class="type">int</span> k = __gcd(n, m);</span><br><span class="line">cout&lt;&lt;k&lt;&lt;<span class="string">'\n'</span>;		<span class="comment">//最大公约数</span></span><br><span class="line">cout&lt;&lt;n/k*m;		<span class="comment">//最小公倍数</span></span><br></pre></td></tr></table></figure>
+<h1 id="10-杂项"><a href="#10-杂项" class="headerlink" title="10 杂项"></a>10 杂项</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/31/LeetCode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%E2%80%94%E2%80%941161-%E6%9C%80%E5%A4%A7%E5%B1%82%E5%86%85%E5%85%83%E7%B4%A0%E5%92%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1205,187 +1335,6 @@ Rank(x)=\frac{AggDelay(x)}{TTNA(x)}</script><p>其中，AggDelay为该object的�
 <li>Weighted，general，and other offline caching theory</li>
 </ol>
 <h1 id="8-Conclusions"><a href="#8-Conclusions" class="headerlink" title="8 Conclusions"></a>8 Conclusions</h1><p>随着带宽和吞吐率的提升，延迟命中的问题越来越重要。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/RobinHood-Tail-Latency-Aware-Caching-Dynamic-Reallocation-from-Cache-Rich-to-Cache-Poor%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/23/RobinHood-Tail-Latency-Aware-Caching-Dynamic-Reallocation-from-Cache-Rich-to-Cache-Poor%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">RobinHood: Tail Latency Aware Caching-Dynamic Reallocation from Cache-Rich to Cache-Poor学习笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-07-23 17:53:40" itemprop="dateCreated datePublished" datetime="2022-07-23T17:53:40+08:00">2022-07-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-07-28 16:49:32" itemprop="dateModified" datetime="2022-07-28T16:49:32+08:00">2022-07-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/lab/" itemprop="url" rel="index"><span itemprop="name">lab</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
-<li>RobinHood: Tail Latency Aware Caching-Dynamic Reallocation from Cache-Rich to Cache-Poor</li>
-</ul>
-<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>造成<strong>tail latency</strong>原因：单个用户请求可能会查询多个后端服务器，而不同的服务器的查询延迟差别高达2个数量级。</p>
-<p><strong>RobinHood</strong>通过将缓存资源从缓存丰富的服务器向缓存缺乏的服务器调度，来改善tail latency问题。</p>
-<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1    Introduction"></a>1    Introduction</h1><p>P99：前99%快的延迟时间中的最长延迟。<br><img src="https://img-blog.csdnimg.cn/d6b6489b6d8e4191b5077e9e61dd0ce9.png" alt="在这里插入图片描述"><br>用户的request被处理成多个query，交由多个backend处理，当所有query处理完毕后，用户才收到结果。所有query并行处理，tail latency取决于最慢的query。</p>
-<p>tail latency的来源是动态的<br><img src="https://img-blog.csdnimg.cn/6e07415902554621933abbfb09eec3cc.png" alt="在这里插入图片描述"><br>由图2可知，不同backend在不同时间都出现了高延迟。</p>
-<p>一些现有方法致力于平衡server之间的负载，从而平衡backend之间的tail latency。但受限于结构约束，某些query只能由特定的backend处理，所以在不同backend之间平衡负载是不可能的。<br>另一种方法是将服务器分配给高延迟的backend。由于backend的延迟情况变化很快，所以这种方法需要快速扩展backend，但这是很困难的。</p>
-<p>RobinHood通过动态分配cache空间来降低整体的tail latency，但可能会造成某些backend的tail latency的提高。由于许多cache系统支持空间分配，所以使用RobinHood是很方便的。</p>
-<p>RobinHood不是传统的cache系统。传统cache系统通过保证popular object的命中，减少query的平均延迟。而request的尾延迟往往是由miss造成的。</p>
-<h1 id="2-Background-and-Challenges"><a href="#2-Background-and-Challenges" class="headerlink" title="2    Background and Challenges"></a>2    Background and Challenges</h1><h2 id="2-1-The-goal-of-RobinHood"><a href="#2-1-The-goal-of-RobinHood" class="headerlink" title="2.1    The goal of RobinHood"></a>2.1    The goal of RobinHood</h2><p>实现RobinHood的关键点在于找出造成高P99延迟的backend，即cache-poor backend。然后将cache资源向poor处转移。RobinHood会牺牲一些backend的延迟，从而获取闲置的cache空间。<br>获得额外的cache空间后，cache-poor backend对应的cache的命中率提高，访问这些backend的query就会变少。</p>
-<blockquote>
-<p>换句话说，如某个backend的表现不好，就尽可能减少其工作量。</p>
-</blockquote>
-<p>另外，减少query还有助于减少backend之间的资源竞争，从而显著减少P99。</p>
-<h2 id="2-2-Challenges-of-caching-for-tail-latency"><a href="#2-2-Challenges-of-caching-for-tail-latency" class="headerlink" title="2.2 Challenges of caching for tail latency"></a>2.2 Challenges of caching for tail latency</h2><h3 id="2-2-1-Time-varying-latency-imbalance"><a href="#2-2-1-Time-varying-latency-imbalance" class="headerlink" title="2.2.1 Time-varying latency imbalance"></a>2.2.1 Time-varying latency imbalance</h3><p><img src="https://img-blog.csdnimg.cn/b6dcc9af77b04afc8543ade669aae2b6.png" alt="在这里插入图片描述"><br>不同后端服务器延迟不同，相同后端服务器不同时间延迟不同。某些backend很慢，因为它不止为OneRF服务。</p>
-<blockquote>
-<p>这可能也解释了为什么其他方法不能有效改善tail latency的问题。</p>
-</blockquote>
-<p>传统缓存系统假设延迟平衡。而当不同后端延迟不同时，cache miss的代价是不一样的。</p>
-<h3 id="2-2-2-延迟与特定查询或查询率无关"><a href="#2-2-2-延迟与特定查询或查询率无关" class="headerlink" title="2.2.2 延迟与特定查询或查询率无关"></a>2.2.2 延迟与特定查询或查询率无关</h3><p>高延迟与特定的query无关、与query的流行程度无关，它更像是反映了backend的一种状态。<br><img src="https://img-blog.csdnimg.cn/83d34d2cb119456f80da11db816bb043.png" alt="在这里插入图片描述"><br>图4说明了latency与query的流行度无关。</p>
-<p>此外，latency也和查询率无关。某个backend的查询率低，并不意味着其计算资源丰富，因为它很可能正在被其他业务所占用。</p>
-<blockquote>
-<p>是否存在某种方法，能统计backend上所有不同来源的query？这样或许就能揭示查询率和latency之间的关系。</p>
-</blockquote>
-<p>传统方式（多个后端服务器共享一个cache空间，共用一个淘汰机制）和cache分割方式都倾向于将大的cache空间分配给查询次数较多的后端处理器。然而根据上文可知，查询率的高低与延迟无关，所以好的cache应着重考虑查询延迟。</p>
-<h3 id="2-2-3-Latency-depends-on-request-structure，which-varies-greatly"><a href="#2-2-3-Latency-depends-on-request-structure，which-varies-greatly" class="headerlink" title="2.2.3 Latency depends on request structure，which varies greatly"></a>2.2.3 Latency depends on request structure，which varies greatly</h3><p>request structure：request到query的映射。<br>batch size：单个backend处理的query数量。（对一个request而言，吗？）<br>fanout：单个request查询的backend的数量。</p>
-<p>对于一个给定的backend，作者研究了这个backend上batch size的平均值和涉及到这个backend的request的fanout的平均值。</p>
-<blockquote>
-<p>为什么要研究这些？<br>作者是怎么证明tail latency和request structure有关的？</p>
-</blockquote>
-<p><img src="https://img-blog.csdnimg.cn/93e1fa3b792d4826a9ad507b353fa9ef.png" alt="在这里插入图片描述"><br>由表1可知，不同backend之间的batch size和fanout差别很大。</p>
-<p>传统方法下，即使以P99作为优化标准对存储系统进行优化，效果也不明显。如果一个backend只处理很少量的query，即使其延迟很高，也不会对P99产生多大的影响，但一个同时考虑查询率和延迟的系统可能会为这个backend分配大量的cache空间，然而这并不能提升P99。</p>
-<blockquote>
-<p>RobinHood为什么可以避免这种现象？是因为集合S的选取吗？如果其他算法也只关注集合S，是不是也能避免这个问题呢？<br>似乎不是集合S的原因，因为对于RobinHood而言，即使你的延迟再高，最多也只能使你的RBC+1！</p>
-<h1 id="3-The-RobinHood-Caching-system"><a href="#3-The-RobinHood-Caching-system" class="headerlink" title="3 The RobinHood Caching system"></a>3 The RobinHood Caching system</h1><h2 id="3-1-The-basic-RobinHood-algorithm"><a href="#3-1-The-basic-RobinHood-algorithm" class="headerlink" title="3.1 The basic RobinHood algorithm"></a>3.1 The basic RobinHood algorithm</h2><p>RobinHood回收每个backend的1%的cache space，称为“税金”。根据哪些backend缺乏cache space来将“税金”重新分配。<br>1%是怎么来的？是否可以通过一种机器学习算法，计算出更好的比例？不过好像不太重要。。。</p>
-</blockquote>
-<p>RobinHood维持一个长度为<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="1.885ex" height="1.62ex" role="img" focusable="false" viewBox="0 -716 833 716"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path></g></g></g></svg></mjx-container>秒的窗口，在此期间对每个request的latency进行监控。RobinHood监测P98.5到P99.5的requests，称为集合S，并找出每个request中响应最慢的backend，然后统计每个backend响应最慢的次数，称为request blocking count（RBC）。RobinHood依据RBC进行“税金”分配。</p>
-<p>为什么选择RBC作为评价标准呢？如上文所说，只关注backend的latency是不够的，因为慢并不意味着最慢，backend的延迟会因为其batch size和fanout而被隐藏或放大。举例来说，如果一个backend的latency较高，但涉及该backend的request的fanout很大，则该backend成为最慢者的概率相对较低。一个backend的RBC很高，意味着其造成了高延迟，还意味着改善其延迟将有效地降低整体延迟。</p>
-<blockquote>
-<p>RBC好就好在，它不仅考虑了延迟，还将request structure也考虑了进来。</p>
-</blockquote>
-<p>集合S为什么没有直接设置为&gt;P99的request呢？因为&gt;P99的request中有“outliers”，这些“outliers”的latency即使经过显著优化，也依然远大于P99，这对于优化P99是没有意义的。</p>
-<blockquote>
-<p>选择P99~P99.5不好吗?</p>
-<h2 id="3-2-refining-the-RobinHood-algorithm"><a href="#3-2-refining-the-RobinHood-algorithm" class="headerlink" title="3.2 refining the RobinHood algorithm"></a>3.2 refining the RobinHood algorithm</h2><p>两个改进：</p>
-<ol>
-<li>basic RobinHood假设每个backend都能迅速填满新增的cache space，而实际情况中，某些backend的hit ratio已经很高，导致额外的cache space不能很好地利用。假如某些backend的已分配空间与已使用空间的差值占已使用空间的比例超过30%，RobinHood会忽视这些backend的RBC，转去优化其他的backend。<br>换句话说，这种情况下RobinHood失效了。可以对这种情况进行进一步研究，如果这种情况经常出现的话，则可以考虑通过其他手段去解决这些backend的延迟问题。</li>
-</ol>
-</blockquote>
-<ol>
-<li>basic RobinHood假设所有backend都是一个大cache的一部分，而实际的系统中可能有多个application server（这些server共用backend）。所以RobinHood在每个server上都安排了一个本地的controller。假设<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="7.094ex" height="1.805ex" role="img" focusable="false" viewBox="0 -716 3135.6 798"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path></g><g data-mml-node="mo" transform="translate(1110.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mn" transform="translate(2166.6,0)"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"></path></g><g data-mml-node="mi" transform="translate(2666.6,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g></g></g></svg></mjx-container>，不论server的cache的初始状态如何，只要RBC数据相同，RobinHood都能在30min内达到几乎相同的分配策略。</li>
-</ol>
-<h2 id="3-3-RobinHood-architecture"><a href="#3-3-RobinHood-architecture" class="headerlink" title="3.3 RobinHood architecture"></a>3.3 RobinHood architecture</h2><p><img src="https://img-blog.csdnimg.cn/7d7fe51cbcc440ada6690f4f5f175abb.png" alt="在这里插入图片描述"></p>
-<p>使用RobinHood需要在现有系统上增加两个额外部分。首先是一个轻量的cache controller，以实现在server上的缓存调度。controller的输入是RBC。然后是一个集中式的RBC server，用于统计每个backend的RBC。</p>
-<p>RobinHood可以很快地从突发错误中恢复，且成本低、不会造成额外延迟。RobinHood controller和RBC server不在request和query的关键路径上，不会造成额外成本。</p>
-<h1 id="4-System-Implementation-and-Challenges"><a href="#4-System-Implementation-and-Challenges" class="headerlink" title="4 System Implementation and Challenges"></a>4 System Implementation and Challenges</h1><h2 id="4-1-Implementation-and-testbed"><a href="#4-1-Implementation-and-testbed" class="headerlink" title="4.1 Implementation and testbed"></a>4.1 Implementation and testbed</h2><p>RobinHood controller是一个轻量的python进程，从RBC server接收RBC数据，计算cache size。RBC server用Go语言实现。在作者的测试中，所有cache都具有动态分配的功能，每个application都有32GB的cache容量。</p>
-<p>作者使用了不同的backend系统和一个能持续发送request的generator，每个request平均“分裂”成50个query。一个query首先在本地cache中查找，miss后进入相应的backend。在作者的实验中，每秒有20万个query（峰值为50万）</p>
-<h2 id="4-2-Implementation-challenges"><a href="#4-2-Implementation-challenges" class="headerlink" title="4.2 Implementation challenges"></a>4.2 Implementation challenges</h2><p>作者遇到最大的挑战是如何扩展他们的系统，是其能横跨20个不同的backend系统，处理20万-50万每秒的query数。作者放弃了碎片化的cache结构，因为这意味着每个query都要查询所有cache，造成过高的时间成本</p>
-<blockquote>
-<p>既然如此，sharded cache的优点在哪里呢？部署方便？使用和规模较大的工作场景？</p>
-</blockquote>
-<p>另一个困难时重新分配cache空间带来的延迟。Memcached的分配API的页大小为1MB，1%的cache空间大约为327页。但该延迟95%的情况下不会超过5秒。 </p>
-<h2 id="4-3-Generating-experimental-data"><a href="#4-3-Generating-experimental-data" class="headerlink" title="4.3 Generating experimental data"></a>4.3 Generating experimental data</h2><p>作者的对RobinHood的评估基于Microsoft提供的2018年的数据。object的大小从几B到上百KB，平均值为23KB。</p>
-<h1 id="5-Evaluation"><a href="#5-Evaluation" class="headerlink" title="5 Evaluation"></a>5 Evaluation</h1><p>作者目标是达到SLO标准，即将P99控制在150ms。每过5秒，作者统计前60秒的P99，并以不符合SLO的概率作为分数。通过与5个cache系统的对比，回答了下面5个问题：</p>
-<ol>
-<li>RobinHood将OneRF工作集的SLO violation改善了多少？</li>
-<li>RobinHood能处理多大的变化？</li>
-<li>RoinHood对延迟“尖峰”的健壮性？</li>
-<li>RobinHood节省了多少空间？</li>
-<li>运行RobinHood的成本？</li>
-</ol>
-<h1 id="5-1-Competing-caching-systems"><a href="#5-1-Competing-caching-systems" class="headerlink" title="5.1 Competing caching systems"></a>5.1 Competing caching systems</h1><p><img src="https://img-blog.csdnimg.cn/baabcb89b37c4560a79411d7ab0975be.png" alt="在这里插入图片描述"></p>
-<h2 id="5-2-How-much-does-RobinHood-improve-SLO-violations-for-OneRF’s-workload？"><a href="#5-2-How-much-does-RobinHood-improve-SLO-violations-for-OneRF’s-workload？" class="headerlink" title="5.2 How much does RobinHood improve SLO violations for OneRF’s workload？"></a>5.2 How much does RobinHood improve SLO violations for OneRF’s workload？</h2><p> 作者通过在不同的backend上加上不同资源限制，实现了对latency imbalance的模拟。作者也对负载“尖峰”进行了合理的模拟。<br> <img src="https://img-blog.csdnimg.cn/a89c133d593f40f595279f1f51b576e3.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/000186b9cb464174bbed8565ad5c3799.png" alt="在这里插入图片描述"><br>由图8、9可知，RobinHood在绝大多数的时间里符合SLO标准，且有效地平衡了不同backend之间地RBC。</p>
-<h2 id="5-3-How-much-variability-can-RobinHood-handle？"><a href="#5-3-How-much-variability-can-RobinHood-handle？" class="headerlink" title="5.3 How much variability can RobinHood handle？"></a>5.3 How much variability can RobinHood handle？</h2><p>作者模拟了计算资源在50分钟内持续减少的情况。<br><img src="https://img-blog.csdnimg.cn/942dd7ae70bd4a548aa0e8a687a7b950.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/8fc4924dc7e042e5b57b8427aac5efd7.png" alt="在这里插入图片描述"><br>注意，图10对应的backend的latency与query rate无关，这是符合实际的；图11对应的backend的latency与query rate有关，这是不符合实际的。可以看出，无论是哪种情况，RobinHood的表现都很好。</p>
-<h2 id="5-4-How-robust-is-RobinHood-to-simultaneously-latency-spikes"><a href="#5-4-How-robust-is-RobinHood-to-simultaneously-latency-spikes" class="headerlink" title="5.4 How robust is RobinHood to simultaneously latency spikes"></a>5.4 How robust is RobinHood to simultaneously latency spikes</h2><p> 在本阶段，作者将backend的计算资源进行随机增加或减少。<br> <img src="https://img-blog.csdnimg.cn/10b926dcd675477a9ded5a95d695638f.png" alt="在这里插入图片描述"><br> 观察图（a）可知，多个backend可能在同一时刻遭受了很大的资源限制，这对降低tail latency造成了更大的困难。</p>
-<h2 id="5-5-How-much-space-does-RobinHood-save"><a href="#5-5-How-much-space-does-RobinHood-save" class="headerlink" title="5.5 How much space does RobinHood save"></a>5.5 How much space does RobinHood save</h2><p><img src="https://img-blog.csdnimg.cn/9ad354306609446295af7646ab00575d.png" alt="在这里插入图片描述"><br>即使假设TAO++拥有未来的知识，要想让其达到RobinHood的效果，也需要额外的73%cache空间。</p>
-<h2 id="5-6-What-is-the-overhead-of-running-RobinHood"><a href="#5-6-What-is-the-overhead-of-running-RobinHood" class="headerlink" title="5.6 What is the overhead of running RobinHood"></a>5.6 What is the overhead of running RobinHood</h2><p>对每秒1000request的application server，网络传输成本小于8KB每秒。</p>
-<p>CPU消耗小到不可观察，内存消耗一般小于25KB。</p>
-<p>在多线程缓存系统中，缩小分区会导致一些并发缓存操作阻塞，从而增加hit latency<br><img src="https://img-blog.csdnimg.cn/31db9fb1fedc435b86d294ce4b94305c.png" alt="在这里插入图片描述"><br>但是，tail latency主要来源于miss，所以P99 hit latency的提升并不会对P99产生影响。</p>
-<h1 id="6-Discussion"><a href="#6-Discussion" class="headerlink" title="6 Discussion"></a>6 Discussion</h1><ol>
-<li>非凸的miss curves：虽然RobinHood的运行不依赖miss，但miss率的激增可能会导致RobinHood效果下降。</li>
-<li>过高的查询速率可能会给RBC server带来负担。这种情况下可以在计算RBC时只考虑部分采样出来的requests。</li>
-<li>某些backends可能共用一个存储器，这种情况下，RobinHood只给其中一个backend分配cache效果是很差的。可以通过对backend进行分组来解决这个问题。</li>
-<li>面临不同业务时，Robinhood可能会采用不同的分配策略，导致不同业务的分配策略相互影响，甚至抵消。</li>
-<li>分布式缓存：不能改善cache hotspots问题，但不关心。<blockquote>
-<p>啥是cache hotspots</p>
-</blockquote>
-</li>
-<li>cache命中率低，分配效率低</li>
-<li>多样的评价标准，可以通过更改S来适应。</li>
-</ol>
-<h1 id="7-Related-Work"><a href="#7-Related-Work" class="headerlink" title="7 Related Work"></a>7 Related Work</h1><p>RobinHood是第一个通过cache来直接解决tail latency问题的工作。</p>
-<p>前人对于cache的工作，集中于如何提高hit ratio。提高hit ratio有助于改善平均latency，而不能改善tail latency。前人的工作还集中于将miss cost纳入淘汰决策。还有一些分支致力于改善cache本身的性能，如吞吐率、hit latency、load balance和结构。</p>
-<h1 id="8-Conclusions"><a href="#8-Conclusions" class="headerlink" title="8 Conclusions"></a>8 Conclusions</h1><p>这篇论文解在维持低尾延迟方面解决了两个问题。第一个问题是系统资源的分配问题，RobinHood为每个backend引入了RBC的概念，从而识别出哪些backend需要额外的资源。第二个问题是解决有状态后端系统之间的延迟不平衡问题，这些系统无法直接扩展以利用额外的资源。RobinHood利用了多层系统中现有的缓存层，将缓存空间差异分配给各个后端，而不是直接扩展它们。</p>
-<p>RobinHood演示了如何找到造成P99的源头。RobinHood还展示了cache可以用来改善尾延迟。</p>
 
       
     </div>
