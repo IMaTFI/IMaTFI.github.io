@@ -334,7 +334,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-12-27 16:47:48" itemprop="dateModified" datetime="2022-12-27T16:47:48+08:00">2022-12-27</time>
+      <time title="Modified: 2023-03-06 14:06:13" itemprop="dateModified" datetime="2023-03-06T14:06:13+08:00">2023-03-06</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -362,41 +362,9 @@ mjx-container[display="true"] + br {
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zw6161080123/article/details/80639932">https://blog.csdn.net/zw6161080123/article/details/80639932</a></li>
 </ul>
 <h1 id="算法引入"><a href="#算法引入" class="headerlink" title="算法引入"></a>算法引入</h1><p>我们先考虑一个经典问题:<br>小明要爬上一个n级的台阶, 他每次可以走1级或2级, 求不同的走法数.</p>
-<h2 id="经典递归算法"><a href="#经典递归算法" class="headerlink" title="经典递归算法"></a>经典递归算法</h2><p>代码:</p>
-<pre><code>int solve(int n) {
-    if (n == 1)return 1;
-    else if (n == 2)return 2;
-    else return solve(n - 1) + solve(n - 2);
-}
-int main() {
-    int n;
-    cin &gt;&gt; n;
-    cout &lt;&lt; solve(n);
-    return 0;
-}
-</code></pre><p>时间复杂度: O(2^n)<br>我们可以发现, 上述算法包含着大量的重复计算:<br>假设<code>n=5</code>, 根据上述算法, 我们需要先计算<code>solve(4)</code>和<code>solve(3)</code><br>而要计算<code>solve(4)</code>, 必须先计算<code>solve(3)</code>和<code>solve(2)</code><br>我们注意到<code>solve(3)</code>被计算了两次.<br>当问题规模更大时, 重复计算会更多, 导致问题不能在理想的时间内得到解决.</p>
-<h2 id="动态规划算法"><a href="#动态规划算法" class="headerlink" title="动态规划算法"></a>动态规划算法</h2><p>如果我们将已经解决的问题的结果保存下来, 在解决新问题时直接调取旧问题的结果, 就能节省不少时间, 这就是最简单的<strong>动态规划</strong></p>
-<pre><code>#include&lt;iostream&gt;
-#include&lt;algorithm&gt;
-using namespace std;
-int dp[100];
-void solve(int n) {
-    if (n &lt;= 2) return;
-    else {
-        for (int i = 3; i &lt;= n; i++) {
-            dp[i] = dp[i - 1] + dp[i - 2];
-        }
-    }
-}
-int main() {
-    dp[1] = 1, dp[2] = 2;
-    int n;
-    cin &gt;&gt; n;
-    solve(n);
-    cout &lt;&lt; dp[n];
-    return 0;
-}
-</code></pre><p>时间复杂度: O(n)</p>
+<h2 id="经典递归算法"><a href="#经典递归算法" class="headerlink" title="经典递归算法"></a>经典递归算法</h2><p>代码:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">solve</span><span class="params">(<span class="type">int</span> n)</span> </span>{</span><br><span class="line">	<span class="keyword">if</span> (n == <span class="number">1</span>)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">2</span>)<span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">solve</span>(n - <span class="number">1</span>) + <span class="built_in">solve</span>(n - <span class="number">2</span>);</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="type">int</span> n;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	cout &lt;&lt; <span class="built_in">solve</span>(n);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>时间复杂度: O(2^n)<br>我们可以发现, 上述算法包含着大量的重复计算:<br>假设<code>n=5</code>, 根据上述算法, 我们需要先计算<code>solve(4)</code>和<code>solve(3)</code><br>而要计算<code>solve(4)</code>, 必须先计算<code>solve(3)</code>和<code>solve(2)</code><br>我们注意到<code>solve(3)</code>被计算了两次.<br>当问题规模更大时, 重复计算会更多, 导致问题不能在理想的时间内得到解决.</p>
+<h2 id="动态规划算法"><a href="#动态规划算法" class="headerlink" title="动态规划算法"></a>动态规划算法</h2><p>如果我们将已经解决的问题的结果保存下来, 在解决新问题时直接调取旧问题的结果, 就能节省不少时间, 这就是最简单的<strong>动态规划</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> dp[<span class="number">100</span>];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">(<span class="type">int</span> n)</span> </span>{</span><br><span class="line">	<span class="keyword">if</span> (n &lt;= <span class="number">2</span>) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">else</span> {</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">3</span>; i &lt;= n; i++) {</span><br><span class="line">			dp[i] = dp[i - <span class="number">1</span>] + dp[i - <span class="number">2</span>];</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	dp[<span class="number">1</span>] = <span class="number">1</span>, dp[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line">	<span class="type">int</span> n;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	<span class="built_in">solve</span>(n);</span><br><span class="line">	cout &lt;&lt; dp[n];</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure><br>时间复杂度: O(n)</p>
 <h1 id="动态规划算法-1"><a href="#动态规划算法-1" class="headerlink" title="动态规划算法"></a>动态规划算法</h1><h2 id="能用动态规划解决的问题的特点"><a href="#能用动态规划解决的问题的特点" class="headerlink" title="能用动态规划解决的问题的特点"></a>能用动态规划解决的问题的特点</h2><ul>
 <li>最优化原理: 问题的最优解所包含的<strong>子问题的解</strong>也是最优的.</li>
 <li>无后效性: 某个阶段的决策一旦确定, 就不受后续决策的影响.</li>
@@ -416,77 +384,18 @@ int main() {
 <li>遍历<code>dp</code>数组, 数组中的最大元素即为原问题的答案.</li>
 </ul>
 <p>代码实现:</p>
-<pre><code>int lengthOfLIS(int* nums, int numsSize){
-    int dp[2505];
-    for(int i=0;i&lt;numsSize;i++){        //求以nums[i]为结尾的最长递增子列
-        dp[i]=1;        //初值为1
-        for(int j=0;j&lt;i;j++){
-            if(nums[i]&gt;nums[j]){
-                dp[i]=fmax(dp[i],dp[j]+1);        //状态转移方程
-            }
-        }
-    }
-    int max=0;
-    for(int i=0;i&lt;numsSize;i++){
-        if(dp[i]&gt;max) max=dp[i];
-    }
-    return max;
-}
-// 时间复杂度O(n^2)
-</code></pre><p>算法改进:<br>定义<code>tail</code>数组, <code>tail[i]</code>表示: 长度为<code>i+1</code>的所有递增子列的最小尾元素.<br>我们容易知道, <code>tail</code>数组是严格单调递增的.<br>状态转移定义为:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="type">int</span>* nums, <span class="type">int</span> numsSize)</span></span>{</span><br><span class="line">	<span class="type">int</span> dp[<span class="number">2505</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;numsSize;i++){		<span class="comment">//求以nums[i]为结尾的最长递增子列</span></span><br><span class="line">		dp[i]=<span class="number">1</span>;		<span class="comment">//初值为1</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;i;j++){</span><br><span class="line">			<span class="keyword">if</span>(nums[i]&gt;nums[j]){</span><br><span class="line">				dp[i]=<span class="built_in">fmax</span>(dp[i],dp[j]+<span class="number">1</span>);		<span class="comment">//状态转移方程</span></span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="type">int</span> max=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;numsSize;i++){</span><br><span class="line">		<span class="keyword">if</span>(dp[i]&gt;max) max=dp[i];</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> max;</span><br><span class="line">}</span><br><span class="line"><span class="comment">// 时间复杂度O(n^2)</span></span><br></pre></td></tr></table></figure>
+<p>算法改进:<br>定义<code>tail</code>数组, <code>tail[i]</code>表示: 长度为<code>i+1</code>的所有递增子列的最小尾元素.<br>我们容易知道, <code>tail</code>数组是严格单调递增的.<br>状态转移定义为:</p>
 <ol>
 <li>若当前元素<code>e</code>大于<code>tail[i]</code>, 则<code>tail[i+1]=e</code>(<em>得到了一个长度为<code>i+2</code>的递增子列, 最小尾元素为<code>e</code></em>)</li>
 <li>若当前元素<code>e</code>小于等于<code>tail[i]</code>, 二分查找到<code>tail</code>数组中<strong>第一个</strong>大于<code>e</code>的数字, 并将其更新为<code>e</code></li>
 </ol>
 <p>当我们遍历整个数组后, <code>tail</code>数组中的元素个数即为最长递增子列的长度.</p>
 <p>代码实现:</p>
-<pre><code>class Solution {
-public:
-    int lengthOfLIS(vector&lt;int&gt;&amp; nums) {
-        int tail[2505];
-        tail[0]=nums[0];
-        int ans=1;
-        int len=nums.size();
-        for(int i=1;i&lt;len;i++){
-            if(nums[i]&gt;tail[ans-1]){
-                tail[ans++]=nums[i];
-            }
-            else if(nums[i]==tail[ans-1]) continue;
-            else{
-                int L=0,R=ans-1,flag=0;
-                while(L&lt;=R){
-                    int mid=(L+R)&gt;&gt;1;
-                    if(nums[i]&gt;tail[mid]) L=mid+1;
-                    else{
-                        flag=mid;
-                        R=mid-1;
-                    }
-                }
-                if(nums[i]==tail[flag]) continue;
-                tail[flag]=nums[i];
-            }
-        }
-        return ans;
-    }
-};
-//时间复杂度O(nlogn)
-</code></pre><h3 id="2-数组最大连续子序列和"><a href="#2-数组最大连续子序列和" class="headerlink" title="2. 数组最大连续子序列和"></a>2. 数组最大连续子序列和</h3><p>对应题目: LeetCode第53题</p>
-<p>代码实现:</p>
-<pre><code>class Solution {
-public:
-    int maxSubArray(vector&lt;int&gt;&amp; nums) {
-        int len=nums.size();
-        int dp[100005];
-        dp[0]=nums[0];
-        int max=dp[0];
-        for(int i=1;i&lt;len;i++){
-            dp[i]=fmax(dp[i-1]+nums[i],nums[i]);
-            if(dp[i]&gt;max) max=dp[i];
-        }
-        return max;
-    }
-};
-</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">lengthOfLIS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>{</span><br><span class="line">		<span class="type">int</span> tail[<span class="number">2505</span>];</span><br><span class="line">		tail[<span class="number">0</span>]=nums[<span class="number">0</span>];</span><br><span class="line">		<span class="type">int</span> ans=<span class="number">1</span>;</span><br><span class="line">		<span class="type">int</span> len=nums.<span class="built_in">size</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;len;i++){</span><br><span class="line">			<span class="keyword">if</span>(nums[i]&gt;tail[ans<span class="number">-1</span>]){</span><br><span class="line">				tail[ans++]=nums[i];</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(nums[i]==tail[ans<span class="number">-1</span>]) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">else</span>{</span><br><span class="line">				<span class="type">int</span> L=<span class="number">0</span>,R=ans<span class="number">-1</span>,flag=<span class="number">0</span>;</span><br><span class="line">				<span class="keyword">while</span>(L&lt;=R){</span><br><span class="line">					<span class="type">int</span> mid=(L+R)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">					<span class="keyword">if</span>(nums[i]&gt;tail[mid]) L=mid+<span class="number">1</span>;</span><br><span class="line">					<span class="keyword">else</span>{</span><br><span class="line">						flag=mid;</span><br><span class="line">						R=mid<span class="number">-1</span>;</span><br><span class="line">					}</span><br><span class="line">				}</span><br><span class="line">				<span class="keyword">if</span>(nums[i]==tail[flag]) <span class="keyword">continue</span>;</span><br><span class="line">				tail[flag]=nums[i];</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> ans;</span><br><span class="line">	}</span><br><span class="line">};</span><br><span class="line"><span class="comment">//时间复杂度O(nlogn)</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-数组最大连续子序列和"><a href="#2-数组最大连续子序列和" class="headerlink" title="2. 数组最大连续子序列和"></a>2. 数组最大连续子序列和</h3><p>对应题目: LeetCode第53题</p>
+<p>代码实现:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>{</span><br><span class="line">		<span class="type">int</span> len=nums.<span class="built_in">size</span>();</span><br><span class="line">		<span class="type">int</span> dp[<span class="number">100005</span>];</span><br><span class="line">		dp[<span class="number">0</span>]=nums[<span class="number">0</span>];</span><br><span class="line">		<span class="type">int</span> max=dp[<span class="number">0</span>];</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;len;i++){</span><br><span class="line">			dp[i]=<span class="built_in">fmax</span>(dp[i<span class="number">-1</span>]+nums[i],nums[i]);</span><br><span class="line">			<span class="keyword">if</span>(dp[i]&gt;max) max=dp[i];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> max;</span><br><span class="line">	}</span><br><span class="line">};</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
 
