@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">107</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -289,6 +289,134 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">算法自学__背包问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-07-23 16:22:06" itemprop="dateCreated datePublished" datetime="2022-07-23T16:22:06+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-07-29 10:44:26" itemprop="dateModified" datetime="2022-07-29T10:44:26+08:00">2022-07-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>参考资料:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/93857890">https://zhuanlan.zhihu.com/p/93857890</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/mfrank/p/10849505.html">https://www.cnblogs.com/mfrank/p/10849505.html</a></li>
+</ul>
+<h1 id="01背包"><a href="#01背包" class="headerlink" title="01背包"></a>01背包</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>一共有<code>N</code>件物品, 第<code>i</code>件物品的重量为<code>w[i]</code>, 价值为<code>v[i]</code>. 在总重量不超过背包容量<code>W</code>的情况下, 物品的最大价值是多少</p>
+<h2 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h2><ul>
+<li>定义状态<code>dp[i][j]</code>, 表示用容量为<code>j</code>的背包, 在前<code>i</code>件物品中选择, 能获得的最大价值. 易知: <code>dp[N][W]</code>即为问题的答案.</li>
+<li><p>状态转移: 假设待求状态为<code>dp[i][j]</code>, 此时我们需要考虑,我们是否<strong>能</strong>将第<code>i</code>件物品放入背包中: </p>
+<ol>
+<li>若不能, <code>dp[i][j] = dp[i-1][j]</code>; </li>
+<li><p>若能, 我们需要考虑是否<strong>要</strong>将第<code>i</code>件物品放入到背包中: </p>
+<ol>
+<li>假设我们不将其放入背包中, 则<code>dp[i][j] = dp[i-1][j]</code>; </li>
+<li>假设我们将其放入背包中, 就相当于背包中已经一部分容量被第<code>i</code>件物品占据, <code>dp[i][j] = dp[i-1][j-w[i]] + v[i]</code>. </li>
+</ol>
+<p>所以<code>dp[i][j] = max(dp[i-1][j], dp[i-1][j-w[i]] + v[i])</code></p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> dp[<span class="number">105</span>][<span class="number">1005</span>];</span><br><span class="line"><span class="type">int</span> w[<span class="number">105</span>], v[<span class="number">105</span>];</span><br><span class="line"><span class="type">int</span> W, N;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	cin &gt;&gt; W &gt;&gt; N;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; i++) cin &gt;&gt; w[i] &gt;&gt; v[i];</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; i++) {</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= W; j++) {</span><br><span class="line">			<span class="keyword">if</span> (w[i] &gt; j) dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">			<span class="keyword">else</span> dp[i][j] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - w[i]] + v[i]);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	cout &lt;&lt; dp[N][W];</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="算法优化"><a href="#算法优化" class="headerlink" title="算法优化"></a>算法优化</h2><p>观察<strong>状态转移方程</strong>, 我们容易发现: <code>dp[i][j]</code>的值只与<code>dp[i-1][0~j]</code>有关. 因此, 我们可以从空间的角度优化上面的算法, 将二维状态<code>dp[i][j]</code>降至一维<code>dp[j]</code>. </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> dp[<span class="number">1005</span>];</span><br><span class="line"><span class="type">int</span> w[<span class="number">105</span>], v[<span class="number">105</span>];</span><br><span class="line"><span class="type">int</span> W, N;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	cin &gt;&gt; W &gt;&gt; N;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; i++)cin &gt;&gt; w[i] &gt;&gt; v[i];</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; i++) {		</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> j = W; j &gt;= w[i]; j--) {	<span class="comment">//逆序更新</span></span><br><span class="line">			dp[j] = <span class="built_in">max</span>(dp[j], dp[j - w[i]] + v[i]);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	cout &lt;&lt; dp[W];</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h1 id="完全背包"><a href="#完全背包" class="headerlink" title="完全背包"></a>完全背包</h1><h2 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h2><p>一共有<code>N</code>种物品, 每种物品有<strong>无限多个</strong>, 第<code>i</code>种物品的重量为<code>w[i]</code>, 价值为<code>v[i]</code>. 在总重量不超过背包容量<code>W</code>的前提下, 物品的最大价值是多少.</p>
+<h2 id="算法思路-1"><a href="#算法思路-1" class="headerlink" title="算法思路"></a>算法思路</h2><ul>
+<li>状态<code>dp[i][j]</code>的定义方式与<strong>01背包</strong>相同: 表示用容量为<code>j</code>的背包, 在前<code>i</code>种物品中选择, 能获得的最大价值. </li>
+<li>状态转移:<ol>
+<li><strong>装不下</strong>和<strong>不装</strong>的情形都与<strong>01背包</strong>的处理方式一致.</li>
+<li>由于第<code>i</code>种物品有无限多个, 所以我们选择装入一个<code>i</code>物品后, 还可以继续装入<code>i</code>物品, 所以,此时<code>dp[i][j] = dp[i][j-w[i]] + v[i]</code><br>所以, 状态转移方程为: <code>dp[i][j] = max(dp[i-1][j], dp[i][j-w[i]] + v[i])</code></li>
+</ol>
+</li>
+<li>类似的, 我们也可以仿照<strong>01背包</strong>的优化方法, 对<strong>完全背包</strong>问题的状态进行优化<h2 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h2></li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">long</span> <span class="type">long</span> dp[<span class="number">10000005</span>];</span><br><span class="line"><span class="type">int</span> w[<span class="number">10005</span>],v[<span class="number">10005</span>];C++</span><br><span class="line"><span class="type">int</span> W,N;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	cin&gt;&gt;W&gt;&gt;N;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;i++) cin&gt;&gt;w[i]&gt;&gt;v[i];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;i++){</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=w[i];j&lt;=W;j++){	<span class="comment">//正序更新</span></span><br><span class="line">			dp[j]=<span class="built_in">max</span>(dp[j],dp[j-w[i]]+v[i]);</span><br><span class="line">		}</span><br><span class="line">	} </span><br><span class="line">	cout&lt;&lt;dp[W];</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h1 id="多重背包"><a href="#多重背包" class="headerlink" title="多重背包"></a>多重背包</h1><h2 id="问题描述-2"><a href="#问题描述-2" class="headerlink" title="问题描述"></a>问题描述</h2><p>一共有<code>N</code>种物品, 第<code>i</code>种物品的数量为n[i], 重量为<code>w[i]</code>, 价值为<code>v[i]</code>. 在总重量不超过背包容量<code>W</code>的前提下, 物品的最大价值是多少.</p>
+<h2 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h2><p>这里直接给出一种优化算法, 其基本思想为将<strong>多重背包</strong>转化为<strong>01背包</strong>:</p>
+<ul>
+<li>对于第<code>i</code><strong>种</strong>物品, 我们根据其数量<code>n[i]</code>, 按照二进制的方式将其划分为<code>x</code><strong>个</strong>物体, 例如对<code>n[i]=12</code>, 由于<code>12 = 1 + 2 + 4 + 5</code>, 所以我们可以将第<code>i</code><strong>种</strong>物品划分成<code>4</code><strong>个</strong>物体, 其<strong>重量</strong>和<strong>价值</strong>分别为第<code>i</code><strong>种</strong>物品的1, 2, 4, 5倍.</li>
+<li>特别地, 假设第<code>i</code>种物品有无限多个, 我们将其数量<code>n[i]</code>赋值为一个足够大的值, 如<code>99999999</code>.</li>
+<li>之后便可以采用<strong>01背包</strong>的思路对问题进行求解.</li>
+</ul>
+<p>我们以<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1833">洛谷P1833 - - - 樱花</a>为例</p>
+<h2 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INF 999999</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> dp[<span class="number">1005</span>];</span><br><span class="line"><span class="type">int</span> n[<span class="number">10005</span>],w[<span class="number">10005</span>],v[<span class="number">10005</span>];</span><br><span class="line"><span class="type">int</span> newW[<span class="number">10000005</span>],newV[<span class="number">10000005</span>];</span><br><span class="line"><span class="type">int</span> h1,m1,h2,m2,W,N,cnt=<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pre</span><span class="params">()</span></span>{		<span class="comment">//化多重背包为01背包</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;i++){</span><br><span class="line">		<span class="type">int</span> a=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span>(n[i]&gt;<span class="number">0</span>){</span><br><span class="line">			<span class="keyword">if</span>(n[i]&lt;a){</span><br><span class="line">				cnt++;</span><br><span class="line">				newW[cnt]=w[i]*n[i];</span><br><span class="line">				newV[cnt]=v[i]*n[i];</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			}</span><br><span class="line">			n[i]-=a;</span><br><span class="line">			cnt++;</span><br><span class="line">			newW[cnt]=w[i]*a;</span><br><span class="line">			newV[cnt]=v[i]*a;</span><br><span class="line">			a*=<span class="number">2</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">} </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d:%d %d:%d"</span>,&amp;h1,&amp;m1,&amp;h2,&amp;m2);</span><br><span class="line">	W=(h2*<span class="number">60</span>+m2)-(h1*<span class="number">60</span>+m1);</span><br><span class="line">	cin&gt;&gt;N;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;i++){</span><br><span class="line">		cin&gt;&gt;w[i]&gt;&gt;v[i]&gt;&gt;n[i];</span><br><span class="line">		<span class="keyword">if</span>(n[i]==<span class="number">0</span>) n[i]=INF;</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">pre</span>(); </span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=cnt;i++){</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=W;j&gt;=newW[i];j--){</span><br><span class="line">			dp[j]=<span class="built_in">max</span>(dp[j],dp[j-newW[i]]+newV[i]);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	cout&lt;&lt;dp[W];</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1503,165 +1631,6 @@ t1[[2, 3], :] = t1[[3, 2], :]
 # 列交换
 t1[:, [2, 3]] = t1[:, [3, 2]]
 </code></pre>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E6%95%B0%E7%BB%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">numpy自学笔记__数组</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-07-23 16:07:37" itemprop="dateCreated datePublished" datetime="2022-07-23T16:07:37+08:00">2022-07-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-07-27 19:02:50" itemprop="dateModified" datetime="2022-07-27T19:02:50+08:00">2022-07-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ML/" itemprop="url" rel="index"><span itemprop="name">ML</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>参考资料:</p>
-<ul>
-<li>黑马程序员相关课程</li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiaxin359/p/9021726.html">https://www.cnblogs.com/jiaxin359/p/9021726.html</a></li>
-</ul>
-<h1 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h1><pre><code>import numpy as np
-
-# 方法一
-t1 = np.array([1, 2, 3, 4])
-print(t1)
-print(type(t1))
-# [1 2 3 4]
-# &lt;class 'numpy.ndarray'&gt;
-
-#方法二
-t2 = np.array(range(1, 4)]
-print(t2)
-# [1 2 3]
-
-#方法三
-t3 = np.arange(0, 4)
-print(t3)
-print(t3.dtype)            # dtype是数组中存储的数据类型
-# [1 2 3 4]
-# int32
-</code></pre><h1 id="修改数组的数据类型"><a href="#修改数组的数据类型" class="headerlink" title="修改数组的数据类型"></a>修改数组的数据类型</h1><pre><code># 指定数组中的数据类型
-t1 = np.arange(0, 4, 1, 'float32')
-print(t1)
-print(t1.dtype)
-# [0. 1. 2. 3.]
-# float32
-
-#修改数组中的数据类型
-t2 = t1.astype('bool')        # 不会改变t1中的数据类型
-print(t2)
-print(t2.dtype)
-# [False  True  True  True]
-# bool
-
-# 固定数组中小数的位数
-t3 = np.array([random.random() for i in range(5)])
-print(t3)
-t4 = np.round(t3, 2)            # 四舍五入
-print(t4)
-# [0.0271696  0.64183147 0.77604475 0.62665816 0.46107218]
-# [0.03 0.64 0.78 0.63 0.46]
-</code></pre><h1 id="数组的形状"><a href="#数组的形状" class="headerlink" title="数组的形状"></a>数组的形状</h1><pre><code>t1 = np.array([[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6]])
-print(t1.shape)                        # 查看数组的形状
-t2 = t1.reshape((3, 2, 2))            #修改数组的形状
-print(t2.shape)
-t3 = t2.flatten()                   # 将数组展开成一维
-print(t3)
-# (4, 3)
-# (3, 2, 2)
-# [1 2 3 2 3 4 3 4 5 4 5 6]
-</code></pre><h1 id="数组的计算"><a href="#数组的计算" class="headerlink" title="数组的计算"></a>数组的计算</h1><pre><code># 数组和数字进行计算
-t1 = np.arange(-2, 4)
-print(t1)
-print(t1+5)
-print(t1/0)
-# [-2 -1  0  1  2  3]
-# [3 4 5 6 7 8]
-# [-inf -inf  nan  inf  inf  inf]        # 0/0无意义, 负数/0得负无穷, 正数/0得正无穷
-
-# 数组和数组进行计算
-## 数组大小相同
-t1 = np.arange(0, 24).reshape(4, 6)
-t2 = np.arange(24,48).reshape(4, 6)
-print(t1*t2)        # 则对应位置的数据进行计算
-# [[   0   25   52   81  112  145]
-#  [ 180  217  256  297  340  385]
-#  [ 432  481  532  585  640  697]
-#  [ 756  817  880  945 1012 1081]]
-</code></pre><p>广播原则: 如果两个数组的后缘维度（trailing dimension，即从末尾开始算起的维度）的轴长度相符，或其中的一方的长度为1，则认为它们是广播兼容的。广播会在缺失和（或）长度为1的维度上进行。</p>
-<h1 id="轴"><a href="#轴" class="headerlink" title="轴"></a>轴</h1><p>轴在numpy中用0, 1, 2, 3……表示. 对于一维数组, 只有一个0轴, 对于三维数组, 有0, 1, 2三个轴</p>
-
       
     </div>
 

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#37c6c0"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#37c6c0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文主要涉及背包、最长公共子序列、最长上升子序列、区间动态规划等问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《算法竞赛入门到进阶》——动态规划">
+<meta property="og:url" content="http://example.com/2023/03/09/%E3%80%8A%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8%E5%88%B0%E8%BF%9B%E9%98%B6%E3%80%8B%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/index.html">
+<meta property="og:site_name" content="Kimmich&#39;s Blog">
+<meta property="og:description" content="本文主要涉及背包、最长公共子序列、最长上升子序列、区间动态规划等问题">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-03-09T01:39:46.000Z">
+<meta property="article:modified_time" content="2023-03-09T01:41:47.636Z">
+<meta property="article:author" content="Kimmich">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="背包">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/03/09/%E3%80%8A%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8%E5%88%B0%E8%BF%9B%E9%98%B6%E3%80%8B%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/03/09/%E3%80%8A%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8%E5%88%B0%E8%BF%9B%E9%98%B6%E3%80%8B%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/","path":"2023/03/09/《算法竞赛入门到进阶》——动态规划/","title":"《算法竞赛入门到进阶》——动态规划"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>《算法竞赛入门到进阶》——动态规划 | Kimmich's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kimmich's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#7-1-%E5%9F%BA%E7%A1%80DP%EF%BC%88P116%EF%BC%89"><span class="nav-text">7.1 基础DP（P116）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B1-P1356-%E6%95%B0%E5%88%97%E7%9A%84%E6%95%B4%E9%99%A4%E6%80%A7"><span class="nav-text">例1 P1356 数列的整除性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B2-POJ-1239-Increasing-Sequences"><span class="nav-text">例2 POJ 1239 Increasing Sequences</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F"><span class="nav-text">题目大意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B3-POJ-1080-Human-Gene-Functions"><span class="nav-text">例3 POJ 1080 Human Gene Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-2"><span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-3-%E5%8C%BA%E9%97%B4DP%EF%BC%88P134%EF%BC%89"><span class="nav-text">7.3 区间DP（P134）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B1-POJ-3280-Cheapest-Palindrome"><span class="nav-text">例1 POJ 3280 Cheapest Palindrome</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F-1"><span class="nav-text">题目大意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-3"><span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-3"><span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B2-HDU-4283-You-Are-The-One"><span class="nav-text">例2 HDU 4283 You Are The One</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F-2"><span class="nav-text">题目大意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-4"><span class="nav-text">思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B3-HDU-4623-Palindrome-Subsequences"><span class="nav-text">例3 HDU 4623 Palindrome Subsequences</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F-3"><span class="nav-text">题目大意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-5"><span class="nav-text">思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B4-HDU-2476-String-Painter"><span class="nav-text">例4 HDU 2476 String Painter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F-4"><span class="nav-text">题目大意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-6"><span class="nav-text">思路</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Kimmich</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">107</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/09/%E3%80%8A%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8%E5%88%B0%E8%BF%9B%E9%98%B6%E3%80%8B%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="《算法竞赛入门到进阶》——动态规划 | Kimmich's Blog">
+      <meta itemprop="description" content="本文主要涉及背包、最长公共子序列、最长上升子序列、区间动态规划等问题">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《算法竞赛入门到进阶》——动态规划
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-03-09 09:39:46 / Modified: 09:41:47" itemprop="dateCreated datePublished" datetime="2023-03-09T09:39:46+08:00">2023-03-09</time>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">本文主要涉及背包、最长公共子序列、最长上升子序列、区间动态规划等问题</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="7-1-基础DP（P116）"><a href="#7-1-基础DP（P116）" class="headerlink" title="7.1 基础DP（P116）"></a>7.1 基础DP（P116）</h1><p>这部分主要涉及背包问题、最长公共子序列、最长递增子序列等问题。由于这些经典问题在之前的学习中已经涉及，所以不在此赘述。</p>
+<h2 id="例1-P1356-数列的整除性"><a href="#例1-P1356-数列的整除性" class="headerlink" title="例1 P1356 数列的整除性"></a>例1 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1356">P1356 数列的整除性</a></h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定一个数组 <code>a[]</code> ，数组中元素的正负号可以任意指定，问该数组所有可能的元素和中，是否在某个和能被 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.179ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 521 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g></g></g></svg></mjx-container> 整除。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>定义状态 <code>dp[i][j]</code> 表示：已经指定了前 <code>i</code> 个数的正负号的情况下，这些数的和能够模 <code>k</code> 余 <code>j</code> 。显然，状态 <code>dp[n][0]</code> 即为最终答案。状态转移方程比较常规，见代码。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e4</span>+<span class="number">5</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxk = <span class="number">1e2</span>+<span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> M;</span><br><span class="line"><span class="type">int</span> n, k;</span><br><span class="line"><span class="type">bool</span> dp[maxn][maxk];</span><br><span class="line"><span class="type">int</span> a[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	cin&gt;&gt;M;</span><br><span class="line">	<span class="keyword">while</span>(M--){</span><br><span class="line">		<span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="built_in">sizeof</span>(dp));</span><br><span class="line">		<span class="built_in">memset</span>(a, <span class="number">0</span>, <span class="built_in">sizeof</span>(a));</span><br><span class="line">		cin&gt;&gt;n&gt;&gt;k;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">			cin&gt;&gt;a[i];</span><br><span class="line">			a[i] = (<span class="built_in">abs</span>(a[i]))%k;</span><br><span class="line">		}</span><br><span class="line">		dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;k;j++){</span><br><span class="line">				dp[i][j] = dp[i<span class="number">-1</span>][(j-a[i]+k)%k] || dp[i<span class="number">-1</span>][(j+a[i]+k)%k];</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span>(dp[n][<span class="number">0</span>]) cout&lt;&lt;<span class="string">"Divisible"</span>;</span><br><span class="line">		<span class="keyword">else</span> cout&lt;&lt;<span class="string">"Not divisible"</span>;</span><br><span class="line">		cout&lt;&lt;<span class="string">'\n'</span>;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="例2-POJ-1239-Increasing-Sequences"><a href="#例2-POJ-1239-Increasing-Sequences" class="headerlink" title="例2 POJ 1239 Increasing Sequences"></a>例2 <a target="_blank" rel="noopener" href="http://poj.org/problem?id=1239">POJ 1239 Increasing Sequences</a></h2><h3 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h3><p>给定一个由数字构成的字符串 <code>s</code> ，问怎样添加逗号才能使之成为一个严格递增的序列，返回所有合法序列中最后一个数最小，且第一个数尽可能大的序列（如果第一个数字相等则比较第二个数字，以此类推）。</p>
+<p>如 <code>2315</code> 对应的答案为：<code>2,3,15</code> 。</p>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>两次<strong>dp</strong>。第一次dp对应状态 <code>dp1[]</code> ，<code>dp[1]</code> 表示：仅考虑前 <code>i</code> 个字符，能保证序列严格递增的以 <code>i</code> 为结尾的数字的<strong>最小长度</strong>。显然，题目中要求的“最后一个数最小”对应了状态 <code>dp1[s.size()-1]</code> 。第二次dp对应状态 <code>dp2[]</code> ，<code>dp2[i]</code> 表示：仅考虑后 <code>i</code> 个字符，保证序列严格递增的以 <code>i</code> 为开始的数字的最大长度。显然，题目中要求的“第一个数尽可能大”对应了状态 <code>dp2[0]</code>。</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">string s;</span><br><span class="line"><span class="type">int</span> dp1[maxn], dp2[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">myStoi</span><span class="params">(string s)</span></span>{</span><br><span class="line">	<span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;s.<span class="built_in">size</span>();i++){</span><br><span class="line">		res *= <span class="number">10</span>;</span><br><span class="line">		res += s[i]-<span class="string">'0'</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">check</span><span class="params">(<span class="type">int</span> s1, <span class="type">int</span> l1, <span class="type">int</span> s2, <span class="type">int</span> l2)</span></span>{</span><br><span class="line">	<span class="type">int</span> newL1 = l1, newL2 = l2;</span><br><span class="line">	<span class="type">int</span> cnt1 = <span class="number">0</span>, cnt2 = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;l1;i++){</span><br><span class="line">		<span class="keyword">if</span>(s[s1+i]==<span class="string">'0'</span>){</span><br><span class="line">			newL1--;</span><br><span class="line">			cnt1++;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;l2;i++){</span><br><span class="line">		<span class="keyword">if</span>(s[s2+i]==<span class="string">'0'</span>){</span><br><span class="line">			newL2--;</span><br><span class="line">			cnt2++;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span>(newL1 &gt; newL2) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(newL2 &gt; newL1) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">else</span>{</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=cnt1, j=cnt2;i&lt;l1&amp;&amp;j&lt;l2;i++, j++){</span><br><span class="line">			<span class="keyword">if</span>(s[s1+i]&gt;s[s2+j]) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (s[s1+i]&lt;s[s2+j]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>); cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>){</span><br><span class="line">		cin&gt;&gt;s;</span><br><span class="line">		<span class="keyword">if</span>(s == <span class="string">"0"</span>) <span class="keyword">break</span>;</span><br><span class="line">		dp1[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;s.<span class="built_in">size</span>();i++){</span><br><span class="line">			dp1[i] = i+<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=i;j++){</span><br><span class="line">				<span class="type">int</span> s1 = i-j+<span class="number">1</span>, l1 = j;</span><br><span class="line">				<span class="type">int</span> s2 = s1-dp1[i-j], l2 = dp1[i-j];</span><br><span class="line">				<span class="keyword">if</span>(<span class="built_in">check</span>(s1, l1, s2, l2)){</span><br><span class="line">					dp1[i] = j;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				}</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="type">int</span> <span class="keyword">final</span> = s.<span class="built_in">size</span>()-dp1[s.<span class="built_in">size</span>()<span class="number">-1</span>];</span><br><span class="line">		dp2[<span class="keyword">final</span>] = dp1[s.<span class="built_in">size</span>()<span class="number">-1</span>];</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="keyword">final</span><span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--){</span><br><span class="line">			<span class="keyword">if</span>(s[i]==<span class="string">'0'</span>){</span><br><span class="line">				dp2[i] = dp2[i+<span class="number">1</span>]+<span class="number">1</span>;</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j=<span class="keyword">final</span>-i;j&gt;=<span class="number">1</span>;j--){</span><br><span class="line">				<span class="type">int</span> s1 = i, l1 = j;</span><br><span class="line">				<span class="type">int</span> s2 = s1+l1, l2 = dp2[s2];</span><br><span class="line">				<span class="keyword">if</span>(<span class="built_in">check</span>(s2, l2, s1, l1)){</span><br><span class="line">					dp2[i] = j;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				}</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		cout&lt;&lt;s.<span class="built_in">substr</span>(<span class="number">0</span>, dp2[<span class="number">0</span>]);</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=dp2[<span class="number">0</span>];i&lt;s.<span class="built_in">size</span>();){</span><br><span class="line">			cout&lt;&lt;<span class="string">","</span>&lt;&lt;s.<span class="built_in">substr</span>(i, dp2[i]);</span><br><span class="line">			i += dp2[i];</span><br><span class="line">		}</span><br><span class="line">		cout&lt;&lt;<span class="string">'\n'</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="例3-POJ-1080-Human-Gene-Functions"><a href="#例3-POJ-1080-Human-Gene-Functions" class="headerlink" title="例3 POJ 1080 Human Gene Functions"></a>例3 <a target="_blank" rel="noopener" href="http://poj.org/problem?id=1080">POJ 1080 Human Gene Functions</a></h2><h3 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h3><p>在朴素的LCS问题中，有如下转移方程：</p>
+<script type="math/tex; mode=display">
+dp[i][j]
+\begin{cases}
+dp[i-1][j-1]+1,&a[i]==b[j]\\\\
+\max( dp[i-1][j],dp[i][j-1] ),&a[i]\ !=b[j]
+\end{cases}</script><p><code>dp[i][j]</code> 表示：字符串 <code>a[]</code> 的前 <code>i</code> 个字符和字符串 <code>b[]</code> 的前 <code>j</code> 个字符的最长匹配。由状态转移方程可知，<code>dp[i][j]</code> 有三个来源：</p>
+<ul>
+<li><code>dp[i-1][j-1]</code>，在本题中代表用 <code>a[i]</code> 和 <code>b[j]</code> 进行匹配。</li>
+<li><code>dp[i-1][j]</code>，在本题中代表用 <code>a[i]</code> 和 <code>'-'</code> 进行匹配。</li>
+<li><code>dp[i][j-1]</code>，在本题中代表用 <code>'-'</code> 和 <code>b[j]</code> 进行匹配。</li>
+</ul>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">105</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> mtx[<span class="number">5</span>][<span class="number">5</span>] = {</span><br><span class="line">	{<span class="number">5</span>, <span class="number">-1</span>, <span class="number">-2</span>, <span class="number">-1</span>, <span class="number">-3</span>},</span><br><span class="line">	{<span class="number">-1</span>, <span class="number">5</span>, <span class="number">-3</span>, <span class="number">-2</span>, <span class="number">-4</span>},</span><br><span class="line">	{<span class="number">-2</span>, <span class="number">-3</span>, <span class="number">5</span>, <span class="number">-2</span>, <span class="number">-2</span>},</span><br><span class="line">	{<span class="number">-1</span>, <span class="number">-2</span>, <span class="number">-2</span>, <span class="number">5</span>, <span class="number">-1</span>},</span><br><span class="line">	{<span class="number">-3</span>, <span class="number">-4</span>, <span class="number">-2</span>, <span class="number">-1</span>, <span class="number">0</span>}</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dp[maxn][maxn];</span><br><span class="line"><span class="type">int</span> n, m;</span><br><span class="line"><span class="type">char</span> a[maxn], b[maxn];</span><br><span class="line"><span class="type">int</span> T;</span><br><span class="line">map&lt;<span class="type">char</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>); cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	mp[<span class="string">'A'</span>]=<span class="number">0</span>, mp[<span class="string">'C'</span>]=<span class="number">1</span>, mp[<span class="string">'G'</span>]=<span class="number">2</span>, mp[<span class="string">'T'</span>]=<span class="number">3</span>, mp[<span class="string">'-'</span>]=<span class="number">4</span>;</span><br><span class="line">	cin&gt;&gt;T;</span><br><span class="line">	<span class="keyword">while</span>(T--){</span><br><span class="line">		cin&gt;&gt;n&gt;&gt;a+<span class="number">1</span>&gt;&gt;m&gt;&gt;b+<span class="number">1</span>;</span><br><span class="line">		dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">			dp[<span class="number">0</span>][i] = dp[<span class="number">0</span>][i<span class="number">-1</span>]+mtx[mp[<span class="string">'-'</span>]][mp[b[i]]];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++){</span><br><span class="line">			dp[i][<span class="number">0</span>] = dp[i<span class="number">-1</span>][<span class="number">0</span>]+mtx[mp[a[i]]][mp[<span class="string">'-'</span>]];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=m;j++){</span><br><span class="line">				dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>]+mtx[mp[a[i]]][mp[b[j]]];</span><br><span class="line">				dp[i][j] = <span class="built_in">max</span>(dp[i][j], dp[i][j<span class="number">-1</span>]+mtx[mp[<span class="string">'-'</span>]][mp[b[j]]]);</span><br><span class="line">				dp[i][j] = <span class="built_in">max</span>(dp[i][j], dp[i<span class="number">-1</span>][j]+mtx[mp[a[i]]][mp[<span class="string">'-'</span>]]);</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		cout&lt;&lt;dp[n][m]&lt;&lt;<span class="string">'\n'</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h1 id="7-3-区间DP（P134）"><a href="#7-3-区间DP（P134）" class="headerlink" title="7.3 区间DP（P134）"></a>7.3 区间DP（P134）</h1><h2 id="例1-POJ-3280-Cheapest-Palindrome"><a href="#例1-POJ-3280-Cheapest-Palindrome" class="headerlink" title="例1 POJ 3280 Cheapest Palindrome"></a>例1 <a target="_blank" rel="noopener" href="http://poj.org/problem?id=3280">POJ 3280 Cheapest Palindrome</a></h2><h3 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h3><p>给定一个由小写字母构成的字符串，可以在字符串中任意添加、删除原字符串中包含的字母，每个字母有自己的添加、删除代价。问：要使原字符串变成回文串，所花费的最小代价是多少？                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </p>
+<h3 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h3><p>定义状态 <code>dp[i][j]</code> 表示：把区间 <code>[i, j]</code> 变为回文串所需的最小代价。状态转移方程为：</p>
+<script type="math/tex; mode=display">
+dp[i][j]=
+\begin{cases}
+dp[i-1][j-1],&str[i]==str[j]\\\\
+\min(dp[i+1][j]+cost[i],\ dp[i][j-1]+cost[j]), &str[i]\ !=str[j]
+\end{cases}</script><p>需要说明的是，对于任何区间，从一端删掉一个字母和在另一端加上该字母是等价的，所以每个字母仅添加和删除中较小的花费即可。</p>
+<h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxm = <span class="number">2e3</span>+<span class="number">5</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, m;</span><br><span class="line"><span class="type">char</span> str[maxm];</span><br><span class="line"><span class="type">int</span> cost[maxn];</span><br><span class="line"><span class="type">char</span> c;</span><br><span class="line"><span class="type">int</span> a, b;</span><br><span class="line"><span class="type">int</span> dp[maxm][maxm];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	cin&gt;&gt;str+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">		cin&gt;&gt;c;</span><br><span class="line">		cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">		cost[c-<span class="string">'a'</span>] = <span class="built_in">min</span>(a, b);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> len=<span class="number">2</span>;len&lt;=m;len++){</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i+len<span class="number">-1</span>&lt;=m;i++){</span><br><span class="line">			<span class="type">int</span> j = i+len<span class="number">-1</span>;</span><br><span class="line">			<span class="keyword">if</span>(str[i]==str[j]){</span><br><span class="line">				dp[i][j] = dp[i+<span class="number">1</span>][j<span class="number">-1</span>];</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">else</span>{</span><br><span class="line">				dp[i][j] = <span class="built_in">min</span>(dp[i+<span class="number">1</span>][j]+cost[str[i]-<span class="string">'a'</span>], dp[i][j<span class="number">-1</span>]+cost[str[j]-<span class="string">'a'</span>]);</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	cout&lt;&lt;dp[<span class="number">1</span>][m];</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="例2-HDU-4283-You-Are-The-One"><a href="#例2-HDU-4283-You-Are-The-One" class="headerlink" title="例2 HDU 4283 You Are The One"></a>例2 HDU 4283 You Are The One</h2><h3 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h3><p>有 <code>n</code> 个人排队出场，可以对队头的队员进行两种操作：出场，耗时 <code>1</code> 秒；入栈，不耗时。每个队员都有一个值 <code>D[i]</code> ，队员的愤怒值为等待时间乘上 <code>D[i]</code>。问：怎样安排队员出场才能使总的愤怒值最低。</p>
+<h3 id="思路-4"><a href="#思路-4" class="headerlink" title="思路"></a>思路</h3><p>区间dp，定义状态 <code>dp[i][j]</code> 表示：仅考虑区间 <code>[i, j]</code> 内的队员，让他们全部出场的最小愤怒值。</p>
+<p>对每个区间 <code>[i, j]</code> ，我们<strong>枚举</strong> <code>i</code> 号队员是第几个出场的。如果 <code>i</code> 号队员在 <code>k</code> 号队员之后出场，则区间 <code>[i, j]</code>的出场顺序为：</p>
+<ul>
+<li><code>[i+1, k]</code> 先出场，对应 <code>dp[i+1][k]</code> 。</li>
+<li><code>i</code> 出场，对应 <code>D[i]*(k-i)</code> 。</li>
+<li><code>[k+1, j] 出场</code> ，此时前面已经耗时 <code>k-i+1</code> 秒，所以这部分对应 <code>dp[k+1][j]+(k-i+1)*(sum[j]-sum[k])</code> 。</li>
+</ul>
+<p>于是有状态转移方程：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j] = <span class="built_in">min</span>(dp[i][j], dp[i+<span class="number">1</span>][k]+(k-i)*D[i]+dp[k+<span class="number">1</span>][j]+(k-i+<span class="number">1</span>)*(sum[j]-sum[k]));</span><br></pre></td></tr></table></figure></p>
+<h2 id="例3-HDU-4623-Palindrome-Subsequences"><a href="#例3-HDU-4623-Palindrome-Subsequences" class="headerlink" title="例3 HDU 4623 Palindrome Subsequences"></a>例3 HDU 4623 Palindrome Subsequences</h2><h3 id="题目大意-3"><a href="#题目大意-3" class="headerlink" title="题目大意"></a>题目大意</h3><p>给定一个字符串 <code>s</code>，问其中包含了多少回文子串（子串中的字符下标可以不连续）。</p>
+<h3 id="思路-5"><a href="#思路-5" class="headerlink" title="思路"></a>思路</h3><p>定义 <code>dp[i, j]</code> 表示：区间 <code>[i, j]</code> 中包含的回文子串数。显然，<code>dp[i][i]</code> 为 <code>1</code> ，<code>dp[1][n]</code> 为最终答案。</p>
+<p>根据容斥原理，得到状态转移方程：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j] = dp[i+<span class="number">1</span>][j]+dp[i][j<span class="number">-1</span>]-dp[i+<span class="number">1</span>][j<span class="number">-1</span>];</span><br></pre></td></tr></table></figure>
+<p>特别地，如果有 <code>dp[i] == dp[j]</code> ，则有：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j] += dp[i+<span class="number">1</span>][j<span class="number">-1</span>]+<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="例4-HDU-2476-String-Painter"><a href="#例4-HDU-2476-String-Painter" class="headerlink" title="例4 HDU 2476 String Painter"></a>例4 HDU 2476 String Painter</h2><h3 id="题目大意-4"><a href="#题目大意-4" class="headerlink" title="题目大意"></a>题目大意</h3><p>给定两个字符串 <code>s1, s2</code> ，每次操作把任意区间的所有字符改成特定字符，问最少需要多少次操作才能把 <code>s1</code> 变成 <code>s2</code> 。</p>
+<h3 id="思路-6"><a href="#思路-6" class="headerlink" title="思路"></a>思路</h3><p>先考虑一个简化的问题：最少需要多少次操作才能把一个空白串变成 <code>s2</code> 。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+              <a href="/tags/%E8%83%8C%E5%8C%85/" rel="tag"># 背包</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/06/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="prev" title="算法自学__线段树">
+                  <i class="fa fa-chevron-left"></i> 算法自学__线段树
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kimmich</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cdn":"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

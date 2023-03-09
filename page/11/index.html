@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">107</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -289,6 +289,165 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">numpy自学笔记__数组</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-07-23 16:07:37" itemprop="dateCreated datePublished" datetime="2022-07-23T16:07:37+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-07-27 19:02:50" itemprop="dateModified" datetime="2022-07-27T19:02:50+08:00">2022-07-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ML/" itemprop="url" rel="index"><span itemprop="name">ML</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>参考资料:</p>
+<ul>
+<li>黑马程序员相关课程</li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiaxin359/p/9021726.html">https://www.cnblogs.com/jiaxin359/p/9021726.html</a></li>
+</ul>
+<h1 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h1><pre><code>import numpy as np
+
+# 方法一
+t1 = np.array([1, 2, 3, 4])
+print(t1)
+print(type(t1))
+# [1 2 3 4]
+# &lt;class 'numpy.ndarray'&gt;
+
+#方法二
+t2 = np.array(range(1, 4)]
+print(t2)
+# [1 2 3]
+
+#方法三
+t3 = np.arange(0, 4)
+print(t3)
+print(t3.dtype)            # dtype是数组中存储的数据类型
+# [1 2 3 4]
+# int32
+</code></pre><h1 id="修改数组的数据类型"><a href="#修改数组的数据类型" class="headerlink" title="修改数组的数据类型"></a>修改数组的数据类型</h1><pre><code># 指定数组中的数据类型
+t1 = np.arange(0, 4, 1, 'float32')
+print(t1)
+print(t1.dtype)
+# [0. 1. 2. 3.]
+# float32
+
+#修改数组中的数据类型
+t2 = t1.astype('bool')        # 不会改变t1中的数据类型
+print(t2)
+print(t2.dtype)
+# [False  True  True  True]
+# bool
+
+# 固定数组中小数的位数
+t3 = np.array([random.random() for i in range(5)])
+print(t3)
+t4 = np.round(t3, 2)            # 四舍五入
+print(t4)
+# [0.0271696  0.64183147 0.77604475 0.62665816 0.46107218]
+# [0.03 0.64 0.78 0.63 0.46]
+</code></pre><h1 id="数组的形状"><a href="#数组的形状" class="headerlink" title="数组的形状"></a>数组的形状</h1><pre><code>t1 = np.array([[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6]])
+print(t1.shape)                        # 查看数组的形状
+t2 = t1.reshape((3, 2, 2))            #修改数组的形状
+print(t2.shape)
+t3 = t2.flatten()                   # 将数组展开成一维
+print(t3)
+# (4, 3)
+# (3, 2, 2)
+# [1 2 3 2 3 4 3 4 5 4 5 6]
+</code></pre><h1 id="数组的计算"><a href="#数组的计算" class="headerlink" title="数组的计算"></a>数组的计算</h1><pre><code># 数组和数字进行计算
+t1 = np.arange(-2, 4)
+print(t1)
+print(t1+5)
+print(t1/0)
+# [-2 -1  0  1  2  3]
+# [3 4 5 6 7 8]
+# [-inf -inf  nan  inf  inf  inf]        # 0/0无意义, 负数/0得负无穷, 正数/0得正无穷
+
+# 数组和数组进行计算
+## 数组大小相同
+t1 = np.arange(0, 24).reshape(4, 6)
+t2 = np.arange(24,48).reshape(4, 6)
+print(t1*t2)        # 则对应位置的数据进行计算
+# [[   0   25   52   81  112  145]
+#  [ 180  217  256  297  340  385]
+#  [ 432  481  532  585  640  697]
+#  [ 756  817  880  945 1012 1081]]
+</code></pre><p>广播原则: 如果两个数组的后缘维度（trailing dimension，即从末尾开始算起的维度）的轴长度相符，或其中的一方的长度为1，则认为它们是广播兼容的。广播会在缺失和（或）长度为1的维度上进行。</p>
+<h1 id="轴"><a href="#轴" class="headerlink" title="轴"></a>轴</h1><p>轴在numpy中用0, 1, 2, 3……表示. 对于一维数组, 只有一个0轴, 对于三维数组, 有0, 1, 2三个轴</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
