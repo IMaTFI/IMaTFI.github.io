@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">107</span>
+          <span class="site-state-item-count">108</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,7 +268,7 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-count">61</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -289,6 +289,177 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/23/numpy%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">numpy自学笔记__数组操作</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-07-23 16:08:43" itemprop="dateCreated datePublished" datetime="2022-07-23T16:08:43+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-07-27 19:02:44" itemprop="dateModified" datetime="2022-07-27T19:02:44+08:00">2022-07-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ML/" itemprop="url" rel="index"><span itemprop="name">ML</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>参考资料:</p>
+<ul>
+<li>黑马程序员相关课程</li>
+</ul>
+<h1 id="索引和切片"><a href="#索引和切片" class="headerlink" title="索引和切片"></a>索引和切片</h1><pre><code>t1 = np.array([[i for i in range(j, j+4)] for j in range(5)])
+print(t1[:, :])
+# [[0 1 2 3]
+#  [1 2 3 4]
+#  [2 3 4 5]
+#  [3 4 5 6]
+#  [4 5 6 7]]
+print(t1[[1, 2, 4]])
+# [[1 2 3 4]
+#  [2 3 4 5]
+#  [4 5 6 7]]
+print(t1[::2, ::2])
+# [[0 2]
+#  [2 4]
+#  [4 6]]
+# 中括号里的参数个数为数组的维数,每个参数为一个索引
+</code></pre><h1 id="数值的修改"><a href="#数值的修改" class="headerlink" title="数值的修改"></a>数值的修改</h1><pre><code># 利用数组中的bool索引
+t1 = np.array([[i for i in range(j, j+4)] for j in range(5)])
+print(t1 &gt;= 3)
+# [[False False False  True]
+#  [False False  True  True]
+#  [False  True  True  True]
+#  [ True  True  True  True]
+#  [ True  True  True  True]]
+t1[t1 &gt;= 3] = 3
+print(t1)
+# [[0 1 2 3]
+#  [1 2 3 3]
+#  [2 3 3 3]
+#  [3 3 3 3]
+#  [3 3 3 3]]
+
+# where方法
+t2 = np.array([[i for i in range(j, j+4)] for j in range(5)])
+t2 = np.where(t2 &lt; 3, 0, 3)     #相当于三目运算符, 小于3的赋值为0, 否则赋值为3
+print(t2)
+
+# clip方法
+t3 = np.array([[i for i in range(j, j+4)] for j in range(5)])
+t3 = t3.clip(2, 4)      # 小于2的赋值为2, 大于4的赋值为4
+print(t3)
+</code></pre><h1 id="数组的拼接"><a href="#数组的拼接" class="headerlink" title="数组的拼接"></a>数组的拼接</h1><pre><code>t1 = np.array([[i for i in range(j, j+4)] for j in range(5)])
+t2 = np.array([[i for i in range(j, j+4)] for j in range(5, 10)])
+print(t1)
+# [[0 1 2 3]
+#  [1 2 3 4]
+#  [2 3 4 5]
+#  [3 4 5 6]
+#  [4 5 6 7]]
+print(t2)
+# [[ 5  6  7  8]
+#  [ 6  7  8  9]
+#  [ 7  8  9 10]
+#  [ 8  9 10 11]
+#  [ 9 10 11 12]]
+
+# 竖直拼接
+t3 = np.vstack((t1, t2))
+print(t3)
+# [[ 0  1  2  3]
+#  [ 1  2  3  4]
+#  [ 2  3  4  5]
+#  [ 3  4  5  6]
+#  [ 4  5  6  7]
+#  [ 5  6  7  8]
+#  [ 6  7  8  9]
+#  [ 7  8  9 10]
+#  [ 8  9 10 11]
+#  [ 9 10 11 12]]
+
+# 水平拼接
+t4 = np.hstack((t1, t2))
+print(t4)
+# [[ 0  1  2  3  5  6  7  8]
+#  [ 1  2  3  4  6  7  8  9]
+#  [ 2  3  4  5  7  8  9 10]
+#  [ 3  4  5  6  8  9 10 11]
+#  [ 4  5  6  7  9 10 11 12]]
+</code></pre><h1 id="行列交换"><a href="#行列交换" class="headerlink" title="行列交换"></a>行列交换</h1><pre><code>t1 = np.array([[i for i in range(j, j+4)] for j in range(5)])
+# 行交换
+t1[[2, 3], :] = t1[[3, 2], :]
+# 列交换
+t1[:, [2, 3]] = t1[:, [3, 2]]
+</code></pre>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
