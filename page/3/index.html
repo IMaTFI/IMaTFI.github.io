@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">108</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,7 +268,7 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -289,6 +289,218 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E4%B8%BB%E5%AD%98%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/02/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E4%B8%BB%E5%AD%98%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">操作系统——主存管理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-02-01 16:00:19" itemprop="dateCreated datePublished" datetime="2023-02-01T16:00:19+08:00">2023-02-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-02-15 15:52:09" itemprop="dateModified" datetime="2023-02-15T15:52:09+08:00">2023-02-15</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="1-内存管理的概念"><a href="#1-内存管理的概念" class="headerlink" title="1 内存管理的概念"></a>1 内存管理的概念</h1><p>操作系统负责：</p>
+<ul>
+<li>内存空间的分配与回收。</li>
+<li>内存空间的扩充（实现虚拟性）。</li>
+<li>地址转换：逻辑地址 → 物理地址</li>
+<li>存储保护：保证各进程在自己的内存空间内运行，不会越界访问。</li>
+</ul>
+<blockquote>
+<p>p220 7-2 什么是逻辑地址？什么是物理地址？为什么要进行二者的转换？<br>答：物理地址：计算机主存单元的真实地址。逻辑地址：用户的程序地址。支持多个用户程序共享内存、方便用户使用。</p>
+</blockquote>
+<p>地址映射的三种方式：</p>
+<ol>
+<li>绝对装入：编译时产生绝对地址。</li>
+<li>静态地址映射：程序装入时进行地址变换。</li>
+<li>动态地址映射：运行时进行地址转换，进程的起始物理地址保存在PCB中，需设置重定位寄存器。</li>
+</ol>
+<blockquote>
+<p>p221 7-3 什么是静态地址重定位？它需要什么支持？<br>答：静态地址映射：在程序装入过程中进行地址变换。需要重定位装入程序（软件）支持。</p>
+<p>p221 7-4 什么是动态地址重定位？它需要什么支持？<br>答：动态地址映射：在程序运行时进行地址变换。需要重定位寄存器（硬件）支持。</p>
+</blockquote>
+<p>存储保护有两种实现方式：</p>
+<ol>
+<li>设置<strong>上、下限</strong>寄存器，存放进程的上、下限<strong>物理</strong>地址，进程的指令要访问某个地址时，<strong>CPU</strong>检查是否越界。</li>
+<li>采用<strong>重定位寄存器（基址寄存器）</strong>和<strong>界地址寄存器（限长寄存器）</strong>进行越界检查。重定位寄存器存储进程的<strong>起始物理地址</strong>，界地址寄存器存储进程的<strong>最大逻辑地址</strong>。</li>
+</ol>
+<h1 id="2-覆盖与交换"><a href="#2-覆盖与交换" class="headerlink" title="2 覆盖与交换"></a>2 覆盖与交换</h1><h2 id="2-1-覆盖"><a href="#2-1-覆盖" class="headerlink" title="2.1 覆盖"></a>2.1 覆盖</h2><p>覆盖技术用来解决<strong>程序大小超过物理内存总和</strong>的问题。</p>
+<p>覆盖技术的思想 ：将程序分为多个<strong>段</strong>，常用的段<strong>常驻内存</strong>，不常用的段<strong>在需要时调入内存</strong>。</p>
+<p>内存分为<strong>一个固定区</strong>和<strong>若干覆盖区</strong>。<br>需要常驻的段放在固定区，调入后不再调出（除非运行结束）；不常用的段放在覆盖区，需要时调入内存，不用时调出内存。</p>
+<p> <img src="https://img-blog.csdnimg.cn/10f64f2c7c3b40dfb9d3fce8b6b8dd2e.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>同一层的程序段不能同时访问，所以可以共享一片覆盖区。</p>
+</blockquote>
+<p>缺点：必须由程序员声明<strong>覆盖结构</strong>（如上图），增加了用户的编程负担。</p>
+<h2 id="2-2-交换"><a href="#2-2-交换" class="headerlink" title="2.2 交换"></a>2.2 交换</h2><p>交换技术的设计思想：内存紧张时，系统将内存中某些进程<strong>换出到外存</strong>，把外存中某些已具备运行条件的进程<strong>换入到内存</strong>。</p>
+<p>在具有交换功能的操作系统中，磁盘通常被分为<strong>文件区</strong>和<strong>对换区</strong>。文件区采用离散分配方式，对换区采用连续分配方式。对换区的I/O速度比文件区更<strong>快</strong>。</p>
+<p>交换通常在内存不足时进行，内存宽裕时便暂停。 </p>
+<h1 id="3-连续分配管理方式"><a href="#3-连续分配管理方式" class="headerlink" title="3 连续分配管理方式"></a>3 连续分配管理方式</h1><p>连续分配：为用户进程分配的必须是一个连续的内存空间。</p>
+<h2 id="3-1-单一连续分配"><a href="#3-1-单一连续分配" class="headerlink" title="3.1 单一连续分配"></a>3.1 单一连续分配</h2><p>内存被分为<strong>系统区</strong>和<strong>用户区</strong>，系统去通常位于内存的低地址部分。内存中只能有<strong>一道用户程序</strong>，用户程序<strong>独占</strong>用户区。</p>
+<p>优点：实现简单，无<strong>外部碎片</strong></p>
+<p>缺点：只能用于单用户、单任务的操作系统中，有<strong>内部碎片</strong>，存储器利用效率低。</p>
+<blockquote>
+<p>内部碎片：分配给某进程的内存区域中，如果有些区域没有用上，就是内部碎片。</p>
+</blockquote>
+<h2 id="3-2-固定分区分配"><a href="#3-2-固定分区分配" class="headerlink" title="3.2 固定分区分配"></a>3.2 固定分区分配</h2><p>将用户空间划分为若干个<strong>固定大小</strong>的分区（分区的大小可以完全相同，也可以不同，但一定是固定的），在每个分区只能装入一个作业。</p>
+<p>操作系统需要建立一个数据结构——<strong>分区说明表</strong>，每个表项对一个分区，通常按照分区大小排列。<br><img src="https://img-blog.csdnimg.cn/0ca17bf3caca438eafd79a5c6dac3de8.png" alt="在这里插入图片描述"><br>优点：实现简单，无<strong>外部碎片</strong>。</p>
+<p>缺点：当用户程序过大时，不得不使用覆盖技术来解决；会产生内部碎片。</p>
+<h2 id="3-3-动态分区分配"><a href="#3-3-动态分区分配" class="headerlink" title="3.3 动态分区分配"></a>3.3 动态分区分配</h2><h3 id="3-3-1-分区分配的数据结构："><a href="#3-3-1-分区分配的数据结构：" class="headerlink" title="3.3.1 分区分配的数据结构："></a>3.3.1 分区分配的数据结构：</h3><p><img src="https://img-blog.csdnimg.cn/5de56627d13b446091aeef1617f157cb.png" alt="在这里插入图片描述"></p>
+<h3 id="3-3-2-分区分配算法"><a href="#3-3-2-分区分配算法" class="headerlink" title="3.3.2 分区分配算法"></a>3.3.2 分区分配算法</h3><p>如果有很多空闲分区都能满足要求，应该选择哪个分区进行分配？</p>
+<h4 id="3-3-2-1-首次适应算法"><a href="#3-3-2-1-首次适应算法" class="headerlink" title="3.3.2.1 首次适应算法"></a>3.3.2.1 首次适应算法</h4><p>算法思想：从<strong>低地址</strong>开始查找，找到第一个满足大小的空闲分区。</p>
+<p>实现：将空闲区以地址递增的次序排列。</p>
+<h4 id="3-3-2-2-最佳适应算法"><a href="#3-3-2-2-最佳适应算法" class="headerlink" title="3.3.2.2 最佳适应算法"></a>3.3.2.2 最佳适应算法</h4><p>算法思想：优先使用更小的空闲区。</p>
+<p>实现：将空闲区按照容量<strong>递增</strong>的次序排序。</p>
+<p>缺点：会产生<strong>很多</strong>外部碎片。</p>
+<h4 id="3-3-2-3-最坏适应算法"><a href="#3-3-2-3-最坏适应算法" class="headerlink" title="3.3.2.3 最坏适应算法"></a>3.3.2.3 最坏适应算法</h4><p>算法思想：优先使用最大的空闲区</p>
+<p>实现：将空闲区按照容量<strong>递减</strong>的次序排序。</p>
+<p>缺点：较大的空闲区会被迅速用完，导致后来的大进程无分区可用。</p>
+<h4 id="3-3-2-4-临近适应算法"><a href="#3-3-2-4-临近适应算法" class="headerlink" title="3.3.2.4 临近适应算法"></a>3.3.2.4 临近适应算法</h4><p><img src="https://img-blog.csdnimg.cn/29fba35aebac4811b8585278e5ce101c.png" alt="在这里插入图片描述"></p>
+<h3 id="3-3-3-分区分配思路："><a href="#3-3-3-分区分配思路：" class="headerlink" title="3.3.3 分区分配思路："></a>3.3.3 分区分配思路：</h3><p><img src="https://img-blog.csdnimg.cn/682fff40a2284ba78573f57f9c15d24d.png" alt="在这里插入图片描述"></p>
+<h3 id="3-3-4-分区回收思路："><a href="#3-3-4-分区回收思路：" class="headerlink" title="3.3.4 分区回收思路："></a>3.3.4 分区回收思路：</h3><p><img src="https://img-blog.csdnimg.cn/f4ea368d1a7c40b6beaef07b87322ba2.png" alt="在这里插入图片描述"><br>动态分区分配没有内部碎片，但会有外部碎片。</p>
+<blockquote>
+<p>外部碎片：内存中的某些空闲分区由于<strong>太小</strong>而难以利用。</p>
+</blockquote>
+<p>可以通过<strong>拼接技术</strong>将本来分散的空闲区连城一个大的空闲区。</p>
+<blockquote>
+<p>p221 7-13 分区分配方法的主要缺点是什么？如何克服这一缺点？<br>答：缺点：程序必须整体装入、需要为程序分配连续的内存空间、存在碎片问题。如何克服：采用分页存储。</p>
+</blockquote>
+<h1 id="4-离散分配管理方法"><a href="#4-离散分配管理方法" class="headerlink" title="4 离散分配管理方法"></a>4 离散分配管理方法</h1><h2 id="4-1-基本分页存储"><a href="#4-1-基本分页存储" class="headerlink" title="4.1 基本分页存储"></a>4.1 基本分页存储</h2><p>将内存空间分为一个个大小相等的<strong>页框</strong>（如4KB），每个页框有一个<strong>页框号</strong>，从0开始。将用户进程的地址空间也分为与页框大小相等的一个个<strong>页面</strong>，每个页面有一个<strong>页号</strong>，从0开始。</p>
+<p>如何实现地址转换？</p>
+<ol>
+<li>计算<strong>逻辑地址</strong>对应的<strong>页号</strong>。<br> 页号 = 逻辑地址 / 页面长度（取结果的整数部分）</li>
+<li>获取该页面在内存中的<strong>起始物理地址</strong>。</li>
+<li>算出逻辑地址在页面内的偏移量。<br> 页内偏移量 = 逻辑地址 % 页面长度</li>
+<li>物理地址 = 页面始址 + 页内偏移量。</li>
+</ol>
+<p>在计算机中，一般将页面大小设置为 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="2.152ex" height="1.932ex" role="img" focusable="false" viewBox="0 -853.7 951.4 853.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(533,363) scale(0.707)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g></g></g></g></svg></mjx-container> 字节，所以如果给定一个二进制<strong>逻辑地址</strong>，后 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.179ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 521 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g></g></g></svg></mjx-container> 位即为页内偏移量，前面的位为页号。 </p>
+<h3 id="4-1-1-页表"><a href="#4-1-1-页表" class="headerlink" title="4.1.1 页表"></a>4.1.1 页表</h3><ul>
+<li>一个进程对应一张页表。</li>
+<li>每个页表项由<strong>页号</strong>和<strong>块号</strong>组成</li>
+<li>每个页表项的长度是相同的，页号是<strong>隐含</strong>的（相当于数组下标）。</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/661d70cd478b4291ab6cc8eb9ccbaa10.png" alt="在这里插入图片描述"></p>
+<p>容易混淆的几个名词：页表长度、页表项长度（实际上就是<strong>页框号</strong>需要用多少字节存储，但由于页表也要存储在内存中，所以页表项长度最好能<strong>整除</strong>页表长度）、页面大小。</p>
+<p>由于页表也存储在内存中，所以每次取数据实际要<strong>访存两次</strong>。为此，引入快表（联想寄存器TLB）缓存经常访问的若干<strong>页表项</strong><br><img src="https://img-blog.csdnimg.cn/7db8db4f52d94ceb949174613fa61cda.png" alt="在这里插入图片描述"></p>
+<h3 id="4-1-2-多级页表"><a href="#4-1-2-多级页表" class="headerlink" title="4.1.2 多级页表"></a>4.1.2 多级页表</h3><p>单级页表的问题：</p>
+<ul>
+<li>页表必须连续存放，当页表很大时，需要占用很多个连续的页框。</li>
+<li>没有必要让整个页表常驻内存。</li>
+</ul>
+<p>思想：将页表拆分成多个分组，使每个页框恰好可以放入一个分组，然后再为离散的页表再建立一张页表，称为<strong>页目录表</strong>。<br><img src="https://img-blog.csdnimg.cn/bc823cc08f274b71a7033f3f8ea18395.png" alt="在这里插入图片描述"></p>
+<p>需要注意的细节：</p>
+<ul>
+<li><p>各级页表的大小均不能超过一个<strong>页框</strong>，所以有些情况下可能要建立多级页表<img src="https://img-blog.csdnimg.cn/61ed3b93490e4083a743040954514e10.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.357ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 600 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container> 级页表的访存次数为 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="5.254ex" height="1.692ex" role="img" focusable="false" viewBox="0 -666 2322.4 748"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(822.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mn" transform="translate(1822.4,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></svg></mjx-container> 。</p>
+</li>
+</ul>
+<h2 id="4-2-基本分段存储"><a href="#4-2-基本分段存储" class="headerlink" title="4.2 基本分段存储"></a>4.2 基本分段存储</h2><blockquote>
+<p>p222 7-22 页式系统和段式系统在地址结构上有什么区别？<br>答：页式系统的地址结构是一维的，段式系统的地址结构是二维的。</p>
+<p>p222 7-23 页式系统的分页和段式存储的分段有什么区别？<br>答：分页是信息的<strong>物理</strong>划分，页的大小是<strong>固定</strong>的，用户<strong>不可见</strong>，页内偏移的溢出会自动加入到页号中。分段是信息的<strong>逻辑</strong>划分，段长是<strong>可变</strong>的，用户<strong>可见</strong>，段内偏移溢出将产生<strong>越界中断</strong>。</p>
+</blockquote>
+<p>按照程序<strong>自身的逻辑</strong>划分为若干个段，每个段有一个段名，每段均从0开始编址。每个段在内存中占据连续空间，但各段之间可以不相邻。<br><img src="https://img-blog.csdnimg.cn/f99c9a1cf85047a8b4cf0390e4bf596e.png" alt="在这里插入图片描述"></p>
+<h2 id="4-3-段页式存储"><a href="#4-3-段页式存储" class="headerlink" title="4.3 段页式存储"></a>4.3 段页式存储</h2><p><img src="https://img-blog.csdnimg.cn/2b0073f6bf294944ae8964c4ec950cad.png" alt="在这里插入图片描述"></p>
+<p>先将程序按照逻辑分段，再在每个段的内部分页。<br><img src="https://img-blog.csdnimg.cn/f718ca801dfc4cc38a5e5ddece0e8bf3.png" alt="在这里插入图片描述"><br>段页式管理的地址结构是<strong>二维</strong>的。</p>
+<blockquote>
+<p>p22 7-26 简述段页式系统的地址变换过程。<br>答：先访问<strong>段表</strong>，得到相应<strong>页表的起始地址</strong>；然后访问<strong>页表</strong>，得到<strong>主存块号</strong>；最后将<strong>主存块号</strong>与<strong>页内偏移</strong>相结合，得到<strong>物理地址</strong>。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/7da48d91f5ef43ce872be05f40ec491e.png" alt="在这里插入图片描述"></p>
+<h1 id="5-虚拟内存"><a href="#5-虚拟内存" class="headerlink" title="5 虚拟内存"></a>5 虚拟内存</h1><h2 id="5-1-虚拟内存的基本概念"><a href="#5-1-虚拟内存的基本概念" class="headerlink" title="5.1 虚拟内存的基本概念"></a>5.1 虚拟内存的基本概念</h2><p>传统存储方式的缺点：</p>
+<ul>
+<li>一次性：作业必须一次性全部装入内存后才能开始运行。</li>
+<li>驻留性：一旦作业被装入内存中，就会一直驻留在内存中。</li>
+</ul>
+<p>基于<strong>局部性原理</strong>，在程序装入时，可以将程序很快用到的部分载入内存，将暂时用不到的部分留在外存，在需要时由操作系统调入内存。</p>
+<p>虚拟内存的<strong>最大容量</strong>由CPU寻址范围确定，<strong>实际容量</strong> = min（内外存容量之和，CPU寻址范围）。</p>
+<p>虚拟内存的三个特征：</p>
+<ul>
+<li>多次性：允许作业分成多次调入内存。</li>
+<li>对换性：允许在作业运行的过程中，将作业换入、换出。</li>
+<li>虚拟性：从逻辑上扩充了内存的容量。</li>
+</ul>
+<blockquote>
+<p>p221 7-15 什么是虚拟存储器？在页式系统中如何实现虚拟存储？<br>答：由<strong>操作系统</strong>和<strong>硬件</strong>相配合来完成<strong>主存</strong>和<strong>辅存</strong>之间的信息的<strong>动态调度</strong>，这样的计算机系统好像为用户提供了一个存储容量比实际主存大得多的存储器，这个存储器称为虚拟存储器。虚拟存储器的核心：<strong>逻辑地址</strong>与<strong>物理地址</strong>分开、<strong>存储空间</strong>和<strong>虚地址空间</strong>分开、提供<strong>地址变换机构</strong>。</p>
+</blockquote>
+<h2 id="5-2-请求分页管理"><a href="#5-2-请求分页管理" class="headerlink" title="5.2 请求分页管理"></a>5.2 请求分页管理</h2><p><img src="https://img-blog.csdnimg.cn/e3d4d355eaed4de585f5dddfc98fc3b0.png" alt="在这里插入图片描述"><br>当要访问的页面不在内存时，会产生<strong>缺页中断</strong>，缺页的进程会被放入阻塞队列，调页完成后再将其唤醒，放回就绪队列。</p>
+<blockquote>
+<p>缺页中断属于内中断，一个指令可能引起多次缺页中断。</p>
+</blockquote>
+<p>如果内存中有空闲块，则将缺失的页面载入块中；如果没有相应的空闲块，则通过页面置换算法将一个页面淘汰，如果淘汰页面在内存期间被修改过，还要将其写回外存。（注意要及时修改页表）</p>
+<p>页面调入内存后，需要同时修改快表和慢表。<br><img src="https://img-blog.csdnimg.cn/e03106e15d234d24b22e64d3fa07a8b3.png" alt="在这里插入图片描述"></p>
+<h2 id="5-3-页面置换算法"><a href="#5-3-页面置换算法" class="headerlink" title="5.3 页面置换算法"></a>5.3 页面置换算法</h2><blockquote>
+<p>p221 7-17 什么是系统的抖动？它有什么危害？<br>答：主存与辅存之间频繁的页面置换现象称为颠簸。这将导致系统效率急剧下降。</p>
+<p>p221 7-18 什么是置换算法？在页式系统中常用的置换算法是什么？<br>答：当要索取一页面并送入主存时，必须将该程序中的某一页面淘汰掉。用来选择淘汰哪一页的规则就叫做置换算法。常用的置换算法有：先进先出置换算法、最近最久未使用置换算法、时钟置换算法。</p>
+</blockquote>
+<h3 id="5-3-1-最佳置换算法"><a href="#5-3-1-最佳置换算法" class="headerlink" title="5.3.1 最佳置换算法"></a>5.3.1 最佳置换算法</h3><p>算法思想：淘汰<strong>最长时间内不被访问</strong>的页面。<br><img src="https://img-blog.csdnimg.cn/efa0fba2292445a09b616aa8343828d8.png" alt="在这里插入图片描述"><br>最佳置换算法是无法实现的。</p>
+<h3 id="5-3-2-先进先出置换算法"><a href="#5-3-2-先进先出置换算法" class="headerlink" title="5.3.2 先进先出置换算法"></a>5.3.2 先进先出置换算法</h3><p>算法思想：淘汰<strong>最早进入</strong>内存的页面。<br><img src="https://img-blog.csdnimg.cn/32210840fb644a57a68aac07bcda2cf5.png" alt="在这里插入图片描述"></p>
+<h3 id="5-3-3-最近最久未使用置换算法"><a href="#5-3-3-最近最久未使用置换算法" class="headerlink" title="5.3.3 最近最久未使用置换算法"></a>5.3.3 最近最久未使用置换算法</h3><p>算法思想：淘汰<strong>最久未使用</strong>的页面。<br><img src="https://img-blog.csdnimg.cn/b00ab499dbd24a08816d3357fa15f940.png" alt="在这里插入图片描述"><br>该算法需要专门的硬件支持，实现困难，开销较大。</p>
+<h3 id="5-3-3-时钟置换算法"><a href="#5-3-3-时钟置换算法" class="headerlink" title="5.3.3 时钟置换算法"></a>5.3.3 时钟置换算法</h3><p><img src="https://img-blog.csdnimg.cn/5e5c8d65fe4f4272a2847c403fb898ce.png" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1567,137 +1779,6 @@ f[i-1][j-1][k] + g[i-1][j-1][k-1], &a[i]==b[i]\\
 <h1 id="4-12-BGP-4协议"><a href="#4-12-BGP-4协议" class="headerlink" title="4.12 BGP-4协议"></a>4.12 BGP-4协议</h1><p><img src="https://img-blog.csdnimg.cn/844244874fb946acb90649124cdfef04.png" alt="在这里插入图片描述"></p>
 <p><img src="https://img-blog.csdnimg.cn/9c6cbfad9b8f4d2f95e8526b77ec87b7.png" alt="在这里插入图片描述"></p>
 <p>BGP是应用层协议，借助TCP传送。<br><img src="https://img-blog.csdnimg.cn/a00aca4641064f44b8411a36be3e9823.png" alt="在这里插入图片描述"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%E6%A6%82%E8%BF%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%E6%A6%82%E8%BF%B0/" class="post-title-link" itemprop="url">计算机网络——计算机网络和因特网概述</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-11-29 23:09:48 / Modified: 23:12:00" itemprop="dateCreated datePublished" datetime="2022-11-29T23:09:48+08:00">2022-11-29</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="1-1-什么是因特网"><a href="#1-1-什么是因特网" class="headerlink" title="1.1 什么是因特网"></a>1.1 什么是因特网</h1><p>因特网的硬件构成：</p>
-<ul>
-<li>端系统：PC、服务器、手机</li>
-<li>路由器、交换机</li>
-<li>链路：光纤、同轴电缆</li>
-</ul>
-<p>因特网的软件构成：应用层、传输层、网络层、链路层、物理层。</p>
-<p>协议：语法、语义、同步关系。</p>
-<p>因特网结构：接入网、区域主干网、主干网。</p>
-<h1 id="1-2-网络边缘"><a href="#1-2-网络边缘" class="headerlink" title="1.2 网络边缘"></a>1.2 网络边缘</h1><p>网络边缘的组成：客户机、服务器。</p>
-<p>端系统的通信方式：</p>
-<ul>
-<li>客户/服务器模型（C/S）</li>
-<li>对等模型（P2P）</li>
-<li>混合模型</li>
-</ul>
-<h1 id="1-3-网络接入"><a href="#1-3-网络接入" class="headerlink" title="1.3 网络接入"></a>1.3 网络接入</h1><p>接入网：将网络边缘的端系统与网络连接起来的链路。</p>
-<p>边缘路由器：端系统到任何其他远程端系统的路径上的第一台路由器。</p>
-<h1 id="1-4-网络核心（一）"><a href="#1-4-网络核心（一）" class="headerlink" title="1.4 网络核心（一）"></a>1.4 网络核心（一）</h1><h2 id="1-4-1-电路交换"><a href="#1-4-1-电路交换" class="headerlink" title="1.4.1 电路交换"></a>1.4.1 电路交换</h2><p>数据交换过程：</p>
-<ol>
-<li>建立连接</li>
-<li>交换数据</li>
-<li>释放连接</li>
-</ol>
-<h2 id="1-4-2-分组交换网络"><a href="#1-4-2-分组交换网络" class="headerlink" title="1.4.2 分组交换网络"></a>1.4.2 分组交换网络</h2><p>分组交换网络的工作流程：</p>
-<ol>
-<li>长数据划分成小数据段。</li>
-<li>为每个数据段前面添加首部，构成分组。</li>
-<li>发送数据</li>
-<li>接收数据</li>
-</ol>
-<p>分组交换网络的特征：<br><img src="https://img-blog.csdnimg.cn/2ad5159c28294ffabe95ce00fc4a3016.png" alt="在这里插入图片描述"></p>
-<h2 id="1-4-3-电路交换vs分组交换"><a href="#1-4-3-电路交换vs分组交换" class="headerlink" title="1.4.3 电路交换vs分组交换"></a>1.4.3 电路交换vs分组交换</h2><p>在相同条件下，分组交换能支持更多的用户。<br><img src="https://img-blog.csdnimg.cn/4307920b65c14713bdd92469a6128883.png" alt="在这里插入图片描述"></p>
-<p>用户数较少时，分组交换的性能更好。</p>
-<p>数据量较大时，电路交换的时延更低。</p>
-<blockquote>
-<p>分组交换中，一条传输路径上可能有多个路由器，在每个路由器上都要进行存储转发，造成时延。</p>
-</blockquote>
-<p>分组交换有排队时延，且必须携带一定的控制信息，从而带来额外的开销。分组交换网的管理和控制也比较复杂。</p>
-<h1 id="1-5-网络核心（二）"><a href="#1-5-网络核心（二）" class="headerlink" title="1.5 网络核心（二）"></a>1.5 网络核心（二）</h1><p>ISP（网络服务提供商）之间如何连接？<br><img src="https://img-blog.csdnimg.cn/3c6e5a53a3fc4ca8bca52b57b80e44e2.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/18dbf2f9cd524061ad4a2d0cfe09bd41.png" alt="在这里插入图片描述"></p>
-<h1 id="1-6-时延、丢包和吞吐量"><a href="#1-6-时延、丢包和吞吐量" class="headerlink" title="1.6 时延、丢包和吞吐量"></a>1.6 时延、丢包和吞吐量</h1><p>数据丢失产生的原因：接收队列已满。</p>
-<p>四种分组时延：</p>
-<ul>
-<li>处理时延：接收数据，将其缓存在接收队列里，最后放到相应的输出队列里。</li>
-<li>排队时延：在输出队列里排队。</li>
-<li>传输时延：把数据推送到链路上。</li>
-<li>传播时延：数据在链路上进行传播。</li>
-</ul>
-<p>排队时延分析：<br><img src="https://img-blog.csdnimg.cn/e82d2eaac0704376ac95a3b43361776c.png" alt="在这里插入图片描述"></p>
-<p>吞吐量：<strong>发送方与接收方之间</strong>传输比特的速率。</p>
-<blockquote>
-<p>取决于最短的链路。</p>
-</blockquote>
-<h1 id="1-7-层次化的网络体系结构"><a href="#1-7-层次化的网络体系结构" class="headerlink" title="1.7 层次化的网络体系结构"></a>1.7 层次化的网络体系结构</h1><p><img src="https://img-blog.csdnimg.cn/7d7839406db74d85aa3ba93b995cfef6.png" alt="在这里插入图片描述"></p>
-<h1 id="1-8-网络体系结构模型"><a href="#1-8-网络体系结构模型" class="headerlink" title="1.8 网络体系结构模型"></a>1.8 网络体系结构模型</h1><h1 id="1-9-因特网中复用和分解"><a href="#1-9-因特网中复用和分解" class="headerlink" title="1.9 因特网中复用和分解"></a>1.9 因特网中复用和分解</h1><p>通过复用技术，可以提高带宽和网络的利用率。</p>
-<ul>
-<li>针对应用进程：套接字。</li>
-<li>针对电路层：频分、时分、码分。</li>
-</ul>
-<p>码分多址技术：<br><img src="https://img-blog.csdnimg.cn/2173975ae19248bb929487dbc67d26d2.png" alt="在这里插入图片描述"></p>
-<h1 id="1-10-数据差错的检测方法"><a href="#1-10-数据差错的检测方法" class="headerlink" title="1.10 数据差错的检测方法"></a>1.10 数据差错的检测方法</h1><p>奇偶校验、检验和、CRC。</p>
 
       
     </div>

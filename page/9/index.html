@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">108</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,7 +268,7 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -289,6 +289,87 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0-%E4%BF%9D%E5%AD%98%E4%B8%8E%E5%8A%A0%E8%BD%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0-%E4%BF%9D%E5%AD%98%E4%B8%8E%E5%8A%A0%E8%BD%BD/" class="post-title-link" itemprop="url">机器学习__模型评估, 保存与加载</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-07-23 16:48:55 / Modified: 16:49:34" itemprop="dateCreated datePublished" datetime="2022-07-23T16:48:55+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ML/" itemprop="url" rel="index"><span itemprop="name">ML</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="模型评估"><a href="#模型评估" class="headerlink" title="模型评估"></a>模型评估</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.metrics <span class="keyword">as</span> sm</span><br><span class="line"><span class="comment"># 平均绝对值误差</span></span><br><span class="line"><span class="built_in">print</span>(sm.mean_absolute_error(train_y, pre_y))</span><br><span class="line"><span class="comment"># 平均平方误差</span></span><br><span class="line"><span class="built_in">print</span>(sm.mean_squared_error(train_y, pre_y))</span><br><span class="line"><span class="comment"># 中位绝对值误差</span></span><br><span class="line"><span class="built_in">print</span>(sm.median_absolute_error(train_y, pre_y))</span><br><span class="line"><span class="comment"># R2得分([0,1],越高越好)</span></span><br><span class="line"><span class="built_in">print</span>(sm.r2_score(train_y, pre_y))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 0.3069767441860466</span></span><br><span class="line"><span class="comment"># 0.10930232558139548</span></span><br><span class="line"><span class="comment"># 0.3023255813953485</span></span><br><span class="line"><span class="comment"># 0.9812838483593501</span></span><br></pre></td></tr></table></figure>
+<h3 id="保存模型"><a href="#保存模型" class="headerlink" title="保存模型"></a>保存模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">'linear_model'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    pickle.dump(model, f)</span><br></pre></td></tr></table></figure>
+<h3 id="加载模型"><a href="#加载模型" class="headerlink" title="加载模型"></a>加载模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">'linear_model'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    model = pickle.load(f)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1204,96 +1285,6 @@ mjx-container[display="true"] + br {
 <h2 id="判断数据是否为NaN"><a href="#判断数据是否为NaN" class="headerlink" title="判断数据是否为NaN"></a>判断数据是否为<code>NaN</code></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t.isnull())</span><br><span class="line"><span class="comment">#        W      X      Y      Z</span></span><br><span class="line"><span class="comment"># a  False  False  False  False</span></span><br><span class="line"><span class="comment"># b   True   True  False  False</span></span><br><span class="line"><span class="comment"># c   True   True   True   True</span></span><br><span class="line"><span class="built_in">print</span>(t.notnull())</span><br><span class="line"><span class="comment">#        W      X      Y      Z</span></span><br><span class="line"><span class="comment"># a   True   True   True   True</span></span><br><span class="line"><span class="comment"># b  False  False   True   True</span></span><br><span class="line"><span class="comment"># c  False  False  False  False</span></span><br></pre></td></tr></table></figure>
 <h2 id="删除NaN所在的行列"><a href="#删除NaN所在的行列" class="headerlink" title="删除NaN所在的行列"></a>删除<code>NaN</code>所在的行列</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t.dropna(how=<span class="string">"any"</span>))</span><br><span class="line"><span class="comment">#      W    X    Y    Z</span></span><br><span class="line"><span class="comment"># a  0.0  1.0  2.0  3.0</span></span><br><span class="line"><span class="built_in">print</span>(t.dropna(how=<span class="string">"all"</span>))</span><br><span class="line"><span class="comment">#      W    X    Y    Z</span></span><br><span class="line"><span class="comment"># a  0.0  1.0  2.0  3.0</span></span><br><span class="line"><span class="comment"># b  NaN  NaN  6.0  7.0</span></span><br></pre></td></tr></table></figure>
 <h2 id="填充NaN"><a href="#填充NaN" class="headerlink" title="填充NaN"></a>填充<code>NaN</code></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(t.fillna(<span class="number">0</span>))</span><br><span class="line"><span class="comment">#      W    X    Y    Z</span></span><br><span class="line"><span class="comment"># a  0.0  1.0  2.0  3.0</span></span><br><span class="line"><span class="comment"># b  0.0  0.0  6.0  7.0</span></span><br><span class="line"><span class="comment"># c  0.0  0.0  0.0  0.0</span></span><br><span class="line"><span class="built_in">print</span>(t.fillna(t.mean()))</span><br><span class="line"><span class="comment">#      W    X    Y    Z</span></span><br><span class="line"><span class="comment"># a  0.0  1.0  2.0  3.0</span></span><br><span class="line"><span class="comment"># b  0.0  1.0  6.0  7.0</span></span><br><span class="line"><span class="comment"># c  0.0  1.0  4.0  5.0</span></span><br><span class="line"><span class="built_in">print</span>(t[<span class="string">"W"</span>].fillna(t[<span class="string">"W"</span>].mean()))</span><br><span class="line"><span class="comment"># a    0.0</span></span><br><span class="line"><span class="comment"># b    0.0</span></span><br><span class="line"><span class="comment"># c    0.0</span></span><br><span class="line"><span class="comment"># Name: W, dtype: float64</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E8%BF%9B%E9%98%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E8%BF%9B%E9%98%B6/" class="post-title-link" itemprop="url">算法自学__背包问题进阶</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-07-23 16:25:48" itemprop="dateCreated datePublished" datetime="2022-07-23T16:25:48+08:00">2022-07-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-02-08 10:54:55" itemprop="dateModified" datetime="2023-02-08T10:54:55+08:00">2023-02-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>参考资料:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://leetcode-cn.com/circle/article/V5qkAa/">https://leetcode-cn.com/circle/article/V5qkAa/</a></li>
-</ul>
-<h1 id="多重背包的单调队列优化"><a href="#多重背包的单调队列优化" class="headerlink" title="多重背包的单调队列优化"></a>多重背包的单调队列优化</h1><p>对应题目: <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1776">洛谷P1776 宝物筛选</a></p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现:"></a>代码实现:</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dp[<span class="number">40005</span>];</span><br><span class="line"><span class="type">int</span> N,V;</span><br><span class="line"><span class="type">int</span> q1[<span class="number">100005</span>],q2[<span class="number">100005</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	cin&gt;&gt;N&gt;&gt;V;</span><br><span class="line">	<span class="type">int</span> w,v,s;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;i++){</span><br><span class="line">		cin&gt;&gt;v&gt;&gt;w&gt;&gt;s;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;w;j++){</span><br><span class="line">			<span class="type">int</span> head=<span class="number">0</span>,tail=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">0</span>;j+k*w&lt;=V;k++){</span><br><span class="line">				<span class="keyword">while</span>(head&lt;tail &amp;&amp; k-q1[head]&gt;s) head++;</span><br><span class="line">				<span class="keyword">while</span>(head&lt;tail &amp;&amp; q2[tail<span class="number">-1</span>]&lt;dp[j+k*w]-k*v) tail--;</span><br><span class="line">				q1[tail]=k;</span><br><span class="line">				q2[tail++]=dp[j+k*w]-k*v;</span><br><span class="line">				dp[j+k*w]=q2[head]+k*v;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	cout&lt;&lt;dp[V];</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 
       
     </div>

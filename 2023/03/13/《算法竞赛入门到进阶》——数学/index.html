@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#37c6c0"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#37c6c0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文主要涉及快速幂、矩阵快速幂">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《算法竞赛入门到进阶》——数学">
+<meta property="og:url" content="http://example.com/2023/03/13/%E3%80%8A%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8%E5%88%B0%E8%BF%9B%E9%98%B6%E3%80%8B%E2%80%94%E2%80%94%E6%95%B0%E5%AD%A6/index.html">
+<meta property="og:site_name" content="Kimmich&#39;s Blog">
+<meta property="og:description" content="本文主要涉及快速幂、矩阵快速幂">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/1d4cb81c6eff466aacfc93709f5c0664.png">
+<meta property="article:published_time" content="2023-03-13T09:47:17.000Z">
+<meta property="article:modified_time" content="2023-03-13T09:48:59.649Z">
+<meta property="article:author" content="Kimmich">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/1d4cb81c6eff466aacfc93709f5c0664.png">
+
+
+<link rel="canonical" href="http://example.com/2023/03/13/%E3%80%8A%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8%E5%88%B0%E8%BF%9B%E9%98%B6%E3%80%8B%E2%80%94%E2%80%94%E6%95%B0%E5%AD%A6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/03/13/%E3%80%8A%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8%E5%88%B0%E8%BF%9B%E9%98%B6%E3%80%8B%E2%80%94%E2%80%94%E6%95%B0%E5%AD%A6/","path":"2023/03/13/《算法竞赛入门到进阶》——数学/","title":"《算法竞赛入门到进阶》——数学"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>《算法竞赛入门到进阶》——数学 | Kimmich's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kimmich's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#8-1-%E9%AB%98%E7%B2%BE%E5%BA%A6%E8%AE%A1%E7%AE%97%EF%BC%88P154%EF%BC%89"><span class="nav-text">8.1 高精度计算（P154）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-2-%E6%95%B0%E8%AE%BA%EF%BC%88P155%EF%BC%89"><span class="nav-text">8.2 数论（P155）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#8-2-1-%E6%A8%A1%E8%BF%90%E7%AE%97%EF%BC%88P156%EF%BC%89"><span class="nav-text">8.2.1 模运算（P156）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-2-2-%E5%BF%AB%E9%80%9F%E5%B9%82%EF%BC%88P156%EF%BC%89"><span class="nav-text">8.2.2 快速幂（P156）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%B9%82"><span class="nav-text">快速幂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82"><span class="nav-text">矩阵快速幂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B1-HDU-5392-Infoplane-in-Tina-Town"><span class="nav-text">例1 HDU 5392 Infoplane in Tina Town</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F"><span class="nav-text">题目大意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B2-POJ-3070-Fibonacci"><span class="nav-text">例2 POJ 3070 Fibonacci</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F-1"><span class="nav-text">题目大意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="nav-text">思路</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B3-HDU-6030-Happy-Necklace"><span class="nav-text">例3 HDU 6030 Happy Necklace</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F-2"><span class="nav-text">题目大意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="nav-text">思路</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Kimmich</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/13/%E3%80%8A%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8%E5%88%B0%E8%BF%9B%E9%98%B6%E3%80%8B%E2%80%94%E2%80%94%E6%95%B0%E5%AD%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="《算法竞赛入门到进阶》——数学 | Kimmich's Blog">
+      <meta itemprop="description" content="本文主要涉及快速幂、矩阵快速幂">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《算法竞赛入门到进阶》——数学
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-03-13 17:47:17 / Modified: 17:48:59" itemprop="dateCreated datePublished" datetime="2023-03-13T17:47:17+08:00">2023-03-13</time>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">本文主要涉及快速幂、矩阵快速幂</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="8-1-高精度计算（P154）"><a href="#8-1-高精度计算（P154）" class="headerlink" title="8.1 高精度计算（P154）"></a>8.1 高精度计算（P154）</h1><h1 id="8-2-数论（P155）"><a href="#8-2-数论（P155）" class="headerlink" title="8.2 数论（P155）"></a>8.2 数论（P155）</h1><h2 id="8-2-1-模运算（P156）"><a href="#8-2-1-模运算（P156）" class="headerlink" title="8.2.1 模运算（P156）"></a>8.2.1 模运算（P156）</h2><h2 id="8-2-2-快速幂（P156）"><a href="#8-2-2-快速幂（P156）" class="headerlink" title="8.2.2 快速幂（P156）"></a>8.2.2 快速幂（P156）</h2><h3 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">qpow</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>{</span><br><span class="line">	<span class="type">int</span> base = a;</span><br><span class="line">	<span class="type">int</span> res = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(b!=<span class="number">0</span>){</span><br><span class="line">		<span class="keyword">if</span>(b&amp;<span class="number">1</span>){</span><br><span class="line">			res *= base;</span><br><span class="line">		}</span><br><span class="line">		base *= base;</span><br><span class="line">		b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h3><p>矩阵快速幂的思想和普通快速幂几乎相同。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方阵的阶 </span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> n = <span class="number">2</span>;</span><br><span class="line"><span class="comment">// 模数</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> p = <span class="number">1e4</span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 矩阵类</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MAT</span>{</span><br><span class="line">	<span class="type">int</span> m[maxn][maxn];</span><br><span class="line">	<span class="built_in">MAT</span>(){</span><br><span class="line">		<span class="built_in">memeset</span>(m, <span class="number">0</span>, <span class="built_in">sizeof</span>(m));</span><br><span class="line">	}</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="comment">// 矩阵乘法</span></span><br><span class="line"><span class="function">MAT <span class="title">mul</span><span class="params">(MAT a, MAT b)</span></span>{</span><br><span class="line">	MAT res;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j++){</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">1</span>;k&lt;=n;k++){</span><br><span class="line">				res.m[i][j] += a.m[i][k]*b.m[k][j];</span><br><span class="line">				res.m[i][j] %= p;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function">MAT <span class="title">qpow</span><span class="params">(MAT a, <span class="type">int</span> b)</span></span>{</span><br><span class="line">	MAT base = a;</span><br><span class="line">	MAT res;</span><br><span class="line">	<span class="comment">// 构造单位矩阵</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">		res.m[i][i] = <span class="number">1</span>;</span><br><span class="line">	} </span><br><span class="line">	<span class="keyword">while</span>(b!=<span class="number">0</span>){</span><br><span class="line">		<span class="keyword">if</span>(b&amp;<span class="number">1</span>){</span><br><span class="line">			res = <span class="built_in">mul</span>(res, base);</span><br><span class="line">		}</span><br><span class="line">		base = <span class="built_in">mul</span>(base, base);</span><br><span class="line">		b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="例1-HDU-5392-Infoplane-in-Tina-Town"><a href="#例1-HDU-5392-Infoplane-in-Tina-Town" class="headerlink" title="例1 HDU 5392 Infoplane in Tina Town"></a>例1 HDU 5392 Infoplane in Tina Town</h3><h4 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h4><p>给定一个置换，求最小循环长度。</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>例如，置换为 <code>5, 1, 6, 4, 2, 3</code> ，其中包含如下置换循环：</p>
+<ul>
+<li><code>5 -&gt; 1 -&gt; 2 -&gt; 5</code></li>
+<li><code>6 -&gt; 3 -&gt; 6</code></li>
+<li><code>4 -&gt; 4</code></li>
+</ul>
+<p>则原置换的循环长度为三个小循环长度的最小公倍数，即 <code>6</code> 。</p>
+<p>在本题中，我们应首先求出每个置换循环的长度，然后对这些长度进行质因数分解，记录下每个质因数的最高次数。最小公倍数就等于所有质因数的最高次的乘积。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">3e6</span>+<span class="number">5</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> p = <span class="number">3221225473</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> a[maxn];</span><br><span class="line"><span class="type">bool</span> vis[maxn];</span><br><span class="line"><span class="type">bool</span> notPrime[maxn];</span><br><span class="line"><span class="type">int</span> prime[maxn];</span><br><span class="line"><span class="type">int</span> pre[maxn];</span><br><span class="line"><span class="type">int</span> tot = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> cnt[maxn];</span><br><span class="line"><span class="type">int</span> T, n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>{</span><br><span class="line">	notPrime[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=maxn;i++){</span><br><span class="line">		<span class="keyword">if</span>(!notPrime[i]){</span><br><span class="line">			prime[++tot] = i;</span><br><span class="line">			pre[i] = tot;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=tot&amp;&amp;i*prime[j]&lt;=maxn;j++){</span><br><span class="line">			notPrime[i*prime[j]] = <span class="number">1</span>;</span><br><span class="line">			pre[i*prime[j]] = j;</span><br><span class="line">			<span class="keyword">if</span>(i%prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">} </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">qpow</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>{</span><br><span class="line">	<span class="type">int</span> res = <span class="number">1</span>;</span><br><span class="line">	<span class="type">int</span> base = a;</span><br><span class="line">	<span class="keyword">while</span>(b != <span class="number">0</span>){</span><br><span class="line">		<span class="keyword">if</span>(b&amp;<span class="number">1</span>){</span><br><span class="line">			res *= base;</span><br><span class="line">		}</span><br><span class="line">		base *= base;</span><br><span class="line">		b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="built_in">init</span>();</span><br><span class="line">	cin&gt;&gt;T;</span><br><span class="line">	<span class="keyword">while</span>(T--){</span><br><span class="line">		cin&gt;&gt;n;</span><br><span class="line">		<span class="built_in">memset</span>(vis, <span class="number">0</span>, <span class="built_in">sizeof</span>(vis));</span><br><span class="line">		<span class="built_in">memset</span>(cnt, <span class="number">0</span>, <span class="built_in">sizeof</span>(cnt));</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) cin&gt;&gt;a[i];</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">			<span class="keyword">if</span>(!vis[i]){</span><br><span class="line">				<span class="comment">// 求当前置换循环的长度 </span></span><br><span class="line">				<span class="type">int</span> len = <span class="number">0</span>, k = i;</span><br><span class="line">				<span class="keyword">while</span>(!vis[k]){</span><br><span class="line">					len++;</span><br><span class="line">					vis[k] = <span class="number">1</span>;</span><br><span class="line">					k = a[k];</span><br><span class="line">				}</span><br><span class="line">				<span class="type">int</span> cur = pre[len], sum = <span class="number">0</span>;</span><br><span class="line">				<span class="comment">// 求当前长度各个质因数的次数 </span></span><br><span class="line">				<span class="keyword">while</span>(len!=<span class="number">1</span>){</span><br><span class="line">					<span class="keyword">if</span>(pre[len] == cur){</span><br><span class="line">						sum++;</span><br><span class="line">					}</span><br><span class="line">					<span class="keyword">else</span>{</span><br><span class="line">						cnt[cur] = <span class="built_in">max</span>(cnt[cur], sum);</span><br><span class="line">						cur = pre[len];</span><br><span class="line">						sum = <span class="number">1</span>;</span><br><span class="line">					}</span><br><span class="line">					len /= prime[cur];</span><br><span class="line">				}</span><br><span class="line">				cnt[cur] = <span class="built_in">max</span>(cnt[cur], sum);</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="comment">// 计算最终答案 </span></span><br><span class="line">		<span class="type">int</span> ans = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=tot;i++){</span><br><span class="line">			<span class="keyword">if</span>(prime[i]&gt;n) <span class="keyword">break</span>;</span><br><span class="line">			ans *= <span class="built_in">qpow</span>(prime[i], cnt[i]);</span><br><span class="line">		}</span><br><span class="line">		cout&lt;&lt;ans&lt;&lt;<span class="string">'\n'</span>;</span><br><span class="line">	}	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">} </span><br></pre></td></tr></table></figure>
+<h3 id="例2-POJ-3070-Fibonacci"><a href="#例2-POJ-3070-Fibonacci" class="headerlink" title="例2 POJ 3070 Fibonacci"></a>例2 <a target="_blank" rel="noopener" href="http://poj.org/problem?id=3070">POJ 3070 Fibonacci</a></h3><h4 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h4><p>计算斐波那契数列第 <code>n</code> 项的后 <code>4</code> 位。</p>
+<h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><p><img src="https://img-blog.csdnimg.cn/1d4cb81c6eff466aacfc93709f5c0664.png" alt="在这里插入图片描述"></p>
+<h3 id="例3-HDU-6030-Happy-Necklace"><a href="#例3-HDU-6030-Happy-Necklace" class="headerlink" title="例3 HDU 6030 Happy Necklace"></a>例3 HDU 6030 Happy Necklace</h3><h4 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h4><p>一根项链由红、蓝珠子构成（不是环），给定项链长度 <code>n</code> ，问满足任意连续质数颗珠子，红珠大于等于蓝珠的项链的方案数。</p>
+<h4 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h4><p>首先，大于等于 <code>2</code> 的任何数字都可以用 <code>2</code> 和 <code>3</code> 凑出，所以我们只需要考虑长度为 <code>2</code> 和 <code>3</code> 的连续串即可。</p>
+<p>如果我们在项链末端加一颗红珠子，若加之前的项链满足要求，则加之后的项链一定满足要求；如果在末端加一颗蓝珠子，则只有加之前末端为红红的项链才满足要求，于是有递推式：</p>
+<script type="math/tex; mode=display">
+f(x) = f(x-1)+f(x-3)</script><p>由于本题的数据规模较大，所以我们必须使用矩阵加速：</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{l}
+f_x\\\\
+f_{x-1}\\\\
+f_{x-2}
+\end{array}
+\right]=
+\left[
+\begin{array}{l}
+1 & 0 & 1\\\\
+1 & 0 & 0 \\\\
+0 & 1 & 0
+\end{array}
+\right]
+\left[
+\begin{array}{l}
+f_{x-1}\\\\
+f_{x-2}\\\\
+f_{x-3}
+\end{array}
+\right]</script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/10/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83/" rel="prev" title="算法自学__树的重心">
+                  <i class="fa fa-chevron-left"></i> 算法自学__树的重心
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kimmich</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cdn":"//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
