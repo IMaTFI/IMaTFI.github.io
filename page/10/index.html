@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,7 +268,7 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -289,6 +289,102 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">机器学习__数据预处理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-07-23 16:27:54 / Modified: 16:28:34" itemprop="dateCreated datePublished" datetime="2022-07-23T16:27:54+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ML/" itemprop="url" rel="index"><span itemprop="name">ML</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><h3 id="均值移除"><a href="#均值移除" class="headerlink" title="均值移除"></a>均值移除</h3><p> 对某一列的数据进行处理, 使其均值为0, 标准差为1</p>
+<ul>
+<li>均值为0: 每个数据减去均值</li>
+<li>标准差为1: 每个数据除以标准差<h6 id="调用API"><a href="#调用API" class="headerlink" title="调用API"></a>调用API</h6></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> sklearn.preprocessing <span class="keyword">as</span> sp</span><br><span class="line"></span><br><span class="line">raw_sample = np.array([</span><br><span class="line">    [<span class="number">17.</span>, <span class="number">90.</span>, <span class="number">4000.</span>],</span><br><span class="line">    [<span class="number">20.</span>, <span class="number">80.</span>, <span class="number">5000.</span>],</span><br><span class="line">    [<span class="number">23.</span>, <span class="number">75.</span>, <span class="number">5500.</span>]])</span><br><span class="line">result = sp.scale(raw_sample)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[-1.22474487  1.33630621 -1.33630621]</span></span><br><span class="line"><span class="comment">#  [ 0.         -0.26726124  0.26726124]</span></span><br><span class="line"><span class="comment">#  [ 1.22474487 -1.06904497  1.06904497]]</span></span><br></pre></td></tr></table></figure>
+<h3 id="范围缩放"><a href="#范围缩放" class="headerlink" title="范围缩放"></a>范围缩放</h3><p>对某一列的数据进行处理, 将其特征值缩放值某个区间内, 一般为<code>[0, 1]</code></p>
+<ul>
+<li>每个数据减去最小值</li>
+<li>每个数据除以最大值<h6 id="调用API-1"><a href="#调用API-1" class="headerlink" title="调用API"></a>调用API</h6></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">raw_sample = np.array([</span><br><span class="line">    [<span class="number">17.</span>, <span class="number">90.</span>, <span class="number">4000.</span>],</span><br><span class="line">    [<span class="number">20.</span>, <span class="number">80.</span>, <span class="number">5000.</span>],</span><br><span class="line">    [<span class="number">23.</span>, <span class="number">75.</span>, <span class="number">5500.</span>]])</span><br><span class="line"><span class="comment"># 创建MinMax缩放器</span></span><br><span class="line">mms = sp.MinMaxScaler(feature_range=(<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line"><span class="comment"># 调用mms对象的方法执行缩放操作, 返回缩放后的结果</span></span><br><span class="line">result = mms.fit_transform(raw_sample)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[0.         1.         0.        ]</span></span><br><span class="line"><span class="comment">#  [0.5        0.33333333 0.66666667]</span></span><br><span class="line"><span class="comment">#  [1.         0.         1.        ]]</span></span><br></pre></td></tr></table></figure>
+<h6 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> raw_sample.T:</span><br><span class="line">    min_val = row.<span class="built_in">min</span>()</span><br><span class="line">    max_val = row.<span class="built_in">max</span>()</span><br><span class="line">    A = np.array([[min_val, <span class="number">1</span>], [max_val, <span class="number">1</span>]])</span><br><span class="line">    B = np.array([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">    x = np.linalg.solve(A, B)</span><br><span class="line">    new_row = x[<span class="number">0</span>]*row + x[<span class="number">1</span>]</span><br><span class="line">    new_samples.append(new_row)</span><br><span class="line">result = np.array(new_samples).T</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[ 0.00000000e+00  1.00000000e+00  0.00000000e+00]</span></span><br><span class="line"><span class="comment">#  [ 5.00000000e-01  3.33333333e-01  6.66666667e-01]</span></span><br><span class="line"><span class="comment">#  [ 1.00000000e+00 -8.88178420e-16  1.00000000e+00]]</span></span><br></pre></td></tr></table></figure>
+<h3 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h3><p>对某一行的数据进行处理, 将每个样本的每个特征值除以样本各个特征值绝对值的总和</p>
+<h6 id="调用API-2"><a href="#调用API-2" class="headerlink" title="调用API"></a>调用API</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">raw_sample = np.array([</span><br><span class="line">    [<span class="number">12</span>, <span class="number">24</span>, <span class="number">4</span>],</span><br><span class="line">    [<span class="number">3</span>, <span class="number">6</span>, <span class="number">1</span>],</span><br><span class="line">    [<span class="number">13</span>, <span class="number">20</span>, <span class="number">10</span>]</span><br><span class="line">]).astype(<span class="string">'float32'</span>)</span><br><span class="line"><span class="comment"># norm 范数</span></span><br><span class="line"><span class="comment">#   第一范数l1: 向量中各特征值的绝对值之和</span></span><br><span class="line"><span class="comment">#   第二范数l2: 向量中各特征值的平方之和</span></span><br><span class="line">result = sp.normalize(raw_sample, norm = <span class="string">'l1'</span>)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.30232558 0.4651163  0.23255815]]</span></span><br></pre></td></tr></table></figure>
+<h6 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nor_sample = raw_sample.copy()</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> nor_sample:</span><br><span class="line">    row /= <span class="built_in">abs</span>(row).<span class="built_in">sum</span>()</span><br><span class="line"><span class="built_in">print</span>(nor_sample)</span><br><span class="line"><span class="comment"># [[0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.30232558 0.4651163  0.23255815]]</span></span><br></pre></td></tr></table></figure>
+<h3 id="二值化"><a href="#二值化" class="headerlink" title="二值化"></a>二值化</h3><p>设定一个阈值, 将数组中<code>&gt;</code>阈值的数据赋值为<code>1</code>, <code>&lt;=</code>阈值的数据赋值为<code>0</code></p>
+<h6 id="调用API-3"><a href="#调用API-3" class="headerlink" title="调用API"></a>调用API</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">_<span class="built_in">bin</span> = sp.Binarizer(threshold=<span class="number">3</span>)</span><br><span class="line">raw_sample = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">result = _<span class="built_in">bin</span>.transform(raw_sample)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[0 0 0 0]</span></span><br><span class="line"><span class="comment">#  [1 1 1 1]</span></span><br><span class="line"><span class="comment">#  [1 1 1 1]]</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1375,108 +1471,8 @@ print(t)
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%A0%86%E4%BC%98%E5%8C%96%E7%9A%84%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%A0%86%E4%BC%98%E5%8C%96%E7%9A%84%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">算法自学__堆优化的迪杰斯特拉算法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-07-23 16:13:25" itemprop="dateCreated datePublished" datetime="2022-07-23T16:13:25+08:00">2022-07-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-02-02 16:19:24" itemprop="dateModified" datetime="2023-02-02T16:19:24+08:00">2023-02-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="需要用到的STL知识"><a href="#需要用到的STL知识" class="headerlink" title="需要用到的STL知识"></a>需要用到的STL知识</h1><h2 id="pair"><a href="#pair" class="headerlink" title="pair"></a>pair</h2><pre><code>#include&lt;utility&gt;
-pair &lt;int, int&gt; p;        //创建
-p.first = 1, p.second = 2;        //访问pair中元素, 赋值
-p = make_pair(1, 2);        //赋值
-</code></pre><h2 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue"></a>priority_queue</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; Pair;		<span class="comment">//first代表边的终点, second代表路径长度</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">cmp</span> {			<span class="comment">//仿函数</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(Pair a, Pair b)</span> </span>{</span><br><span class="line">		<span class="keyword">return</span> a.second &gt; b.second;		<span class="comment">//小根堆</span></span><br><span class="line">	}</span><br><span class="line">};</span><br><span class="line">vector&lt;Pair, vector&lt;Pair&gt;, cmp&gt; graph[<span class="number">10005</span>];		<span class="comment">//创建</span></span><br></pre></td></tr></table></figure>
-<h1 id="迪杰斯特拉算法"><a href="#迪杰斯特拉算法" class="headerlink" title="迪杰斯特拉算法"></a>迪杰斯特拉算法</h1><ul>
-<li>功能: 求解有向图单源最短路问题(图中不允许出现负权值)</li>
-<li>算法流程: <ol>
-<li>设起点为<code>s</code>, 初始化<strong>结果数组</strong><code>ans[]</code>,将<code>ans[s]</code>赋值为0, 其余元素赋值为无穷大</li>
-<li>将起点<code>s</code>能到达的点对应的<code>ans[]</code>中的元素更新为边的权值</li>
-<li>选择最小权值的边的终点重复步骤2.</li>
-</ol>
-</li>
-</ul>
-<h1 id="堆优化"><a href="#堆优化" class="headerlink" title="堆优化"></a>堆优化</h1><p>利用优先队列保存算法执行过程中的边的权值, 将选择最小权值的边的时间复杂度降低到了<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="8.112ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 3585.7 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="6C" d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(278,0)"></path><path data-c="67" d="M329 409Q373 453 429 453Q459 453 472 434T485 396Q485 382 476 371T449 360Q416 360 412 390Q410 404 415 411Q415 412 416 414V415Q388 412 363 393Q355 388 355 386Q355 385 359 381T368 369T379 351T388 325T392 292Q392 230 343 187T222 143Q172 143 123 171Q112 153 112 133Q112 98 138 81Q147 75 155 75T227 73Q311 72 335 67Q396 58 431 26Q470 -13 470 -72Q470 -139 392 -175Q332 -206 250 -206Q167 -206 107 -175Q29 -140 29 -75Q29 -39 50 -15T92 18L103 24Q67 55 67 108Q67 155 96 193Q52 237 52 292Q52 355 102 398T223 442Q274 442 318 416L329 409ZM299 343Q294 371 273 387T221 404Q192 404 171 388T145 343Q142 326 142 292Q142 248 149 227T179 192Q196 182 222 182Q244 182 260 189T283 207T294 227T299 242Q302 258 302 292T299 343ZM403 -75Q403 -50 389 -34T348 -11T299 -2T245 0H218Q151 0 138 -6Q118 -15 107 -34T95 -74Q95 -84 101 -97T122 -127T170 -155T250 -167Q319 -167 361 -139T403 -75Z" transform="translate(778,0)"></path></g><g data-mml-node="mo" transform="translate(2430,0)"><path data-c="2061" d=""></path></g><g data-mml-node="mi" transform="translate(2596.7,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(3196.7,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dijkstra</span><span class="params">(<span class="type">int</span> x)</span></span>{</span><br><span class="line">	<span class="built_in">memset</span>(ans, <span class="number">37</span>, <span class="built_in">sizeof</span>(ans));</span><br><span class="line">	ans[x]=<span class="number">0</span>;		<span class="comment">//起点 </span></span><br><span class="line">	q.<span class="built_in">push</span>(<span class="built_in">make_pair</span>(x, <span class="number">0</span>));		<span class="comment">//起点入队 </span></span><br><span class="line">	<span class="keyword">while</span>(!q.<span class="built_in">empty</span>()){</span><br><span class="line">		Pair p=q.<span class="built_in">top</span>();</span><br><span class="line">		q.<span class="built_in">pop</span>();</span><br><span class="line">		<span class="type">int</span> pos=p.first;</span><br><span class="line">		<span class="keyword">if</span>(vis[pos]!=<span class="number">0</span>) <span class="keyword">continue</span>;		<span class="comment">//对出队的点进行访问 </span></span><br><span class="line">		vis[pos]=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;graph[pos].<span class="built_in">size</span>();i++){		</span><br><span class="line">			<span class="type">int</span> num=graph[pos][i].first;</span><br><span class="line">			<span class="type">int</span> dis=graph[pos][i].second;</span><br><span class="line">			ans[num]=<span class="built_in">min</span>(ans[num],ans[pos]+dis);</span><br><span class="line">			q.<span class="built_in">push</span>(<span class="built_in">make_pair</span>(num,ans[num]));</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/11/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/11/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

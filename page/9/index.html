@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,7 +268,7 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -289,6 +289,108 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%8F%8C%E5%90%91bfs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/23/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%8F%8C%E5%90%91bfs/" class="post-title-link" itemprop="url">算法自学__双向bfs</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-07-23 16:59:11" itemprop="dateCreated datePublished" datetime="2022-07-23T16:59:11+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-07-29 10:49:56" itemprop="dateModified" datetime="2022-07-29T10:49:56+08:00">2022-07-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="例1-P1379-八数码难题"><a href="#例1-P1379-八数码难题" class="headerlink" title="例1 P1379 八数码难题"></a>例1 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1379">P1379 八数码难题</a></h1><h1 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想:"></a>算法思想:</h1><ul>
+<li>假设当前棋盘状态用一字符串<code>a</code>表示, 根据题目要求, <code>0</code>有四种移动方式(假设<code>0</code>的位置为<code>x</code>):<ol>
+<li>向上移动:  <code>swap(a[x], a[x-3])</code></li>
+<li>向下移动: <code>swap(a[x], a[x+3])</code></li>
+<li>向左移动: <code>swap(a[x], a[x-1])</code></li>
+<li>向右移动: <code>swap(a[x], a[x+1])</code></li>
+</ol>
+</li>
+<li>我们注意到, 这四种移动方式,都对<code>0</code>的位置有一定的要求:<ol>
+<li>向上移动: <code>0</code>不能在第一行, 即<code>x/3 &gt; 0</code></li>
+<li>向下移动: <code>0</code>不能在第三行, 即<code>x/3 &lt; 2</code></li>
+<li>向左移动: <code>0</code>不能在第一列, 即<code>x%3 != 0</code></li>
+<li>向右移动: <code>0</code>不能在第三列, 即<code>x%3 != 2</code></li>
+</ol>
+</li>
+<li>对于已知<strong>起点</strong>和<strong>终点</strong>的问题, 我们可以采用<strong>双向bfs</strong>的思想, 即分别对起点和终点进行bfs, 用<code>vis[]</code>记录搜索状态, 将被起点搜索到的状态对应的<code>vis[] += 1</code>, 被终点搜索到的状态<code>vis[] += 2</code>. 这样一来, 倘若一个状态对应的<code>vis[] ==3</code>, 说明该状态被起点和终点同时搜索到了. 从而, <strong>最少步数</strong>就等于起点到达该状态所用步数, <strong>加上</strong>终点到达该状态所用步数.</li>
+</ul>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line">queue&lt;string&gt;q;</span><br><span class="line">map&lt;string,<span class="type">int</span>&gt;vis;</span><br><span class="line">map&lt;string,<span class="type">int</span>&gt;ans;</span><br><span class="line">string a,b=<span class="string">"123804765"</span>;</span><br><span class="line"><span class="type">int</span> dx[<span class="number">4</span>]={<span class="number">-3</span>,<span class="number">-1</span>,<span class="number">1</span>,<span class="number">3</span>};</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">getX</span><span class="params">(string a)</span></span>{</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">9</span>;i++){</span><br><span class="line">		<span class="keyword">if</span>(a[i]==<span class="string">'0'</span>) <span class="keyword">return</span> i;</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bfs</span><span class="params">(string a,string b)</span></span>{</span><br><span class="line">	<span class="keyword">if</span>(a==b){</span><br><span class="line">		cout&lt;&lt;<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line">	q.<span class="built_in">push</span>(a);</span><br><span class="line">	vis[a]=<span class="number">1</span>;</span><br><span class="line">	ans[a]=<span class="number">0</span>;</span><br><span class="line">	q.<span class="built_in">push</span>(b);</span><br><span class="line">	vis[b]=<span class="number">2</span>;</span><br><span class="line">	ans[b]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(!q.<span class="built_in">empty</span>()){</span><br><span class="line">		string c=q.<span class="built_in">front</span>();</span><br><span class="line">		q.<span class="built_in">pop</span>();</span><br><span class="line">		<span class="type">int</span> x=<span class="built_in">getX</span>(c);</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++){</span><br><span class="line">			<span class="keyword">if</span>(x%<span class="number">3</span>==<span class="number">0</span>&amp;&amp;dx[i]==<span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">if</span>(x%<span class="number">3</span>==<span class="number">2</span>&amp;&amp;dx[i]==<span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="type">int</span> mx=x+dx[i];</span><br><span class="line">			<span class="keyword">if</span>(mx&lt;<span class="number">0</span>||mx&gt;=<span class="number">9</span>) <span class="keyword">continue</span>;</span><br><span class="line">			string str=c;</span><br><span class="line">			<span class="built_in">swap</span>(str[x],str[mx]);</span><br><span class="line">			<span class="keyword">if</span>(vis[str]==vis[c]) <span class="keyword">continue</span>;</span><br><span class="line">			vis[str]+=vis[c];</span><br><span class="line">			ans[str]+=ans[c]+<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(vis[str]==<span class="number">3</span>){</span><br><span class="line">				cout&lt;&lt;ans[str];</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			} </span><br><span class="line">			q.<span class="built_in">push</span>(str);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	cin&gt;&gt;a;</span><br><span class="line">	<span class="built_in">bfs</span>(a,b);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1199,104 +1301,8 @@ mjx-container[display="true"] + br {
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">机器学习__数据预处理</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-07-23 16:27:54 / Modified: 16:28:34" itemprop="dateCreated datePublished" datetime="2022-07-23T16:27:54+08:00">2022-07-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ML/" itemprop="url" rel="index"><span itemprop="name">ML</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><h3 id="均值移除"><a href="#均值移除" class="headerlink" title="均值移除"></a>均值移除</h3><p> 对某一列的数据进行处理, 使其均值为0, 标准差为1</p>
-<ul>
-<li>均值为0: 每个数据减去均值</li>
-<li>标准差为1: 每个数据除以标准差<h6 id="调用API"><a href="#调用API" class="headerlink" title="调用API"></a>调用API</h6></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> sklearn.preprocessing <span class="keyword">as</span> sp</span><br><span class="line"></span><br><span class="line">raw_sample = np.array([</span><br><span class="line">    [<span class="number">17.</span>, <span class="number">90.</span>, <span class="number">4000.</span>],</span><br><span class="line">    [<span class="number">20.</span>, <span class="number">80.</span>, <span class="number">5000.</span>],</span><br><span class="line">    [<span class="number">23.</span>, <span class="number">75.</span>, <span class="number">5500.</span>]])</span><br><span class="line">result = sp.scale(raw_sample)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[-1.22474487  1.33630621 -1.33630621]</span></span><br><span class="line"><span class="comment">#  [ 0.         -0.26726124  0.26726124]</span></span><br><span class="line"><span class="comment">#  [ 1.22474487 -1.06904497  1.06904497]]</span></span><br></pre></td></tr></table></figure>
-<h3 id="范围缩放"><a href="#范围缩放" class="headerlink" title="范围缩放"></a>范围缩放</h3><p>对某一列的数据进行处理, 将其特征值缩放值某个区间内, 一般为<code>[0, 1]</code></p>
-<ul>
-<li>每个数据减去最小值</li>
-<li>每个数据除以最大值<h6 id="调用API-1"><a href="#调用API-1" class="headerlink" title="调用API"></a>调用API</h6></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">raw_sample = np.array([</span><br><span class="line">    [<span class="number">17.</span>, <span class="number">90.</span>, <span class="number">4000.</span>],</span><br><span class="line">    [<span class="number">20.</span>, <span class="number">80.</span>, <span class="number">5000.</span>],</span><br><span class="line">    [<span class="number">23.</span>, <span class="number">75.</span>, <span class="number">5500.</span>]])</span><br><span class="line"><span class="comment"># 创建MinMax缩放器</span></span><br><span class="line">mms = sp.MinMaxScaler(feature_range=(<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line"><span class="comment"># 调用mms对象的方法执行缩放操作, 返回缩放后的结果</span></span><br><span class="line">result = mms.fit_transform(raw_sample)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[0.         1.         0.        ]</span></span><br><span class="line"><span class="comment">#  [0.5        0.33333333 0.66666667]</span></span><br><span class="line"><span class="comment">#  [1.         0.         1.        ]]</span></span><br></pre></td></tr></table></figure>
-<h6 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> raw_sample.T:</span><br><span class="line">    min_val = row.<span class="built_in">min</span>()</span><br><span class="line">    max_val = row.<span class="built_in">max</span>()</span><br><span class="line">    A = np.array([[min_val, <span class="number">1</span>], [max_val, <span class="number">1</span>]])</span><br><span class="line">    B = np.array([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">    x = np.linalg.solve(A, B)</span><br><span class="line">    new_row = x[<span class="number">0</span>]*row + x[<span class="number">1</span>]</span><br><span class="line">    new_samples.append(new_row)</span><br><span class="line">result = np.array(new_samples).T</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[ 0.00000000e+00  1.00000000e+00  0.00000000e+00]</span></span><br><span class="line"><span class="comment">#  [ 5.00000000e-01  3.33333333e-01  6.66666667e-01]</span></span><br><span class="line"><span class="comment">#  [ 1.00000000e+00 -8.88178420e-16  1.00000000e+00]]</span></span><br></pre></td></tr></table></figure>
-<h3 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h3><p>对某一行的数据进行处理, 将每个样本的每个特征值除以样本各个特征值绝对值的总和</p>
-<h6 id="调用API-2"><a href="#调用API-2" class="headerlink" title="调用API"></a>调用API</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">raw_sample = np.array([</span><br><span class="line">    [<span class="number">12</span>, <span class="number">24</span>, <span class="number">4</span>],</span><br><span class="line">    [<span class="number">3</span>, <span class="number">6</span>, <span class="number">1</span>],</span><br><span class="line">    [<span class="number">13</span>, <span class="number">20</span>, <span class="number">10</span>]</span><br><span class="line">]).astype(<span class="string">'float32'</span>)</span><br><span class="line"><span class="comment"># norm 范数</span></span><br><span class="line"><span class="comment">#   第一范数l1: 向量中各特征值的绝对值之和</span></span><br><span class="line"><span class="comment">#   第二范数l2: 向量中各特征值的平方之和</span></span><br><span class="line">result = sp.normalize(raw_sample, norm = <span class="string">'l1'</span>)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.30232558 0.4651163  0.23255815]]</span></span><br></pre></td></tr></table></figure>
-<h6 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nor_sample = raw_sample.copy()</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> nor_sample:</span><br><span class="line">    row /= <span class="built_in">abs</span>(row).<span class="built_in">sum</span>()</span><br><span class="line"><span class="built_in">print</span>(nor_sample)</span><br><span class="line"><span class="comment"># [[0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.3        0.6        0.1       ]</span></span><br><span class="line"><span class="comment">#  [0.30232558 0.4651163  0.23255815]]</span></span><br></pre></td></tr></table></figure>
-<h3 id="二值化"><a href="#二值化" class="headerlink" title="二值化"></a>二值化</h3><p>设定一个阈值, 将数组中<code>&gt;</code>阈值的数据赋值为<code>1</code>, <code>&lt;=</code>阈值的数据赋值为<code>0</code></p>
-<h6 id="调用API-3"><a href="#调用API-3" class="headerlink" title="调用API"></a>调用API</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">_<span class="built_in">bin</span> = sp.Binarizer(threshold=<span class="number">3</span>)</span><br><span class="line">raw_sample = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">result = _<span class="built_in">bin</span>.transform(raw_sample)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment"># [[0 0 0 0]</span></span><br><span class="line"><span class="comment">#  [1 1 1 1]</span></span><br><span class="line"><span class="comment">#  [1 1 1 1]]</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/10/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
