@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">110</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,7 +268,7 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -289,6 +289,178 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/03/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E8%BF%9B%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/02/03/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E8%BF%9B%E7%A8%8B/" class="post-title-link" itemprop="url">操作系统——进程</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-02-03 17:51:32" itemprop="dateCreated datePublished" datetime="2023-02-03T17:51:32+08:00">2023-02-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-02-14 19:23:25" itemprop="dateModified" datetime="2023-02-14T19:23:25+08:00">2023-02-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="1-进程的定义"><a href="#1-进程的定义" class="headerlink" title="1 进程的定义"></a>1 进程的定义</h1><blockquote>
+<p>p130 4-1 试解释下列名词：程序的顺序执行、程序的并发执行。<br>答：一个计算的若干操作必须按照<strong>严格的先后次序</strong>顺序地执行，这个计算过程就是程序的顺序执行过程。程序的顺序执行具有<strong>顺序性</strong>、<strong>封闭性</strong>和<strong>可再现性</strong>。若干个程序段同时在系统中运行，这些程序段的执行在<strong>时间上是重叠的</strong>，一个程序段的执行尚未结束，另一个程序段的执行已经开始，即使这种重叠是很小的一部分，也称这几个程序段是并发执行的。程序的并发执行不具有封闭性和可再现性。</p>
+</blockquote>
+<p>进程是程序的一次执行过程，是系统进行资源分配调度的一个<strong>基本单位</strong>。进程由<strong>程序段、数据段和PCB</strong>三部分构成。</p>
+<blockquote>
+<p>p131 4-3 什么是进程？进程和程序的主要区别是什么？<br>答：进程是一个具有独立功能的<strong>程序</strong>关于<strong>某个数据集合</strong>的<strong>一次运行活动</strong>。程序是<strong>静态</strong>的概念，进程是<strong>动态</strong>的概念；进程是一个独立运行的<strong>活动单位</strong>；进程是<strong>竞争系统资源的基本单位</strong>；一个程序可以对应多个进程，一个进程至少包含一个程序。</p>
+<p>p132 什么是进程控制块？<br>答：描述进程与其他进程、系统资源的关系以及进程在各个不同时期所处的状态的数据结构，称为进程控制块 (process control block，PCB)。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/84058713f3264955a91e0b88234bc5e7.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/250ec0eab631410ea9d8e28059c53cbf.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/493d5e4a17c4408dba545e8a9ae57bec.png" alt="在这里插入图片描述"></p>
+<h1 id="2-进程的状态"><a href="#2-进程的状态" class="headerlink" title="2 进程的状态"></a>2 进程的状态</h1><p><img src="https://img-blog.csdnimg.cn/263485363e3d40d1b3edb64c695bbf01.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/5f62aad6311241858ab670a760f068a5.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/16c1705806a64f4fbddd5c792c0c13ff.png" alt="在这里插入图片描述"></p>
+<h1 id="3-进程控制"><a href="#3-进程控制" class="headerlink" title="3 进程控制"></a>3 进程控制</h1><p>使用<strong>原语</strong>实现进程控制。原语的<strong>不可中断性</strong>通过一组关中断、开中断指令实现。<br>关中断、开中断属于<strong>特权指令</strong>，所以原语必须运行在<strong>内核态</strong>。</p>
+<blockquote>
+<p>p133 4-20 是说明进程创建的主要功能是什么？<br>答：创建一个具有<strong>指定标识符</strong>的进程，并建立该进程的PCB结构。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/133e09aafc2c43bea2cf23cc034d501f.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>使用fork()创建子进程后，父子进程<strong>将要执行的指令</strong>均为fork()指令的下一条指令。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/6ab5f533fcb543af896b5d0474998e7a.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/72d61b3d2d4d4c648fbf8951a2edd4f6.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/b47f1246300c4ff79a97d79485b527d0.png" alt="在这里插入图片描述"></p>
+<h1 id="4-进程通信"><a href="#4-进程通信" class="headerlink" title="4 进程通信"></a>4 进程通信</h1><p>各进程的内存地址空间相互独立，一个进程不能直接访问另一个进程的地址空间。</p>
+<p>进程通信的三种实现方式：共享存储、消息传递、管道通信。</p>
+<p><img src="https://img-blog.csdnimg.cn/aaf7641e35954e14a20ddd1792b02590.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/bfa2e86a1f664f1b9bc85535653a231d.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/86ad82b38d7e4ee58d5ac44f6c0502a4.png" alt="在这里插入图片描述"></p>
+<h1 id="5-线程"><a href="#5-线程" class="headerlink" title="5 线程"></a>5 线程</h1><p>线程可以理解为轻量级进程。</p>
+<blockquote>
+<p>p133 什么是线程？线程和进程的区别是什么？<br>答：线程也称为<strong>轻量级进程</strong>，它是比进程更小的活动单位，它是进程中的一个<strong>执行路径</strong>，一个进程可能有多个执行路径，即线程。主要区别：(1) 线程是进程的一个<strong>组成部分</strong>，一个进程可以有多个线程，而且至少有一个可执行的线程。(2) 进程是<strong>资源分配</strong>的基本单位，它拥有自己的地址空间和各种资源；线程是<strong>处理机调度</strong>的基本单位，它只能和其他线程<strong>共享进程的资源</strong>，而本身并没有任何资源。(3) 进程的多个线程都在进程的地址空间内活动。这样，在以线程为单位进行处理机调度和切换时，<strong>切换时间较短</strong>；而以进程为单位进行处理机调度和切换时，由于涉及到资源转移及现场保护等问题，将导致切换时间变长和资源利用率下降。(4) 线程和进程一样，都有自己的状态和相应的同步机制，但是，由于线程没有自己单独的程序和数据空间，因而<strong>不能像进程那样将程序和数据交换到外存去</strong>。(5) 进程的调度和控制大多由操作系统的内核完成，而线程的控制既可以由操作系统内核完成，也可以由用户控制完成。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/58f24a76516f4053be0010b16bfae92a.png" alt="在这里插入图片描述"><br>同一进程的不同线程<strong>共享</strong>进程的资源。<br>同一进程的不同线程之间的通信无需操作系统的干预。</p>
+<p><img src="https://img-blog.csdnimg.cn/17321d3601454554bb1b27d46f6d8eb1.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/66e5ec4307b549a49d34ae22a72dd07f.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/3ae39a3627594ed482336028e9ba858b.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/109da0ea93e74cee8bba875241b566d5.png" alt="在这里插入图片描述"></p>
+<h1 id="6-进程的同步、互斥"><a href="#6-进程的同步、互斥" class="headerlink" title="6 进程的同步、互斥"></a>6 进程的同步、互斥</h1><p>同步：亦称<strong>直接制约关系</strong>，强调进程间的工作<strong>次序</strong>。</p>
+<p>临界资源：一个时间段内只允许一个进程使用的资源。</p>
+<p>对临界资源的访问必须<strong>互斥</strong>进行。</p>
+<blockquote>
+<p>p132 4-16 什么是进程的互斥？什么是进程的同步？同步和互斥这两个概念有什么联系和区别？<br>答：互斥：某些资源在一个时间段内只允许一个进程访问。同步：并发进程在一些关键点上需要相互等待与互通消息。联系：同步和互斥都描述了并发进程间的约束关系。区别：同步强调进程间的先后次序，互斥强调一个时间段内只允许一个进程使用临界资源。<br><img src="https://img-blog.csdnimg.cn/644e7104a411419a8cfe883a97706206.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/a085e05d428c4e00aba881e1fa2d25ac.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>心得：如果某个互斥算法中，两个并发进程的while()循环条件可以同时满足，则这个算法极有可能不满足“忙则等待”。</p>
+</blockquote>
+<h1 id="7-信号灯"><a href="#7-信号灯" class="headerlink" title="7 信号灯"></a>7 信号灯</h1><h2 id="7-1-信号灯的概念"><a href="#7-1-信号灯的概念" class="headerlink" title="7.1 信号灯的概念"></a>7.1 信号灯的概念</h2><p><img src="https://img-blog.csdnimg.cn/d88055d7a050486f85374c83ff74971e.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>变量s通常表示系统中某种资源的<strong>数量</strong>。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/a743a68da80a4b5095a3115719c76be6.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/4c832f5028e641619f7f8d1bdc0c20e2.png" alt="在这里插入图片描述"></p>
+<h2 id="7-2-信号灯实现进程互斥、同步、前驱关系"><a href="#7-2-信号灯实现进程互斥、同步、前驱关系" class="headerlink" title="7.2 信号灯实现进程互斥、同步、前驱关系"></a>7.2 信号灯实现进程互斥、同步、前驱关系</h2><p><img src="https://img-blog.csdnimg.cn/84840362353f4158849f5b0aa121b21c.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/0725893db642428796f283344c0bf34f.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/80b3fab4a07b44279c9a4b74c5c85a80.png" alt="在这里插入图片描述"></p>
+<h2 id="7-3-生产者-消费者问题"><a href="#7-3-生产者-消费者问题" class="headerlink" title="7.3 生产者-消费者问题"></a>7.3 生产者-消费者问题</h2><p>问题描述：</p>
+<ul>
+<li>系统中有一组生产者和一组消费者。生产者进程每次生产一个产品，并放入缓冲区；消费者进程每次从缓冲区取走一个产品并使用。</li>
+<li>生产者、消费者共享一个初始为空、大小为n的缓冲区。</li>
+<li>缓冲区是临界资源，各进程必须互斥访问。 </li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/0c505afeb54a4904a3549ab6d57f47ca.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>p155 5-6 在生产者-消费者问题中，将两个P操作次序颠倒后会不会发生死锁?为什么？若将两个V操作次序颠倒会出现类似的问题吗？<br>答：颠倒P操作可能产生死锁。假设当前缓冲区为满，且生产者已经通过P操作获得了缓冲区的访问权，此时生产者既不能将产品放入，消费者也不能访问缓冲区，产生死锁。颠倒V操作不会产生死锁。</p>
+</blockquote>
+<h2 id="7-4-多生产者-多消费者问题"><a href="#7-4-多生产者-多消费者问题" class="headerlink" title="7.4 多生产者-多消费者问题"></a>7.4 多生产者-多消费者问题</h2><blockquote>
+<p>说明：“多”的含义“多类”，不同类的生产者会生产不同的产品，不同类的消费者会取走不同的产品。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/c1c5cd3459ec42149c2a96f161ec6a64.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/8e617798c69c421fb516c5a1e586021e.png" alt="在这里插入图片描述"></p>
+<h2 id="7-5-吸烟者问题"><a href="#7-5-吸烟者问题" class="headerlink" title="7.5 吸烟者问题"></a>7.5 吸烟者问题</h2><p><img src="https://img-blog.csdnimg.cn/199c0fbf1cee4907b0adafc47014255e.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/078b702ac7f74b47abb41d0785e120ab.png" alt="在这里插入图片描述"></p>
+<h2 id="7-6-读者-写者问题"><a href="#7-6-读者-写者问题" class="headerlink" title="7.6 读者-写者问题"></a>7.6 读者-写者问题</h2><p><img src="https://img-blog.csdnimg.cn/7c94c04b0f7e41dba0356ce0a8e88f1d.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/6d56817b88c046b5a1acee5821855d9a.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/e11e6c2b43684377afea413238ca465e.png" alt="在这里插入图片描述"></p>
+<h1 id="8-死锁"><a href="#8-死锁" class="headerlink" title="8 死锁"></a>8 死锁</h1><blockquote>
+<p>p154 5-1 什么是虚拟资源？对主存储器而言，什么是虚拟资源？<br>答：虚拟资源是用户使用的<strong>逻辑资源</strong>，是经过操作系统改造的、方便使用的虚资源。虚拟资源提高了<strong>资源利用率</strong>，<strong>方便</strong>了用户的使用。对贮存而言，虚拟资源是<strong>程序地址空间</strong>，也就是<strong>虚存</strong>。</p>
+<p>p154 5-2 常用的资源分配策略是哪两种？在每一种策略中，资源请求队列的排序原则是什么？<br>答：两种策略：先请求先服务、优先调度。先请求先服务按请求的先后次序排序，优先调度按优先级高低排序。</p>
+</blockquote>
+<h2 id="8-1-死锁的概念"><a href="#8-1-死锁的概念" class="headerlink" title="8.1 死锁的概念"></a>8.1 死锁的概念</h2><p>死锁：各进程互相等待对方手里的资源，导致各进程阻塞。<br>饥饿：某进程长期得不到想要的资源，无法向前推进。</p>
+<blockquote>
+<p>p155 5-8 什么是死锁？<br>答：在两个或多个并发进程中，如果每个进程<strong>持有某种资源</strong>而又都<strong>等待</strong>着别的进程释放它或它们现在保持着的资源，否则就<strong>不能向前推进</strong>。此时，称这一组进程产生了死锁。</p>
+<p>p155 5-10 3个进程共享4个同类资源，这些资源的分配与释放只能一次一个，已知每一进程最多需要两个资源，试问该系统会发生死锁吗？为什么？<br>答：该系统<strong>不会</strong>发生死锁。因为最坏情况是每个进程都占有一个资源，申请第二个资源，而此时系统中还剩一个资源，不管这个资源分给哪个进程，都能<strong>满足</strong>它的资源要求，因此它能在有限时间内运行结束而释放它所占有的两个资源，这两个资源又可以分配给另外两个进程，使它们能够运行结束，所以系统不会发生死锁。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/fcda7c9317af40468f6fb7218bdd2094.png" alt="在这里插入图片描述"></p>
+<h2 id="8-2-预防死锁"><a href="#8-2-预防死锁" class="headerlink" title="8.2 预防死锁"></a>8.2 预防死锁</h2><p> <img src="https://img-blog.csdnimg.cn/fa343c3e158846e49da692d3d7c26c11.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/5e7cdf332a784210bde27ac79d09be81.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/b71377d9229f4af9a668da8c21a0e90a.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/bbaad76ba0f341f9bafd1de704807d60.png" alt="在这里插入图片描述"></p>
+<h2 id="8-3-避免死锁"><a href="#8-3-避免死锁" class="headerlink" title="8.3 避免死锁"></a>8.3 避免死锁</h2><p><img src="https://img-blog.csdnimg.cn/0431fa5cf6504fc8a3ed58badd2552f5.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/7afe35ef2d164ff2ac946b74a19e72e3.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/17a34db69f0a4f0cbc628720235c4619.png" alt="在这里插入图片描述"></p>
+<h2 id="8-4-死锁的检测和解除"><a href="#8-4-死锁的检测和解除" class="headerlink" title="8.4 死锁的检测和解除"></a>8.4 死锁的检测和解除</h2><p><img src="https://img-blog.csdnimg.cn/826563e6f4b948188ed7d2b1bf270572.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/08a860eaf2424d47b1ff7eb3b76adef9.png" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1603,182 +1775,6 @@ f[i-1][j-1][k] + g[i-1][j-1][k-1], &a[i]==b[i]\\
 <p>动态成员：端口可以动态分配给不同VLAN。</p>
 <p>在VLAN间转发：通过路由。</p>
 <p><img src="https://img-blog.csdnimg.cn/587740ab629240a89a88bbd94f3bb387.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/b5bb23b8e5814bcda2f779f32284f9f9.png" alt="在这里插入图片描述"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/" class="post-title-link" itemprop="url">计算机网络——网络层</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-12-01 15:43:44 / Modified: 15:45:03" itemprop="dateCreated datePublished" datetime="2022-12-01T15:43:44+08:00">2022-12-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="4-1-网络层概述"><a href="#4-1-网络层概述" class="headerlink" title="4.1 网络层概述"></a>4.1 网络层概述</h1><p>网络层的目标：主机到主机的通信。</p>
-<ul>
-<li>如何选路？</li>
-<li>如何转发？（卸货/装货）</li>
-<li>确认是否可达？（获取路况）</li>
-</ul>
-<p>网络层的主要功能：</p>
-<ul>
-<li>选路：确定一条端到端的路径。</li>
-<li>转发：根据分组的头部信息，将分组向适当的链路进行转发。</li>
-<li>状态报告</li>
-</ul>
-<p>网络层的服务：</p>
-<ul>
-<li>虚电路服务：路径上的每个路由器维护连接信息。</li>
-<li>数据报服务：没有连接建立、不同的保温可能走不同的路径。</li>
-</ul>
-<h1 id="4-2-路由器的工作原理"><a href="#4-2-路由器的工作原理" class="headerlink" title="4.2 路由器的工作原理"></a>4.2 路由器的工作原理</h1><p>路由器的结构：<br><img src="https://img-blog.csdnimg.cn/78549b42d7a64e1293968661219d3499.png" alt="在这里插入图片描述"><br>路由器的主要功能：路由选择、分组转发。</p>
-<p>输入端口</p>
-<p>路由器交换结构：</p>
-<ul>
-<li>内存交换：先将分组拷贝到内存中，再由CPU控制转发至输出端口。速度受限于内存带宽。</li>
-<li>总线交换：速度受限于总线带宽。</li>
-<li>内联网络</li>
-</ul>
-<p>输出端口：</p>
-<ul>
-<li>对于有N条TCP连接经过的链路而言，缓存区的大小 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -1.334ex;" xmlns="http://www.w3.org/2000/svg" width="11.655ex" height="3.318ex" role="img" focusable="false" viewBox="0 -877 5151.7 1466.5"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g><g data-mml-node="mo" transform="translate(1036.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mfrac" transform="translate(2092.6,0)"><g data-mml-node="mrow" transform="translate(220,394) scale(0.707)"><g data-mml-node="mi"><path data-c="1D445" d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z"></path></g><g data-mml-node="mi" transform="translate(759,0)"><path data-c="1D447" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path></g><g data-mml-node="mi" transform="translate(1463,0)"><path data-c="1D447" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path></g><g data-mml-node="mo" transform="translate(2167,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mi" transform="translate(2945,0)"><path data-c="1D445" d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z"></path></g></g><g data-mml-node="msqrt" transform="translate(1015.8,-436.1) scale(0.707)"><g transform="translate(853,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(0,-34.6)"><path data-c="221A" d="M95 178Q89 178 81 186T72 200T103 230T169 280T207 309Q209 311 212 311H213Q219 311 227 294T281 177Q300 134 312 108L397 -77Q398 -77 501 136T707 565T814 786Q820 800 834 800Q841 800 846 794T853 782V776L620 293L385 -193Q381 -200 366 -200Q357 -200 354 -197Q352 -195 256 15L160 225L144 214Q129 202 113 190T95 178Z"></path></g><rect width="600" height="42.4" x="853" y="723"></rect></g><rect width="2819.1" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container>。</li>
-<li>丢弃策略：<ul>
-<li>被动队列管理（溢出后才进行处理）：弃尾、删除一个或多个已排队分组。</li>
-<li>随机早期检测RED</li>
-</ul>
-</li>
-</ul>
-<h1 id="4-3-IP协议数据报格式"><a href="#4-3-IP协议数据报格式" class="headerlink" title="4.3 IP协议数据报格式"></a>4.3 IP协议数据报格式</h1><p> <img src="https://img-blog.csdnimg.cn/0f491cd6e9544019912d6228e8af0df3.png" alt="在这里插入图片描述"></p>
-<ul>
-<li>版本：IPv4、IPv等。</li>
-<li>生存时间：生存时间反映了源目的主机之间数据报经历的跳数，每经过一个节点，跳数减一。</li>
-<li>报头校验和：只只检验首部。</li>
-<li>源地址、目的地址：32位IP地址。</li>
-<li>首部长度、总长度：以4字节为单位。</li>
-</ul>
-<p>当数据报总长度超过链路层MTU时，需要对数据报进行切片：</p>
-<ul>
-<li>标识：同一个数据报的不同切片具有相同的标识。</li>
-<li>标志：3bit。第1位保留；第2位表示能否分片；第3位表示是否未结束（1代表未结束）。</li>
-<li>片偏移：以8字节为单位。<br><img src="https://img-blog.csdnimg.cn/cf23c93aedf74c61ba4845defc73d491.png" alt="在这里插入图片描述"></li>
-</ul>
-<h1 id="4-4-IP地址"><a href="#4-4-IP地址" class="headerlink" title="4.4 IP地址"></a>4.4 IP地址</h1><p>IP地址 = 网络号 + 主机号</p>
-<p>IP地址的分类：<br><img src="https://img-blog.csdnimg.cn/b9c63ca9d7974b5e806dc25f188ef46f.png" alt="在这里插入图片描述"></p>
-<p>同一局域网内的主机或路由器的IP地址中的网络号必须相同。</p>
-<h1 id="4-5-子网划分"><a href="#4-5-子网划分" class="headerlink" title="4.5 子网划分"></a>4.5 子网划分</h1><p>从主机号总借用一部分作为子网号。<br>IP地址 = 网络号 + 子网号 + 主机号</p>
-<h1 id="4-6-CIDR"><a href="#4-6-CIDR" class="headerlink" title="4.6 CIDR"></a>4.6 CIDR</h1><p><img src="https://img-blog.csdnimg.cn/6985308e177b455ca93e65f8b62e7031.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/d6cb3a6e7957426fad87a8af9edfa927.png" alt="在这里插入图片描述"></p>
-<p>匹配原则：</p>
-<ul>
-<li>将IP地址与路由表中每一项的网络前缀相比较，找出所有相同的表项。</li>
-<li>在所有相同的表项中选择匹配长度最长的。</li>
-</ul>
-<h1 id="4-7-网络地址转换NAT"><a href="#4-7-网络地址转换NAT" class="headerlink" title="4.7 网络地址转换NAT"></a>4.7 网络地址转换NAT</h1><p> NAT的实现原理：<br><img src="https://img-blog.csdnimg.cn/5ff444bb43cc4df5af500c96941607eb.png" alt="在这里插入图片描述"></p>
-<p>NAT带来的变化：<br><img src="https://img-blog.csdnimg.cn/4cccb981c9b54f4d9610173314cc03e1.png" alt="在这里插入图片描述"></p>
-<h1 id="4-8-ICMP协议"><a href="#4-8-ICMP协议" class="headerlink" title="4.8 ICMP协议"></a>4.8 ICMP协议</h1><p>为什么需要ICMP协议？对底层的网络状态进行监测、控制和分析。</p>
-<p>ICMP报文的格式：<br><img src="https://img-blog.csdnimg.cn/ce3326ca843f40b7965fe43d55e46c17.png" alt="在这里插入图片描述"></p>
-<p>信息报文不可达：<br><img src="https://img-blog.csdnimg.cn/42864259f0a248d3b172f61efe84bfca.png" alt="在这里插入图片描述"></p>
-<p>参数出错报文：<br><img src="https://img-blog.csdnimg.cn/73c3dafc37564136a77d4ae972223115.png" alt="在这里插入图片描述"></p>
-<p>重定向报文：<br><img src="https://img-blog.csdnimg.cn/62ab152274874401a07d4fe59bc21136.png" alt="在这里插入图片描述"></p>
-<p>ICMP的应用：</p>
-<ul>
-<li>ping：确定是否可达</li>
-<li>tracert：确定路径上的确切路由</li>
-</ul>
-<h1 id="4-9-DHCP协议"><a href="#4-9-DHCP协议" class="headerlink" title="4.9 DHCP协议"></a>4.9 DHCP协议</h1><p>动态主机配置协议DHCP是<strong>应用层</strong>协议，使用<strong>客户/服务器</strong>方式，客户端和服务器端通过<strong>广播</strong>方式进行交互，基于<strong>UDP</strong>。</p>
-<p>DHCP提供即插即用的联网机制，主机可以从服务器动态获取IP地址、子网掩码等信息，允许地址重用，支持在用地址续租。</p>
-<p><img src="https://img-blog.csdnimg.cn/da724a42ffb04354897737d055d0f3ae.png" alt="在这里插入图片描述"></p>
-<h1 id="4-10-路由协议概述"><a href="#4-10-路由协议概述" class="headerlink" title="4.10 路由协议概述"></a>4.10 路由协议概述</h1><p>层次路由：将路由网络划分为若干自治域（AS）。</p>
-<p> <img src="https://img-blog.csdnimg.cn/ac708f5cfe12498b892dad10603f130c.png" alt="在这里插入图片描述"></p>
-<h1 id="4-11-RIP协议与距离向量算法"><a href="#4-11-RIP协议与距离向量算法" class="headerlink" title="4.11 RIP协议与距离向量算法"></a>4.11 RIP协议与距离向量算法</h1><p><img src="https://img-blog.csdnimg.cn/1590129f1b324ff1954e123d3fd7a1f8.png" alt="在这里插入图片描述"></p>
-<blockquote>
-<p>所谓距离，可以理解为需要经过几个路由器。</p>
-</blockquote>
-<p><img src="https://img-blog.csdnimg.cn/deead68b4ada44899411f42b62304815.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/af55cd0adc104b6aa6c19ab29d52996d.jpeg" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/837a976aaccc4d33990836e4b493afb1.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/5aa00174ead9475a8b6e1824fecc0070.png" alt="在这里插入图片描述"></p>
-<p>RIP是应用层协议，使用UDP传送数据，一个RIP报文最多包含25个路由表项。</p>
-<p>RIP协议好消息传得快，坏消息传得慢：</p>
-<p><img src="https://img-blog.csdnimg.cn/6956a021e9ed44ffa71fb440d76cef1a.png" alt="在这里插入图片描述">  </p>
-<blockquote>
-<p>再上图的情况中，如果R1得知网1出现故障，但是又接到了来自R2的消息，则R1会根据R2提供的表项更新自己的表项。两个路由器如此往复，知道最后才发现网1是不可达的。所以说“坏消息”传得慢。</p>
-</blockquote>
-<h1 id="4-12-OSPF协议"><a href="#4-12-OSPF协议" class="headerlink" title="4.12 OSPF协议"></a>4.12 OSPF协议</h1><ul>
-<li><p>所有路由器都知道整个网络拓扑图以及链路的费用信</p>
-<ul>
-<li><p>迪克斯特拉算法<br><img src="https://img-blog.csdnimg.cn/213a0b70fc444f5c8ec422040c392ec2.png" alt="在这里插入图片描述"></p>
-</li>
-<li><p>向本自治系统中所有路由器发送信息，使用的方法是洪泛法</p>
-</li>
-<li>发送的信息就是与本路由器相邻的所有路由器的链路状态</li>
-<li>只有当链路状态发生变化时，路由器才用洪泛法向所有路由器发送此信息,过了30分钟,就算没有发生变化,也要广播状态</li>
-<li>所有路由器会构建一个链路状态数据库,这个数据库就是全网络的拓扑结构图</li>
-</ul>
-</li>
-</ul>
-<p>若采用流量作为链路成本的度量，则可能产生震荡。</p>
-<h1 id="4-12-BGP-4协议"><a href="#4-12-BGP-4协议" class="headerlink" title="4.12 BGP-4协议"></a>4.12 BGP-4协议</h1><p><img src="https://img-blog.csdnimg.cn/844244874fb946acb90649124cdfef04.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/9c6cbfad9b8f4d2f95e8526b77ec87b7.png" alt="在这里插入图片描述"></p>
-<p>BGP是应用层协议，借助TCP传送。<br><img src="https://img-blog.csdnimg.cn/a00aca4641064f44b8411a36be3e9823.png" alt="在这里插入图片描述"></p>
 
       
     </div>
