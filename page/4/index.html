@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-count">113</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,7 +268,7 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -289,6 +289,213 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E6%81%A2%E5%A4%8D%E6%8A%80%E6%9C%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/12/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%BA%93%E6%81%A2%E5%A4%8D%E6%8A%80%E6%9C%AF/" class="post-title-link" itemprop="url">数据库——数据库恢复技术</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-12-05 21:59:55" itemprop="dateCreated datePublished" datetime="2022-12-05T21:59:55+08:00">2022-12-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-02-22 14:02:44" itemprop="dateModified" datetime="2023-02-22T14:02:44+08:00">2023-02-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="10-1-事务的基本概念"><a href="#10-1-事务的基本概念" class="headerlink" title="10.1 事务的基本概念"></a>10.1 事务的基本概念</h1><p>事务是用户定义的具有交易特性的一个数据库<strong>操作序列</strong>。</p>
+<p>事务的ACID特性：</p>
+<ul>
+<li>原子性：事务是数据库的<strong>逻辑工作单位</strong>，事务中的所有操作要么都做，要么都不做。</li>
+<li>一致性：事务执行的结果必须是使数据库从一个一致性状态转变到另一个一致性状态。<br><img src="https://img-blog.csdnimg.cn/9cc6e5ec49f54799bf5c9580aebf3313.png" alt="在这里插入图片描述"></li>
+<li>隔离性：并发执行的事务<strong>不能相互干扰</strong>。</li>
+<li>持续性：事务一旦提交，它对数据库中数据的改变是<strong>永久性</strong>的。</li>
+</ul>
+<p>事物的特性：</p>
+<ul>
+<li>在关系数据库中，一个事务可以是一条（一组）SQL语句。</li>
+<li>事务是恢复和并发控制的基本单位。</li>
+</ul>
+<p>如何定义事务：</p>
+<ul>
+<li>显式定义<br><img src="https://img-blog.csdnimg.cn/dfacd19650154680846361c46e20749d.png" alt="在这里插入图片描述"></li>
+<li>隐式定义：当用户没有显式地定义事务时，DBMS按缺省规定自动划分事务。</li>
+</ul>
+<p>事务结束：<br><img src="https://img-blog.csdnimg.cn/afccfd9226b64e299ff01dab3b0f5610.png" alt="在这里插入图片描述"></p>
+<h1 id="10-2-数据库恢复概述"><a href="#10-2-数据库恢复概述" class="headerlink" title="10.2 数据库恢复概述"></a>10.2 数据库恢复概述</h1><p><img src="https://img-blog.csdnimg.cn/6f4eaf9e13284e3dae6e42e12e5539d5.png" alt="在这里插入图片描述"></p>
+<h1 id="10-3-故障的种类"><a href="#10-3-故障的种类" class="headerlink" title="10.3 故障的种类"></a>10.3 故障的种类</h1><h2 id="10-3-1-事物内部的故障"><a href="#10-3-1-事物内部的故障" class="headerlink" title="10.3.1 事物内部的故障"></a>10.3.1 事物内部的故障</h2><p>事物内部故障的例子：<br><img src="https://img-blog.csdnimg.cn/38ea168964a44497b152c9559d558872.png" alt="在这里插入图片描述"></p>
+<p>故障恢复：<br><img src="https://img-blog.csdnimg.cn/2ae96793dc854c1ea9adb22c99171432.png" alt="在这里插入图片描述"></p>
+<h2 id="10-3-2-系统故障"><a href="#10-3-2-系统故障" class="headerlink" title="10.3.2 系统故障"></a>10.3.2 系统故障</h2><p>什么是系统故障：<br><img src="https://img-blog.csdnimg.cn/e6c360a6857b40dd8416dd8ffe256695.png" alt="在这里插入图片描述"></p>
+<p>系统故障的特征：</p>
+<ul>
+<li>内存数据丢失或不再可靠。</li>
+<li>外存数据未受到破坏。</li>
+<li>未完成事务的更新结果可能已写入数据库。</li>
+<li>已完成事务的更新结果可能未写入数据库。</li>
+</ul>
+<p>故障恢复：</p>
+<ul>
+<li>对所有未完成事务，系统重启时，要撤销所有未完成任务。</li>
+<li>对操作序列已完成，但尚未提交的事务，系统重新启动时，要重做所有已提交的事务。</li>
+</ul>
+<h2 id="10-3-3-介质故障"><a href="#10-3-3-介质故障" class="headerlink" title="10.3.3 介质故障"></a>10.3.3 介质故障</h2><p>介质故障使存储在外存中的数据部分丢失或全部丢失。</p>
+<p>故障恢复：装入数据库发生介质故障前某个时刻的<strong>数据副本</strong>，<strong>重做</strong>自此时始的所有<strong>成功事务</strong>，将这些事务已提交的结果重新记入数据库。</p>
+<blockquote>
+<p>数据块（物理块）：数据库的存储单位，可能包含多个数据项。<br>缓冲块：主存中的数据块称为缓冲块（缓存页面）。<br>磁盘缓冲区：集中存放缓冲块的内存区域。<br>input(B)：读取物理块B到缓存。<br>output(B)：将缓存中的缓冲块B覆盖写到磁盘上的物理块。</p>
+</blockquote>
+<h1 id="10-4-恢复的实现技术"><a href="#10-4-恢复的实现技术" class="headerlink" title="10.4 恢复的实现技术"></a>10.4 恢复的实现技术</h1><p>恢复的基本原理：冗余。</p>
+<p>恢复机制的关键问题：</p>
+<ol>
+<li>如何建立冗余数据<ul>
+<li>数据转储</li>
+<li>登录日志文件</li>
+</ul>
+</li>
+<li>如何利用冗余数据实现数据恢复</li>
+</ol>
+<h2 id="10-4-1-数据转储"><a href="#10-4-1-数据转储" class="headerlink" title="10.4.1 数据转储"></a>10.4.1 数据转储</h2><p><strong>转储</strong>是指DBA定期地在某一个时刻将具有一致性的整个或者部分数据库复制到磁带或另一个磁盘上保存起来的过程。这些备用的数据文本称为<strong>后备副本</strong>或后援副本。</p>
+<p>转储的用途：<br><img src="https://img-blog.csdnimg.cn/d645aac79bf64bdcaf2de70a57611cbd.png" alt="在这里插入图片描述"></p>
+<p>静态转储：<br><img src="https://img-blog.csdnimg.cn/c5cdfdd97a5a4e6c814d7935b31d4a28.png" alt="在这里插入图片描述"></p>
+<p>动态转储：<br><img src="https://img-blog.csdnimg.cn/e233c996c3864ba68250ec2bfac1d1d1.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/816aa348486c47d3981b27e0c10a4c66.png" alt="在这里插入图片描述"></p>
+<p>海量转储：转储全部数据。<br>增量转储：转储上次转储后更新的数据。</p>
+<h2 id="10-4-2-登记日志文件"><a href="#10-4-2-登记日志文件" class="headerlink" title="10.4.2 登记日志文件"></a>10.4.2 登记日志文件</h2><p>日志文件：记录事务对数据库更新操作的文件。</p>
+<p>以记录为单位的日志文件内容：<br><img src="https://img-blog.csdnimg.cn/cb9b8d7620434e238c1a6db74e083402.png" alt="在这里插入图片描述"></p>
+<p>以数据块为单位的日志文件：<br><img src="https://img-blog.csdnimg.cn/b508e7b868b74aabab85e3b3988a34d4.png" alt="在这里插入图片描述"></p>
+<p>登记日志文件的原则：</p>
+<ul>
+<li>登记的次序严格按照并发事务的执行次序。</li>
+<li>必须先写日志文件，后写数据库。<br><img src="https://img-blog.csdnimg.cn/8b3587b22819475cb18058cb925e034e.png" alt="在这里插入图片描述"></li>
+</ul>
+<p>联机日志文件、归档日志文件。</p>
+<p>日志的使用：</p>
+<ul>
+<li>REDO：执行日志操作。</li>
+<li>UNDO：执行日志的逆操作。</li>
+</ul>
+<blockquote>
+<p>幂等性：每个日志记录的UNDO操作和REDO操作都具有幂等性，即无论重复执行多少次，效果等同于执行一次。</p>
+</blockquote>
+<p>每个日志记录在日志中都有一个唯一的码，叫做<strong>日志序号（LSN）</strong>，日志文件是按照<strong>LSN单调递增</strong>的顺序文件，如果操作A的日志记录在操作B的日志记录之后生成，则 LSN(A)&gt;LSN(B) 。</p>
+<p>日志记录的REDO和UNDO执行方式：</p>
+<ul>
+<li>对日志文件中的多条日志记录进行<strong>REDO</strong>，要按照日志序号(LSN)<strong>递增</strong>的顺序进行，即正向扫描日志文件进行REDO。</li>
+<li>对日志文件中的多条日志记录进行<strong>UNDO</strong>，要按照日志序号(LSN)<strong>递减</strong>的顺序进行，即反向扫描日志文件进行UNDO。</li>
+<li>当要对日志文件中的多条交错而无排列规律的日志记录进行REDO和UNDO操作时，只需各自按照上述规则进行，从基本原理上分析，<strong>REDO和UNDO之间原则上没有先后的要求</strong>，执行多次也没有影响。</li>
+</ul>
+<h1 id="10-5-恢复策略"><a href="#10-5-恢复策略" class="headerlink" title="10.5 恢复策略"></a>10.5 恢复策略</h1><h2 id="10-5-1-事务故障的恢复"><a href="#10-5-1-事务故障的恢复" class="headerlink" title="10.5.1 事务故障的恢复"></a>10.5.1 事务故障的恢复</h2><p>事务故障：事务在运行至正常终止点前被中止。</p>
+<p>恢复方法：由恢复子系统应利用日志文件撤消（UNDO）此事务已对数据库进行的修改。</p>
+<p>事务故障的恢复由<strong>系统自动完成</strong>，不需要用户干预。</p>
+<p>事务故障的恢复步骤：<br><img src="https://img-blog.csdnimg.cn/9864f5dde5dc4e9d862749bb88d25cb2.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/045ad341caa9415d951a3f95269bb1f0.png" alt="在这里插入图片描述"></p>
+<h2 id="10-5-2-系统故障的恢复"><a href="#10-5-2-系统故障的恢复" class="headerlink" title="10.5.2 系统故障的恢复"></a>10.5.2 系统故障的恢复</h2><p>恢复方法：</p>
+<ul>
+<li>Undo 故障发生时未完成的事务。</li>
+<li>Redo 已完成的事务。</li>
+</ul>
+<p>系统故障的恢复由系统在<strong>重新启动时自动完成</strong>，不需要用户干预。</p>
+<p>系统故障的恢复步骤：<br><img src="https://img-blog.csdnimg.cn/6355126714d6488fb66a6b8c6a8a064e.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/a3c1417a186643968565f64c144f3fc6.png" alt="在这里插入图片描述"></p>
+<h2 id="10-5-3-介质故障的恢复"><a href="#10-5-3-介质故障的恢复" class="headerlink" title="10.5.3 介质故障的恢复"></a>10.5.3 介质故障的恢复</h2><p>恢复步骤：<br><img src="https://img-blog.csdnimg.cn/2efefa8e0a7e4e47927de1938c924d3e.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/19a469dee1094f6d9f253cb3bbc11b0b.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/c7a967739f174414975f710737f79454.png" alt="在这里插入图片描述"></p>
+<h1 id="10-6-具有检查点的恢复技术"><a href="#10-6-具有检查点的恢复技术" class="headerlink" title="10.6 具有检查点的恢复技术"></a>10.6 具有检查点的恢复技术</h1><p>问题的提出：</p>
+<ul>
+<li>搜索整个日志将耗费大量的时间</li>
+<li>REDO处理：重新执行，浪费了大量的时间</li>
+</ul>
+<h1 id="10-6-1-检查点技术"><a href="#10-6-1-检查点技术" class="headerlink" title="10.6.1 检查点技术"></a>10.6.1 检查点技术</h1><p>检查点记录的内容：</p>
+<ul>
+<li>建立检查点时刻，所有正在执行的事务清单</li>
+<li>这些事务最近一个日志记录的地址</li>
+</ul>
+<p>重新开始文件的内容：</p>
+<ul>
+<li>各个检查点记录在日志文件中的地址</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/eadd0d5ff4454d3bac98d3bd7e1a426f.png" alt="在这里插入图片描述"></p>
+<p>在检查点维护日志文件：</p>
+<ul>
+<li>将当前日志缓冲区中的所有日志记录写入磁盘的日志文件上</li>
+<li>在日志文件中写入一个检查点记录</li>
+<li>将当前数据缓冲区的所有数据记录写入磁盘的数据库中</li>
+<li>把检查点在日志文件中的地址写入一个重新开始文件</li>
+</ul>
+<h2 id="10-6-2-利用检查点的恢复策略"><a href="#10-6-2-利用检查点的恢复策略" class="headerlink" title="10.6.2 利用检查点的恢复策略"></a>10.6.2 利用检查点的恢复策略</h2><p><img src="https://img-blog.csdnimg.cn/8d4dac830ca74cd784758341b64d75ee.png" alt="在这里插入图片描述"><br>恢复步骤：</p>
+<ul>
+<li>从重新开始文件中找到最后一个检查点记录在日志文件中的地址，根据该地址在日志文件中找到最后一个检查点记录。</li>
+<li>由该检查点记录得到检查点建立时刻所有正在执行的事务清单<code>ACTIVE-LIST</code>，建立两个事务队列：<code>UNDO-LIST</code>、<code>REDO-LIST</code>，把<code>ACTIVE-LIST</code>中的所有事物暂时放入<code>UNDO-LIST</code>，<code>REDO-LIST</code>暂时为空。</li>
+<li>从检查点开始正向扫描日志文件，直到日志文件结束：如有新开始的事务 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="2.061ex" height="1.889ex" role="img" focusable="false" viewBox="0 -677 911 834.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D447" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path></g><g data-mml-node="mi" transform="translate(617,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container>，把 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="2.061ex" height="1.889ex" role="img" focusable="false" viewBox="0 -677 911 834.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D447" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path></g><g data-mml-node="mi" transform="translate(617,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container> 暂时放入<code>UNDO-LIST</code>；如有提交的事务 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.666ex;" xmlns="http://www.w3.org/2000/svg" width="2.168ex" height="2.197ex" role="img" focusable="false" viewBox="0 -677 958.3 971.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D447" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path></g><g data-mml-node="mi" transform="translate(617,-150) scale(0.707)"><path data-c="1D457" d="M297 596Q297 627 318 644T361 661Q378 661 389 651T403 623Q403 595 384 576T340 557Q322 557 310 567T297 596ZM288 376Q288 405 262 405Q240 405 220 393T185 362T161 325T144 293L137 279Q135 278 121 278H107Q101 284 101 286T105 299Q126 348 164 391T252 441Q253 441 260 441T272 442Q296 441 316 432Q341 418 354 401T367 348V332L318 133Q267 -67 264 -75Q246 -125 194 -164T75 -204Q25 -204 7 -183T-12 -137Q-12 -110 7 -91T53 -71Q70 -71 82 -81T95 -112Q95 -148 63 -167Q69 -168 77 -168Q111 -168 139 -140T182 -74L193 -32Q204 11 219 72T251 197T278 308T289 365Q289 372 288 376Z"></path></g></g></g></g></svg></mjx-container>，把 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.666ex;" xmlns="http://www.w3.org/2000/svg" width="2.168ex" height="2.197ex" role="img" focusable="false" viewBox="0 -677 958.3 971.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D447" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path></g><g data-mml-node="mi" transform="translate(617,-150) scale(0.707)"><path data-c="1D457" d="M297 596Q297 627 318 644T361 661Q378 661 389 651T403 623Q403 595 384 576T340 557Q322 557 310 567T297 596ZM288 376Q288 405 262 405Q240 405 220 393T185 362T161 325T144 293L137 279Q135 278 121 278H107Q101 284 101 286T105 299Q126 348 164 391T252 441Q253 441 260 441T272 442Q296 441 316 432Q341 418 354 401T367 348V332L318 133Q267 -67 264 -75Q246 -125 194 -164T75 -204Q25 -204 7 -183T-12 -137Q-12 -110 7 -91T53 -71Q70 -71 82 -81T95 -112Q95 -148 63 -167Q69 -168 77 -168Q111 -168 139 -140T182 -74L193 -32Q204 11 219 72T251 197T278 308T289 365Q289 372 288 376Z"></path></g></g></g></g></svg></mjx-container> 从<code>UNDO-LIST</code>移到<code>REDO-LIST</code></li>
+<li>对<code>UNDO-LIST</code>中的每个事务执行UNDO操作，对<code>REDO-LIST</code>中的每个事务执行REDO操作。</li>
+</ul>
+<h1 id="10-7-数据库镜像"><a href="#10-7-数据库镜像" class="headerlink" title="10.7 数据库镜像"></a>10.7 数据库镜像</h1><p>数据库镜像：</p>
+<ul>
+<li>DBMS自动把整个数据库或其中的关键数据复制到另一个磁盘上。</li>
+<li>DBMS自动保证镜像数据与主数据的一致性。</li>
+</ul>
+<p>出现介质故障时，DBMS自动利用镜像磁盘数据进行数据库的恢复，不需要关闭系统和重装数据库副本。</p>
+<p>没有出现故障时：</p>
+<ul>
+<li>可用于并发操作。</li>
+<li>一个用户对数据加排他锁修改数据。</li>
+<li>其他用户可以读镜像数据库上的数据。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1686,98 +1893,6 @@ mjx-container[display="true"] + br {
 <h2 id="5-3-4-轮转访问MAC协议"><a href="#5-3-4-轮转访问MAC协议" class="headerlink" title="5.3.4 轮转访问MAC协议"></a>5.3.4 轮转访问MAC协议</h2><p><img src="https://img-blog.csdnimg.cn/0515c624b2b7491888c942a023d0e3f4.png" alt="在这里插入图片描述"></p>
 <p><img src="https://img-blog.csdnimg.cn/cd2f3df238b94fe5a8af7c5996e29f93.png" alt="在这里插入图片描述"></p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/20/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E4%BC%98%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Kimmich">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Kimmich's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/10/20/%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">算法自学__动态规划优化</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-10-20 20:47:56 / Modified: 20:50:24" itemprop="dateCreated datePublished" datetime="2022-10-20T20:47:56+08:00">2022-10-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>参考资料：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/398419302">https://zhuanlan.zhihu.com/p/398419302</a></li>
-</ul>
-<h1 id="四边形不等式优化"><a href="#四边形不等式优化" class="headerlink" title="四边形不等式优化"></a>四边形不等式优化</h1><p>对状态转移方程：</p>
-<script type="math/tex; mode=display">dp[i][j]=\min_{i \leq k<j}(dp[i][k]+dp[k+1][j])+w(i,j)</script><blockquote>
-<p>注意：一定是<strong>min</strong>！</p>
-</blockquote>
-<p>如果二元函数 $w(i,j)$ 满足下述条件：</p>
-<ol>
-<li><strong>区间单调性</strong>：对 $l \leq l’ \leq r’ \leq r$ ，有 $w(l’,r’) \leq w(l,r)$ 。即“被包含者不大于包含者”。</li>
-<li><strong>四边形不等式</strong>：对 $l \leq l’ \leq r’ \leq r$ ，有 $w(l,r’)+w(l’,r) \leq w(l,r)+w(l’,r’)$ 。即“交叉不大于包含”</li>
-</ol>
-<p>可以得到如下结论：</p>
-<ol>
-<li>当 $w(l,r)$ 满足上述条件时， $dp[i][j]$ 也符合<strong>四边形不等式</strong>。</li>
-<li>如果$dp[i][j]$满足四边形不等式，设 $m[i][j]$ 为 $dp[i][j]$ 对应的最优决策点，则有 $m[l][r-1] \leq m[l][r] \leq m[l+1][r]$。 </li>
-</ol>
-<p><img src="https://img-blog.csdnimg.cn/dbc5499ea5164cf0a6b7c742c17d28cf.png" alt="在这里插入图片描述"><br>此时，我们在动态规划时， $k$ 的枚举范围就从 $[l,r]$ 变成了 $[m[l][r-1],m[l+1][r]]$ 。</p>
-<p>区间DP的DP顺序是从<strong>主对角线</strong>开始，一条条对角线地往上转移的。在上图中，对于每一条对角线，考察它枚举的区间，可以发现每两个相邻的区间<strong>只有一个元素重叠</strong>，所以处理每条对角线需要花费 $O(n)$ 的时间，处理所有对角线也就只需要 $O(n^2)$ 的时间。</p>
-<blockquote>
-<p>关于如何判断$w(i,j)$是否具有前文提到的两条性质，见参考资料。</p>
-</blockquote>
-</script>
       
     </div>
 
