@@ -258,7 +258,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,7 +268,7 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -289,6 +289,145 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E5%9B%9B%EF%BC%9E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kimmich">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Kimmich's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/23/Python3%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-%EF%BC%9C%E5%9B%9B%EF%BC%9E/" class="post-title-link" itemprop="url">Python3自学笔记 ＜四＞</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-07-23 16:03:54 / Modified: 16:04:54" itemprop="dateCreated datePublished" datetime="2022-07-23T16:03:54+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/language/" itemprop="url" rel="index"><span itemprop="name">language</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h1><p>参考菜鸟教程<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-tutorial.html">https://www.runoob.com/python3/python3-tutorial.html</a></p>
+<pre><code>L=[1, 5, 8, 3, 6, 7]
+it = iter(L)            # 创建迭代器对象
+print(next(it))            # 1
+print(next(it))            # 2
+for x in it:
+    print(x, end=" ")    # 8 3 6 7
+</code></pre><h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h1><p><em>使用了<code>yield</code>的函数成为生成器, 其返回值是一个迭代器对象</em></p>
+<pre><code>def fib(n):
+    a, b = 0, 1
+    while b&lt;n:
+        yield b
+        a, b = b, a+b
+f = fib(20)                    # f是一个迭代器
+for x in f:
+    print(x, end=" ")        # 1 1 2 3 5 8 13
+</code></pre><h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="定义一个函数"><a href="#定义一个函数" class="headerlink" title="定义一个函数"></a>定义一个函数</h2><pre><code>def 函数名(参数列表):
+    函数体
+</code></pre><h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2><p><em>在python中, 变量是没有类型的, 它仅仅是一个对象的引用(指针), 可以指向任何对象</em></p>
+<ul>
+<li><p>参数为不可变类型: 类似C++中的值传递</p>
+<pre><code>  def change(a):
+      print(id(a))        # 1443155044656
+      a = 10
+      print(id(a))        # 1443155044654, 生成了一个新的对象
+      return
+
+  a = 1
+  print(id(a))            # 1443155044656
+  change(a)
+  print(id(a))            # 1443155044656, a并没有受到函数的影响
+</code></pre></li>
+<li><p>参数为可变类型: 类似C++中的引用传递</p>
+<pre><code>  def change(L):
+      L.append(1)
+      return
+
+  L=[1, 2, 3, 4]
+  print(L)                    # [1, 2, 3, 4]
+  change(L)
+  print(L)                    # [1, 2, 3, 4, 1]
+</code></pre><h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><h3 id="必需参数"><a href="#必需参数" class="headerlink" title="必需参数"></a>必需参数</h3><h3 id="关键词参数"><a href="#关键词参数" class="headerlink" title="关键词参数"></a>关键词参数</h3><p>  def printinfo(name, age):</p>
+<pre><code>  print(name)
+  print(age)
+</code></pre><p>  printinfo(age=20, name=’张三’)        # 可以调换顺序</p>
+<h3 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h3><h3 id="不定长参数"><a href="#不定长参数" class="headerlink" title="不定长参数"></a>不定长参数</h3></li>
+<li><p>带星号<code>*</code>的参数会以元组的形式导入</p>
+<pre><code>  def printinfo(arg1, *varTuple):
+  print(arg1)
+  for x in varTuple:
+      print(x)
+  return
+
+  printinfo(10)
+  printinfo(10, 20, 30, 40)
+</code></pre></li>
+<li>带两个星号<code>*</code>的参数会以字典的形式导入<h3 id="强制位置参数"><a href="#强制位置参数" class="headerlink" title="强制位置参数"></a>强制位置参数</h3>  def f(a, b, /, c, d, <em>, e, f): return<br><code>/</code>前的参数必须使用指定位置参数,`</em>`后必须使用关键字参数    </li>
+</ul>
+<h2 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h2><p><em>Python使用lambda表达式创建匿名函数</em></p>
+<pre><code>sum = lambda a, b: a+b
+print(sum(10, 20))
+</code></pre>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
